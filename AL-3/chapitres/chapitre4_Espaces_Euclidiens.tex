@@ -1,0 +1,119 @@
+\chapter{Espaces Euclidiens}
+
+\setlength{\parindent}{0pt}
+
+\section*{Produit Scalaire et Norme Euclidienne}
+
+\begin{definition}
+    \textbf{(Produit Scalaire)}
+    Soit E un $\R$ espace vectoriel. L'application : \[ f : E \times E \longrightarrow \R  \] est un {produit scalaire} sur E ssi $f$ vérifie :
+    \begin{itemize}
+        \item {Linéarité à droite : } $\forall x, y, z \in E, \forall \lambda \in \R $ : \[ f(x, \lambda y + z) = \lambda f(x, y) + f(x, z) \] 
+        \item {Linéarité à gauche : } $\forall x, y, z \in E, \forall \lambda \in \R $ : \[ f(\lambda x + y, z) = \lambda f(x, z) + f(y, z) \] 
+        \item {Symétrique : } $ \forall x, y \in E, \quad f(x, y) = f(y, x) $
+        \item {Définie Positive : } $ \forall x \in E, \quad f(x, x) \geq 0 \; \text{et} \; f(x, x) = 0 \; \Longleftrightarrow \; x = 0 $
+    \end{itemize}
+    On dit que $x$ et $y$ sont \textbf{orthogonaux} (noté $ x \bot y $) ssi $(x|y) = 0$.
+\end{definition}
+
+\begin{definition}
+    \textbf{(Norme)}
+    Soit E un $\R$ espace vectoriel. L'application : $ N : E \longrightarrow \R  $ est une {norme} sur E ssi $\forall x, y \in E, \forall \lambda \in R $ elle vérifie les propriétés suivantes :
+    \begin{itemize}
+        \item $N(x) \geq 0 $
+        \item $ N(x) = 0 \; \Longleftrightarrow \; x = 0 $
+        \item $ N(\lambda x) = |\lambda | N(x) $
+        \item $ N(x + y) \leq N(x) + N(y) $
+    \end{itemize}
+    L'application 
+    \[ 
+        \begin{array}{cccc}
+            ||.|| : & E & \longrightarrow & \R \\
+             & x & \longmapsto & \sqrt{(x|x)}            
+        \end{array}
+    \]
+    est la \textbf{norme euclidienne} de E.
+\end{definition}
+
+\begin{definition}
+    \textbf{(Espace Préhilbertien Réel)}
+
+    On appelle espace préhilbertien réel un $\R$ espace vectoriel muni d'un produit scalaire. 
+    On appelle \textbf{espace euclidien} un $\R$ espace vectoriel de dimension finie muni d'un produit scalaire.
+\end{definition}
+
+\begin{theorem}
+    \textbf{(Inégalité de Cauchy-Schwarz)}
+    Soit E un espace préhilbertient réel, alors : \[ \forall x, y \in E, \quad  \boxed { (x|y)^2 \leq (x|x)(y|y) \quad \text{ou} \quad |(x|y)| \leq ||x||.||y|| }  \]
+    On a aussi : $ |(x|y)| = ||x||.||y|| $ ssi les vecteurs $x$ et $y$ sont liés.
+\end{theorem}
+
+\begin{proposition}
+    \textbf{(Inégalité Triangulaire)}
+    Soit E un espace préhilbertient réel, alors : \[ \forall x, y \in E, \quad \boxed{ ||x + y|| \leq ||x|| + ||y|| } \] 
+    Où $ ||x + y|| = ||x|| + ||y|| $ ssi les vecteurs $x$ et $y$ sont liés ssi $y = 0$ ou $x = \lambda y$ avec $\lambda \geq 0 $.
+\end{proposition}
+
+
+% ==================================================================================================================================
+
+
+
+\section*{Orthogonalité}
+
+\begin{definition}
+    \textbf{(Famille Orthogonale)}
+    Une famille $(e_1, \dots, e_p)$ de vecteurs non nuls deux à deux orthogonaux est dite famille orthogonale. Si $ \forall i \in \llbracket 1, n \rrbracket , \; ||x_i|| = 1 $ la famille est dite orthonormée.
+    Si $ p = n$, la famille est donc une base orthogonale ou une base orthonormée de $E$.
+\end{definition}
+
+\begin{definition}
+    \textbf{(Orthogonal)}
+    Soit $A \subset E $.
+
+    On appelle orthogonal de $A$ dans E tous les vecteurs de E orthogonaux à tous les vecteurs de $A$. 
+    \[ \boxed { A^{\bot} = \{ x \in E, \; \forall y \in A, \; x \bot y \} } \] 
+
+    Un orthogonal vérifie les propriétés suivantes : 
+    \begin{itemize}
+        \item $A^{\bot} $ est un s.e.v de $E$
+        \item $E^{\bot} = \{ 0_E \} $
+        \item $ A \subset (A^{\bot})^{\bot} $
+        \item $ A \subset B \; \Longrightarrow \; B^{\bot} \subset A^{\bot} $
+        \item $ (A \cup B)^{\bot} = A^\bot \cap B^\bot $
+        \item $E = A \oplus A^\bot $ (dans un espace euclidien)
+    \end{itemize}
+\end{definition}
+
+
+% ==================================================================================================================================
+
+\section*{Projection Orthogonale}
+
+\begin{theorem}
+    \textbf{Fondamental}
+
+    Soit E un \underline{espace euclidien} et $F$ un s.e.v de $E$, on a :
+    \begin{itemize}
+        \item $E = F \oplus F^\bot $
+        \item $ F = (F^{\bot})^{\bot} $
+    \end{itemize}
+
+\end{theorem}
+
+\begin{definition}
+    \textbf{(Projection Orthogonale)}
+    Soit $F$ un s.e.v de $E$, on appelle projection orthogonale sur $F$ parallèlement à $F^{\bot}$ l'application :
+    \[ 
+        \begin{array}{cccc}
+            p_F : & E & \longrightarrow & F \\
+            & x = x_F + x_{F^\bot} & \longmapsto & x_F             
+        \end{array}
+    \]
+    Le projeté orthogonal de $x \in E$ est l'unique vecteur $p_F(x)$ qui vérifie : $ x - p_F(x) \in F^\bot $.
+
+    On a aussi : $ Im(p_F) = F $ et $ ker(p_F) = F^\bot $
+
+
+\end{definition}
+

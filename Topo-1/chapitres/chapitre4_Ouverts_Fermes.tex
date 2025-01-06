@@ -1,0 +1,164 @@
+\chapter{Ensembles Ouvert, Fermés}
+
+\justify
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+\usetikzlibrary{intersections} % Pour les intersections dans les dessins
+
+% ==================================================================================================================================
+% Introduction
+
+Une fois définies les notions de boules, d'intérieur et d'adhérence, on peut maintenant "caractériser" 
+des ensembles/parties en fonction des propriétés de leur adhérene/intérieur/frontière. 
+Cela va nous permettre de définir les ouverts et les fermés, deux "catégories" d'ensembles essentielles pour 
+la plupart des raisonnements analytiques de topologie. 
+
+\vspace{0.3cm}
+
+Ici, sauf mention contraire, nous nous plaçons dans un $\R$-espace vectoriel $E$. 
+Pour toute partie $A$ de $E$, nous noterons son complémentaire dans $E$, $\overline{A}$, 
+son adhérence $adh(A)$ et son intérieur $int(A)$. 
+
+% ==================================================================================================================================
+% Ouverts, Fermés
+
+\section{Ouvert, Fermés}
+
+\subsection{Définitions et Conventions}
+
+\begin{definition}[Ensemble Ouvert]
+    Soit $A \subseteq E$, on dit que $A$ est ouvert si $A = \int(A)$. 
+    Autrement dit si pour tout élément de $A$, il existe une boule autour de cet élément entièrement 
+    contenue dans $A$. 
+\end{definition}
+
+\begin{definition}[Ensemble Fermé]
+    Soit $A \subseteq E$, on dit que $A$ est ouvert si $adh(A) = A$. 
+\end{definition}
+
+\begin{remark}
+    Quelques conventions sur les ouverts et les fermés. 
+    \begin{itemize}
+        \item $ \forall a \in E, \forall r > 0 \quad B(a,r)$ est un ouvert et $\overline{B}(a,r)$ est un fermé. 
+        \item $\emptyset$ et $\R^n$ dans $\R^n$ sont à la fois ouverts et fermés. 
+        \item $[a,b[ \subset \R$ n'est ni ouvert, ni fermé.  
+    \end{itemize}
+\end{remark}
+
+\subsection{Propriétés}
+
+\begin{proposition}
+    Soit $A \subset \R^n$, $A$ est ouvert ssi son complémentaire dans $\R^n$ est fermé. 
+\end{proposition}
+
+\begin{prop}[Réunion et Intersection]
+    \begin{itemize}
+        \item Une réunion quelconque d'ouverts est ouverte.
+        \item Une intersection finie d'ouverts est ouverte.
+        \item Une réunion finie de fermés est fermée.
+        \item Une intersection quelconque de fermés est fermés
+    \end{itemize}
+\end{prop}
+
+\begin{remark}[Moyen Mnémotechnique]
+    Pour aider à la mémorisation, on peut s'aider de ces phrases :
+    \begin{itemize}
+        \item Les ouverts aiment s’étaler (réunion infinie), mais ils sont timides à se croiser (intersection finie).
+        \item Les fermés aiment se serrer (intersection infinie), mais ne se dispersent pas trop (réunion finie).
+    \end{itemize}
+\end{remark}
+
+\begin{example}[Réunion et Intersection]
+    Quelques exemples pour retenir les propriétés :
+    \begin{itemize}
+        \item \textbf{Réunion infinie d'ouverts : } Soit $(A_n)_{n \in \N} = \left. \right] -\frac{1}{n}; \frac{1}{n} \left[ \right. $ une suite d'intervalles ouverts. 
+        Alors la réunion infinie de tout ces intervalles reste ouverte :
+            \[ \bigcup_{n = 1}^\infty  \left. \right] -\frac{1}{n}; \frac{1}{n} \left[ \right.  \quad \text{ouvert}\] 
+        \item \textbf{Intersection Infinie de fermés : } De même, soit $(B_n)_{n \in \N} =  \left[-\frac{1}{n}; \frac{1}{n} \right]$
+        une suite d'intervalles fermés. Alors leur intersection infinie reste fermée :
+            \[ \bigcap_{n = 1}^\infty  \left[-\frac{1}{n}; \frac{1}{n} \right] \quad \text{fermé}\]
+    \end{itemize}
+\end{example}
+
+\begin{proposition}
+    Soit $A \subset E$, on dit que l'intérieur de $A$ est le plus grand ouvert contenu dans $A$ et 
+    l'adhérence de $A$ est le plus petit fermé contenant $A$. 
+\end{proposition}
+
+\subsection{Ouverts/Fermés relativement}
+
+\begin{definition}[Ouvert/Fermé relativement]
+    Soient $A \subset E$ et $B \subset A$. On dit que $B$ est \textbf{ouvert relativement} à $A$ si il existe 
+    une ouvert $V$ de $E$ tel que $B = A \cap V$. 
+
+    D'autre part, on dit que $B$ est \textbf{fermé relativement} à $A$ si il existe un fermé 
+    $U$ de $E$ tel que $B = A \cap U$. 
+\end{definition}
+
+\begin{comment}
+\begin{remark}
+    Illustrons ce nouveau concept d'ouvert/de fermé relativement à une partie. 
+    Soit $A \subset E$ et $B,C \subset A$ respectivement un ouvert relativement à A et un fermé relativement à A. 
+
+    \begin{center}
+        \begin{tikzpicture}[scale=1.5]
+
+            % Partie A (Cercle)
+            \draw[name path=A] (0,0) circle (1.5) node[below right=1.6cm] {$A$};
+            
+            % Ouvert V (Ellipse en pointillé)
+            \draw[dashed,name path=V] (1.25,0) ellipse (1.5cm and 0.25cm) node[below right=0.5cm] {$V$};
+            
+            % Fermé U (Ellipse pleine)
+            \draw[name path=U] (-1.5,-1) ellipse (1cm and 0.75cm) node[below left=1cm] {$U$};
+        
+            % Trouver les intersections entre A et V, et remplir l'intersection
+            \path[name intersections={of=A and V,by={[A-V]}}]
+            \foreach \x in {[A-V]}{
+                \fill[gray, opacity=0.3] (\x) circle (2pt);
+            };
+            
+            % Trouver les intersections entre A et U, et remplir l'intersection
+            \path[name intersections={of=A and U,by={[A-U]}}]
+            \foreach \x in {[A-U]}{
+                \fill[gray, opacity=0.5] (\x) circle (2pt);
+            };
+        
+        \end{tikzpicture}
+    \end{center}
+\end{remark}
+\end{comment}
+
+
+
+% ==================================================================================================================================
+% Ouverts, Fermés et fonctions continues 
+
+\section{Ouvert, Fermés et Fonctions Continues}
+
+Grâce à la notion d'ouverts et de fermés, on peut donner une caractérisation de la notion de continuité d'une fonction. 
+
+\begin{definition}[Continuité, Rappel]
+    Soit $E$ et $F$ deux $\R$-espaces vectoriel et $f : A \subset E \longrightarrow F$. 
+    Soit $a \in A$ on dit que $f$ est continue en $a$ si 
+        \[ \forall \varepsilon > 0, \exists \alpha > 0, \quad x \in A \text{ et } \| x - a \| \leqslant \alpha \Longrightarrow \| f(x) - f(a) \| \leqslant \varepsilon \] 
+    Autrement dit, en terme de boules :
+        \[ \forall \varepsilon > 0, \forall \alpha > 0, \quad f(A \cap B(a,\alpha)) \subset B(f(a), \varepsilon) \] 
+\end{definition}
+
+On peut alors énoncer une caractérisation de la continuité d'une fonction. 
+
+\begin{proposition}[Continuité et Ouvert/Fermés]
+    Soit $f : A \subset E \longrightarrow F$, $f$ est continue sur $A$ ssi pour tout ouvert $V$ de F, $f^{-1}(V)$ est ouvert 
+    relativement à $A$. 
+    On peut aussi dire que $f$ est continue sur $A$ ssi pour tout fermé $U$ de F, $f^{-1}(U)$ est fermé 
+    relativement à $A$. 
+\end{proposition}
+
+\begin{remark}[Illustration]
+    
+\end{remark}
+
+
+
