@@ -108,7 +108,7 @@ En pratique, pour diagonaliser un endormorphisme, il nous faut donc commencer pa
 D'après la proposition précédente, une fois les valeurs propres trouvées, il reste à déterminer les sous-espaces propres $E_\lambda$.
 On se ramène ici à calculer des noyaux par le pivot de Gauss. 
 
-\begin{prop}
+\begin{prop}[Lien Valeurs Propres/Racines]
     Soient $A \in \mathcal{M}_n(\K)$ et $\lambda \in \K$ une valeur propre de A. 
     Alors $\lambda$ est une racine de $P_A$. 
     Autrement dit, les valeurs propres d'une matrice sont exactement les racines de son polynôme caractéristique. 
@@ -158,7 +158,7 @@ On se ramène ici à calculer des noyaux par le pivot de Gauss.
     \[ \forall v \in F, f(v) \in F \quad \text{i.e} \quad f(F) \subset F \]
 \end{definition}
 
-\begin{prop}
+\begin{prop}[Sous-espace propre et stabilité]
     Un sous espace propre $E_\lambda$ de f est stable par f. 
 \end{prop}
 
@@ -168,7 +168,7 @@ On se ramène ici à calculer des noyaux par le pivot de Gauss.
     décomposition de $v$ comme somme de vecteurs $v_i \in F_i, \forall i \in I$. 
 \end{definition}
 
-\begin{prop}
+\begin{prop}[Somme Directe]
     Toute somme de sous espaces propres d'un même endomorphime est directe. 
 \end{prop}
 
@@ -182,13 +182,12 @@ On se ramène ici à calculer des noyaux par le pivot de Gauss.
 
 Le second point de la proposition précédente nous donne une approximation de la dimension d'un sous-espace propre. 
 
-\begin{prop}
+\begin{prop}[Multiplicité et encadrement]
     Si $\lambda$ est valeur propre de $f$ de multiplicité $\alpha$ alors : $$ 1 \leq \text{dim} (E_\lambda) \leq \alpha $$ 
 \end{prop}
 
 On peut donc déterminer un critère fondamental de diagonalisation d'endomorphismes (matrices). 
 
-\newpage
 \begin{criteria}[Critère Fondamental de Diagonalisation]
     Un endomorphime $f$ est diagonalisable ssi 
     \begin{itemize}
@@ -241,7 +240,7 @@ Mais en pratique, on se rend compte que très peut de matrices sont diagonalisab
 On peut donc trouver une autre forme de réduction d'un endomorphisme représenté par une matrice mais, cette fois ci, pas sous forme triagonale, 
 mais triangulaire. On va ainsi définir une nouvelle forme de réduction et trouver des critères pour savoir si une matrice est trigonalisable. 
 
-\subsection{Définitions}
+% \subsection{Définitions}
 
 \begin{definition}[Trigonalisation]
     Un endomorphisme $f$ représenté par une matrice A dans une base $\mathcal{B}$ est dit trigonalisable si 
@@ -252,11 +251,11 @@ mais triangulaire. On va ainsi définir une nouvelle forme de réduction et trou
     De même une matrice $A$ est dite trigonalisable si elle est semblable à une matrice triangulaire supérieure. 
 \end{definition}
 
-\begin{prop}
+\begin{proposition}
     Un endomorphime $f$ représenté par une matrice $A$ est trigonalisable ssi $A$ l'est. 
-\end{prop}
+\end{proposition}
 
-\subsection{Premiers critères}
+% \subsection{Premiers critères}
 
 \begin{criteria}[Fondamental de Trigonalisation]
     Soient E un $\K$-espace vectoriel et $f \in \mathcal{L}(E)$. $f$ est trigonalisable ssi son polynôme caractéristique est scindé sur $\K$. 
