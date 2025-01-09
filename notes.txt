@@ -1,0 +1,51 @@
+---------------------------------------------------------------------
+					Notes
+---------------------------------------------------------------------
+
+
+Organisation des chapitres :
+	
+	I. Raisonnement et Ensembles 
+		- Propriétés de base sur les ensembles
+		- Principaux Raisonnements 
+	
+	II. Topologie
+		- Propriétés des espaces connus 
+		- Définitions des limites 
+		- Distances, Normes Produits Scalaites
+		- Boules, Intérieur et Adhérence
+		- Ouverts et Fermés
+		- Compacts
+		- Connexes
+		- Fonctions Continues
+		- Homéomorphismes
+	
+	III. Algèbre des structures 
+		- Groupes, Sous-groupes 
+		- Morphismes de Groupes 
+		- Théorème de Lagrange 
+		- Actions de groupes 
+		- Théorèmes d'isomorphismes 
+		- Anneaux 
+		- ... 
+
+	IV. Algèbre Linéaire 
+		- Espaces Vectoriels/Sous-espaces
+		- Applications linéaires
+		- Matrices 
+		- ...
+		- Diagonalisation
+		- Trigonalisation
+		- Espaces Euclidiens 
+		- Cours Semestre 4
+	
+	V. Analyse 
+		- Cours L1 Ibanez
+		- Cours L2 PO (cours bleu) 
+		- Cours Garric convergence 
+		 -> Insister sur les séries entières 
+	
+	VI. Intégration 
+		- Lévy
+	
+
