@@ -9,17 +9,6 @@ Organisation des chapitres :
 		- Propriétés de base sur les ensembles
 		- Principaux Raisonnements 
 	
-	II. Topologie
-		- Propriétés des espaces connus 
-		- Définitions des limites 
-		- Distances, Normes Produits Scalaites
-		- Boules, Intérieur et Adhérence
-		- Ouverts et Fermés
-		- Compacts
-		- Connexes
-		- Fonctions Continues
-		- Homéomorphismes
-	
 	III. Algèbre des structures 
 		- Groupes, Sous-groupes 
 		- Morphismes de Groupes 
@@ -29,6 +18,16 @@ Organisation des chapitres :
 		- Anneaux 
 		- ... 
 
+	II. Topologie
+		- Propriétés des espaces connus 
+		- Distances, Normes Produits Scalaites
+		- Boules, Intérieur et Adhérence
+		- Ouverts et Fermés
+		- Applications, suites, continuité
+		- Compacts
+		- Connexes
+		- Homéomorphismes
+	
 	IV. Algèbre Linéaire 
 		- Espaces Vectoriels/Sous-espaces
 		- Applications linéaires
@@ -48,4 +47,8 @@ Organisation des chapitres :
 	VI. Intégration 
 		- Lévy
 	
-
+Rectifications :
+	- Déplacer la caractérisation séquentielle de 
+	l'adhérence dans le chapitre des suites/fonctions. 
+	Faire de même pour toutes les propositions éviquant le 
+	concept de limite/suite/fonction. 
