@@ -1,0 +1,11 @@
+# Ignorer les fichiers de build LaTeX sauf les PDF
+*.aux
+*.log
+*.gz
+*.synctex.gz
+*.thm
+*.out
+*.toc
+
+# Garder les PDF
+!*.pdf
