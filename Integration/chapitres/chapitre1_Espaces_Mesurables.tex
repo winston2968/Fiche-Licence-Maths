@@ -1,0 +1,130 @@
+\chapter{Espaces Mesurables}
+
+\justify
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+% ==================================================================================================================================
+% Introduction
+
+Depuis le lycée, nous avons définis l'intégrale avec la définition de Riemann (ou Darboux pour les plus chauvins d'netre nous).
+
+\begin{definition}[Intégrale de Riemann]
+    Soit $[a,b] \subseteq \R $ et soit $f$ une fonction continue par morceaux sur $[a,b]$. On peut alors définir :
+        \[ \int_{a}^{b} f = \int_{a}^{b} f(x) dx \]
+\end{definition}
+
+Cependant cette définition se heurte à quelques problèmes dont le plus important est le fait 
+qu'elle ne peut pas se généraliser à des fonctions non définies sur $[a,b]$, non continues par morceaux ou à plusieurs variables.
+
+% ==================================================================================================================================
+% Tribu Borélienne
+
+\section{Tribu Borélienne}
+
+\begin{definition}[Tribu]
+	Soit $X$ un ensemble. Une \textbf{tribu} ou $\sigma$-algèbre sur $X$ est une partie 
+	$\mathcal{B} \subseteq \mathcal{P}(X)$ telle que :
+	\begin{itemize} 
+		\item $ \emptyset \in \mathcal{B} $
+		\item $ \forall A \in \mathcal{B}, A^c \in \mathcal{B} $
+		\item Stabilité par union dénombrable : 
+			$ \forall (A_i)_{i \in I}  A_i \in \mathcal{B}, \quad \forall i \in I, \quad \bigcup_{i \in I} A_i \in \mathcal{B} $
+	\end{itemize}
+Un élément de $\mathcal{B}$ est appelé une "partie mesurable" de $X$.
+\end{definition} 
+
+
+\begin{definition}[Tribu Borélienne] 
+	Soit $E$ un espace topologique. La tribu borélienne est le plus petite tribu de $E$ contenant tous les ouverts de $E$. On la note $\mathcal{B}_E$. Un borélien de $E$ est une partie mesurable au sens de $\mathcal{B}_E$.
+\end{definition}
+
+\begin{example} 
+	$\mathcal{B}_\R$ est la tribu borélienne, i.e la plus petite tribu contenant tous les ouverts de $\R$
+\end{example} 
+
+\begin{prop} 
+	Une sigma-algèbre est stable par intersection dénombrable.
+\end{prop} 
+\newpage
+
+% ==================================================================================================================================
+% Fonctions Mesurables
+
+\section{Fonctions Mesurables} 
+
+Un couple $(X,\mathcal{B})$ où $X$ est un ensemble et $\mathcal{B}$ une tribu de $X$ est appelé \textbf{espace mesurable}.
+
+\begin{definition}[Fonction Mesurable]
+	Soit $f$ une fonction. On dit que $f : (X,\mathcal{B}) \longrightarrow (X',\mathcal{B}')$ est mesurable ssi :
+		\[ \boxed{ \forall A \in \mathcal{B}', \quad f^{-1}(A) \in \mathcal{B} } \]
+\end{definition} 
+
+\begin{remark}
+	On appelle fonction borélienne toute fonction mesurable au sens de la tribu borélienne. 
+\end{remark}
+
+\begin{prop}
+Quelques propriétés (utiles) sur la mesurabilité :
+\begin{itemize} 
+	\item La mesurabilité est stable par composition.
+	\item La mesurabilité est stable par recollement dénombrable i.e :
+		\[ f : X \longrightarrow X' \quad X = \bigcup_{n \in \N} A_n \text{ parties deux à deux disjointes mesurables} \]
+		\[ \text{ si } \forall n \in \N, \quad f \restriction_A \text{ est mesurable} \]
+	\item Toute fonction continue $f : E \longleftarrow E'$ ou $E$ et $E'$ sont deux espaces topologiques est mesurable.
+	\item Toute fonction continue est mesurable (réciproque généralement fausse)
+	\item De même, toute fonction continue par morceaux est mesurable.
+\end{itemize}
+\end{prop}
+
+% ==================================================================================================================================
+% Fonctions mesurables réelles ou complexes
+
+\section{Fonctions mesurables réelles ou complexes} 
+
+\begin{prop} 
+	Soit $X$ un ensemble et $A \subseteq X$ et soit $1_A$ la fonction indicatrice de $A$.
+Alors : 
+		\[ \forall A \subseteq X, \quad A \in \mathcal{B} \Longleftrightarrow 1_A \in \mathcal{M}_+(X) \] 
+\end{prop} 
+
+\begin{theorem}[Stabilité]
+	La mesurabilité est stable par opérations algébriques élémentaires (+,.).
+\end{theorem} 
+
+\begin{theorem}[Convergence Simple]
+	Soit $(f_n)$ une suite de fonctions à valeurs dans $\mathcal{M}(X)$ qui converge simplement vers une fonction $f : X \longrightarrow \C$ 
+		\[ \text{i.e } \forall x \in X, \lim_{n\to\infty} f_n(x) = f(x) \]
+		% \[ \Longleftrightarrow \forall \varepsilon > 0, \forall x \in X, \exists n_0 \in \N, \forall n \geq n_0, \lvert f_n(x) - f(x) \rvert < \varepsilon \] 
+Alors : $f \in \mathcal{M}(X)$ 
+\end{theorem} 
+
+\newpage 
+
+\begin{theorem}[Stabilité par inf/sup]
+	Soit $(f_n)_{n\in\N} \in (\overline{\mathcal{M}_+(X)})^\N$ une suite de fonctions, on a :
+	\[ \sup_{n\in\N} f_n : 
+		\begin{cases}
+			X &\longrightarrow \overline{\R_+} \\
+			x &\longmapsto \sup_{n\in\N} f_n(x) = \sup \{ f_n(x) : n \in \N \}
+		\end{cases} \]
+Alors :  $\sup_{n\in\N} f_n \in \overline{\mathcal{M}_+(X)}$
+\end{theorem}
+
+\begin{definition}[Fonction Etagée]
+	Soit $(X,\B)$ un espace mesurable. Une fonction $e : X \rightarrow \R$ est dite étagée si :
+		\begin{itemize}
+			\item $e \in \M_\R(X)$
+			\item $e$ prend un nombre fini de valeurs distinctes 
+		\end{itemize}
+\end{definition}
+
+\begin{prop}
+	$e$ est une fonction étagée ssi $e$ est une combinaison linéaire d'indicatrices de parties mesurables.
+\end{prop}
+
+\begin{theorem}[Fondamental de l'intégrale de Lebesgue]
+	si $f \in \overline{\M_+(X)}$, alors il existe une suite de fonctions croissantes étagées $(e_n)_{n\in\N}$ telle que :
+		\[ \boxed{ (e_n) \quad \overset{\text{CS}}{\longrightarrow} \quad f} \] 
+\end{theorem}

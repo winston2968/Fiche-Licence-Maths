@@ -1,0 +1,55 @@
+\chapter{Corps}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+% ==================================================================================================================================
+% Introduction
+
+Résumons, nous avons un groupe avec un loi supplémentaire qui peut être commutative et posséder un neutre. 
+Grâce à cela, nous avons pu définir les idéeaux, un nouveau type de morphisme, etc... 
+
+Seulement, on souhaiterai pouvoir définir des structures plus complexes comme avec les groupes tels que les anneaux 
+quotient, avoir une notion de divisibilité, bref, de l'arithmétique. 
+
+% ==================================================================================================================================
+% Corps 
+
+\section{Corps, définition et propriétés}
+
+\begin{definition}[Corps]
+    On appelle $(K, +, \times)$ un corps si $(K,+,\times)$ est un anneau et $(K^*, \times)$ un groupe. 
+    Si la loi $\times$ est commutative, on parlera alors de corps commutatif. 
+\end{definition}
+
+On peut bien évidement trouver une condition nécessaire et suffisante pour qu'un anneau soit un corps...
+
+\begin{proposition}
+    Soit $(K, +, \times)$ un anneau unitaire. $K$ est un corps si tout élément non nul est inversible pour $\times$. 
+    Plus formellement ssi : 
+        \[ \forall x \in K^*, \; \exists y \in K, \; xy = yx = 1_K \quad \text{ssi} \; \mathcal{U}(K) = K^*\] 
+\end{proposition}
+
+\begin{proposition}
+    Un corps commutatif est aussi un anneau intègre. 
+\end{proposition}
+
+Tout comme pour les groupes et les anneaux, on peut définir un sous-corps d'un corps. 
+
+\begin{definition}[Sous-corps]
+    Soit $K$ un corps. Un partie $L \subseteq K$ est un sous-corps de $K$ si :
+    \begin{enumerate}[label=\roman*)]
+        \item $L$ est un sous-anneau de $K$
+        \item $1_K \in L$ 
+        \item $ \forall x \in L, x^{-1} \in L$
+    \end{enumerate}
+\end{definition}
+
+En pratique pour montrer qu'un anneau est un corps, on préfèrera montrer que c'est un sous-corps quand c'est possible. 
+
+\begin{example}
+    $(\C,+,\times)$ est un corps. $(\Q,+,\times)$ et $(\R,+,\times)$ en sont des sous-corps. 
+\end{example}
+
+
+

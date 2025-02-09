@@ -1,0 +1,355 @@
+\chapter{Intégration}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+% ==================================================================================================================================
+% Intégrale d'une fonction
+
+\section{Intégrale d'une fonction}
+
+\subsection{Fonction étagée et fonction intégrale}
+
+\begin{definition}[Intégrale d'une fonction étagée]
+    Soit $e$ une fonction étagée positive. On a $e = \sum_{i=1}^{n} \lambda_i 1_{A_i}$ où $A_i = e^{-1}(\{\lambda_i\})$ où $\lambda_i \in \R_+$.
+    L'intégrale de $e$ par rapport à $\mu$ est de la forme :
+        \[ \boxed{ \int e \; d \mu = \sum_{i=1}^{n} \lambda_i \mu (A_i) } \] 
+\end{definition}
+
+\begin{definition}[Fonction intégrale]
+    Soit $f \in \overline{\mathcal{M}_+}(X)$, alors : 
+        \[ \int f \; d \mu := \sup \Bigl( \Bigr\{ \int e \; d \mu : e \text{ fonction étagée positive tq } e \leq f \Bigl\}) \Bigr) \] 
+    Ainsi, l'intégrale d'une fonction mesurable positive existe toujours.
+    On peut donc définir la fonction intégrale telle que :
+        \[ \int . \; d \mu : 
+            \begin{cases}
+                \overline{\mathcal{M}_+}(X) & \longrightarrow \overline{\R_+} \\ 
+                f & \longmapsto \int f \; d \mu 
+            \end{cases}
+        \] 
+\end{definition}
+
+\begin{prop}(Propriétés de l'intégrale)
+    La fonction intégrale vérifie les propriétés suivantes :
+    \begin{itemize}
+        \item \underline{Extension de la mesure :} $\forall A \in \mathcal{B}, \int 1 _A \; d \mu = \mu(A)$ 
+        \item \underline{Linéarité positive :} $\forall f, g \in \overline{\mathcal{M}_+}(X), \forall \alpha \in \R_+$ on a :
+            \[ \int (f + \alpha g) \; d \mu = \int f \; d \mu + \alpha \int g \; d \mu \]
+        \item \underline{Convergence Monotone :} Pour toute suite croissante de fonctions mesurables positives (étendues) $(f_n)$, on a :
+            \[ \boxed { \int \lim_{n\to\infty} f_n \; d \mu = \lim_{n\to\infty} \int f_n \; d \mu }\] 
+    \end{itemize}
+\end{prop}
+
+\subsection{Intégrabilité (fonction positive)}
+
+\begin{definition}[Fonction Intégrable (Cas Réel Positif)]
+    Une fonction $f \in \overline{\mathcal{M}_+}(X)$ est dite intégrable si $\int f \;d \mu < \infty $.
+\end{definition}
+
+\begin{remark}
+    Quelques remarques concernant la notation... 
+    \begin{itemize}
+        \item $\overline{\mathcal{L}_+^1}(X)$ est l'ensemble des fonctions $f : X \rightarrow \overline{\R_+}$ intégrables.
+        \item ${\mathcal{L}_+^1}(X)$ est l'ensemble des fonctions intégrables de $X$ vers $\R_+$ mais non étendues.
+        \item On remarquera que intégrable implique mesurable. La réciproques est généralement fause.
+    \end{itemize}
+\end{remark}
+
+\begin{prop}[Croissance de l'intégrale]
+    La fonction intégrale est croissante.
+    \[ \text{i.e } \forall f,g \in \overline{\mathcal{M}_+}(X) \text{ si } f \leq g, \quad \text{alors } \int f \; d \mu \leq \int g \; d \mu \] 
+\end{prop}
+
+\begin{quote}
+    \footnotesize 
+    \begin{proof}
+        Soient $f, g \in \overline{\mathcal{M}_+}(X)$ telles que $f \leq g$ alors $g = g-f+f$ où $g-f \geq 0 $ \\
+        D'où : $ \int g \; d \mu = \int (g-f) \; d \mu + \int f \; d \mu \geq \int f \; d \mu $
+    \end{proof}
+    \normalsize
+\end{quote}
+
+\begin{remark}
+    Pour tout $f,g \in \overline{\mathcal{M}_+}(X)$ telles que $f \leq g$ si $g$ est intégrable alors $f \in \overline{\mathcal{L}_+^1}(X)$.
+\end{remark}
+
+\subsection{Intégrabilité (fonction à valeurs complexes)}
+
+\begin{definition}[Fonction Intégrable]
+    Soit $f \in \mathcal{M}(x)$ une fonction mesurable d'un ensemble $X$ vers $\C$. 
+    On dit que $f$ est intégrable si la fonction $|f| \in \mathcal{M}_+(X)$ est intégrable (ici on parle du module). \\
+    On notera $\mathcal{L}^1(X)$ l'ensemble des fonction intégrables de $X$ vers $\C$.
+\end{definition}
+
+\newpage
+\begin{definition}[Intégrale d'une fonction à valeurs complexes]
+    Soit $f \in \mathcal{L}^1(X)$, distinguons deux cas :
+    \begin{itemize}
+        \item \textbf{Cas réel positif :} si $f \in \mathcal{L}^1_\R(X)$ alors soient :
+            \begin{align*}
+                f_+ : x \longmapsto \max (0, f(x)) \\ 
+                f_+ = \sup (0, f) \\ 
+                f_- : x \longmapsto \min (0, f) \\
+                f_- = - \inf (0, f)
+            \end{align*}
+            on pose alors :
+                \[ \int f \; d \mu = \int f_+ \; d \mu - \int f_- \; d \mu \] 
+        \item \textbf{Cas complexe :} si $f \in \mathcal{L}^1(X)$ on pose :
+            \[ \int f \; d \mu = \int \Re f \; d \mu - i \int \Im f \; d \mu \]
+    \end{itemize}
+\end{definition}
+
+\begin{prop}[Propriétés de l'intégrale...2]
+    Quelques propriétés sur l'intégrale...
+    \begin{enumerate}
+        \item \textbf{Linéarité :} La fonction intégrale sur $\mathcal{L}^1(X)$ est linéaire et $\mathcal{L}^1(X)$ est un sev de $\C$.
+        \item \textbf{Croissance}
+        \item \textbf{Majoration par le module :} si $f \in \mathcal{L}^1(X)$ alors $\Big| \int f \; d \mu \Big| \leq \int |f| \; d \mu$
+    \end{enumerate}
+\end{prop}
+
+\begin{theorem}[Critère d'intégrabilité des fonctions bornées]
+    Si $(X,\mathcal{B},\mu)$ est un espace mesuré \textbf{fini} alors toutes fonction $ f \in \mathcal{M}(X)$ \textbf{bornée} est intégrable. 
+\end{theorem}
+
+\subsection{Extension par zéro et intégrale restreinte}
+
+\begin{definition}[Fonction extension par zéro]
+    Soit $f : A \rightarrow \C$ où $A \subset X$, alors l'extension par zéro de $f$ est la fonction :
+        \[ e_X(f) : 
+            \begin{cases}
+                X \longrightarrow \C \\
+                x \longmapsto \begin{cases}
+                                    f(x) \text{ si } x \in A \\
+                                    0 \text{ sinon }
+                                \end{cases}
+            \end{cases} \] 
+\end{definition}
+
+\begin{definition}[Intégrale restreinte]
+    Une fonction $f$ intégrable sur $X$ positive (resp. à valeurs complexes) est dite intégrable sur $A \subset X$ si la restriction de $f$ (resp. la restriction $|f|$) à $A$ est intégrable.
+\end{definition}
+
+\newpage 
+
+\begin{prop}[Intégrale restreinte]
+    Soient $g \in \overline{\mathcal{M}_+(A)}, A \subset X$ et $e_x$ son extension par zéro sur $X$.
+    Soit $1_A$ la fonction indicatrice de $A$.
+    \begin{itemize}
+        \item \textbf{Intégrale et extension par zéro :}
+            \[ \int_{X} e_x(g) \; d \mu = \int_{A} g \; d \mu \] 
+            $g$ est donc intégrable sur A si $e_x(g)$ est intégrable sur $X$.
+        \item \textbf{Intégrale restreinte et indicatrice :}
+            \begin{itemize}
+                \item si $f \in \mathcal{M}_+(X)$ alors $\int_{A} f \; d \mu = \int_{X} f \times 1_A \; d \mu $ 
+                \item si $f \in \mathcal{M}(X)$ alors $f$ est intégrable sur $A$ si $f \times 1_A$ est intégrable sur $X$ et dans ce cas :
+                    \[ \boxed{ \int_{A} f \; d \mu = \int_{X} f \times 1_A \; d \mu } \] 
+            \end{itemize}
+        \item \textbf{Intégrabilité et restriction :} soit $f \in \mathcal{L}^1(X)$ alors $f\restriction_A \in \mathcal{L}^1(X)$ où $A \subset X$ et 
+                \[ \int_A |f| \; d \mu \leq \in_X |f| \; d \mu \]
+        \item \textbf{Relation de Chasles généralisée :} Soit $(A_n)_{n\in\N}$ une suite de parties 
+            mesurables deux à deux disjointes et soit $f \in \overline{\mathcal{M}_+(X)}$ alors: 
+                \[ \int_{\bigcup_{n \in \N} A_n} f \; d \mu = \sum_{n=0}^{\infty} \int_{A_n} f \; d \mu \]
+            Pour le cas complexe, si $f \in \overline{\mathcal{M}(X)}$  alors $f$ est intégrable sur $(A_n)_{n\in\N}$ 
+            ssi $$\sum_{n=0}^{\infty} \int_{A_n} |f| \; d \mu \le \infty $$
+            et dans ce cas on a l'égalité (dans $\C$) :
+                \[ \int_{\bigcup_{n \in \N} A_n} f \; d \mu = \sum_{n=0}^{\infty} \int_{A_n} f \; d \mu \]
+        \item \textbf{Indivisibilité des parties négligeables :} Si $N$ est une partie négligeable, toute fonction mesurable est intégrable sur $N$ et son intégrale est nulle.
+                \[ \text{i.e } \int_N f \; d \mu = 0 \]
+    \end{itemize}
+\end{prop}
+\newpage
+
+\subsection{Intervalles non compacts et rappels}
+\begin{theorem}[Intégration sur un intervalle \textbf{non compact}]
+    \begin{enumerate}
+        \item \textbf{Cas positif :} Soit $f \in \overline{\mathcal{M}_+([a,c[)}$ on a 
+        \[ \boxed{ \int_{[a,c[} f \; d \lambda = \underset{b \in [a,c[}{\sup} \int_{[a,c[} f \; d \lambda} \]
+        en particulier $ f \in \mathcal{L}^1_+([a,c[)$ :
+        \begin{itemize}
+            \item[\underline{ssi}] $\Bigl\{ \int_{[a,b]} f \; d \lambda : b \in [a,c[ \Bigr\}$ est majoré dans $\R_+$ 
+            \item[\underline{ssi}] il existe une suite $(b_n)$ croissante de $[a,c[$ qui tend vers $c$ telle que $ (\int_{[a,bn]} f \; d \lambda)_n$ est majorée.
+        \end{itemize}
+        \item \textbf{Cas non positif :} Soit $ f \in \mathcal{L}^1([a,c[)$ à valeurs complexes alors :
+            \[ \boxed{ \lim_{b \to c} \int_{[a,b]} d \; \lambda = \int_{[a,c[} f \; d \lambda} \] 
+    \end{enumerate}
+\end{theorem}
+
+\textbf{Exemple :}
+
+\begin{minipage}{0.4\textwidth}  % Largeur du graphique
+    \begin{tikzpicture}
+      \begin{axis}[
+          domain=0.1:10,
+          samples=200,
+          width=\linewidth,  % Adapte la largeur au minipage
+          height=4cm,
+          xlabel=$x$,
+          ylabel=$f(x)$,
+          axis lines=middle,
+          % xtick={0,2,4,6,8,10},
+          % ytick={0,0.5,1},
+          ymin=-0.5, ymax=1.5,
+          % title={$f(x) = \frac{\sin(x)}{x}$ pour $x > 0$ et $f(0) = 1$},
+          every axis plot/.append style={black, thick}
+        ]
+
+        % Définition des chemins pour la courbe et l'axe des abscisses
+        \addplot[name path=curve, domain=0.1:10, black, thick] {sin(deg(x))/x};
+        \addplot[name path=axis, domain=0.1:10] {0};
+
+        % Zone hachurée entre la courbe et l'axe des abscisses
+        \addplot [
+          fill=gray, % Couleur de hachure
+          opacity=0.3
+        ]
+        fill between [
+          of=curve and axis, % Remplissage entre la courbe et l'axe des abscisses
+        ];
+
+        % Point en (0, 1) pour x = 0
+        \addplot[only marks, mark=*] coordinates {(0,1)};
+
+      \end{axis}
+    \end{tikzpicture}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.55\textwidth}  % Largeur pour le texte
+    $f : [a,c[ \longrightarrow \C$ peut avoir une intégrale impropre convergente sans nécessairement être intégrable au sens de Lebesque. 
+    Par exemple la fonction ci-contre n'a pas d'intégrale définie au sens de Lebesgues mais au sens de Riemann oui.
+    \[
+    f(x) = \frac{\sin(x)}{x} \text{ lorsque } x > 0, \quad f(0) = 1.
+    \]
+\end{minipage}
+
+
+\begin{example}[Intégrale de Riemann]
+    \[ f_\alpha :
+        \begin{cases}
+            \R_+^* \longrightarrow \R \\
+            t \longmapsto \frac{1}{t^\alpha}, \alpha \ge 0
+        \end{cases}
+    \] 
+    \begin{enumerate}
+        \item sur $[1, \infty[, f_\alpha$ est intégrable ssi $\alpha \ge 1$
+        \item sur $]0, 1[, f_\alpha$ est intégrable ssi $\alpha \le 1$
+    \end{enumerate}
+\end{example}
+
+\begin{example}[Intégrales de Bertrand]
+    \[ f_{\alpha, \beta} :
+        \begin{cases}
+            \R_+^* \backslash \{1\} \longrightarrow \R \\
+            t \longmapsto \frac{1}{t^\alpha | \ln t |^\beta}
+        \end{cases}
+    \] 
+    \begin{enumerate}
+        \item sur $[0, \frac{1}{2}], f_{\alpha,\beta}$ est intégrable ssi $\alpha \le 1$ ou ($\alpha = 1$ et $ \beta < 1$)
+        \item sur $[2, \infty[, f_{\alpha,\beta}$ est intégrable ssi $\alpha \ge 1$ ou ($\alpha = 1$ et $ \beta > 1$)
+    \end{enumerate}
+\end{example}
+\newpage
+
+\subsection{Voisinnage}
+
+\begin{definition}[Intégrabilité et voisinnage]
+    Soit $f : I \longrightarrow \C$, avec $I$ un intervalle et $a \in \overline{I}$. On dit que $f$ est intégrable au voisinnage de $a$ s'il existe 
+    une voisinnage $V$ de $a$ tel que :
+        \[ f\restriction_{{I \cap V}} \text{ est intégrable} \] 
+\end{definition}
+
+\begin{example}
+    Soit $f : [0, \infty[ \longrightarrow \C$. 
+    Dire que $f$ est intégrable au voisinnage de $\infty$ signifie que $\exists c \in \R_+, f\restriction_[c, \infty[$ est intégrable.
+\end{example}
+
+\begin{definition}[Fonction localement intégrable]
+    Soit $f : I \longrightarrow \C$, on dit que $f$ est localement intégrable sur $I$ si pour tout compact $K \subset I$, $f$ est intégrable sur $K$.
+\end{definition}
+
+
+\begin{remark}[Critère d'intégrabilité]
+    Si $f : [a,b] \longrightarrow \C$ est 
+    \begin{itemize}
+        \item localement intégrable sur $[a,b]$
+        \item intégrable au voisinnage de $b$
+    \end{itemize}
+    alors $f$ est intégrable sur $[a,b]$.
+\end{remark}
+
+\begin{theorem}[Changement de variable]
+    Soit $\Psi : I \rightarrow I'$ de classe $\mathcal{C}^1$ et bijective. Soit $f$ une fonction positive, étendue, intégrable, alors :
+        \[ \boxed{ \int_{I'} f \; d \lambda = \int_I (f \circ \Psi) \times |\Psi ' | \; d \lambda } \] 
+    \[ 
+		\begin{tikzcd}
+			X \arrow[r, "\Psi"] \arrow[rd, "f \circ \Psi"] & I' \arrow[d, "f"]\\
+                                                           & \R_+ 
+		\end{tikzcd}
+	\]
+    Donc $f \in \mathcal{M}(X)$ est intégrable sur $I'$ ssi $(f \circ \Psi) |\Psi ' |$ est intégrable sur $I$.
+\end{theorem}
+
+
+
+\section{Théorèmes fondamentaux de l'intégrale}
+
+\begin{theorem}[Critère d'annulation presque partout]
+    Soit $f \in \overline{\mathcal{M}_+(X)}$, on a :
+        \[ \int d \; \mu = 0 \Longleftrightarrow f = 0 \text{ p.p} \]
+\end{theorem}
+
+\begin{theorem}[Critère de finitude presque partout]
+    Soit $f \in \overline{\mathcal{L}_+^1(X)}$, alors $f \le \infty $ p.p 
+\end{theorem}
+
+\newpage
+
+\begin{theorem}[Inversion série intégrale(Cas positif)]
+    Soit $(f_n)_{n\in\N}$ une suite de fonction dans $\overline{\mathcal{M}_+(X)}$ 
+        \[ \text{alors } \int \sum_{n \geq 0} f_n \; d \mu = \sum_{n \geq 0} \int f_n \; d \mu \] 
+    \textbf{Attention :} Cette propriété n'est pas à confondre avec la linéarité car ici, nous sommes en présence d'une limite de somme de fonctions.
+\end{theorem}
+
+\begin{theorem}[Convergence Dominée]
+    Soit $(f_n)_{n\in\N}$ une suite de fonctions dans $\overline{\mathcal{M}(X)}$.
+    Supposons que $(f_n)_{n\in\N}$ \underline{converge simplement} vers $f \in \mathcal{M}(X)$ 
+    \[ \boxed{
+    \begin{aligned}
+        & \text{\underline{si}} \quad  \exists g \in \mathcal{L}_+^1(X) \text{ telle que } \forall n \in \N, |f_n| \leq g \\
+        & \text{\underline{alors}} \quad \forall n \in \N, f_n \text{ est intégrable et }  f \text{ est intégrable sur} X
+    \end{aligned} }
+    \]
+    \[ \text{et } \int \Big| f_n - f \Big| \; d \mu \underset{n \to \infty}{\longrightarrow} 0 \quad \Longleftrightarrow \quad  \int f_n \; d \mu \underset{n \to \infty}{\longrightarrow} \int f \; d \mu \] 
+    \[ \text{i.e } \lim_{n \to \infty} \int f_n \; d \mu = \int \lim_{n \to \infty} f_n \; d \mu \] 
+    ... dans $\C$
+\end{theorem}
+
+\begin{theorem}[Inversion série-intégrale (Cas complexe)]
+    Soit $ \sum f_n$ une série de fonctions telle que $ \forall n \in \N, f_n \in \mathcal{L}^1(X)$ converge absoluments pour tout $x \in X$
+    $ \Big( \text{ie} \quad \forall x \in X, \sum_{n \in \N} \Big| f_n (x) \Big| \le \infty \Big)$
+    \[ \boxed{
+    \begin{aligned}
+        & \text{\underline{si}} \quad  \sum_{n \in \N} \int \Big| f_n \Big| \; d \mu \le \infty \\
+        & \text{\underline{alors}} \quad \int \sum_{n \in \N} f_n \; d \mu = \sum_{n \in \N} \int f_n \; d \mu 
+    \end{aligned} }
+    \]
+    et $\sum_{n \in \N} f_n$ est intégrable sur $X$ (en tant que fonction à valeurs complexes).
+\end{theorem}
+
+\begin{quote}
+\footnotesize
+\begin{proof}
+    Posons $g_n = \sum_{k=0}^{n} f_k$. Comme $\sum f_n$ converge, $(g_n)$ converge simplement vers $\sum_{n=0}^{\infty} f_n = f $
+
+    Soit $n \in \N$, on sait que $ |g_n| \leq \Big| \sum_{k=0}^{n} f_k \Big| \leq \sum_{k=0}^{n} | f_k | \leq \sum_{n=0}^{\infty} f_n := g $
+    Donc $g$ est intégrable. On peut appliquer le théorème de convergence dominée. \\
+    \underline{Alors} $ \sum_{n=0}^{\infty} f_n$ est intégrable et :
+    \begin{align*}
+        \lim_{n \to \infty} \int g_n \; d \mu &= \int \sum_{n=0}^{\infty} f_n \; d \mu \\
+        \lim_{n\to\infty} \int \sum_{k=0}^{n} f_k \; d \mu &= \int \sum_{n=0}^{\infty} f_n \; d \mu \\
+        \lim_{n\to\infty} \sum_{k=0}^{n} \int f_k \; d \mu &= \int \sum_{n=0}^{\infty} f_n \; d \mu \\
+        \sum_{n=0}^{\infty} \int f_n \; d \mu &= \int \sum_{n=0}^{\infty} f_n \; d \mu 
+    \end{align*}
+\end{proof}
+\normalsize
+\end{quote}

@@ -1,0 +1,81 @@
+\chapter{Intégrales à paramètres}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+% ==================================================================================================================================
+% Introduction
+
+On cherche à savoir si les fonctions de la forme $t \longmapsto \int f(x,t) \; d \mu$ sont continues, dérivables par rapport à $t$ ?
+Et si un théorème nous permet de dire que la dérivée de l'intégrale est égale à l'intégrale de la dérivée. 
+
+\section{Définitions, Limites et continuité}
+
+\begin{definition}[Intégrale à paramètre]
+    Une intégrale à paramètre est une fonction 
+    \[ 
+        \begin{cases}
+            I \longrightarrow \C \\
+            t \longmapsto \int f(\cdot, t) \; d \mu 
+        \end{cases}
+    \quad \text{où } f : X \times I \longrightarrow \C \]
+    telle que $\forall t \in I $, $f(\cdot, t) \in \mathcal{L}^1(X) $
+\end{definition}
+
+\begin{theorem}[Limite sous l'intégrale]
+    Soient $F : I \rightarrow \C, t \longmapsto \int f(\cdot, t) \; d \mu $ une intégrale à paramètre et $a \in \overline{I}$.
+    \begin{itemize}
+        \item[\textbf{si}] \begin{enumerate}
+                        \item $\forall x \in X, \lim_{t \to a} f(x,t)$ existe dans $\C$
+                        \item \underline{Hypothèse de domination}
+                            \[ \exists g \in \mathcal{L}_+^1(X) \text{ tq } \forall t \in I, |f(x,t)| \leq g(x) \quad (\text{i.e } |f(\cdot, t) \leq g) \]
+                     \end{enumerate}
+        \item[\textbf{alors}] $F$ admet une limite dans $\C$ quand $t \to a$ et :
+                \[ \boxed{ \lim_{t\to a} F(t) = \int \lim_{t\to a} f(\cdot, t) \; d \mu } \] 
+    \end{itemize}
+\end{theorem}
+
+\begin{example}
+    \[ F :
+        \begin{cases}
+            \R_+^* \longrightarrow \C \\
+            t \longmapsto \int_\R e^{-tx} \frac{1}{1 + x^2} \; d x 
+        \end{cases} 
+        \quad \text{où } f(x,t) = e^{-tx} \frac{1}{1 + x^2} 
+    \] 
+    On a $\quad \forall x \in \R_+^* \backslash \{1\}, \underset{t \to \infty}{\lim} f(x,t) = 0 $ et $ \quad \forall t \in I, f(x,t) \leq \frac{1}{1 + x^2}$ 
+
+    \[ \text{d'où } F \underset{t \to \infty}{\longrightarrow} \int_{\R_+^*} \underset{t \to \infty}{\lim} f(x,t) \; d x = 0 \]
+\end{example}
+
+\newpage
+
+\begin{corollary}[Continuité sous l'intégrale]
+    Soit $F$ une intégrale à paramètre.
+    \begin{itemize}
+        \item[\textbf{si}]  \begin{enumerate}
+                                \item $ \forall x \in X, f(x, \cdot)$ est continue sur $I$
+                                \item \underline{Hypothèse de domination}
+                            \end{enumerate}
+        \item[\textbf{alors}] $F$ est $\mathcal{C}^0$ sur $I$
+    \end{itemize}
+\end{corollary}
+
+\section{Dérivation}
+
+\begin{theorem}[Dérivation sous l'intégrale]
+    Soit $F$ une intégrale à paramètre. 
+    \begin{itemize}
+        \item[\textbf{si}]  \begin{enumerate}
+                                \item $ \forall x \in X, f(x, \cdot) \in \mathcal{C}^1(I)$ 
+                                \item \underline{Hypothèse de domination}
+                                    \[ \exists g \in \mathcal{L}_+^1(X), \forall t \in I, \Big| \frac{\partial}{\partial t} f(\cdot, t) \Big| \leq g \] 
+                            \end{enumerate}
+        \item[\textbf{alors}] $F$ est $\mathcal{C}^1(I)$ et on peut dériver $F$ sous l'intégrale 
+            \[ \text{i.e } \forall t \in I, \quad F' = \int_X \frac{\partial}{\partial t} f(\cdot, t) \; d \mu = \frac{\partial}{\partial t} \int_X f(\cdot,t) \; d \mu \]
+    \end{itemize}
+\end{theorem}
+
+\textbf{(Attention)} : Les notions de continuité et de dérivabilité sont des définitions LOCALES
+    \[ \text{i.e } f \in \mathcal{C}^0(I) \Longleftrightarrow \forall a \in I, f \in \mathcal{C}^0(\{a\}) \]
+
