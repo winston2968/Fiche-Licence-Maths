@@ -47,9 +47,9 @@ loi prédéfinie $X$ correspondant au paramètre recherché. Ainsi, un échantil
 indépendantes et de même loi que $X$. 
 
 \begin{definition}[Echantillon et réalisation]
-    Soit $X$ une variable aléatoire sur un espace probabilisé $(\Omega, \myP)$. 
+    Soit $X$ une variable aléatoire sur un espace probabilisé $(\Omega, \mathcal{F}, \myP)$. 
     Un échantillon de $X$ de taille $n \in \N$ est une $n$-uplet de variables aléatoires 
-    $(X_1, \dots, X_n)$ iid de même loi que $X$. 
+    $(X_1, \dots, X_n)$ iid de même loi que $X$ de paramètre $\theta \in \R$. 
 
     \vspace{0.3cm}
 
@@ -215,7 +215,7 @@ de cet estimateur.
     instable à la variantion des échantillons. 
 \end{definition}
 
-\begin{definition}[Consitance]
+\begin{definition}[Consistance]
     Un estimateur $\hat{\theta}$ d'un paramètre $\theta$ est dit \textbf{consistant} si, lorsque la taille de l'échantillon 
     augmente, il converge vers le paramètre estimé. Autrement dit: 
         \[ \hat{\theta} \text{ est consistant } \iff \hat{\theta} \overset{P}{\underset{n \to \infty}{\longrightarrow}} \theta \] 
@@ -259,20 +259,51 @@ Cette méthode consiste à trouver les valeurs des paramètres qui maximisent la
 c'est-à-dire les paramètres qui rendent les données observées les plus probables.
 
 \begin{definition}[Fonction de vraissemblance]
-    Soit $(X_1, \dots, X_n)$ un échantillon de variables aléatoires iid de densité $f_X(x,\theta)$. 
-    La fonction de vraissemblance $L(\theta)$ donne la probabilité d'obtenir l'échantillon observé $\{x_1, \dots, X_n\}$ 
+    Soit $(X_1, \dots, X_n)$ un échantillon de variables aléatoires iid de densité $f_X(x,\theta)$ 
+    prenant ses valeurs sur $ \mathcal{X} \subset \R^n$ et de paramètre $\theta \in \R$. 
+    La fonction de vraissemblance $L(x;\theta)$ donne la probabilité d'obtenir l'échantillon observé $\{x_1, \dots, X_n\} \in \mathcal{X}$
     étant donné un paramètre $\theta$. Elle est définie par: 
-        \[ \boxed{ L(\theta) = \myP(X_1 = x_1, X_2 = x_2, \dots, X_n = x_n, \theta) = \prod_{i=1}^{n} f_X(x_i, \theta) } \] 
+        \[ L : 
+            \begin{cases}
+                \mathcal{X} \times \R \longrightarrow \R^+ \\ 
+                (x_1, \dots, x_n, \theta) \longmapsto L(x_1, \dots, x_n, \theta) 
+            \end{cases} \] 
+    où :
+        \[ L(x_1, \dots, x_n, \theta) = \myP(X_1 = x_1, X_2 = x_2, \dots, X_n = x_n, \theta) = \prod_{i=1}^{n} f_X(x_i, \theta) \] 
+
     Dans le cas de données continues, on écrit la fonction de vraisemblance sous forme de produit des densités, 
     et pour des données discrètes, ce sera un produit de masses de probabilité. 
 \end{definition}
 
+\begin{remark}[Notations]
+    En fonction du contexte et de ce qui est recherché, on notera la fonction de vraisemblance de plusieurs manières 
+    tout en parlant du même objet :
+    \begin{itemize}
+        \item On peut se fixer une réalisation d'un échantillon $(x_1, \dots, x_n)$ on parlera alors : 
+            \[ L : 
+                \begin{cases}
+                    \R \longrightarrow R^+ \\ 
+                    \theta \longmapsto L_{(x_1, \dots, x_n)}(\theta)
+                \end{cases}
+            \] 
+        \item Dans des recherches de résultats plus formels, on parlera de :
+                \[ L(\theta | x_1, \dots, x_n) \] 
+        \item Ou lors de calculs plus analytiques où l'on considèrera que les variables $\theta$ et $x_1, \dots, x_n$ 
+        varient, on écrira :
+                \[ L(x_1, \dots, x_n; \theta) \] 
+    \end{itemize}
+    On notera aussi parfois la fonction de vraisemblance en fonction de variables aléatoires $X_1, \dots, X_n$ ou en 
+    fonction de réalisations de variables aléatoires $x_1, \dots, x_n$. 
+    Cela dépend du contexte et de ce que l'on a besoin de quantifier. 
+\end{remark}
+
 \begin{proposition}
     Pour faciliter, les calculs, nous utiliserons souvent la log-vraissemblance définie par: 
         \[ l(\theta) = \log L(\theta) = \sum_{i=1}^{n} \log f_X(x_i, \theta) \] 
+    où $f_X : \mathcal{F} \longrightarrow \R$ est la densité de $X$. 
 \end{proposition}
 
-\textbf{L'estimateur du maximum de vraissemblance} $\hat{\theta}$ est la valeur des paramètres $\theta$ qui maximise 
+\textbf{L'estimateur du maximum de vraissemblance} $\hat{\theta}$ est la valeur des paramètres $\theta \in \R$ qui maximisent 
 log-vraisemblance $l(\theta)$, c'est-à-dire l'ensemble des paramètres qui rendent l'échantillon observé le plus probable.
 Formellement, cela revient à résoudre le problème d'optimisation suivant :
     \[ \hat{\theta} = \arg \underset{\theta}{\max} (l(\theta)) = \arg \underset{\theta}{\max} \sum_{i=1}^{n} \log f_X(x_i, \theta) \] 
@@ -314,6 +345,8 @@ On peut aussi effectuer cette méthode avec la simple fonction de vraissemblance
 
 \section{Information de Fisher}
 
+\subsection{En dimension 1}
+
 On effectue un échantillonnage $(X_1, \dots, X_n)$ d'une population possédant un caractère répartit par une 
 variable aléatoire $X$ pour déterminer un paramètre $\theta$ définissant cette répartition. 
 On souhaiterai savoir à quel point notre échantillon est fiable pour déterminer avec précision le paramètre $\theta$. 
@@ -325,7 +358,7 @@ Pour cela, on utilise \textbf{l'information de Fisher}.
     de paramètre $\theta$. L'information de Fisher $I(\theta)$ est une mesure de la quantité d'information que contient 
     l'échantillon sur $\theta$. Elle est définie comme la variance de l'estimateur de ce paramètre. 
     Plus formellement: 
-        \[ \boxed{ I(\theta) := - \E \left( \frac{\partial^2}{\partial \theta^2} l(\theta) \right) } \] 
+        \[ \boxed{ I(\theta) := - \E \left( \frac{\partial^2}{\partial \theta^2} l(\theta) \right) = \E \left[ \left( \frac{\partial l(\theta)}{\partial \theta}\right) ^2 \right] } \] 
     Elle est définie comme la variance de l'estimateur de ce paramètre, et elle est directement liée 
     à la courbure de la fonction de log-vraisemblance $l(\theta)$. 
 \end{definition}
@@ -344,6 +377,78 @@ Pour cela, on utilise \textbf{l'information de Fisher}.
         utiles sur le paramètre.
     \end{itemize}
 \end{remark}
+
+\begin{prop}[Information de Fisher]
+    La quantité d'information de Fisher d'un échantillon est toujours \textbf{positive ou nulle}. 
+\end{prop}
+
+\subsection{En dimension d}
+
+Depuis le début du chapitre, nous considérons un échantillon de variables iid distribué selon une loi paramétrée par 
+un unique paramètre $\theta$. Considérons maintenant que notre distribution $X$ soit définie par $d \in \N$ paramètres 
+$ \theta \in \R^d$. On notera $\Theta \subseteq \R^d$ l'ensemble de définition de ces paramètres. 
+Définissons alors la matrice d'information de Fisher pour cet échantillon... 
+
+\begin{definition}[Matrice d'information de Fisher]
+    Soit $(X_1, \dots, X_n)$ un échantillon de variables iid distribué par un loi $X$ de 
+    paramètres $\theta = \theta_1, \dots, \theta_d \in \Theta$. La matrice d'information de Fisher de cet échantillon est définie par: 
+        \[  \boxed{ I(\theta) = I(\theta_1, \dots, \theta_n) := \E \left( \langle \nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta) . 
+            \; ^t \nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta) \rangle \right)} \] 
+        où: 
+        \begin{itemize}
+            \item $L_{(x_1, \dots, x_n)} (\theta)$ est la fonction de vraisemblance de l'échantillon. 
+            \item $\nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta)$ est le gradient de la log-vraissemblance par rapport à $\theta$. 
+                \[ \nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta) = 
+                    \begin{pmatrix}
+                        \frac{\partial l_{(x_1, \dots, x_n)}(\theta)}{\partial \theta_1} \\ 
+                        \frac{\partial l_{(x_1, \dots, x_n)}(\theta)}{\partial \theta_2} \\ 
+                        \vdots \\ 
+                        \frac{\partial l_{(x_1, \dots, x_n)}(\theta)}{\partial \theta_d}
+                    \end{pmatrix}
+                \]
+        \end{itemize}
+\end{definition}
+
+\begin{prop}[Matrice d'information de Fisher]
+    La matrice d'information de Fisher pour une échantillon $(X_1, \dots, X_n)$  d'une distribution $X$ de paramètres 
+    $(\theta_1, \dots, \theta_d) \in \Theta $ possède plusieurs propriétés: 
+    \begin{itemize}
+        \item \textbf{Symétrie :} $I_{i,j} (\theta) = I_{j,i}(\theta) \quad \forall i,j \in \llbracket 1, d \rrbracket $ 
+        \item \textbf{Alternative : } Une autre façon de calculer cette matrice est de passer par les dérivées secondes 
+        de la log-vraisemblance: 
+            \[ I_{i,j}(\theta) = - \E \left( \frac{\partial^2 l(\theta)}{\partial \theta_i \partial \theta_j} \right) \quad \forall i,j \in \llbracket 1, d \rrbracket \] 
+    \end{itemize}
+\end{prop}
+
+\begin{proposition}[CR]
+    L'information de Fisher pour un échantillon $(X_1, \dots, X_n)$ n'existe que sous certaines conditions: 
+    \begin{enumerate}
+        \item La fonction de vraisemblance $L(\theta)$ doit être intégrable. Cela garantit que $f_\theta(X)$ soit 
+            une densité de probabilité. 
+        \item $\Theta$ (l'ensemble de définition des paramètres de l'échantillon) est un ouvert de $\R^n$. 
+        \item L'application $\theta \mapsto L_{(x_1, \dots, x_n)}(\theta)$ doit être \textbf{différentiable} pour tout $x_i \in \mathcal{F}$ sur $\Theta$ 
+    \end{enumerate}
+\end{proposition}
+
+\subsection{Cas particuliers et Exemples}
+
+Sous certaines conditions, il peut y avoir égalité de la matrice d'information de Fisher vectorielle et scalaire. 
+
+Pour que la matrice $I(\theta)$ en dimension $d > 1$ se réduise à une forme scalaire pour $d = 1$, il faut que :
+\begin{itemize}
+    \item Le vecteur paramètre $\theta \in \Theta \subseteq R^d$ puisse se réduire à un seul paramètre $\theta' \in \R$. 
+    \item Ou si $\theta = (\theta_1, \dots, \theta_d)$ est un vecteur, il faut que la matrice d'information se réduise à 
+        un scalaire. 
+            \[ \text{i.e} \quad \forall i \not = j, \; \left\langle \frac{\partial l(\theta)}{\partial \theta_i} . \frac{\partial l(\theta)}{\partial \theta_j} \right\rangle = 0 \] 
+        Cela implique que les composantes $\theta_i$ sont statistiquement indépendantes dans l'information fournie par les données. 
+    \item La fonction de vraisemblance doit se factoriser de manière à dépendre liénairement d'un unique paramètre :
+        \[ L_{(X_1, \dots, X_n)}(\theta) = g(X)h(\theta) \]  
+\end{itemize}
+
+
+
+
+
 
 
 
