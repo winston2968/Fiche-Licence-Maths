@@ -1,0 +1,375 @@
+\chapter{Equations Différentielles Linéaires}
+
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+% ==================================================================================================================================
+% Notions d'analyse matricielle
+
+\section{Notions d'analyse Matricielle}
+
+\subsection{Rappels}
+
+Soient $E$ et $F$ deux espaces vectoriels normés. $ \mathcal{L}(E,F)$ désigne l'espace vectoriel des applications linéaires 
+de E vers F. Il est muni d'une norme appelée \textbf{norme opérationnelle} : 
+    \[ \forall f \in \mathcal{L}(E,F), \quad \| f \| = \min \{ C \in \R_+ \; | \; \forall x \in E, \| f(x) \|_F \leqslant C \| x \|_E \} \]
+
+\begin{definition}[Norme Subordonnée]
+    Si $\|.\|$ est une norme sur $\K^n$ alors la norme subordonnée associée à $\|.\|$ sur $ \mathcal{M}_n(\K)$ est 
+    la norme opérationnelle associée à $\|.\|$ sur $\K^n = E$ et $\|.\|$ sur $\K^n = F$. On la note de la même façon. 
+    \[ \text{i.e} \quad \forall M \in \mathcal{M}_n(\K), \quad  \| M \| = \min \{ C \in \R_+ \; | \; \forall x \in \K^n, \| Mx \| \leqslant C \| x \| \} \]
+\end{definition}
+
+\begin{proposition}
+    Soient $M,N \in \mathcal{M}_n(\K)$ alors :
+        \[ \| M \times N \| \leqslant \|M\| \times \|N\| \]
+    Ceci d'écoule de l'inégalité de Cauchy-Schwarz. 
+\end{proposition}
+
+\subsection{Intégrale d'une matrice}
+
+\begin{remark}
+    Soit $f : I \longrightarrow \mathcal{M}_n(\K)$ où I est un intervalle. Supposons que $f$ soit continue. 
+    On peut alors définir $ \int_I f(t) \; dt \in \mathcal{M}_n(\K)$ composante par composante telle que :
+        \[ \left( \int_I f(t) \; dt \right)_{i,j} = \int_I f(t)_{i,j} \; dt \] 
+    Autrement dit, l'intégrale d'une matrice d'applications continues sur un intervalle est exactement la matrice 
+    les intégrales des applications. 
+\end{remark}
+
+\begin{proposition}
+    Soit $f : I = ]a,b[ \overset{ \mathcal{C}^0}{\longrightarrow} \mathcal{M}_n(\K)$. Alors :
+        \[ \left\| \int_I f(t) \; dt \right\| \leqslant \int_{a}^{b} \left\| f(t) \right\| \; dt \] 
+\end{proposition}
+
+\begin{prop}[Théorème Fondamental de l'Analyse]
+    Dans ce cas ci, le théorème fondamental de l'analyse est toujours vrai. 
+    Autrement dit, soit $f : I = ]a,b[ \overset{ \mathcal{C}^0}{\longrightarrow} \mathcal{M}_n(\K)$. 
+    Alors : 
+        \[ \int_{a}^{b} f'(t) \; dt = f(b) - f(a) \] 
+\end{prop}
+
+\begin{remark}
+    Soit $f \in \mathcal{C}^1(I, \mathcal{M}_n(\K))$. Alors la formule $(f^2)' = 2f'f$ est fausse 
+    puisque $\mathcal{M}_n(\K)$ n'est pas un anneau commutatif. D'où : 
+        \[ (fg)' = f'g + fg' \quad \text{où} \quad g \in \mathcal{C}^1(I, \mathcal{M}_n(\K)) \] 
+\end{remark}
+
+\subsection{Exponentielle d'une matrice}
+
+\begin{remark}
+    Pour rappel, on sait que $ \forall z \in \C, \; e^z = \sum_{k=0}^{\infty} \frac{z^k}{k!}$. 
+\end{remark}
+
+\begin{definition}[Exponentielle d'une matrice]
+    Soit $A \in \mathcal{M}_n(\K)$ on a alors :
+        \[ \exp(A) := \sum_{k=0}^{\infty} \frac{A^k}{k!} \]
+    Cette série converge toujours. 
+\end{definition}
+
+\begin{proposition}[Propriétés de l'exponentielle]
+    Soient $A,B \in \mathcal{M}_n(\K)$ alors 
+        \[ e^{A+B} = e^A e^B \iff AB = BA \] 
+\end{proposition}
+
+\begin{proposition}[Inverse]
+    Soit $A \in \mathcal{M}_n(\K)$ alors $e^A$ est inversible. 
+    Pour cela, on pose :
+    \[ e^0 = \sum_{k=0}^{\infty} \frac{O^k}{k!} = 1_{\mathcal{M}_n(\K)} = I_n \quad \text{et} \quad e^{(A+ (-A))} = e^A e^{-A} = I_n \] 
+\end{proposition}
+
+\begin{prop}[Dérivation de l'exponentielle matricielle] 
+		\begin{itemize} 
+			\item Soit $A \in \mathcal{A}_n(\K)$. La fonction:
+			\[ 
+				\begin{cases} 
+					\R \longrightarrow \mathcal{M}_n(\K) \\ 
+					t \longmapsto e^{tA} 
+				\end{cases}
+			\]
+			est de classe $ \mathcal{C}^\infty$ sur $\R$ et: 
+					\[ \boxed{ \frac{\partial e^{tA}}{\partial t} = A e^{tA} = e^{tA} A } \]
+			\item Soit $A \in \mathcal{C}^1(\R, \mathcal{M}_n(\K))$ telle que 
+			$ \forall t \in \R, A(t)A'(t) = A'(t) A(t)$  alors: 
+				\[ t \longmapsto e^{A(t)} \in \mathcal{C}^1 \quad \text{et} \quad \frac{\partial e^{A(t)}}{\partial t} = A'(t)e^{A(t)} \]
+		\end{itemize}
+		Le théorème fondamental de l'analyse est toujours vrai. 
+\end{prop}
+
+\begin{remark} 
+	Soit $f \in \mathcal{C}^1(I,\mathcal{M}_n(\K))$ la formule:
+		\[ (f^2)' = 2f'f \] 
+	est fausse puisque $( \mathcal{M}_n(\K), +, \times)$ n'est pas un anneau commutatif. 
+\end{remark} 
+
+\begin{definition}[Exponentielle] 
+	Soit $z \in \C$ on définit l'exponentielle de $z$ par: 
+		\[ e^z = \exp (z) = \sum_{k=0}^{\infty} \frac{z^k}{k!} \]
+\end{definition} 
+
+\begin{definition}[Exponentielle de Matrice]
+	Soit $A \in \mathcal{M}_n(\K)$ on a alors: 
+		\[ \exp(A) = e^A = \sum_{k=0}^{\infty} \frac{A^k}{k!} \] 
+	Cette série converge toujours. 
+\end{definition} 
+
+\begin{remark} 
+	Cette définition nous servira plus tard pour la résolution d'équations 
+	différentielles en dimension $n \in \N$. 
+
+	On peut remarquer que la fonction $e^A : t \longmapsto e^{A(t)} $ est solution de 
+		\[ (E) : Y' = A'Y \]
+\end{remark} 
+
+% ==================================================================================================================================
+% Théorème de Cauchy-Lipschitz Linéaire 
+
+\section{Théorème de Cauchy Lipschitz Linéaire} 
+
+\begin{definition}[EQ linéaire du premier ordre]
+	Soit $A \in \mathcal{C}^0(I, \mathcal{M}_n(\K))$ et $ B \in \mathcal{C}^0(I,\K^n)$. 
+	Une équation différentielle linéaire du premier ordre est une équation du type: 
+		\[ \boxed{  \forall t \in I, \quad (E) : y'(t) = A(t)y(t) + B(t) = f(t,y)  } \]
+		\[ \text{où: } f : 
+			\begin{cases} 
+				I \times \K^n \longrightarrow \K^n \\ 
+				(t,x) \longmapsto A(t)x + B(t) 
+			\end{cases} \]
+\end{definition} 
+
+\begin{theorem}[Cauchy-Lipschitz Linéaire]
+	Soit $(E)$ une équation diférentielle linéaire. Alors ile xiste une unique solution 
+	\underline{maximale} au problème de Cauchy: 
+		\[ (P) : 
+			\begin{cases} 
+				(E) \\ 
+				y(t_0) = y_0 
+			\end{cases} \] 
+	avec $(t_0, y_0) \in I \times \K^n$. 
+	De plus, cette solution est \textbf{globale}. 
+\end{theorem} 
+
+
+\begin{remark} 
+	Pour une équation d'ordre 2 scalaire :
+		\[ (E) : y''(t) = a_0(t)y(t) + a_1(t)y'(t) + b(t) \quad \forall t \in U \] 
+	où $a_0, a_1,b \in \mathcal{C}^1(I, \K)$ équivalente à $ Y'(t) = A(t) Y(t) + B(t) $ où 
+		\[ A(t) =  
+			\begin{pmatrix}
+				1 & 0 \\ 
+				a_0(t) & a_1(t) 
+			\end{pmatrix} 
+			\quad \text{et} \quad B(t) = 
+			\begin{pmatrix}
+				0 \\ 
+				b(t) 
+			\end{pmatrix}
+			\quad \text{et} \quad Y(t) = 
+			\begin{pmatrix} 
+				y(t)  \\
+				y'(t) 
+			\end{pmatrix} \]
+	D'après Cauchy-Lipschitz, il existe une unique solution globale à: 
+		\[ 
+			\begin{cases} 
+				Y'(t) = A(t) Y(t) + B(t) \\ 
+				Y(t_0) = Y_0
+			\end{cases} 
+			\quad \text{où} \quad (t_0, Y_0) \in I \times K^n 
+		\]
+	Alors il existe une unique solution à l'équation globale d'où: 
+		\[ \begin{cases} 
+				y''(t) = a_0(t) y(t) + a_1(t) y'(t) + b(t) \\ 
+				y(t_0) = y_0 \\ 
+				y'(tt_0) = y_1 
+			\end{cases} \] 
+	Pour l'ordre 2, il faut donc fixer une valeur pour chaque ordre de l'équation. 
+	pour l'ordre 3, il faut en fixer 3, etc...
+\end{remark}
+
+% ==================================================================================================================================
+% Structure des solutions 
+
+\section{Structure de l'ensemble des solutions}
+
+Dans cette section, nous allons essayer de donner une structure à 
+l'ensemble des solutions d'une équation différentielle. Cela nous 
+permettra d'avoir de meilleures propriétés sur ces solutions et, à partir 
+de solutions particulières d'en déduire des solutions plus générales. 
+
+\vspace{0.5cm} 
+
+Soit l'équation différentielle définie sur un intervalle $I$ suivante :
+	\[ (L) : y'(t) = A(t) y(t) + B(t) \quad (H) : y'(t) = A(t)y(t) \] 
+on appelle $(H)$ l'équation homogène de $(L)$. 
+Soient $y_1$ et $y_2$ deux solutions de $(H)$ alors $ \forall \lambda \in \K$, on a: 
+	\[ (\lambda y_1 + y_2)'(t) = \lambda A(t)y_1(t) + A(t) y_2(t) = A(t) (\lambda y_1(t) + y_2(t)) \]
+Donc c'est aussi une solution de $(H)$. 
+
+\begin{theorem}[Structure]
+	Soit $(L)$ une équation différentielle linéaire d'ordre 1 et $(H)$ 
+	son équation homogène associée. 
+	$S_H$ est un sous-espace vectoriel de $ \mathcal{C}^0(I, \K^n)$ de dimension finie 
+	égale à $n$ (on peut donc trouver une base de $S_H$). On a donc: 
+		\[ \boxed{ S = S_H + y_1 } \]
+	où: 
+	\begin{itemize} 
+		\item $S$ est l'ensemble des solutions de $(L)$
+		\item $y_1$ est une solution particulière de $(L)$
+	\end{itemize}
+	On dit que $S$ est un espace affine. 
+\end{theorem}
+
+\begin{remark}[Construction d'une solution particulière]
+		\[ (L) : y(t) = a(t) y(t) + b(t) \quad \forall i \in I \] 
+	Posons $ \forall t \in I, y(t) = C e^{\int_{t_0}^{t} a(t) \; ds}$ avec $C \in \K$. 
+	Modifions notre potentielle solution telle que: 
+		\[ \forall t \in I, \quad y(t) = C(t) e^{\int{t_0}{t} a(s) \; ds} \]
+	où $C$ est une fonction dérivable. On a donc que $y$ est dérivable par produit/composition
+	et d'après le théorème fondamental de l'analyse. D'où: 
+		\begin{align*}
+			y'(t) &= C'(t) e^{\int_{t_0}^{t} a(s) \; ds} + C(t) a(t) e^{\int_{t_0}^{t} a(s) \; ds} \\
+				  &= a(t)y(t) + b(t) \\
+				  & \iff a(t) y(t) + b(t) = C'(t) e^{i(t)} + C(t) a(t) e^{i(t)} \\ 
+				  & \iff b(t) = C'(t) e^{i(t)} \\ 
+				  & \iff C'(t) = b(t) e^{-i(t)} 
+		\end{align*}
+	Donc $ \forall t \in I, C(t) = C(t_0) \int_{t_0}^{t} b(s) \; ds $. 
+	
+	\textbf{Réciproquement:}
+
+	La fonction $ t \longmapsto \left( \lambda \int_{t_0}^{t} b(s) \; ds \right) e^{-i(t)} $ 
+	est bien solution de $(L)$. On peut donc en déduire une solution particulière de $(L)$
+	en fixant $\lambda$ est $t_0$. De plus: 
+		\[ S_H = vect \left( t \longmapsto e^{ \int_{t_0}^{t} a(s) \; ds } \right) 
+		= \left\{ t \longmapsto \lambda e^{ \int_{t_0}^{t} a(s) \; ds} \; | \; \lambda \in \K  \right\} \] 
+\end{remark}
+
+\begin{theorem}[Résolution Complète]
+	Soit $(L) : y'(t) = a(t)y(t) + b(t) $ une équation différentielle linéaire scalaire  d'ordre 1 où 
+	$a,b \in \mathcal{C}^0(I, \K^n)$. Alors l'ensemble des solutions de $S$ de $(L)$ est de la forme: 
+		\[ S = S_H + \left\{ t \longmapsto \left( \int_{t_0}^{t} b(s) e^{- \int_{t_0}^{t} a(s) \; ds} \right) e^{\int_{t_0}^{t} a(s) \; ds} \right\} \] 
+\end{theorem}
+
+% ==================================================================================================================================
+% Matrices Fondamentales 
+
+\section{Matrices Fondamentales}
+
+\subsection{Généralités et propriétés} 
+
+Nous savons que l'ensemble des solutions d'une équation différentielle linéaire est un 
+espace affine composé d'un sev et d'une solution particulière. 
+Le sev $S_H$ est l'ensemble des solutions de l'équation homogène $(H)$ associée à $(L)$ 
+on sait qu'il est de dimension $n \in \N$. On peut donc en trouver une base. 
+
+\vspace{0.3cm}
+
+Soit $(H) : y'(t) = A(t) y(t) \quad \forall t \in I$. Une équation homogène d'ordre 1
+en dimension $n \in  \N$ et $A \in \mathcal{C}^0(I, \mathcal{M}_n(\K))$.   
+
+\begin{definition}[Système Fondamental]
+	Un système fondamental de solutions est une famille finie qui forme une base 
+	vectorielle de $S_H$. 
+\end{definition} 
+
+\begin{definition}[Matrice Fondamentale]
+	Soit $ \mathcal{F} = (y_1, \dots, y_n)$ un système fondamental de $(H)$. 
+	Une matrice fondamentale de $(H)$ est une \textbf{fonction} $\Phi$ telle que : 
+		\[ \Phi : 
+			\begin{cases}
+				I \longrightarrow \mathcal{M}_n(\K) \\ 
+				t \longmapsto (y_1(t), \dots, y_n(t))
+			\end{cases}  \]	
+\end{definition} 
+
+\begin{remark}
+	Pour tout $ i \in  I$, $\Phi$ est inversible. 
+\end{remark} 
+
+\begin{definition}[Wronksien]
+	Le wronksien associé à $(H)$ est la fonction : 
+		\[ \omega : 
+			\begin{cases}
+				I \longrightarrow \K \backslash \{0\} \\ 
+				t \longmapsto \det (\Phi(t))
+			\end{cases} \]
+	où $\Phi$ est une matrice fondamentale associée à $(H)$.
+	C'est le déterminant de la matrice fondamentale évaluée en $t \in  I$. 
+\end{definition} 
+
+\begin{remark} 
+	Soit $\Phi$ une matrice fondamentale de $(H)$ et $P \in  GL_n(\K)$ alors $\Phi P$ est aussi 
+	une matrice fondamentale de $(H)$. 
+\end{remark} 
+
+Soit $\Phi$ une matrice fondamentale de $(H)$ et $y$ une solution particulière de $(H)$.
+Alors $ \exists c_1, \dots, n_1 \in  \K$ tels que: 
+	\[ \forall i \in  I, \quad y(t) = \sum_{i=1}^{n} c_i y_i(t) \quad \iff \quad y(t) = \Phi(t) 
+		\begin{pmatrix}
+			c_1 \\ 
+			\vdots \\
+			c_n 
+		\end{pmatrix} \] 
+
+\begin{proposition}
+	L'ensemble des solutions de $(H)$ est de la forme: 
+		\[ S_H = \{ \Phi C \; | \; C \in  \K^n \} \] 
+	où $\Phi$ est une matrice fondamentale de $(H)$. De plus, l'unique solution 
+	du problème de Cauchy :
+		\[ (P) : \begin{cases}
+				(H) \\ 
+				y(t_0) = y_0 \quad (t_0, y_0) \in  I \times \K^n
+			\end{cases} \]
+	est la fonction $ \Phi \Phi^{-1} (t_0) y_0 : t \longmapsto \Phi(t) \Phi^{-1}(t_0) y_0$.  
+\end{proposition} 
+
+On peut donc en conclure que dès que l'on connaît une matrice fondamentale 
+d'une équation homogène $(H)$, alors on en connaît toutes les solutions. 
+Seulement, comment construire une telle matrice ? 
+
+\begin{prop}[Matrice Fondamentale et Base] 
+	Soit $\Phi : I \overset{ \mathcal{C}^1}{\longrightarrow} \mathcal{M}_n(\K)$. $\Phi$ est 
+	une matrice fondamentale de $(H)$ ssi:
+	\begin{enumerate} 
+		\item $ \forall t \in  I, \quad \Phi(t) \in  GL_n(\K) $ (famille libre) 
+		\item $ \forall t \in  I, \quad \Phi '(t) = A(t) \Phi(t) $ (famille génératrice de $S_H$)
+	\end{enumerate} 
+\end{prop} 
+
+\subsection{Méthode du polynôme caractéristique} 
+
+Soit $(H_n)$ une équation linéaire homogène d'ordre $n \in  \N$ en dimension 1 telle que : 
+	\[ \forall t \in (H_n) : a_n y^{(n)}(t) = a_0 y(t) + a_1 y'(t) + \dots + a_{n-1} y^{(n-1)}(t) \]
+où $ a_n, \dots, a_1 \in  \K$. 
+
+\begin{definition}[Polynôme caractéristique]
+	Soit $(H_n)$ une équation différentielle homogène d'ordre $ n \in  \N$. 
+	On définit le polynôme caractéristique de $(H_N)$ comme le polynôme tel que: 
+		\[ P(X) = X^n + a_{n-1} X^{n-1} + \dots + a_1 X + a_0 \] 
+	On dira que \textbf{l'équation caractérisitique de} $(H_n)$ est $P(X) = 0$. 
+\end{definition} 
+
+\begin{theorem}[Construction des solutions] 
+	Plaçons nous dans $\C$. Soient $r_1, \dots, r_p, \; p \leqslant n$ les racines de $P(X)$ de multiplicités 
+	respectives $m_1, \dots, m_p$ dans $\C$. Alors: 
+		\[ \forall (k,l) \in  \N^2, \; 1 \leqslant k \leqslant p, \; 0 \leqslant l \leqslant m_k -1 
+			\quad F_{k,l} : t \longmapsto t^l e^{r_k \times t} \]
+	donne une base $(F,k,l)$ de solutions de $(H_n)$. 
+\end{theorem} 
+
+
+% ==================================================================================================================================
+% Méthode de variation de la constante 
+
+\section{Méthode de variation de la constante} 
+
+Soient $(L)$ une équation différentielle linéaire d'ordre 1 en dimension $n \in  \N$
+et $(H)$ son équation homogène associée telles que: 
+	\[ \forall t \in I, \quad (L) : y'(t) = A(t) y(t) + B(t) \quad y'(t) = A(t) y(t) \] 
+
+
+
+
+
+
