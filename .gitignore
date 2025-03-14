@@ -8,4 +8,4 @@
 *.toc
 
 # Ignore build folder
-/build/
+/build/*
