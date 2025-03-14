@@ -11,7 +11,6 @@
 \usepackage{ragged2e}
 \usepackage{amsfonts}
 \usepackage{systeme}
-\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{comment}
 \usepackage{multicol}
@@ -34,6 +33,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{listings}
+\usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{mdframed}
 \usepackage{xparse} % Nécessaire pour définir des environnements avec arguments optionnels
@@ -167,7 +167,7 @@
 % Setting Title 
 
 % Titre du document
-\title{Raisonnement et Ensembles}
+\title{Topologie 1}
 \author{Axel PIGEON}
 \date{\today}
 
@@ -182,37 +182,24 @@
 
 
 % Page de titre 
-\maketitle
+\input{title_topo.tex}
 
 % Table des matières 
 \tableofcontents
 \newpage
 
-\begin{comment}
-  Le langage des mathématiques est un langue à part. 
-Comme tous les langages, il permet de décrire des choses, des relations, des vérités. 
-On peut écrire des mensonges avec, essayer de duper, mais aussi écrire des choses magnifiques et
-révolutionner des générations. 
-
-\vspace{0.3cm}
-
-Malgré son apparente complexité, le langage des mathématiques est un langage dans sa forme la plus pure, 
-compris par tous les méthamaticiens du monde, il permet d'exprimer très simplement des notions qui dépassent 
-l'entendement de la plupart tout. Un langage oral ou écrit comme nous les connaissons ne peuvent être assez clairs et 
-précis pour décrire de telles choses. D'où la nécessité d'apprendre ce langage, d'en connaître les rouages, les conventions, 
-pour d'une part, comprendre ce que d'autres peuvent écrire, mais aussi pouvoir s'en servir de strcuture pour développer
-des raisonnements très complexes. 
-
-\vspace{0.3cm}
-
-Dans tout ce document, nous allons essayer de développer les notions clés des mathématiques en partant de tout début, 
-en commençant par apprendre ce langage et ses règles. Pas à pas, nous pourrons définir de nouveaux objects, de nouveaux espaces 
-et découvrir de nouvelles propriétés. 
-\end{comment}
+\setlength{\parindent}{0pt}
 
 % Inclusion des chapitres 
-\include{chapitres/chapitre1_Raisonnement}
-\include{chapitres/chapitre2_Ensembles}
+\include{chapitres/chapitre1_rappels}
+\include{chapitres/chapitre1_Proprietes_R}
+\include{chapitres/chapitre2_Distance_Normes}
+\include{chapitres/chapitre3_Boules_Interieur_Adherence}
+\include{chapitres/chapitre4_Ouverts_Fermes}
+\include{chapitres/chapitre5_Suites_Fonctions_Continues}
+\include{chapitres/chapitre6_Compacts}
+\include{chapitres/chapitre7_Connexes}
+\include{chapitres/chapitre8_Homeomorphismes}
 
 
 \end{document}

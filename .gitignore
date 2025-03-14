@@ -1,4 +1,4 @@
-# Ignorer les fichiers de build LaTeX sauf les PDF
+# Ignore build files
 *.aux
 *.log
 *.gz
@@ -7,5 +7,5 @@
 *.out
 *.toc
 
-# Garder les PDF
-!*.pdf
+# Ignore build folder
+/build/

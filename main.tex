@@ -38,18 +38,20 @@
 \usepackage{tikz-cd}
 \usepackage{mdframed}
 \usepackage{enumitem}
-\usepackage{pgfplots} 
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{angles,quotes,3d,calc}
-\usetikzlibrary{intersections}
-\usepgfplotslibrary{fillbetween}
 \usepackage{xparse} % Nécessaire pour définir des environnements avec arguments optionnels
 \usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
 \usepackage{needspace} % Pour éviter le fractionnement des environnnements
 % \usepackage{parskip} % Désactive l'indentation des pragraphes et rajoute un espace entre deux 
 \usetikzlibrary{patterns} % Pour utiliser les motifs
+\usetikzlibrary{intersections}
 
-% \setcounter{secnumdepth}{-1} % Désactive le compteur des parties
+\usepackage{tocloft} % Permet de personnaliser le sommaire
+
+\setcounter{tocdepth}{1} % Affiche uniquement les sections dans le sommaire principal
 
 % PAGE SETTINGS
 
@@ -71,14 +73,13 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\U}{\mathbb{U}}
 \newcommand{\K}{\mathbb{K}}
+\newcommand{\F}{\mathbb{F}}
+
 \newcommand{\M}{\mathcal{M}}
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\myP}{\mathbb{P}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\V}{\mathbb{V}}
-
-\let\oldphi\phi % Sauvegarder l'ancienne définition de \phi
-\renewcommand{\phi}{\varphi} % Redéfinir \phi pour qu'il affiche \varphi
 
 
 % MOD NOTATION
@@ -156,56 +157,31 @@
 \newtheorem*{remark}{Remarque}
 \newtheorem*{proposition}{Proposition}
 \newtheorem*{lemma}{Lemme}
-%\newtheorem*{prop}{Propriété}
 \newtheorem*{proof}{Démonstration}
 \newtheorem*{example}{Exemple}
 
-% Créer un environnement qui empêche les coupures de page
-\newenvironment{nobreakproposition}
-{
-  \par\begingroup\samepage % Empêcher les coupures de page
-  \begin{proposition}
-}
-{
-  \end{proposition}
-  \par\endgroup
-}
-
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
 
 
 % ==================================================================================================================================
 % Setting Title 
 
-% Titre du document
-\title{Théorie de la Mesure}
-\author{Axel PIGEON}
-\date{\today}
-
-\setlength{\parindent}{0pt}
-\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
 
 \begin{document}
 
+\setlength{\parindent}{0pt}
 
 % ==================================================================================================================================
 % CONTENT
 
 
 % Page de titre 
-\maketitle
+% \input{titlepage.tex}
 
 % Table des matières 
 \tableofcontents
 \newpage
 
-% Inclusion des chapitres 
-\include{chapitres/chapitre1_Espaces_Mesurables}
-\include{chapitres/chapitre2_Mesures}
-\include{chapitres/chapitre3_Integration}
-\include{chapitres/chapitre4_Integrales_parametres}
-\include{chapitres/chapitre5_Integration_Rn}
-\include{chapitres/chapitre6_Espaces_Lp}
-\include{chapitres/chapitre7_Introduction_Analyse_Fourrier}
 
 
 \end{document}
