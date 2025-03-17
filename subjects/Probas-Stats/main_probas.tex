@@ -1,208 +1,50 @@
-% Use documentclass{article}
-\documentclass{report}
-
-
 % ==================================================================================================================================
-% HEADER
-% Documents packages, environements, page configuration
+% Probabilités et Statistiques
 
-\usepackage[french]{babel}
-\usepackage[T1]{fontenc}
-\usepackage{ragged2e}
-\usepackage{amsfonts}
-\usepackage{systeme}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{comment}
-\usepackage{multicol}
-\usepackage{lipsum} 
-\usepackage{graphicx}
-\usepackage{stmaryrd}
-\usepackage{wrapfig}
-\usepackage{colortbl}
-\usepackage{cellspace}
-\usepackage{ntheorem}
-\usepackage{lmodern}
-\usepackage{mathtools}
-\usepackage{ragged2e}
-\usepackage{tabularx}
-\usepackage{titlepic}
-\usepackage{fancyhdr}
-\usepackage{caption}
-\usepackage{xcolor} % pour les couleurs
-\usepackage[linkbordercolor=white]{hyperref} % après avoir chargé xcolor
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{listings}
-\usepackage{tikz}
-\usepackage{mdframed}
-\usepackage{enumitem}
-\usepackage{xparse} % Nécessaire pour définir des environnements avec arguments optionnels
-\usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
-\usepackage{needspace} % Pour éviter le fractionnement des environnnements
-% \usepackage{parskip} % Désactive l'indentation des pragraphes et rajoute un espace entre deux 
-\usetikzlibrary{patterns} % Pour utiliser les motifs
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                       TITLE
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-% \setcounter{secnumdepth}{-1} % Désactive le compteur des parties
+\begin{titlepage}
+    \centering
+    {\Huge Probabilités et Statistiques \par}
+    \vspace{1cm}
+    {\Large Licence Mathématiques-Informatique \par}
+    \vfill
+    {\Large Auteur: Axel PIGEON \par}
+    {\Large INU Champollion \par}
+    \vfill
+\end{titlepage}
 
-% PAGE SETTINGS
+\clearpage
 
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%               Chapters Inclusion
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-\setlength{\columnseprule}{1pt}               % ligne de séparation entre les colonnes
-\def\columnseprulecolor{\color{black}}
+\chapter{Variables Aléatoires Réelles Discrètes}
+\input{subjects/Probas-Stats/chapitres/chapitre1_Variables_Aleatoires_Relles_Discretes.tex}
 
-\newcolumntype{C}{>{$\displaystyle}Sc<$}      % style d'affichage et taille 
-\cellspacetoplimit=5pt                        % de la séparation entre colonnes
-\cellspacebottomlimit=5pt
+\chapter{Variables Aléatoires Continues}
+\input{subjects/Probas-Stats/chapitres/chapitre2_Variables_Aleatoires_Continues.tex}
 
+\chapter{Vecteurs Aléatoires}
+\input{subjects/Probas-Stats/chapitres/chapitre3_Vecteurs_Aléatoires.tex}
 
-% MATHS SHORTHANDS
+\chapter{Fonctions Génératrices}
+\input{subjects/Probas-Stats/chapitres/chapitre4_Fonctions_Generatrices.tex}
 
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\U}{\mathbb{U}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\M}{\mathcal{M}}
-\newcommand{\B}{\mathcal{B}}
-\newcommand{\myP}{\mathbb{P}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\V}{\mathbb{V}}
+\chapter{Convergences}
+\input{subjects/Probas-Stats/chapitres/chapitre5_Convergences_Suites_Variables_Aleatoires.tex}
 
-\let\oldphi\phi % Sauvegarder l'ancienne définition de \phi
-\renewcommand{\phi}{\varphi} % Redéfinir \phi pour qu'il affiche \varphi
+\chapter{Lois Conjointes}
+\input{subjects/Probas-Stats/chapitres/chapitre6_Lois_Conjointes.tex}
 
+\chapter{Estimation Ponctuelle}
+\input{subjects/Probas-Stats/chapitres/chapitre7_Estimation_Ponctuelle.tex}
 
-% MOD NOTATION
+\chapter{Estimation par Intervalle de Confiance}
+\input{subjects/Probas-Stats/chapitres/chapitre8_Estimation_Intervalle_Confiance.tex}
 
-\theorembodyfont{\upshape}
-
-% Définir un environnement pour encadrer les définitions avec un titre
-\NewDocumentEnvironment{definition}{O{}}
-{
-  \begin{mdframed}[linewidth=0pt,linecolor=gray,backgroundcolor=gray!10,roundcorner=5pt]
-  \textbf{Définition}%
-  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
-  . % Point à la fin
-}
-{
-  \end{mdframed}
-}
-
-% Définir un environnement pour encadrer les théorèmes avec un titre
-\NewDocumentEnvironment{theorem}{O{}}
-{
-  \samepage
-  \begin{mdframed}[linewidth=1pt,linecolor=darkgray,backgroundcolor=darkgray!10,roundcorner=5pt]
-  \textbf{Théorème}%
-  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
-  . % Point à la fin
-}
-{
-  \end{mdframed}
-}
-
-% Définir un environnement pour encadrer les corollaires
-\NewDocumentEnvironment{corollary}{O{}}
-{
-  \begin{mdframed}[linewidth=1pt,linecolor=gray,backgroundcolor=gray!10,roundcorner=5pt]
-  \textbf{Corollaire}%
-  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
-  . % Point à la fin
-}
-{
-  \end{mdframed}
-}
-
-
-% Définir un environnement pour encadrer les critères
-\NewDocumentEnvironment{criteria}{O{}}
-  {
-    \begin{mdframed}[linewidth=1pt,
-                      linecolor=gray,
-                      backgroundcolor=gray!10,
-                      roundcorner=5pt
-                      ]
-    \textbf{Critère}%
-    \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
-    . % Point à la fin
-  }
-  {
-    \end{mdframed}
-  }
-
-% Définir un environnement pour encadrer les prorpiétés avec un titre
-\NewDocumentEnvironment{prop}{O{}}
-{
-  \begin{mdframed}[linewidth=0pt,linecolor=gray,backgroundcolor=gray!10,roundcorner=5pt]
-  \textbf{Propriété}%
-  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
-  . % Point à la fin
-}
-{
-  \end{mdframed}
-}
-				
-
-\theoremstyle{plain}
-\newtheorem*{remark}{Remarque}
-\newtheorem*{proposition}{Proposition}
-\newtheorem*{lemma}{Lemme}
-%\newtheorem*{prop}{Propriété}
-\newtheorem*{proof}{Démonstration}
-\newtheorem*{example}{Exemple}
-
-% Créer un environnement qui empêche les coupures de page
-\newenvironment{nobreakproposition}
-{
-  \par\begingroup\samepage % Empêcher les coupures de page
-  \begin{proposition}
-}
-{
-  \end{proposition}
-  \par\endgroup
-}
-
-
-
-% ==================================================================================================================================
-% Setting Title 
-
-% Titre du document
-\title{Probabilités et Statistiques}
-\author{Axel PIGEON}
-\date{\today}
-
-\setlength{\parindent}{0pt}
-\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
-
-\begin{document}
-
-
-% ==================================================================================================================================
-% CONTENT
-
-
-% Page de titre 
-\input{title_probas_stats.tex}
-
-% Table des matières 
-\tableofcontents
-\newpage
-
-% Inclusion des chapitres 
-\include{chapitres/chapitre1_Variables_Aleatoires_Relles_Discretes}
-\include{chapitres/chapitre2_Variables_Aleatoires_Continues}
-\include{chapitres/chapitre3_Vecteurs_Aléatoires}
-\include{chapitres/chapitre4_Fonctions_Generatrices}
-\include{chapitres/chapitre5_Convergences_Suites_Variables_Aleatoires}
-\include{chapitres/chapitre6_Lois_Conjointes}
-\include{chapitres/chapitre7_Estimation_Ponctuelle}
-\include{chapitres/chapitre8_Estimation_Intervalle_Confiance}
-\include{chapitres/chapitre9_Test_dhypotheses}
-
-
-
-\end{document}
+\chapter{Test d'hypothèses}
+\input{subjects/Probas-Stats/chapitres/chapitre9_Test_dhypotheses.tex}

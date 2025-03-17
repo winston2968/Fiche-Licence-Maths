@@ -1,8 +1,0 @@
-{
-    "project_name" : "Fiches Licence", 
-    "chapters_order" : [
-        "RE", "Algebre-Structures", "Topologie", "Algebre-Lineaire", 
-        "Integration", "Probas-Stats", "Equations-Differentielles"
-    ], 
-    "header_file" : "header.tex"
-}

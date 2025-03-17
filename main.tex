@@ -1,5 +1,4 @@
-% Use documentclass{article}
-\documentclass{report}
+\documentclass[openany]{book}
 
 
 % ==================================================================================================================================
@@ -29,32 +28,30 @@
 \usepackage{titlepic}
 \usepackage{fancyhdr}
 \usepackage{caption}
-\usepackage{xcolor} % pour les couleurs
-\usepackage[linkbordercolor=white]{hyperref} % après avoir chargé xcolor
+\usepackage{xcolor}
+\usepackage[linkbordercolor=white]{hyperref}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{listings}
 \usepackage{tikz}
-\usepackage{tikz-cd}
-\usepackage{mdframed}
-\usepackage{enumitem}
 \usepackage{pgfplots}
-\usepgfplotslibrary{fillbetween}
-\pgfplotsset{compat=1.18}
-\usetikzlibrary{angles,quotes,3d,calc}
-\usepackage{xparse} % Nécessaire pour définir des environnements avec arguments optionnels
+\usepackage{mdframed}
+\usepackage{xparse}
+\usepackage{enumitem}
+\usepackage{titlesec}
 \usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
-\usepackage{needspace} % Pour éviter le fractionnement des environnnements
-% \usepackage{parskip} % Désactive l'indentation des pragraphes et rajoute un espace entre deux 
-\usetikzlibrary{patterns} % Pour utiliser les motifs
+
+\usetikzlibrary{cd}
+\usetikzlibrary{patterns}
+\usetikzlibrary{angles,quotes}
 \usetikzlibrary{intersections}
 
-\usepackage{tocloft} % Permet de personnaliser le sommaire
+\usepgfplotslibrary{fillbetween}
 
-\setcounter{tocdepth}{1} % Affiche uniquement les sections dans le sommaire principal
 
-% PAGE SETTINGS
-
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                   PAGE SETTINGS
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 \setlength{\columnseprule}{1pt}               % ligne de séparation entre les colonnes
 \def\columnseprulecolor{\color{black}}
@@ -63,8 +60,18 @@
 \cellspacetoplimit=5pt                        % de la séparation entre colonnes
 \cellspacebottomlimit=5pt
 
+\renewcommand{\thechapter}{\arabic{chapter}}  % Set chapters numbers to 0
 
-% MATHS SHORTHANDS
+\titleformat{\part}[display] % Supprime la mise en page par défaut
+  {\centering\Huge\bfseries} % Style du titre
+  {} % Pas de numéro de partie
+  {0pt} % Espacement
+  {\vspace{10pt}} % Ajustement de la position
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                 MATHS SHORTHANDS
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
@@ -73,16 +80,25 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\U}{\mathbb{U}}
 \newcommand{\K}{\mathbb{K}}
-\newcommand{\F}{\mathbb{F}}
-
-\newcommand{\M}{\mathcal{M}}
-\newcommand{\B}{\mathcal{B}}
-\newcommand{\myP}{\mathbb{P}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\V}{\mathbb{V}}
 
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\F}{\mathcal{F}}
 
-% MOD NOTATION
+%\renewcommand{\epsilon}{\varepsilon}
+%\renewcommand{\phi}{\varphi}
+%\renewcommand{\rho}{\varrho}
+
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+\newcommand{\myP}{\mathbb{P}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                 MODS NOTATION
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 \theorembodyfont{\upshape}
 
@@ -157,31 +173,104 @@
 \newtheorem*{remark}{Remarque}
 \newtheorem*{proposition}{Proposition}
 \newtheorem*{lemma}{Lemme}
+%\newtheorem*{prop}{Propriété}
 \newtheorem*{proof}{Démonstration}
 \newtheorem*{example}{Exemple}
 
-\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+% Créer un environnement qui empêche les coupures de page
+\newenvironment{nobreakproposition}
+{
+  \par\begingroup\samepage % Empêcher les coupures de page
+  \begin{proposition}
+}
+{
+  \end{proposition}
+  \par\endgroup
+}
 
 
-% ==================================================================================================================================
-% Setting Title 
+% Redéfinir la commande \part pour insérer une image sous le titre et supprimer le numéro
+\titleformat{\part}[display]
+  {\centering\Huge\bfseries}  % Style du titre
+  {}  % Pas de numéro de partie
+  {0pt}  % Pas d'espacement avant le titre
+  {}  % Pas d'espacement après le titre
+
+% Redéfinir la commande \part pour inclure une image sous le titre
+\renewcommand{\part}[2][default_image.png]{% 
+  \clearpage
+  \thispagestyle{empty}  % Pas de numéro de page
+  \begin{center}
+    {\Huge\bfseries #2}  % Titre de la partie
+    \vspace{2cm}  % Espace entre le titre et l'image
+    \includegraphics[width=\textwidth]{#1}  % Image de la partie (chemin passé en argument)
+  \end{center}
+  \clearpage  % Nouvelle page après la partie
+  \addcontentsline{toc}{part}{#2}  % Ajoute la partie à la table des matières
+}
+
+
+
+
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                       TITLE
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+% Document Title
+\title{Algèbre Linéaire 3}
+\author{Axel PIGEON}
+\date{\today}
 
 
 \begin{document}
 
-\setlength{\parindent}{0pt}
 
 % ==================================================================================================================================
 % CONTENT
 
 
-% Page de titre 
-% \input{titlepage.tex}
+% Title Page
+\input{titlepage.tex}
 
-% Table des matières 
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}} % Masque tout sauf \part{}
+
 \tableofcontents
-\newpage
 
+\setlength{\parindent}{0pt}
 
+% Inclusion Parts (Courses)
+% \part{Raisonnement et Ensembles}
+% \setcounter{chapter}{0}
+% \include{subjects/RE/main_RE}
+
+% \part{Algèbre des Structures}
+% \setcounter{chapter}{0}
+% \include{subjects/Algebre-Structures/main_AS}
+
+\part[images/algebre.png]{Algèbre Linéaire}
+\setcounter{chapter}{0}
+\include{subjects/Algebre-Lineaire/main_AL}
+
+% \part{Topologie}
+% \setcounter{chapter}{0}
+% \include{subjects/Topologie/main_topologie}
+
+% \part{Analyse}
+% \setcounter{chapter}{0}
+% \include{}
+
+% \part{Intégration}
+% \setcounter{chapter}{0}
+% \include{subjects/Integration/main_integration}
+
+% \part{Équations Différentielles}
+% \setcounter{chapter}{0}
+% \include{subjects/Equations-Differentielles/main_equa_diffs}
+
+% \part{Probabilités et Statistiques}
+% \setcounter{chapter}{0}
+% \include{subjects/Probas-Stats/main_probas}
 
 \end{document}
