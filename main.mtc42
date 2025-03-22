@@ -1,0 +1,23 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.1}Introduction Générale aux Tests d'Hypothèses}{\reset@font\mtcSfont 159}{section.9.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.1.1}Hypothèses nulle et alternative}{\reset@font\mtcSSfont 159}{subsection.9.1.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.1.2}Erreur de type I et erreur de type II}{\reset@font\mtcSSfont 160}{subsection.9.1.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.1.3}Statistique de test et région d'acceptation}{\reset@font\mtcSSfont 160}{subsection.9.1.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.1.4}Processus d'un test d'hypothèse}{\reset@font\mtcSSfont 161}{subsection.9.1.4}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.2}Tests d'hypothèses pour une moyenne}{\reset@font\mtcSfont 161}{section.9.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.2.1}Tests sur un échantillon unique}{\reset@font\mtcSSfont 161}{subsection.9.2.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.2.2}Test de comparaison de deux moyennes (deux échantillons)}{\reset@font\mtcSSfont 162}{subsection.9.2.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.2.3}Test de comparaison des moyennes de deux échantillons appariés}{\reset@font\mtcSSfont 163}{subsection.9.2.3}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.3}Tests d'hypothèses pour une variance}{\reset@font\mtcSfont 164}{section.9.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.3.1}Test de conformité d'une variance}{\reset@font\mtcSSfont 164}{subsection.9.3.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.3.2}Test de comparaison de deux variances (échantillons indépendants)}{\reset@font\mtcSSfont 164}{subsection.9.3.2}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.4}Tests d'hypothèses pour une proportion}{\reset@font\mtcSfont 165}{section.9.4}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.4.1}Test de conformité d'une proportion}{\reset@font\mtcSSfont 165}{subsection.9.4.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {9.4.2}Test de comparaison de deux proportions}{\reset@font\mtcSSfont 165}{subsection.9.4.2}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Étape 1 : Hypothèses}{\reset@font\mtcPfont 166}{example.53}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Étape 2 : Estimation des proportions}{\reset@font\mtcPfont 166}{example.53}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Étape 3 : Calcul de la statistique de test}{\reset@font\mtcPfont 166}{example.53}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Étape 4 : Détermination de la région d'acceptation}{\reset@font\mtcPfont 166}{example.53}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Étape 5 : Conclusion}{\reset@font\mtcPfont 166}{example.53}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.5}Test de conformité à une loi}{\reset@font\mtcSfont 166}{section.9.5}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.6}Tests d'indépendances}{\reset@font\mtcSfont 166}{section.9.6}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {9.7}Interprétation des résultats}{\reset@font\mtcSfont 166}{section.9.7}}

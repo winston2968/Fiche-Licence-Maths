@@ -39,6 +39,7 @@
 \usepackage{xparse}
 \usepackage{enumitem}
 \usepackage{titlesec}
+\usepackage{minitoc}  % Permet d'afficher une table des matières locale
 \usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
 
 \usetikzlibrary{cd}
@@ -189,25 +190,30 @@
 }
 
 
-% Redéfinir la commande \part pour insérer une image sous le titre et supprimer le numéro
-\titleformat{\part}[display]
-  {\centering\Huge\bfseries}  % Style du titre
-  {}  % Pas de numéro de partie
-  {0pt}  % Pas d'espacement avant le titre
-  {}  % Pas d'espacement après le titre
 
-% Redéfinir la commande \part pour inclure une image sous le titre
-\renewcommand{\part}[2][default_image.png]{% 
-  \clearpage
-  \thispagestyle{empty}  % Pas de numéro de page
-  \begin{center}
-    {\Huge\bfseries #2}  % Titre de la partie
-    \vspace{2cm}  % Espace entre le titre et l'image
-    \includegraphics[width=\textwidth]{#1}  % Image de la partie (chemin passé en argument)
-  \end{center}
-  \clearpage  % Nouvelle page après la partie
-  \addcontentsline{toc}{part}{#2}  % Ajoute la partie à la table des matières
-}
+
+\begin{comment}
+    
+    % Redéfinir la commande \part pour insérer une image sous le titre et supprimer le numéro
+    \titleformat{\part}[display]
+      {\centering\Huge\bfseries}  % Style du titre
+      {}  % Pas de numéro de partie
+      {0pt}  % Pas d'espacement avant le titre
+      {}  % Pas d'espacement après le titre
+    
+    % Redéfinir la commande \part pour inclure une image sous le titre
+    \renewcommand{\part}[2][default_image.png]{% 
+      \clearpage
+      \thispagestyle{empty}  % Pas de numéro de page
+      \begin{center}
+        {\Huge\bfseries #2}  % Titre de la partie
+        \vspace{4cm}  % Espace entre le titre et l'image
+        \includegraphics[width=10cm]{#1}  % Image de la partie (chemin passé en argument)
+      \end{center}
+      \clearpage  % Nouvelle page après la partie
+      \addcontentsline{toc}{part}{#2}  % Ajoute la partie à la table des matières
+    }
+\end{comment}
 
 
 
@@ -241,36 +247,41 @@
 \setlength{\parindent}{0pt}
 
 % Inclusion Parts (Courses)
-% \part{Raisonnement et Ensembles}
-% \setcounter{chapter}{0}
-% \include{subjects/RE/main_RE}
 
-% \part{Algèbre des Structures}
-% \setcounter{chapter}{0}
-% \include{subjects/Algebre-Structures/main_AS}
 
-\part[images/algebre.png]{Algèbre Linéaire}
+\part{Raisonnement et Ensembles}
+\setcounter{chapter}{0}
+\include{subjects/RE/main_RE}
+
+\part{Algèbre des Structures}
+\setcounter{chapter}{0}
+\include{subjects/Algebre-Structures/main_AS}
+
+\part{Algèbre Linéaire}
 \setcounter{chapter}{0}
 \include{subjects/Algebre-Lineaire/main_AL}
 
-% \part{Topologie}
-% \setcounter{chapter}{0}
-% \include{subjects/Topologie/main_topologie}
+\part{Topologie}
+\setcounter{chapter}{0}
+\include{subjects/Topologie/main_topologie}
 
 % \part{Analyse}
 % \setcounter{chapter}{0}
 % \include{}
 
-% \part{Intégration}
-% \setcounter{chapter}{0}
-% \include{subjects/Integration/main_integration}
+\part{Intégration}
+\setcounter{chapter}{0}
+\include{subjects/Integration/main_integration}
 
-% \part{Équations Différentielles}
-% \setcounter{chapter}{0}
-% \include{subjects/Equations-Differentielles/main_equa_diffs}
 
-% \part{Probabilités et Statistiques}
-% \setcounter{chapter}{0}
-% \include{subjects/Probas-Stats/main_probas}
+\part{Équations Différentielles}
+\setcounter{chapter}{0}
+\include{subjects/Equations-Differentielles/main_equa_diffs}
+
+
+\part{Probabilités et Statistiques}
+\setcounter{chapter}{0}
+\include{subjects/Probas-Stats/main_probas}
+
 
 \end{document}

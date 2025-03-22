@@ -1,0 +1,76 @@
+% ==================================================================================================================================
+% Introduction à l'étude Quantitative
+
+En pratique, on ne peut que très rarement résoudre formellement une équation différentielle. 
+On va donc cherche, à partir de la fonction qui la définit, de déduire des propriétés sur les solutions. 
+
+% ==================================================================================================================================
+% Introduction à l'étude Quantitative
+
+\section{Équations Autonomes}
+
+\begin{definition}[Équation Autonome]
+    Une équation différentielle est dite autonomme si elle est de la forme : 
+        \[ (A) : y'(t) = f(y(t)) \] 
+    Autrement dit si la variable temporelle (i.e $t$) n'apparaît pas dans $f$. 
+\end{definition}
+
+On peut interpréter une équation autonome en physique comme une équation à la contrainte de temps n'apparaît pas. 
+
+Posons maintenant quelques définitions supplémentaires... 
+
+\begin{definition}[Champ de vecteurs]
+    Un champ de vecteurs est une fonction continue $f : \Omega \subset \R^n \longrightarrow \R^n$ où $\Omega$ est un ouvert. 
+    Intuitivement, elle associe à chaque point de l'espace $\Omega$ un vecteur. 
+\end{definition}
+
+\begin{definition}[Courbe Intégrale]
+    Une courbe intégrale d'un champ de vecteur $f : \Omega \longrightarrow \R^n$ est une \textbf{courbe paramétrée} 
+    $y : I \subset \R \longrightarrow \Omega$ telle que $y$ est solution maximale de l'équation autonome :
+        \[ (E) : y'(t) = f(y(t)) \quad \forall i \in I \] 
+\end{definition}
+
+\begin{definition}[Trajectoire]
+    Une trajectoire de $f : \Omega \longrightarrow \R^n$ est l'image d'une courbe intégrale de $f$. 
+\end{definition}
+
+\begin{definition}[Point Stationnaire]
+    On dit que $ x_0 \in \Omega$ est un point stationnaire ou point d'quilibre si $f(x_0) = 0$. 
+    Un point stationnaire est un point où le champ de vecteur est nul. 
+\end{definition}
+
+Ainsi, un champ de vecteur va permettre de modéliser un système en mouvement tel que l'écoulement d'un fluide. 
+Une trajectoire de ce champ de vecteur sera donc la trajectoire d'une particule dans le fluide. 
+
+\begin{proposition}
+    Soit $y$ une courbe intégrale d'une équation autonome $(A)$ alors si $c \in \R$ alors la courbe :
+        \[ y_c : 
+            \begin{cases}
+                I + c \longrightarrow \R^n \\ 
+                t \longmapsto y(t - c)
+            \end{cases} \] 
+    est une courbe intégrale (i.e solution maximale de $A$). Elle a la même trajectoire que $y$ à translation près. 
+\end{proposition}
+
+\begin{proposition}
+    Soit $(A)$ une équation autonome définie par une fonction $f$. Supposons que $f$ est localement lispchitzienne. 
+    Soient :
+        \begin{align*}
+            y_1 : I_1 \longrightarrow \R^n \\ 
+            y_2 : I_2 \longrightarrow \R^n 
+        \end{align*}
+    deux solutions maximales de $(A)$ telles que 
+        \[ \exists t_1, t_2 \in I_1, I_2, \quad y_1(t_1) = y_2(t_2) \] 
+    \underline{alors} $y_1$ et $y_2$ sont égales à translation près. 
+\end{proposition}
+
+\begin{definition}[Orbite]
+    Toutes les courbes intégrales $y$ d'une équation autonome $f$ vérifiant le même problème de Cauchy ont la même trajectoire. 
+    Cette trajectoire est appelée \textbf{orbite}. 
+    On appelle \textbf{portrait de phase} la partition de $\Omega$ en orbites.  
+\end{definition}
+
+\begin{prop}[Orbites]
+    Deux orbites sont soient disjointes soient égales. 
+\end{prop}
+
