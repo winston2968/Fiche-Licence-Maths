@@ -1,13 +1,3 @@
-# Exclure les fichiers de compilation LaTeX
-*.aux
-*.log
-*.out
-*.toc
-*.maf
-*.mtc*
-*.synctex.gz
-*.thm
-
 # Exclure les fichiers de build sauf les PDF
 main.*
 !main.pdf
