@@ -2,6 +2,7 @@
 main.*
 !main.pdf
 !main.tex
+.DS_Store
 
 # Exclure les fichiers de compilation spécifiques aux chapitres
 subjects/*/.aux
