@@ -217,8 +217,21 @@
 \end{comment}
 
 
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%             Tableofcontents settings
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
+% Profondeur des mini-tables des matières
+\setcounter{minitocdepth}{2}  % Jusqu’aux sous-sections
+\setcounter{parttocdepth}{1}  % Jusqu’aux chapitres dans les parties
+
+% Configurer l’apparence
+\mtcsetrules{minitoc}{off}  % Désactiver les lignes pour les chapitres
+\mtcsetrules{parttoc}{off}   % Désactiver les lignes pour les parties
+
+% Si tu veux que la table principale n'affiche que les parties :
+\setcounter{tocdepth}{-1}  % N'afficher que les \part dans la table principale
 
 
 % - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -233,6 +246,10 @@
 
 \begin{document}
 
+% Activer les mini tables des matières
+\dominitoc    % Active les tables des chapitres
+\doparttoc    % Active les tables des parties
+
 
 % ==================================================================================================================================
 % CONTENT
@@ -241,8 +258,6 @@
 % Title Page
 \input{titlepage.tex}
 
-\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}} % Masque tout sauf \part{}
-
 \tableofcontents
 
 \setlength{\parindent}{0pt}
@@ -250,6 +265,7 @@
 % Inclusion Parts (Courses)
 
 
+    
 \part{Raisonnement et Ensembles}
 \setcounter{chapter}{0}
 \include{subjects/RE/main_RE}
@@ -283,6 +299,6 @@
 \part{Probabilités et Statistiques}
 \setcounter{chapter}{0}
 \include{subjects/Probas-Stats/main_probas}
-
+    
 
 \end{document}
