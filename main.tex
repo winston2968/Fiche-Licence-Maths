@@ -42,6 +42,7 @@
 \usepackage{titlesec}
 \usepackage{minitoc}  % Permet d'afficher une table des matières locale
 \usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
+\pagestyle{empty}
 
 \usetikzlibrary{cd}
 \usetikzlibrary{patterns}
@@ -262,43 +263,62 @@
 
 \setlength{\parindent}{0pt}
 
+% ==================================================================================================================================
+% Introduction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % Inclusion Parts (Courses)
 
-
+\begin{comment}
+        
+    \part{Raisonnement et Ensembles}
+    \setcounter{chapter}{0}
+    \include{subjects/RE/main_RE}
     
-\part{Raisonnement et Ensembles}
-\setcounter{chapter}{0}
-\include{subjects/RE/main_RE}
-
-\part{Algèbre des Structures}
-\setcounter{chapter}{0}
-\include{subjects/Algebre-Structures/main_AS}
-
-\part{Algèbre Linéaire}
-\setcounter{chapter}{0}
-\include{subjects/Algebre-Lineaire/main_AL}
-
-\part{Topologie}
-\setcounter{chapter}{0}
-\include{subjects/Topologie/main_topologie}
-
-% \part{Analyse}
-% \setcounter{chapter}{0}
-% \include{}
-
-\part{Intégration}
-\setcounter{chapter}{0}
-\include{subjects/Integration/main_integration}
-
-
-\part{Équations Différentielles}
-\setcounter{chapter}{0}
-\include{subjects/Equations-Differentielles/main_equa_diffs}
-
-
-\part{Probabilités et Statistiques}
-\setcounter{chapter}{0}
-\include{subjects/Probas-Stats/main_probas}
+    \part{Algèbre des Structures}
+    \setcounter{chapter}{0}
+    \include{subjects/Algebre-Structures/main_AS}
     
+    \part{Algèbre Linéaire}
+    \setcounter{chapter}{0}
+    \include{subjects/Algebre-Lineaire/main_AL}
+    
+    \part{Topologie}
+    \setcounter{chapter}{0}
+    \include{subjects/Topologie/main_topologie}
+    
+    % \part{Analyse}
+    % \setcounter{chapter}{0}
+    % \include{}
+    
+    \part{Intégration}
+    \setcounter{chapter}{0}
+    \include{subjects/Integration/main_integration}
+    
+    
+    \part{Équations Différentielles}
+    \setcounter{chapter}{0}
+    \include{subjects/Equations-Differentielles/main_equa_diffs}
+    
+    
+    \part{Probabilités et Statistiques}
+    \setcounter{chapter}{0}
+    \include{subjects/Probas-Stats/main_probas}
+    
+\end{comment}
 
 \end{document}
