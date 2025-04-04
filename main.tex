@@ -42,6 +42,7 @@
 \usepackage{titlesec}
 \usepackage{minitoc}  % Permet d'afficher une table des matières locale
 \usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
+\usepackage{etoolbox} % pour tester la présence d'un argument optionnel
 \pagestyle{empty}
 
 \usetikzlibrary{cd}
@@ -65,11 +66,22 @@
 
 \renewcommand{\thechapter}{\arabic{chapter}}  % Set chapters numbers to 0
 
-\titleformat{\part}[display] % Supprime la mise en page par défaut
-  {\centering\Huge\bfseries} % Style du titre
-  {} % Pas de numéro de partie
-  {0pt} % Espacement
-  {\vspace{10pt}} % Ajustement de la position
+% Redéfinition de \part avec image optionnelle
+\renewcommand{\part}[2][]{%
+  \clearpage
+  \refstepcounter{part} % incrémente le compteur de partie
+  \addcontentsline{toc}{part}{\thepart\space #2} % ajoute au sommaire
+
+  \begin{center}
+    {\Huge\bfseries #2\par}
+    \vspace{4em}  % Augmente l'écart à 2em
+    \ifstrempty{#1}{}{%
+      \includegraphics[width=0.4\textwidth]{#1}\par
+    }
+  \end{center}
+  \vspace{2em}
+}
+
 
 
 % - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -267,58 +279,36 @@
 % Introduction
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% ==================================================================================================================================
 % Inclusion Parts (Courses)
 
-\begin{comment}
-        
-    \part{Raisonnement et Ensembles}
-    \setcounter{chapter}{0}
-    \include{subjects/RE/main_RE}
+\part[./images/raisonnement.png]{Raisonnement et Ensembles}
+\setcounter{chapter}{0}
+\include{subjects/RE/main_RE}
+
+\part[./images/algebre_struct.png]{Algèbre des Structures}
+\setcounter{chapter}{0}
+\include{subjects/Algebre-Structures/main_AS}
+
+\part[./images/topologie.png]{Topologie}
+\setcounter{chapter}{0}
+\include{subjects/Topologie/main_topologie}
     
-    \part{Algèbre des Structures}
-    \setcounter{chapter}{0}
-    \include{subjects/Algebre-Structures/main_AS}
-    
-    \part{Algèbre Linéaire}
-    \setcounter{chapter}{0}
-    \include{subjects/Algebre-Lineaire/main_AL}
-    
-    \part{Topologie}
-    \setcounter{chapter}{0}
-    \include{subjects/Topologie/main_topologie}
-    
-    % \part{Analyse}
-    % \setcounter{chapter}{0}
-    % \include{}
-    
-    \part{Intégration}
-    \setcounter{chapter}{0}
-    \include{subjects/Integration/main_integration}
-    
-    
-    \part{Équations Différentielles}
-    \setcounter{chapter}{0}
-    \include{subjects/Equations-Differentielles/main_equa_diffs}
-    
-    
-    \part{Probabilités et Statistiques}
-    \setcounter{chapter}{0}
-    \include{subjects/Probas-Stats/main_probas}
-    
-\end{comment}
+\part[images/algebre.jpg]{Algèbre Linéaire}
+\setcounter{chapter}{0}
+\include{subjects/Algebre-Lineaire/main_AL}
+
+\part[./images/integration.png]{Intégration}
+\setcounter{chapter}{0}
+\include{subjects/Integration/main_integration}
+
+\part[./images/equa_diffs.png]{Équations Différentielles}
+\setcounter{chapter}{0}
+\include{subjects/Equations-Differentielles/main_equa_diffs}
+
+
+\part[./images/probas_stats.png]{Probabilités et Statistiques}
+\setcounter{chapter}{0}
+\include{subjects/Probas-Stats/main_probas}
 
 \end{document}
