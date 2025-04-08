@@ -1,0 +1,107 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+
+
+
+% ==================================================================================================================================
+% Univers et Espace Probabilisé
+
+\section{Univers et espace probabilisé}
+
+Introduisons les concepts fondamentaux des probabilités, les univers et les espaces probabilisés. 
+
+\begin{definition}[Univers]
+    On appelle univers $\Omega$ pour une expérience aléatoire, l'ensemble de toutes les issues (situations finales) possibles 
+    de cette expérience aléatoire. Chaque élément $ \omega \in \Omega$ représente une \textbf{issue} de cette expérience aléatoire.  
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item Pour une expérience aléatoire de lancer de dé, il existe 6 issues possibles correspondant aux 6 faces du dé. 
+        On a donc $\Omega = \{1, 2, 3, 4, 5, 6\}$. 
+        \item Si on pioche un boule dans une urne contenant une boule rouge et deux boules noires, on a 
+        $ \Omega = \{\text{rouge}, \text{noir}\}$. 
+    \end{itemize}
+\end{example}
+
+A partir d'un univers, on peut définir la notion d'espace probabilisé. Plus complexe, la définition nécessaire les prérequis 
+du cours d'intégration et de théorie de la mesure. 
+
+\begin{definition}[Espace Probabilisé]
+    Un espace probabilisé est un \textbf{triplet} $ (\Omega, \mathcal{F}, \myP)$ où :
+    \begin{itemize}
+        \item $\Omega$ est un univers. 
+        \item $ \mathcal{F}$ est une tribu ($\sigma$-algèbre) sur $ \Omega$. 
+        \item $ \myP$ est une mesure de probabilité sur $ \mathcal{F}$ (voir plus loin). 
+    \end{itemize}
+\end{definition}
+
+% ==================================================================================================================================
+% Évènements, Issues et Mesure de Probabilité 
+
+\section{Évènements, Issues et Mesure de Probabilité }
+
+\begin{definition}[Évènement]
+    Soit $\Omega$ un univers. On définit un évènement de $\Omega$ comme un sous-ensemble $A \subseteq \Omega$. 
+\end{definition}
+
+\begin{remark}
+    Comme définit au début, les \textbf{issues} $ \omega \in \Omega$ correspondent à des résultats élémentaires de l'expérience 
+    aléatoire, à ne pas confondre avec les évènements. 
+    Dans notre expérience de lancer de dé, $\{2\} \in \Omega$ est \textbf{l'issue} correspondant à "obtenir un 2" et 
+    $A = \{1,2\} \subset \Omega$ est \textbf{l'évènement} correspondant à "le résultat est inférieur ou égal à 2". 
+\end{remark}
+
+Par construction, $ \mathcal{F}$ contient donc tous les évènements et issues possibles de l'expérience aléatoire. 
+Elle est dont "plus complète" que $\Omega$. 
+
+\begin{definition}[Mesure de Probabilité]
+    Soit un espace probabilisé $(\Omega, \mathcal{F}, \myP)$. Une mesure de probabilité $ \myP$ 
+    sur $ \mathcal{F}$ est une mesure (au sens de la théorie de la mesure) qui vérifie : 
+    \begin{enumerate}
+        \item $ \myP : \mathcal{F} \longrightarrow [0,1]$
+        \item $ \myP(\Omega) = 1$ 
+    \end{enumerate}
+\end{definition}
+
+% ==================================================================================================================================
+% Variable Aléatoire
+
+\section{Variable Aléatoire}
+
+Pour pouvoir quantifier des calculs de probabilités ou ce que nous appellerons plus des lois, nous devons définir 
+les variables aléatoires. 
+
+\begin{definition}[Variable Aléatoire]
+    Une variable aléatoire est une fonction mesurable qui associe une valeur numérique à chaque issue d'un espace probabilisé. 
+
+    \vspace{0.5cm}
+
+    Plus formellement, une variable aléatoire $X$ sur un espace probabilisé $(\Omega, \mathcal{F}, \myP)$ 
+    est une fonction $ X : \Omega \longrightarrow \R$ telle que, pour tout ensemble $B \in \mathcal{B}_\R$ (tribu borélienne), 
+    on ait $X^{-1} (B) \subset \mathcal{F}$. 
+\end{definition}
+
+La mesurabilité d'une variable aléatoire permet donc garantir que les évènements associés aux valeurs de la variable 
+aléatoire sont bien mesurables par la mesure de probabilité. 
+
+\begin{proposition}
+    Maintetant que nous avons définit formellement le concept de variable aléatoire, on peut lier cette définition 
+    à celle des évènements. En effet, une variable aléatoire est une fonction mesurable sur un espace probabilisé $(\Omega, \mathcal{F}, \myP)$
+    telle que : 
+        \[ X : \Omega \longrightarrow \R \quad \forall B \in \mathcal{B}_\R, X^{-1} (B) \subset \mathcal{F} \] 
+    On peut alors caractériser un évènement $A$ comme la préimage d'un sous-ensemble de $\R$ par $X$ de la façon suivante. 
+        \[ A = X^{-1}(B) \; \text{pour un certain} \; B \in \mathcal{B}_\R \] 
+\end{proposition}
+
+
+
+
+
+
+
+
+

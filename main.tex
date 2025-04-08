@@ -229,6 +229,15 @@
     }
 \end{comment}
 
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%             Itemize env settings
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textbullet}
+\setlist[itemize,3]{label=\textbullet}
+\setlist[itemize,4]{label=\textbullet}
+
 
 % - - - - - - - - - - - - - - - - - - - - - - - - - 
 %             Tableofcontents settings
@@ -282,6 +291,8 @@
 % ==================================================================================================================================
 % Inclusion Parts (Courses)
 
+
+    
 \part[./images/raisonnement.png]{Raisonnement et Ensembles}
 \setcounter{chapter}{0}
 \include{subjects/RE/main_RE}
@@ -290,13 +301,13 @@
 \setcounter{chapter}{0}
 \include{subjects/Algebre-Structures/main_AS}
 
-\part[./images/topologie.png]{Topologie}
-\setcounter{chapter}{0}
-\include{subjects/Topologie/main_topologie}
-    
 \part[images/algebre.jpg]{Algèbre Linéaire}
 \setcounter{chapter}{0}
 \include{subjects/Algebre-Lineaire/main_AL}
+
+\part[./images/topologie.png]{Topologie}
+\setcounter{chapter}{0}
+\include{subjects/Topologie/main_topologie}
 
 \part[./images/integration.png]{Intégration}
 \setcounter{chapter}{0}
@@ -305,8 +316,7 @@
 \part[./images/equa_diffs.png]{Équations Différentielles}
 \setcounter{chapter}{0}
 \include{subjects/Equations-Differentielles/main_equa_diffs}
-
-
+    
 \part[./images/probas_stats.png]{Probabilités et Statistiques}
 \setcounter{chapter}{0}
 \include{subjects/Probas-Stats/main_probas}

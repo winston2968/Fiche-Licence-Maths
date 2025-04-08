@@ -48,7 +48,9 @@ Organisation des chapitres :
 		- Lévy
 	
 Rectifications :
-	- Déplacer la caractérisation séquentielle de 
-	l'adhérence dans le chapitre des suites/fonctions. 
-	Faire de même pour toutes les propositions éviquant le 
-	concept de limite/suite/fonction. 
+	- Analyse : Déplacer la caractérisation séquentielle de 
+                l'adhérence dans le chapitre des suites/fonctions. 
+                Faire de même pour toutes les propositions éviquant le 
+                concept de limite/suite/fonction. 
+    - Analyse : Faire fiche analyse à partir du cours de Bertauld
+    - AS : Ajouter définition et prop idéal maximal
