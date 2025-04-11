@@ -7,7 +7,7 @@ compile: $(MAIN).pdf
 
 # Compilation avec latexmk
 $(MAIN).pdf: $(MAIN).tex
-	$(LATEXMK) -pdf -quiet $(MAIN).tex  # Compile en PDF
+	$(LATEXMK) -pdf $(MAIN).tex  # Compile en PDF
 
 # Nettoyage des fichiers temporaires générés par la compilation
 clean:

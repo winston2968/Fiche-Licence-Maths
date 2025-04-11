@@ -245,7 +245,7 @@ Attardons nous sur le cas particulier d'une somme directe de deux sous-espaces v
 % ==================================================================================================================================
 % Familles Génératrices, Libres et Liées
 
-\section{Familles Génératrices, Libre et Liées}
+\section{Familles Génératrices, Libres et Liées}
 
 \begin{definition}[Famille]
     Soit $F$ un sous-espace vectoriel de $E$. 
@@ -299,6 +299,164 @@ Attardons nous sur le cas particulier d'une somme directe de deux sous-espaces v
 \begin{definition}[Plan vectoriel]
     On appelle plan vectoriel un sous-espace vectoriel engendré par une famille de deux vecteurs non nuls. 
 \end{definition}
+
+\begin{remark}
+    Soit $ F = \text{vect}(u_1, \dots, u_p, u)$. On peut remarquer que si $ u \in \text{vect}(u_1, \dots, u_p)$ alors 
+        \[ F = \text{vect}(u_1, \dots, u_p, u) = \text{vect}(u_1, \dots, u_p) \] 
+    Autrement dit, il peut exister des générateurs redondants. Ce sont des vecteurs "inutiles" car ils sont 
+    combinaison linéaire des autres vecteurs $ u_1, \dots, u_p$ de la famile. La famille est liée. On peut les enlever 
+    pour obtenir une famille libre. 
+\end{remark}
+
+% ==================================================================================================================================
+% Bases et coordonnées 
+
+\section{Bases et coordonées}
+
+\subsection{Bases et vecteurs colonnes}
+
+Dans cette section, nous allons aborder les notions de base et de coordonées. Ces notions permettent de donner 
+une sorte de "repère" dans lequel nous nous trouvons. Les bases peuvent être vues comme des "façon de regarder" nos espaces. 
+
+\begin{definition}[Base]
+    Soit $F$ un sous-espace vectoriel de $E$. Une base de $F$ est une famille \textbf{libre et génératrice} 
+    de $F$ dans $E$. 
+\end{definition}
+
+\begin{remark}
+    Ainsi, pour montrer qu'une famille $ \mathcal{B} = (e_1, \dots, e_n)$ est une base de $F$, il faut procéder en deux temps : 
+    \begin{enumerate}[label=\roman*)]
+        \item Montrer que $ \mathcal{B}$ est génératrice (i.e que $F = \text{vect}( \mathcal{B})$). 
+        \item Montrer que $ \mathcal{B} $ est libre. 
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}[Vecteur colonne]
+    Un vecteur colonne d'un $\K$-sev $F$ est une application : 
+        \[ X : \{1, \dots , n\} \longrightarrow 
+        \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_n 
+        \end{pmatrix} \in \K^n \] 
+    où $ x_1, \dots , x_n \in \K$. 
+\end{definition}
+
+\begin{remark}
+    Quelques remarques concernant les vecteurs colonnes : 
+    \begin{itemize}
+        \item Un vecteur colonne est un \textbf{objet ordonné}, i.e si on change des éléménts de position, on n'a plus 
+        le même objet. 
+        \item L'écriture en colonne n'est qu'une écriture représentative de cette fonction. 
+        \item Deux vecteurs colonnes sont égaux ssi leur composantes sont égales deux à deux. 
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}
+    Définissons quelques opérations sur les vecteurs colonnes. 
+    Soient $X,Y \in \K^n$ deux vecteurs colonnes et $ \alpha \in \K^n$, on a : 
+        \[ X + Y = 
+        \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_n 
+        \end{pmatrix}
+        + 
+        \begin{pmatrix}
+            y_1 \\ 
+            \vdots \\ 
+            y_n 
+        \end{pmatrix}
+        = 
+        \begin{pmatrix}
+            x_1 + y_1 \\ 
+            \vdots \\ 
+            x_n + y_n 
+        \end{pmatrix}
+        \quad \text{et} \quad 
+        \alpha X = \alpha . 
+        \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_n 
+        \end{pmatrix}
+        = 
+        \begin{pmatrix}
+            \alpha . x_1 \\ 
+            \vdots \\ 
+            \alpha . x_n 
+        \end{pmatrix} \] 
+    Nous verrons dans le chapitre suivant que ces vecteurs colonnes sont en fait des cas particulier d'objects appelés 
+    matrices qui nous permettront de représenter analytiquement toute application linéaire. 
+\end{proposition}
+
+\subsection{Coordonnées et équations cartésiennes}
+
+Ces vecteurs colonnes nous permettent donc de définir la notion de coordonnées d'un vecteur dans un sev de la façon suivante. 
+
+\begin{definition}[Coordonnées]
+    Soit $F$ un $\K$-sev et $ \mathcal{B} = (e_1, \dots , e_n)$ une base de $F$. 
+    Pour tout $u \in F$, il existe un unique n-uplet $( \alpha_1, \dots , \alpha_n) \in \K^n$ tels que : 
+        \[ u = \alpha_1 e_1 + \dots + \alpha_n e_n \] 
+    On dit alors que le n-uplet $( \alpha_1, \dots , \alpha_n)$ sont les \textbf{coordonnées de $u$ dans la base $ \mathcal{B}$}. 
+
+    \vspace{0.3cm}
+
+    On peut alors définir le \textbf{vecteur coordonnées} de $u$ dans $ \mathcal{B}$ noté $[u]^{ \mathcal{B}}$ comme : 
+    \[ [u]^{ \mathcal{B}} := 
+        \begin{cases}
+            \{1, \dots , n\} \longrightarrow \K^n \\ 
+            i \longmapsto \alpha_i 
+        \end{cases} \] 
+\end{definition}
+
+Il est important de noter la différence entre un vecteur et ses coordonnées. En effet, un vecteur d'un sev $F$ est 
+un objet intrinsèque, qui ne dépend pas d'une base alors que ses coordonnées dépendent de la base 
+dans laquelle on se place.  
+Ainsi, lorsque l'on parlera des coordonnées d'un vecteur, il sera essentiel de toujours spécifier dans quelle 
+base on se trouve. 
+
+\begin{proposition}
+    Soient deux vecteurs $x, y \in F$ et $ \mathcal{B}$ une base de $F$. On a : 
+        \[ x = y \iff [x]^{ \mathcal{B}} = [y]^{ \mathcal{B}} \] 
+    Ainsi deux vecteurs sont égaux ssi ils ont les mêmes coordonnées dans une même base. 
+\end{proposition}
+
+\begin{remark}[Base canonique]
+    On appelle base canonique d'un espace vectoriel sa base de référénce. 
+    Par exemple, la base canonique de $\R^3$ est $ \mathcal{C}^3 := ((1,0,0), (0,1,0), (0,0,1))$. 
+    
+    De même, la base canonique de $\R_3[X]$ en tant que $\R$-espace vectoriel est $ \mathcal{B} = (1, X, X^2, X^3)$. 
+    Intuivivement, il faut comprendre qu'à partir de cette famille, on peut générer tout polynôme de $\R_3[X]$ 
+    par une unique combinaison linéaire. 
+\end{remark}
+
+\begin{theorem}[Équation Cartésienne]
+    Soit $ \mathcal{B} = (e_1, \dots , e_n)$ une base de $E$. 
+    Soient $ \alpha_1, \dots , \alpha_n \in \K$ alors l'ensemble : 
+        \[ H := \{x_1 e_1 + \dots + x_n e_n \in E \; | \; \alpha_1 x_1 + \dots \alpha_n x_n = 0 \} \] 
+    est un sous-espace vectoriel de $E$. On dit que c'est un sous-espace vectoriel d'équation cartésienne 
+    $\alpha_1 x_1 + \dots \alpha_n x_n = 0 $ dans la base $ \mathcal{B}$. 
+\end{theorem}
+
+Une équation cartésienne permet donc de caractériser un sous-espace vectoriel au même titre qu'une base. 
+A partir d'une équation cartésienne, on peut facilement se ramener à une base du sev. 
+
+\begin{theorem}[Bases et somme directe]
+    Soient $F_1, \dots , F_n$ $n$ sev de $E$ de bases respectives $ \mathcal{B}_1, \dots , \mathcal{B}_n$. 
+    Soit la famille $ \mathcal{B}$ composée de l'union des bases précedentes. On a alors : 
+        \[ E = \bigoplus_{i \in \llbracket 1, n \rrbracket} F_i \iff \mathcal{B} \text{ est une base de } E \] 
+\end{theorem}
+
+Ce théorème nous permet donc d'un part de facilement trouver une base de $E$ à partier d'un somme directe. 
+Mais aussi, à partie d'une base de $E$ de le décomposer en somme directe. 
+
+
+
+
+
+
+
 
 
 
