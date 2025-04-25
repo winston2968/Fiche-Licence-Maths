@@ -76,7 +76,7 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 
 \subsection{Structure du groupe symétrique}
 
-\begin{theorem}
+\begin{theorem}[Centre d'un groupe]
 	On désigne $Z$ comme étant le centre d'un groupe. Ici, $\forall n \geq 3, Z(\mathcal{S}_n) = \{e\}$.
 \end{theorem}
 
@@ -112,6 +112,8 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 			\[ \boxed{ \text{ Supp} (\sigma) := \{k \in \{1,\dots,n\}, \sigma(k) \not = k \} }\]
 	\end{itemize}
 \end{definition}
+
+\newpage 
 
 \begin{prop}[Supports, Inclusion et Produit]
 	Soient $ n \in \N$ et $\sigma,\tau \in \mathcal{S}_n$ alors :
@@ -163,8 +165,8 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 
 \begin{definition}[Cycle]
 	Soit $p \in \N$ tel que $ 2 \leq p \leq n $ et soit $s \in \mathcal{S}_n$.
-
     On dit que $s$ est un $p$-cycle de \textbf{support} $\{a_1, a_2, \dots , a_p \}$ et de \textbf{longueur} $p$ ssi $ \exists a_1, a_2, \dots , a_p \in \{1, 2, \dots , n\}$ deux à deux différents tels que :
+    
     \[
         \left \{
             \begin{array}{cccc }
@@ -203,17 +205,22 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 		\[ \text{Supp}(\sigma) = \bigcup_{i \leq l} \mathcal{O}(a_i) \] 
 	Soit $c_i \in \mathcal{S}_n, i \leq l $ un cycle de longueur $ p_i = | \mathcal{O}(a_i) | $ tel que :
 		\[ c_i = (a_i \dots) \] 
-	D'après le lemme précédent $\forall i,j \leq l $ et $ i \not = j $ :
-		\[ \boxed{ \text{ Supp}(c_i) \cap \text{Supp}(c_j) = \emptyset } \] 
-	{Posons :} $\boxed{ \tau = c_1 \circ \dots \circ c_i \circ \dots \circ c_l }$ \\
-	{Montrons que $\sigma = \tau$ :} Soit $k \in \llbracket 1, n \rrbracket $, distinguons deux cas :
-	\begin{itemize}
-		\item si $k \not \in \text{Supp}(\sigma)$ alors $\sigma(k) = k$ et par construction $\mathcal{O}(k) = \{k\}$ d'où $\tau(k) = k$ 
-		\item si $k \in \text{Supp}(\sigma)$ alors $ \exists! i \leq l$ tel que $ \tau(k) = c_i(k) = \sigma(k)$
-	\end{itemize}
-	On a donc montré que $\forall k \leq n, \tau(k) = \sigma(k)$. Donc $\sigma = \tau$ 
 \end{proof}
 \normalsize
+\end{quote}
+
+\begin{quote}
+    \begin{footnotesize}
+        D'après le lemme précédent $\forall i,j \leq l $ et $ i \not = j $ :
+		\[ \boxed{ \text{ Supp}(c_i) \cap \text{Supp}(c_j) = \emptyset } \] 
+        {Posons :} $\boxed{ \tau = c_1 \circ \dots \circ c_i \circ \dots \circ c_l }$ \\
+        {Montrons que $\sigma = \tau$ :} Soit $k \in \llbracket 1, n \rrbracket $, distinguons deux cas :
+        \begin{itemize}
+            \item si $k \not \in \text{Supp}(\sigma)$ alors $\sigma(k) = k$ et par construction $\mathcal{O}(k) = \{k\}$ d'où $\tau(k) = k$ 
+            \item si $k \in \text{Supp}(\sigma)$ alors $ \exists! i \leq l$ tel que $ \tau(k) = c_i(k) = \sigma(k)$
+        \end{itemize}
+        On a donc montré que $\forall k \leq n, \tau(k) = \sigma(k)$. Donc $\sigma = \tau$ 
+    \end{footnotesize}
 \end{quote}
 
 \begin{prop}[Ordre d'une permutation]
@@ -247,13 +254,13 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 		\[ \boxed{ \exists \omega \in \mathcal{S}_n, \quad \sigma = \omega \circ \tau \circ \omega ^{-1} } \]
 \end{definition}
 
-\begin{prop}
+\begin{prop}[Conjugaison]
 		Deux permutations sont conjuguées ssi elles sont de même type. \\ 
 		En particulier, $\forall \sigma \in \mathcal{S}_n, \forall (i_1 \dots i_l)$ un l-cycle, on a :
 			\[ \sigma \circ (i_1 \dots i_l) \sigma^{-1} = (\sigma(i_1) \dots \sigma(i_l)) \]
 \end{prop}
 
-\begin{theorem}
+\begin{theorem}[Générateurs]
 		Le groupe symétrique est engendré par les transpositions.
 \end{theorem}
 
@@ -283,7 +290,7 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 \section{Signature et groupe alterné}
 \subsection{Signature d'une permutation}
 
-\begin{definition}
+\begin{definition}[Signature]
 		Soit $\sigma \in \mathcal{S}_n$, on appelle signature de $\sigma$ l'entier $\varepsilon (\sigma)$ telle que:
 			\[ \varepsilon(\sigma) = \prod_{1\leq i \le j \leq n} \frac{\sigma(i) - \sigma(j)}{i-j} \]
 \end{definition}
@@ -300,12 +307,12 @@ Ce groupe est un exemple presque canonique en algèbre des structures, il faut d
 
 \subsection{Groupe Alterné}
 
-\begin{definition}[Noyau de la signature, Groupe alterné]
+\begin{definition}[Noyau, Groupe alterné]
 	On appelle groupe alterné le noyau de $\varepsilon$. C'est un sous-groupe distingué de $\mathcal{S}_n$.
 	On le note $\mathcal{A}_n$.
 \end{definition}
 
-\begin{prop}
+\begin{prop}[Groupe Alterné]
 	Soit $n \geq 3$
 	\begin{itemize}
 		\item $\mathcal{S}_n$ est engendré par les permutations $(1,i), 2 \geq i \geq n$ 

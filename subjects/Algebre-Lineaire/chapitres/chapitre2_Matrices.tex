@@ -1,0 +1,36 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans ce chapitre, nous allons définir formellement les matrices ainsi que les espaces vectoriels de matrices. 
+Ces objets vont nous permettre de représenter très facilement les applications linéaires introduites dans le 
+chapitre 1. Les propriétés que nous allons voir sur les matrices pourront, pour la plupart se transposer aux applications 
+représentées. 
+
+\vspace{0.3cm}
+
+Dans tout ce chapitre, on nommera $E$ un $\K$-espace vectoriel où $\K$ est un corps commutatif. 
+
+% ==================================================================================================================================
+% Matrices 
+
+\section{Matrices}
+
+\begin{definition}[Matrice]
+    On appelle matrice $n \in \N$ lignes et $p \in \N$ colonnes toute application 
+        \[ M : \{1, \dots , n\} \times \{1, \dots , p\} \longrightarrow \K \] 
+    On dit alors que $M$ est de taille $n + p$. 
+\end{definition}
+
+\begin{example}
+    Les matrices sont représentées de façon tabulaire. 
+    Par exemple une matrice $M$ à 2 lignes et 3 colonnes à coefficients dans $\R$ peut être : 
+        \[ M = 
+            \begin{pmatrix}
+                1 & 26 & \frac{3}{2} \\ 
+                \pi & 6 & \sqrt{2} 
+            \end{pmatrix} \] 
+    On notera $M(i,j)$ ou $M_{i,j}$ le coefficient de $M$ de la i-ème ligne et j-ème colonne. 
+    Ici, on a donc $M(1,1) = 1$ et $M(2, 3) = \sqrt{2}$. 
+\end{example}
