@@ -6,5 +6,7 @@ main.*
 
 # Exclure les fichiers de compilation spécifiques aux chapitres
 subjects/*/.aux
+subjects/.DS_Store 
+subjects/*/.DS_Store
 
 

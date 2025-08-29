@@ -6,15 +6,179 @@ Les ensembles sont les structures les plus primitives des mathématiques, elles 
 à l'intérieur pour ensuite définir de nouveaux objets plus complexes. 
 
 % ==================================================================================================================================
-% Définition et Egalité
+% Définition et Égalité
 
-\section{Définition et Egalité}
+\section{Généralités}
+
+\subsection{Définition}
 
 \begin{definition}[Ensemble]
-    Un ensemble est une collection d'objets. 
+    Un ensemble est une collection non ordonnée d'objets appelés éléments. 
 \end{definition}
 
+\textbf{L'ensemble vide}, noté $ \emptyset $, est l’unique ensemble ne contenant aucun élément. 
+Un ensemble peut être vu comme un sac contenant divers éléments. 
+
 \begin{example}
-    Les entiers positifs est un ensemble. Les entiers négatifs contituent aussi un ensemble. 
+    Les entiers positifs constituent un ensemble, de même que les entiers négatifs. 
+    On peut aussi parler au sens plus large de l'ensemble des jours de la semaine, ou de l'ensemble 
+    des voitures bleues. 
 \end{example}
 
+\subsection{Appartenance, Inclusion, Égalité}
+
+La théorie des ensembles est régie par une simple relation : l'appartenance. 
+
+\begin{definition}[Appartenance]
+    Soit $E$ un ensemble et $x$ un élément quelconque. 
+    On dit que \emph{$x$ appartient à $E$} si $x$ est un élément de $E$. 
+    On peut aussi dire que \emph{$E$ contient $x$}. On note alors 
+    $x \in E$. 
+
+    Dans le cas contraire, si "$x$ n'est pas dans $E$", on dit que 
+    \emph{$x$ n'appartient pas à $E$}. 
+    On note alors $x \notin E$. 
+\end{definition}
+
+Par extension, on peut définir les notions d'inclusion et d'égalité entre ensembles. 
+
+\begin{definition}[Inclusion]
+    Soient $E, F$ deux ensembles. On dit que $F$ est inclus dans $E$ ou que $E$ contient $F$ 
+    si tous les éléments de $F$ appartiennent aussi à $E$. On note alors $F \subset E$. 
+    Plus formellement, 
+        \[ F \subset E \iff \forall x \in F, \; x \in E. \] 
+\end{definition}
+
+\begin{definition}[Égalité]
+    Soient $E$ et $F$ deux ensembles. On dira qu'ils sont égaux s’ils possèdent 
+    exactement les mêmes éléments. On notera alors $E = F$.
+    Plus formellement, 
+        \[ E = F \iff (\forall x \in E, \; x \in F) \; \text{et} \; (\forall x \in F, \; x \in E). \] 
+\end{definition}
+
+\begin{proposition}
+    On peut aussi caractériser l'égalité d'ensembles en termes d'inclusions. 
+    Ainsi, deux ensembles égaux peuvent aussi être vus comme deux ensembles inclus l'un dans l'autre. 
+    D'où : 
+        \[ E = F \iff E \subset F \text{ et } F \subset E. \]     
+\end{proposition}
+
+Pour montrer une égalité d'ensembles, on utilisera donc préférentiellement le principe de la 
+double inclusion. 
+
+\section{Opérations}
+
+Définissons maintenant quelques opérations sur les ensembles. 
+
+\begin{definition}[Opérations]
+    Soit $E$ un ensemble et $A$ et $B$ deux parties de $E$. On définit les opérations suivantes : 
+    \begin{itemize}
+        \item On appelle \textbf{complémentaire} de $A$ dans $E$, noté $\overline{A}$, le sous-ensemble de $E$ 
+        qui contient tous les éléments de $E$ qui ne sont pas dans $A$. 
+            \[ \overline{A} := \{ x \in E \; | \; x \notin A \}. \] 
+        \item On appelle la \textbf{différence} de $A$ par $B$ dans $E$, notée $A \setminus B$, le sous-ensemble de $E$ 
+            contenant tous les éléments de $A$ qui ne sont pas dans $B$. 
+            \[ A \setminus B := \{ x \in A \; | \; x \notin B \}. \] 
+        \item On appelle \textbf{intersection} de $A$ et $B$, notée $A \cap B$, le sous-ensemble de $E$ 
+            contenant tous les éléments à la fois dans $A$ \textbf{et} dans $B$. 
+                \[ A \cap B := \{ x \in E \; | \; x \in A \text{ et } x \in B \}. \] 
+        \item On appelle \textbf{union} de $A$ et $B$, notée $A \cup B$, le sous-ensemble de $E$ 
+            contenant tous les éléments appartenant à $A$ \textbf{ou} à $B$. 
+                \[ A \cup B := \{ x \in E \; | \; x \in A \text{ ou } x \in B \}. \] 
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    \begin{itemize}
+        \item On parlera d'union disjointe de deux ensembles $A$ et $B$ lorsque leur intersection est vide. 
+        \item On aura évidemment tout le temps $A \cap B \subset A$ et $A \cap B \subset B$. 
+    \end{itemize}
+\end{proposition}
+
+\begin{prop}[Opérations]
+    Soient $E$ un ensemble et $A, B$ et $C$ des parties de $E$. 
+    On a les propriétés suivantes : 
+    \begin{enumerate}
+        \item Commutativité de $\cap$ et $\cup$ : 
+            \[ A \cap B = B \cap A \quad \text{et} \quad A \cup B = B \cup A. \] 
+        \item Associativité de $\cap$ et $\cup$ :
+            \[ A \cap (B \cap C) = (A \cap B) \cap C \quad \text{et} \quad A \cup (B \cup C) = (A \cup B) \cup C. \] 
+        \item Éléments neutres : 
+            \[ A \cup \emptyset = A, \quad A \cap E = A, \quad A \cap \emptyset = \emptyset, \quad A \cup E = E. \] 
+        \item Distributivité : 
+            \[ A \cup (B \cap C) = (A \cup B) \cap (A \cup C) \quad \text{et} \quad A \cap (B \cup C) = (A \cap B) \cup (A \cap C). \] 
+        \item Complémentaire involutif : $ \overline{\overline{A}} = A$. 
+        \item Lois de De Morgan : 
+            \[ \overline{A \cap B} = \overline{A} \cup \overline{B} \quad \text{et} \quad \overline{A \cup B} = \overline{A} \cap \overline{B}. \] 
+    \end{enumerate}
+\end{prop}
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{minipage}{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6]
+  \begin{scope}
+    \clip (-1,0) circle (1.5);
+    \clip (1,0) circle (1.5);
+    \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
+  \end{scope}
+  \draw (-1,0) circle (1.5);
+  \draw (1,0) circle (1.5);
+  \node at (-1,-1.8) {$A$};
+  \node at (1,-1.8) {$B$};
+\end{tikzpicture}
+\caption{Union $A \cup B$}
+\end{minipage}\hfill
+\begin{minipage}{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6]
+  \begin{scope}
+    \clip (-1,0) circle (1.5);
+    \fill[gray!40, opacity=0.6] (1,0) circle (1.5);
+  \end{scope}
+  \draw (-1,0) circle (1.5);
+  \draw (1,0) circle (1.5);
+  \node at (-1,-1.8) {$A$};
+  \node at (1,-1.8) {$B$};
+\end{tikzpicture}
+\caption{Intersection $A \cap B$}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{minipage}{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6]
+  \begin{scope}
+    \clip (-1,0) circle (1.5);
+    \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
+  \end{scope}
+  \begin{scope}
+    \clip (-1,0) circle (1.5);
+    \fill[white] (1,0) circle (1.5);
+  \end{scope}
+  \draw (-1,0) circle (1.5);
+  \draw (1,0) circle (1.5);
+  \node at (-1,-1.8) {$A$};
+  \node at (1,-1.8) {$B$};
+\end{tikzpicture}
+\caption{Différence $A \setminus B$}
+\end{minipage}\hfill
+\begin{minipage}{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6]
+  % Univers E
+  \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
+  % Ensemble A en blanc
+  \fill[white] (-1,0) circle (1.5);
+  \draw (-3,-2) rectangle (3,2);
+  \draw (-1,0) circle (1.5);
+  \node at (-1,-1.8) {$A$};
+\end{tikzpicture}
+\caption{Complémentaire $\overline{A}$}
+\end{minipage}
+\end{figure}

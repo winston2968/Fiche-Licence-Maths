@@ -207,31 +207,6 @@
 }
 
 
-
-
-\begin{comment}
-    
-    % Redéfinir la commande \part pour insérer une image sous le titre et supprimer le numéro
-    \titleformat{\part}[display]
-      {\centering\Huge\bfseries}  % Style du titre
-      {}  % Pas de numéro de partie
-      {0pt}  % Pas d'espacement avant le titre
-      {}  % Pas d'espacement après le titre
-    
-    % Redéfinir la commande \part pour inclure une image sous le titre
-    \renewcommand{\part}[2][default_image.png]{% 
-      \clearpage
-      \thispagestyle{empty}  % Pas de numéro de page
-      \begin{center}
-        {\Huge\bfseries #2}  % Titre de la partie
-        \vspace{4cm}  % Espace entre le titre et l'image
-        \includegraphics[width=10cm]{#1}  % Image de la partie (chemin passé en argument)
-      \end{center}
-      \clearpage  % Nouvelle page après la partie
-      \addcontentsline{toc}{part}{#2}  % Ajoute la partie à la table des matières
-    }
-\end{comment}
-
 % - - - - - - - - - - - - - - - - - - - - - - - - - 
 %             Itemize env settings
 % - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -273,7 +248,6 @@
 
 % Activer les mini tables des matières
 \dominitoc    % Active les tables des chapitres
-\doparttoc    % Active les tables des parties
 
 
 % ==================================================================================================================================
@@ -300,28 +274,28 @@
 \setcounter{chapter}{0}
 \include{subjects/RE/main_RE}
 
-\part[./images/algebre_struct.png]{Algèbre des Structures}
-\setcounter{chapter}{0}
-\include{subjects/Algebre-Structures/main_AS}
+% \part[./images/algebre_struct.png]{Algèbre des Structures}
+% \setcounter{chapter}{0}
+% \include{subjects/Algebre-Structures/main_AS}
 
-\part[images/algebre.jpg]{Algèbre Linéaire}
-\setcounter{chapter}{0}
-\include{subjects/Algebre-Lineaire/main_AL}
+% \part[images/algebre.jpg]{Algèbre Linéaire}
+% \setcounter{chapter}{0}
+% \include{subjects/Algebre-Lineaire/main_AL}
 
-\part[./images/topologie.png]{Topologie}
-\setcounter{chapter}{0}
-\include{subjects/Topologie/main_topologie}
+% \part[./images/topologie.png]{Topologie}
+% \setcounter{chapter}{0}
+% \include{subjects/Topologie/main_topologie}
 
-\part[./images/integration.png]{Intégration}
-\setcounter{chapter}{0}
-\include{subjects/Integration/main_integration}
+% \part[./images/integration.png]{Intégration}
+% \setcounter{chapter}{0}
+% \include{subjects/Integration/main_integration}
 
-\part[./images/equa_diffs.png]{Équations Différentielles}
-\setcounter{chapter}{0}
-\include{subjects/Equations-Differentielles/main_equa_diffs}
+% \part[./images/equa_diffs.png]{Équations Différentielles}
+% \setcounter{chapter}{0}
+% \include{subjects/Equations-Differentielles/main_equa_diffs}
     
-\part[./images/probas_stats.png]{Probabilités et Statistiques}
-\setcounter{chapter}{0}
-\include{subjects/Probas-Stats/main_probas}
+% \part[./images/probas_stats.png]{Probabilités et Statistiques}
+% \setcounter{chapter}{0}
+% \include{subjects/Probas-Stats/main_probas}
 
 \end{document}

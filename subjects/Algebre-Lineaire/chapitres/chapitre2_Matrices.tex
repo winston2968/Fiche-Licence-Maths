@@ -34,3 +34,50 @@ Dans tout ce chapitre, on nommera $E$ un $\K$-espace vectoriel où $\K$ est un c
     On notera $M(i,j)$ ou $M_{i,j}$ le coefficient de $M$ de la i-ème ligne et j-ème colonne. 
     Ici, on a donc $M(1,1) = 1$ et $M(2, 3) = \sqrt{2}$. 
 \end{example}
+
+\begin{proposition}[Matrices Remarquables]
+    Le nombre de lignes et de colonnes d'une matrice pouvant varier dans $\N \times \N$, il existe des 
+    matrices dites remarquables : 
+    \begin{itemize}
+        \item \textbf{Matrice ligne} : une matrice de taille $ 1 \times p$ de la forme : $(x_1, \dots, x_p)$ 
+        \item \textbf{Matrice colonne} : de la forme 
+        $ \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_p 
+        \end{pmatrix}$ 
+    \end{itemize} 
+\end{proposition}
+
+\begin{proposition}[Matrice Égales]
+    On dit que deux matrices M et N $ \in \mathcal{M}_{n,m}(\K)$ sont égales ssi elles sont de même taille et 
+    tout leurs coefficients sont égaux. 
+        \[ \text{i.e} \quad \forall i,j \in \llbracket 1, n \rrbracket \times \llbracket 1, m \rrbracket, M(i,j) = N(i,j) \]  
+\end{proposition}
+
+\begin{definition}[Transposition]
+    Soit $ \mathcal{M}_{n,m}(\K)$ l'ensemble des matrices à coefficients dans un corps $\K$. 
+    On défini l'application transposition comme : 
+        \[ T : 
+            \begin{cases}
+                \mathcal{M}_{n,m}(\K) \longrightarrow \mathcal{M}_{m,n}(\K) \\ 
+                M = (m_{i,j}) \longrightarrow ^t M = (m_{j,i})
+            \end{cases} \]
+    Cette application prend une matrice $ n \times m$ et la retourne en une matrice $ m \times n $ en "transformant"
+    ses lignes en colonnes. 
+    Elle est \textbf{involutive}, autrement dit $ \forall M \in \mathcal{M}_{n,m}(\K) \; ^t (^t M) = M$ 
+    et \textbf{linéaire}. 
+\end{definition}
+
+\begin{definition}[Matrice symétrique]
+    On dit qu'une matrice $M \in \mathcal{M}_{n}(\K)$ est symétrique ssi $^tM = M$. 
+\end{definition}
+
+
+% ==================================================================================================================================
+% Structure 
+
+\section{Structure}
+
+L'ensemble $ \mathcal{M}_{n,m}(\K)$ des matrices de taille $ n \times m $ à coefficients dans $\K$ est 
+un espace vectoriel de dimension $ n \times n$. 
