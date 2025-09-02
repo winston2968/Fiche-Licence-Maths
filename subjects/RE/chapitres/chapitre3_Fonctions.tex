@@ -1,6 +1,8 @@
 % ==================================================================================================================================
 % Introduction
 
+\minitoc
+
 Les fonctions sont des objets essentiels en mathématiques. Outre leur utilité dans des domaines appliqués, elles constituent des objets mathématiques passionnants. Leur étude permet non seulement de comprendre la transformation d’éléments d’un ensemble à un autre, mais aussi de manipuler des ensembles et des relations abstraites. Dans ce cours, nous utiliserons les termes \emph{fonctions} et \emph{applications} de manière interchangeable.
 
 % ==================================================================================================================================
@@ -171,6 +173,8 @@ Comme nous l'avons observé avec la fonction carré, certains éléments du codo
 % ------------------------------------------------------------------
 % Fonction injective
 
+\subsection{Fonction Injective}
+
 \begin{definition}[Fonction injective]
     Une fonction $f : E \longrightarrow F$ est dite \emph{injective} si des images égales impliquent des antécédents égaux. Formulée autrement :
     \[
@@ -193,6 +197,8 @@ Comme nous l'avons observé avec la fonction carré, certains éléments du codo
 % ------------------------------------------------------------------
 % Fonction surjective
 
+\subsection{Fonction Surjective}
+
 \begin{definition}[Fonction surjective]
     Une fonction $f : E \longrightarrow F$ est dite \emph{surjective} si chaque élément du codomaine est atteint par au moins un antécédent :
     \[
@@ -211,24 +217,45 @@ Comme nous l'avons observé avec la fonction carré, certains éléments du codo
 % ------------------------------------------------------------------
 % Fonction bijective
 
+\subsection{Fonction Bijective}
+
 \begin{definition}[Fonction bijective]
-    Une fonction $f : E \longrightarrow F$ est dite \emph{bijective} si elle est à la fois injective et surjective. Autrement dit, chaque élément de $F$ possède un antécédent unique dans $E$.
+    Une fonction $f : E \longrightarrow F$ est dite \emph{bijective} si elle associe 
+    à chaque élément de $F$ un unique antécédant de $E$. 
+    On peut alors construire sa \emph{fonction inverse}, notée $f^{-1}$ telle que : 
+        \[ f^{-1} : 
+            \begin{cases}
+                F \longrightarrow E \\ 
+                f(x) \longmapsto x 
+            \end{cases} \] 
 \end{definition}
 
+\begin{proposition}
+    Pour toute fonction bijective $f : E \longrightarrow F$, on a donc : 
+        \[ \forall x \in E, f^{-1}(f(x)) = x, \quad \forall y \in F, f(f^{-1}(y)) = y \] 
+\end{proposition}
+
 \begin{example}[Fonction bijective]
-    La fonction $f : \R \longrightarrow \R$ définie par $f(x) = x + 1$ est bijective :
+    La fonction $f : \R \longrightarrow \R$ définie par $f(x) = x + 1$ est bijective d'inverse. 
     \[
         f^{-1}(y) = y-1, \quad \forall y \in \R.
     \]
 \end{example}
 
 \begin{prop}[Caractérisation]
-    Une fonction $f : E \longrightarrow F$ est bijective si et seulement si elle est injective et surjective.
+    Une fonction $f : E \longrightarrow F$ est bijective si et seulement si elle est \emph{injective} et \emph{surjective}.
 \end{prop}
 
-\begin{remark}
-    Les fonctions bijectives sont importantes car elles admettent une \emph{fonction inverse} $f^{-1} : F \longrightarrow E$ telle que :
-    \[
-        f^{-1}(f(x)) = x, \quad f(f^{-1}(y)) = y.
-    \]
-\end{remark}
+\begin{proposition}
+    Les bijections nous permettent de faire le lien avec la théorie des ensembles. 
+    En effet, deux ensembles fini $A$ et $B$ sont de même cardinal s'ils peuvent être mis en bijection. 
+\end{proposition}
+
+On peut maintenant définir la notion d'ensemble dénombrable. 
+
+\begin{definition}[Ensemble dénombrable]
+    Un ensemble $E$ est dit \emph{dénombrable} s'il peut être mis en bijection avec l'ensemble des
+    entiers naturels $\N$. 
+\end{definition}
+
+

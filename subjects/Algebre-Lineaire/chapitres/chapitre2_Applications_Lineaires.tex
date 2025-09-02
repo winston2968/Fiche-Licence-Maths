@@ -1,0 +1,105 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans le chapitre 1 nous avons détaillé la notion d'espace vectoriel ainsi que leur dimension. 
+Attardons nous maintenant sur un notion fondamentale de l'algèbre linéaire : les applications. 
+Elles permettent de lier ces espaces entre eux et possèdent beaucoup de propriétés intéressantes. 
+
+Ce chapitre est à lire et à étudier en même temps que le suivant concernant les matrices. Nous verrons à la fin de celui-ci 
+qu'elles jouent un rôle fondamental dans la compréhension et la manipulation des applications linéaires. 
+
+\vspace{0.3cm}
+
+Dans tout ce chapitre, sauf mention contraire, nous nous plaçons dans un $\K$-espace vectoriel $E$ quelconque. 
+
+% ==================================================================================================================================
+% Définition et Exemples
+
+\section{Définition et Exemples}
+
+\begin{definition}[Application Linéaire]
+    Soit $E$ et $F$ deux $\K$-espaces vectoriels. Une {application} $f : E \longrightarrow F$ est dite 
+    \emph{linéaire} si elle respecte la structure d'espaces vectoriels de $E$ et $F$. 
+    Autrement dit si :  
+    \begin{itemize}
+        \item $f$ est \textbf{additive} : $ \forall x,y \in E, f(x+y) = f(x) + f(y) $ 
+        \item $f$ est \textbf{homogène} : $ \forall x \in E, \forall \lambda \in \K, f(\lambda.x) = \lambda . f(x) $ 
+    \end{itemize}
+    Que l'on peut résumer en : 
+        \[ \forall x,y \in E, \forall \lambda \in \K, \quad f(x+y) = f(x) + f(y) \quad f(\lambda.x) = \lambda . f(x) \] 
+    Ou plus simplement : 
+        \[ \forall x,y \in E, \forall \lambda \in \K, \quad f(\lambda. x+y) = \lambda. f(x) + f(y) \] 
+    L'ensemble des applications linéaires de $E$ vers $F$ est noté $ \mathcal{L}(E,F)$ ou $ \mathcal{L}_\K(E,F)$. 
+    Lorsque $E = F$, on note $ \mathcal{L}(E)$ et on parle \emph{d'endomorphisme} de $E$. 
+    Enfin, si $F = \K$, on parle alors de \emph{forme linéaire} de $E$. 
+\end{definition}
+
+\begin{example}
+    Quelques exemples d'applications linéaires :
+    \begin{itemize}
+        \item L'application $f : \R^2 \longrightarrow \R^3, (x,y) \longmapsto (2x + 3y, -1/3y)$ est une \emph{application 
+        linéaire} de $\R^2$ dans $\R^3$. 
+        \item L'application $P \longmapsto P'$ est un \emph{endomorphisme} de $\K[X]$. 
+        \item L'application $P \longmapsto P(x)$ où $x \in \K$ est une \emph{forme linéaire} de $\K[X]$. 
+    \end{itemize}
+\end{example}
+
+\begin{remark}
+    À noter que la restriction d'une application linéaire est elle aussi linéaire. 
+\end{remark}
+
+\begin{prop}[Applications Linéaires]
+    La linéarité de telles applications $f : E \longrightarrow F$ leur procure des propriétés intéressantes : 
+    \begin{itemize}
+        \item $ f(0_E) = 0_F $ 
+        \item $f$ conserve les combinaisons linéaires : soit $(x_1, \dots, x_n)$ une suite à valeurs dans $E$, on a :
+            \[ f \left( \sum_{i=0}^{n} x_i \right) = \sum_{i=0}^{n} f(x_i) \] 
+    \end{itemize}
+\end{prop}
+
+\begin{definition}[Homothétie]
+    Soit $E$ un $\K$-espace vectoriel et $\lambda \in \K$. 
+    L'application $ \lambda \text{Id}_E$ est un endomorphisme de $E$ appelé \emph{homothétie de $E$ par rapport à $\lambda$}. 
+\end{definition}
+
+
+% ==================================================================================================================================
+% Représentation Matricielle
+
+\section{Représentation Matricielle}
+
+La grande force des applications linéaires, outre leur propriétés pratiques, est le fait que l'on puisse 
+les représenter très facilement par des matrices. 
+
+\begin{theorem}[Représentation Matricielle]
+    Soient $E,F$ deux $\K$-espaces vectoriels de dimension finie, $ \mathcal{B}_E = (e_1, \dots, e_p)$ une base de $E$ 
+    et $ \mathcal{B}_F = (f_1, \dots, f_n)$ une base de $F$. 
+    Alors toute application linéaire $f : E \longrightarrow F$ est représentée par une matrice $A \in \mathcal(M)_{n,p}(\K)$
+    telle que : 
+        \[ \forall x \in E, \quad \left[f(x)\right]_\mathcal{B_F} = A [x]_{ \mathcal{B}_E} \] 
+    De plus chaque colonne $j \in \llbracket 1, p \rrbracket$ de la matrice $A$ est constituée de l'image 
+    du vecteur de base $e_j$ par la fonction $f$. 
+    La matrice de $f$ est donc indiscociable de la base dans laquelle on l'exprime. On la notera $A = [f]_{\mathcal{B_E}}^{\mathcal{B_F}}$. 
+\end{theorem}
+
+\begin{example}{Cas particuliers}
+    L'application identité $ \text{Id} : \K^n \longrightarrow \K^p $ est représentée canoniquement par la matrice identité 
+    dans la base canonique : 
+        \[ [\text{Id}]_{\mathcal{C}_n}^{\mathcal{C}_p} = 
+            \begin{pmatrix}
+                1 & 0 & 0 & \cdots & \cdots & 0 \\ 
+                0 & 1 & 0 & \cdots & \cdots & 0 \\ 
+                0 & 0 & \ddots & \cdots & \cdots & 0 \\ 
+                \vdots & \vdots & \vdots & \ddots & \cdots & 0 \\ 
+            \end{pmatrix} \] 
+\end{example}
+
+
+% ==================================================================================================================================
+% Image et Noyau
+
+\section{Image et Noyau}
+
+

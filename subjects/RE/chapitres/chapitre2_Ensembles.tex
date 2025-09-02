@@ -1,6 +1,8 @@
 % ==================================================================================================================================
 % Introduction
 
+\minitoc
+
 Dans ce chapitre, nous allons présenter plus en détail le concept d'ensemble. 
 Les ensembles sont les structures les plus primitives des mathématiques, elles permettent par exemple d'effectuer des opérations 
 à l'intérieur pour ensuite définir de nouveaux objets plus complexes. 
@@ -66,6 +68,9 @@ Par extension, on peut définir les notions d'inclusion et d'égalité entre ens
 Pour montrer une égalité d'ensembles, on utilisera donc préférentiellement le principe de la 
 double inclusion. 
 
+% ==================================================================================================================================
+% Opérations
+
 \section{Opérations}
 
 Définissons maintenant quelques opérations sur les ensembles. 
@@ -116,69 +121,194 @@ Définissons maintenant quelques opérations sur les ensembles.
 
 
 \begin{figure}[h!]
-\centering
-\begin{minipage}{0.45\linewidth}
-\centering
-\begin{tikzpicture}[scale=0.6]
-  \begin{scope}
-    \clip (-1,0) circle (1.5);
-    \clip (1,0) circle (1.5);
-    \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
-  \end{scope}
-  \draw (-1,0) circle (1.5);
-  \draw (1,0) circle (1.5);
-  \node at (-1,-1.8) {$A$};
-  \node at (1,-1.8) {$B$};
-\end{tikzpicture}
-\caption{Union $A \cup B$}
-\end{minipage}\hfill
-\begin{minipage}{0.45\linewidth}
-\centering
-\begin{tikzpicture}[scale=0.6]
-  \begin{scope}
-    \clip (-1,0) circle (1.5);
-    \fill[gray!40, opacity=0.6] (1,0) circle (1.5);
-  \end{scope}
-  \draw (-1,0) circle (1.5);
-  \draw (1,0) circle (1.5);
-  \node at (-1,-1.8) {$A$};
-  \node at (1,-1.8) {$B$};
-\end{tikzpicture}
-\caption{Intersection $A \cap B$}
-\end{minipage}
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=0.6]
+            \begin{scope}
+                \clip (-1,0) circle (1.5);
+                \clip (1,0) circle (1.5);
+                \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
+            \end{scope}
+            \draw (-1,0) circle (1.5);
+            \draw (1,0) circle (1.5);
+            \node at (-1,-1.8) {$A$};
+            \node at (1,-1.8) {$B$};
+        \end{tikzpicture}
+        \caption{Union $A \cup B$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=0.6]
+            \begin{scope}
+                \clip (-1,0) circle (1.5);
+                \fill[gray!40, opacity=0.6] (1,0) circle (1.5);
+            \end{scope}
+            \draw (-1,0) circle (1.5);
+            \draw (1,0) circle (1.5);
+            \node at (-1,-1.8) {$A$};
+            \node at (1,-1.8) {$B$};
+        \end{tikzpicture}
+        \caption{Intersection $A \cap B$}
+    \end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
-\centering
-\begin{minipage}{0.45\linewidth}
-\centering
-\begin{tikzpicture}[scale=0.6]
-  \begin{scope}
-    \clip (-1,0) circle (1.5);
-    \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
-  \end{scope}
-  \begin{scope}
-    \clip (-1,0) circle (1.5);
-    \fill[white] (1,0) circle (1.5);
-  \end{scope}
-  \draw (-1,0) circle (1.5);
-  \draw (1,0) circle (1.5);
-  \node at (-1,-1.8) {$A$};
-  \node at (1,-1.8) {$B$};
-\end{tikzpicture}
-\caption{Différence $A \setminus B$}
-\end{minipage}\hfill
-\begin{minipage}{0.45\linewidth}
-\centering
-\begin{tikzpicture}[scale=0.6]
-  % Univers E
-  \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
-  % Ensemble A en blanc
-  \fill[white] (-1,0) circle (1.5);
-  \draw (-3,-2) rectangle (3,2);
-  \draw (-1,0) circle (1.5);
-  \node at (-1,-1.8) {$A$};
-\end{tikzpicture}
-\caption{Complémentaire $\overline{A}$}
-\end{minipage}
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=0.6]
+            \begin{scope}
+                \clip (-1,0) circle (1.5);
+                \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
+            \end{scope}
+            \begin{scope}
+                \clip (-1,0) circle (1.5);
+                \fill[white] (1,0) circle (1.5);
+            \end{scope}
+            \draw (-1,0) circle (1.5);
+            \draw (1,0) circle (1.5);
+            \node at (-1,-1.8) {$A$};
+            \node at (1,-1.8) {$B$};
+        \end{tikzpicture}
+        \caption{Différence $A \setminus B$}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=0.6]
+            % Univers E
+            \fill[gray!40, opacity=0.6] (-3,-2) rectangle (3,2);
+            % Ensemble A en blanc
+            \fill[white] (-1,0) circle (1.5);
+            \draw (-3,-2) rectangle (3,2);
+            \draw (-1,0) circle (1.5);
+            \node at (-1,-1.8) {$A$};
+        \end{tikzpicture}
+        \caption{Complémentaire $\overline{A}$}
+        \end{minipage}
 \end{figure}
+
+\begin{definition}[Produit Cartésien]
+    Soient $A$ et $B$ deux ensembles. On définit le produit cartésien de $A$ et $B$, noté $A \times B$, 
+    comme l'ensemble composé de tous les couples possibles d'éléments de $A$ et de $B$. 
+        \[ A \times B = \{(a,b) \; | \; a \in A, b \in B\} \] 
+    Par définition, on dira que $(a,b) \in A \times B$ et $(c,d) \in A \times B$ sont égaux ssi 
+    $a = c$ et $b = d$. 
+\end{definition}
+
+Par extension, on peut définir le produit cartésien de plusieurs ensembles $A_1, \dots A_n, n \in \N$ 
+comme l'ensemble des $n$-uplets de la forme $(a_1, \dots, a_n)$ où tous les $a_i \in A_i, \forall i \in \llbracket 1, n \rrbracket$. 
+
+% ==================================================================================================================================
+% Ensemble de nombres
+
+\section{Ensembles de nombres}
+
+En mathématiques, nous travaillons avec différents ensembles de nombres possédant chacun différentes 
+propriétés. Il est essentiel de bien les connaître ainsi que leurs relations d'inclusion. 
+
+\subsection{Entiers Naturels}
+
+\begin{definition}[Entiers Naturels]
+    L'ensemble des entiers naturels, noté $\N$ est définit par : 
+        \[ 0 \in \N \text{ et } \forall n \in \N, n + 1 \in \N \] 
+    Autrement dit, $\N$ est le plus petit ensemble contenant $0$ et fermé par l'opération successeur $ : n \mapsto n+1$. 
+\end{definition}
+
+On peut aussi définir $\N$ comme l'ensemble $\N := \{1, 2, 3, \dots\}$. Nous choisissons ici d'y inclure $0$. 
+
+\subsection{Entiers Relatifs}
+
+\begin{definition}[Entiers Relatifs]
+    On définit l'ensemble des entiers relatifs, noté $\Z$, comme : 
+        \[ \Z := \{\dots, -2, -1, 0, 1, 2, \dots\} \]
+    Plus formellement, $\Z$ peut être définit comme tous les nombres pouvant être formé de la soustraction 
+    de deux entiers naturels. 
+        \[ \Z = \{n - m \; | \; n,m \in \N\} \] 
+\end{definition}
+
+\begin{proposition}
+    Cette définition permet d'en déduire les propriétés suivantes : 
+    \begin{itemize}
+        \item $\Z$ contient $\N$ 
+        \item $\Z$ est fermé par addition et soustraction. 
+    \end{itemize}
+\end{proposition}
+
+\subsection{Les Rationnels}
+
+\begin{definition}[L'ensemble des Rationnels]
+    L'ensemble des rationnels est définit comme l'ensemble des fractions d'entiers relatifs à dénominateur non nul. 
+    On le note $\Q$. 
+        \[ \Q := \left\{ \frac{a}{b} \; | \; a \in \Z, b \in \Z^* \right\} \] 
+\end{definition}
+
+\begin{proposition}
+    $\Q$ est fermé par addition, soustraction, multiplication et division (sauf par zéro). 
+\end{proposition}
+
+\subsection{Ensemble des nombres réels}
+
+\begin{definition}[Ensemble des nombres réels]
+    L'ensemble des nombres réels, noté $\R$, est l'ensemble des limites de suites de rationnels convergentes. 
+    On peut aussi le définir comme l'ensemble des nombres pouvant être représentés par une infinité décimale :
+    \[
+        \R := \text{complétion de } \Q \text{ pour la norme } | \cdot |.
+    \]
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item $\R$ contient tous les rationnels (\(\Q \subset \R\)) ainsi que tous les nombres irrationnels (comme $\sqrt{2}$, $\pi$).
+        \item L'ensemble $\R$ est fermé par addition, soustraction, multiplication et division (sauf par zéro).
+        \item Il est ordonné et complet : toute suite croissante et bornée converge dans $\R$.
+    \end{itemize}
+\end{remark}
+
+\begin{prop}[Inclusions]
+    On a toujours les inclusions : 
+    \[
+        \N \subset \Z \subset \Q \subset \R
+    \]
+\end{prop}
+
+% ==================================================================================================================================
+% Cardinalité d'un ensemble
+
+\section{Cardinalité d'un ensemble}
+
+\begin{definition}[Ensemble fini et Cardinalité]
+    Un ensemble $E$ est dit \emph{fini} s'il est vide ou s'il existe un entier naturel $n \in \N$ 
+    tel qu'il existe une suite finie d'éléments de $E$, $(x_1, \dots, x_n)$, où chacun de ses éléments 
+    apparaît une et une seule fois. 
+
+    Dans ce cas, on dira que $n$ est le \emph{cardinal} de $E$. On le note $|E| = n$.
+\end{definition}
+
+\begin{proposition}
+    Le cardinal $n \in \N$ d'un ensemble est unique. 
+    Le cardinal de l'ensemble vide est 0. 
+\end{proposition}
+
+\begin{example}
+    \[
+        | \{1,2,3\} | = 3, \quad | \emptyset | = 0
+    \]
+\end{example}
+
+\begin{remark}
+    Pour les ensembles infinis (comme $\N$ ou $\R$), on parle de cardinal infini. 
+    Deux ensembles $E$ et $F$ ont le même cardinal si une bijection (voir chap. fonctions) existe entre eux.
+\end{remark}
+
+\begin{prop}[Cardinal et Opérations]
+    Soit $E$ un ensemble fini de cardinal $n \in \N$.
+    \begin{itemize}
+        \item Tout sous-ensemble de $E$ a un cardinal inférieur ou égal à $n$. 
+        \item Si $A$ est un sous-ensemble de $E$ alors $|E/A| = |E|-|A|$. 
+        \item Soient $A$ et $B$ deux sous-ensembles de $E$. On a alors : 
+            \[ \boxed{| A \cup B = |A| + |B| - | A \cap B |} \] 
+    \end{itemize}
+
+\end{prop}

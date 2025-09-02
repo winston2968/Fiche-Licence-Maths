@@ -448,10 +448,65 @@ A partir d'une équation cartésienne, on peut facilement se ramener à une base
         \[ E = \bigoplus_{i \in \llbracket 1, n \rrbracket} F_i \iff \mathcal{B} \text{ est une base de } E \] 
 \end{theorem}
 
-Ce théorème nous permet donc d'un part de facilement trouver une base de $E$ à partier d'un somme directe. 
-Mais aussi, à partie d'une base de $E$ de le décomposer en somme directe. 
+
+\begin{theorem}[Base incomplète]
+    Soit $E$ un espace vectoriel. 
+    \begin{itemize}
+        \item Toute famille libre de $E$ peut être complétée en une famille libre et génératrice (une base) de $E$. 
+        \item De toute famille génératrice de $E$, on peut en extraire une famille libre et génératrice de $E$. 
+    \end{itemize}
+\end{theorem}
+
+Fondamental, ce théorème permet de construire des bases d'espaces vectoriels mais aussi de simplifier des familles 
+génératrices en bases.
 
 
+% ==================================================================================================================================
+% Dimension
+
+\section{Dimension}
+
+Dans cette section, nous nous placeront dans des espaces vectoriels admettant une base composé 
+d'un nombre fini de vecteurs. On dit que ces espaces vectoriel sont de \emph{dimension finie}. 
+
+\begin{definition}[Dimension]
+    Soit $E$ un espace vectoriel de dimension finie. 
+    On définit la dimension de $E$ en tant que $\K$-espace vectoriel, notée $ \dim_{\K} E = n$
+    comme le nombre de vecteur dans une base de $E$. 
+\end{definition}
+
+\begin{remark}
+    Toutes les bases d'un même espace vectoriel de dimension finie ont le même nombre de vecteurs. 
+    D'où l'unicité de la dimension pour un espace vectoriel. 
+\end{remark}
+
+\begin{prop}[Dimension]
+    Soit $E$ un espace vectoriel de dimension finie. On a les propriétés suivantes : 
+    \begin{itemize}
+        \item Toute famille libre de $E$ contient \textbf{au plus} $\dim E$ vecteurs. 
+        \item Toute famille génératrice de $E$ contient \textbf{au moins} $\dim E$ vecteurs. 
+        \item Une famille de $\dim E$ vecteurs est une base de $E$ si elle est \emph{libre} ou \emph{génératrice}. 
+    \end{itemize}
+\end{prop}
+
+\begin{proposition}
+    On peut donc établir une relation entre un espace vectoriel $E$ et n'importe lequel de ses sous-espaces vectoriels $F$ : 
+        \[ \dim F \leqslant \dim E \] 
+    Avec la relation : $\dim F = \dim E \iff F = E $
+\end{proposition}
+
+\begin{example}
+    \[ \dim R^n = n, \quad \dim \K_{n}[X] = n + 1, \quad \dim \mathcal{M}_{n,p}(\K) = n \times p \] 
+\end{example}
+
+\begin{theorem}[Formule de Grassman]
+    Soient $F$ et $G$ deux sous-espaces vectoriels d'un même espace vectoriel $E$. 
+    On a alors : 
+        \[ \boxed{\dim F + \dim G = \dim (F + G) + \dim (F \cap G)} \] 
+\end{theorem}
+
+Si $E$ est de dimension finie, alors $F$ et $G$ aussi, on a donc : 
+    \[ \dim (F + G) = \dim F + \dim G - \dim (F \cap G) \] 
 
 
 
