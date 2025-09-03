@@ -9,7 +9,7 @@ Organisation des chapitres :
 		- Propriétés de base sur les ensembles
 		- Principaux Raisonnements 
 	
-	III. Algèbre des structures 
+	II. Algèbre des structures 
 		- Groupes, Sous-groupes 
 		- Morphismes de Groupes 
 		- Théorème de Lagrange 
@@ -18,7 +18,17 @@ Organisation des chapitres :
 		- Anneaux 
 		- ... 
 
-	II. Topologie
+	III. Algèbre Linéaire 
+	- Espaces Vectoriels/Sous-espaces
+	- Applications linéaires
+	- Matrices 
+	- ...
+	- Diagonalisation
+	- Trigonalisation
+	- Espaces Euclidiens 
+	- Cours Semestre 4
+
+	IV. Topologie
 		- Propriétés des espaces connus 
 		- Distances, Normes Produits Scalaites
 		- Boules, Intérieur et Adhérence
@@ -28,29 +38,18 @@ Organisation des chapitres :
 		- Connexes
 		- Homéomorphismes
 	
-	IV. Algèbre Linéaire 
-		- Espaces Vectoriels/Sous-espaces
-		- Applications linéaires
-		- Matrices 
-		- ...
-		- Diagonalisation
-		- Trigonalisation
-		- Espaces Euclidiens 
-		- Cours Semestre 4
 	
 	V. Analyse 
-		- Cours L1 Ibanez
-		- Cours L2 PO (cours bleu) 
+		- Continuité et fonctions dans topologie
 		- Cours Garric convergence 
-		 -> Insister sur les séries entières 
-	
-	VI. Intégration 
-		- Lévy
-	
+			-> Insister sur les séries entières 
+		- Calcul différentiel de plusieurs variables 
+		- Intégration Lévy 
+
+
 Rectifications :
 	- Analyse : Déplacer la caractérisation séquentielle de 
                 l'adhérence dans le chapitre des suites/fonctions. 
                 Faire de même pour toutes les propositions éviquant le 
                 concept de limite/suite/fonction. 
     - Analyse : Faire fiche analyse à partir du cours de Bertauld
-    - AS : Ajouter définition et prop idéal maximal
