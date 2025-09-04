@@ -392,9 +392,37 @@ La différentiabilité de $f$ au point $a$ garantit l'existence d'un plan tangen
 
 \section{Propriétés des applications différentiables}
 
+Maintenant que nous avons vu en quoi consiste la différentiabilité ainsi que ses implications, 
+attardons nous sur les propriétés des applications différentiables. 
 
+\subsection{Opérations Algébriques et Différentiabilité}
 
-\section{Théorème des accroissements finis}
+\begin{prop}[Opérations]
+    Soient $f,g : U \subset \R^n \longrightarrow \R^p$ deux applications différentiables 
+    en $a \in \U$ et $ \lambda : \R^n \longrightarrow \R$. Soit $\alpha \in \R$. 
+    On a les propriétés suivantes : 
+    \begin{enumerate}
+        \item $f + g$ est diférentiable et : 
+            \[ d(f + g)_a = df_a + dg_a \] 
+        \item $\lambda f$ est différentiable et : 
+            \[ d(\lambda f)_a = d(\lambda)_a f + \lambda df_a \]
+        \item Si $\lambda$ ne s'annule pas au voisinnage de $a$, alors $1/\lambda$ est différentiable et : 
+            \[ d \left(\frac{1}{\lambda}\right)_a = \frac{- d\lambda_a}{\lambda^2} \] 
+        \item si $\lambda$ ne s'annule pas au voisinnage de $a$ on en déduis donc que $f/\lambda$ 
+        est différentiable et : 
+            \[ d \left(\frac{f}{\lambda}\right)_a = \frac{(df_a)\lambda - (d\lambda_a)f}{\lambda^2} \] 
+        \item Si $\lambda$ est strictement positive au voisinnage de $a$ alors $\lambda^\alpha$ 
+        est différentiable et : 
+            \[ d(\lambda^\alpha)_a = \alpha \lambda^{\alpha - 1} (d\lambda_\alpha) \]
+    \end{enumerate}
+\end{prop}
+
+\subsection{Différentielle d'une composée : Règle de la chaine}
+
+\subsection{Différentielle d'une réciproque}
+
+\subsection{Théorème d'inversion globale}
+
 
 % ==================================================================================================================================
 % Théorème des accroissements finis
@@ -406,3 +434,98 @@ La différentiabilité de $f$ au point $a$ garantit l'existence d'un plan tangen
 % Extrema d'une fonction numérique
 
 \section{Extrema d'une fonction numérique}
+
+La fin de ce cours est consacrée à l'utilisation des outils étudiés dans le constexte de 
+la recherche d'extrema. 
+En effet, en dehors du cadre théorique de ce cours, il peut être utile de déterminer précisément (ou d'approximer)
+les extrema d'une fonction de plusieurs variables. C'est notamment le cas lors de l'application 
+de l'algorithme de descente de gradient. 
+
+Commençons tout d'abord par définir les objets de ce cours. 
+
+\begin{definition}[Extrema]
+    Soit $f : U \subset \R^n \longrightarrow \R$ et $a \in U$. 
+    \begin{enumerate}
+        \item On dit que $f$ \emph{admet un minimum local en $a$} (resp. local strict) si 
+        il existe $\alpha > 0$ tel que : 
+            \[ \forall x \in U \cap B(a, \alpha), \quad f(x) \geqslant f(a) \] 
+            \[ (\text{resp. } \forall x \in U \cap B(a, \alpha), \quad f(x) > f(a)) \] 
+        \item On dit que $f$ \emph{admet un maximim local en $a$} (resp. local strict) si 
+        il existe $\alpha > 0$ tel que : 
+            \[ \forall x \in U \cap B(a, \alpha), \quad f(x) \leqslant f(a) \] 
+            \[ (\text{resp. } \forall x \in U \cap B(a, \alpha), \quad f(x) < f(a)) \] 
+        \item On parlera de la même façon de maximum/minimum global. 
+    \end{enumerate}
+    Pour désigner les maximums/minimums locaux/globaux d'une fonction, on parlera \emph{d'extrema}. 
+\end{definition}
+
+\begin{remark}
+    Pour faire le lien avec le début de ce cours, on peut remarquer que 
+    $f$ présente un extremum local en $a$ si $f(a +h) - f(a)$ est de signe constant sur UN voisinnage de $0_{\R^n}$. 
+    Au contraire, $f$ ne présentera pas d'extrema local en $a$ si $f(a + h) - f(a)$ change de signe sur 
+    TOUT voisinnage de $0_{\R^n}$. 
+\end{remark}
+
+Nous allons tout d'abord chercher à déterminer des conditions nécessaires à la présence d'extrama 
+d'un champ de vecteurs quelconques puis nous détaillerons des conditions suffisantes 
+dans le cas général, puis dans le cas d'une fonction de deux variables. 
+
+\subsection{Condition Nécessaire}
+
+\begin{theorem}[Existence d'extrema]
+    Soit $f : U \subset \R^n \longrightarrow \R$ différentiable sur $U$ ouvert et $a \in U$. 
+    Si $f$ présente un extremum local en $a$ alors : 
+        \[ df_a = 0 \] 
+    i.e 
+        \[ \forall i \in \llbracket 1, n \rrbracket, \quad \frac{ \partial f}{ \partial x_i}(a) = 0 \iff \nabla f(a) = 0 \] 
+    On appelera ces points des \emph{singuliers}, \emph{critiques} ou \emph{stationnaires}. 
+\end{theorem}
+
+Attention, ce n'est pas une condition suffisante ! 
+
+\subsection{Conditions suffisantes : cas général}
+
+\begin{theorem}[Conditions Suffisantes (cas général)]
+    Si $a \in U$ est un point critique de $f : U \subset \R^n \longrightarrow \R$ de classe $ \mathcal{C}^2$ sur 
+    $U$ alors : 
+    \begin{itemize}
+        \item Si toutes les valeurs propres de $H_a$ sont strictement positives, alors $f$ présente un
+        minimum local strict en $a$. 
+        \item Si toutes les valeurs propres de $H_a$ sont strictement négatives, alors $f$ présente un
+        maximum local strict en $a$. 
+        \item Si $H_a$ admet deux valeurs propres non nulles de signe opposé, alors $f$ admet un point selle en $a$. 
+        \item Dans le cas où $0$ est une valeur propre de $H_a$ et que toutes les autres valeurs propres sont 
+        de même signe, on ne peut conclure sans une étude approfondie. 
+    \end{itemize}
+\end{theorem}
+
+\subsection{Conditions Suffisantes : (cas $n = 2$)}
+
+Dans le cas d'une fonction de deux variables, la matrice hessienne de $f$ est de taille 2. 
+On peut alors poser : 
+    \[ 
+        \Delta = rt - s^2    
+        \quad \text{où} \quad H_a = 
+            \begin{pmatrix}
+                r & s \\ 
+                s & t 
+            \end{pmatrix}
+    \] 
+
+On a alors les conditions suivantes : 
+
+\begin{theorem}[Conditions Suffisantes (cas $n = 2$)]
+    Soit $f$ une fonction de classe $ \mathcal{C}^2$ sur un ouvert $U$ de $\R^2$ dans $\R$ 
+    et $a \in U$ un point critique de $f$. 
+    \begin{enumerate}
+        \item Si $\Delta > 0$ alors $f$ admet un extremum local strict en $a$ : 
+            \begin{itemize}
+                \item Si $r > 0$ (ou $t > 0$) c'est un minimum. 
+                \item Si $r < 0$ (ou $t < 0$) c'est un maximum. 
+            \end{itemize}
+        \item Si $\Delta < 0$ alors $f$ n'admet pas d'extrema en $a$, c'est un point selle. 
+        \item Si $\Delta = 0$, il faut efectuer une étude plus fine à la main. 
+    \end{enumerate}
+\end{theorem}
+
+

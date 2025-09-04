@@ -237,10 +237,15 @@ Attardons nous sur le cas particulier d'une somme directe de deux sous-espaces v
             \end{cases} \] 
 \end{remark}
 
-\begin{definition}[Complémentaire]
+\begin{definition}[Supplémentaire]
     Soit $F$ un sous-espace vectoriel de $E$. On définit le supplémentaire de $F$ dans $E$ comme l'unique 
     sous-espace vectoriel $G$ de $E$ tel que $ F \oplus G = E$. 
 \end{definition}
+
+\begin{prop}[Existence]
+    Sous $E$ un espace vectoriel quelconque. 
+    Alors tout sous-espace vectoriel de $E$ possède un supplémentaire dans $E$. 
+\end{prop}
 
 % ==================================================================================================================================
 % Familles Génératrices, Libres et Liées
@@ -508,9 +513,13 @@ d'un nombre fini de vecteurs. On dit que ces espaces vectoriel sont de \emph{dim
 Si $E$ est de dimension finie, alors $F$ et $G$ aussi, on a donc : 
     \[ \dim (F + G) = \dim F + \dim G - \dim (F \cap G) \] 
 
+La supplémentarité des sev nous donne aussi une identité sur leur dimension : 
 
-
-
+\begin{theorem}[Supplémentarité et dimension]
+    Soit $E$ un espace vectoriel en dimension finie et $F,G$ deux sous-espaces vectoriels de $E$. 
+    On a alors : 
+        \[ F \oplus G = E \; \Longrightarrow \; \dim F + \dim G = \dim E \] 
+\end{theorem}
 
 
 
