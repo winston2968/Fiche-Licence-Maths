@@ -1,0 +1,253 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+
+On s'intéresse maintenant à des variables aléatoires qui prennent des valeurs réelles mais pas forcément en nombre fini ou dénombrable.
+Il est donc nécessaire de definir une probabilité sur $\R$ telle que la probabilité des singletons soit nulle.
+
+Pour cela, nous allons très fortement nous appuyer sur l'intégrale de Lebesgue et la théorie de la mesure. 
+
+% ==================================================================================================================================
+% Tribu Borélienne et Mesure 
+
+\section{Tribu Borélienne et Mesure}
+
+\subsection{Borélien vous dites ?}
+
+\begin{definition}[Tribu]
+    Soit $X$ un ensemble. Une tribu sur $X$ est une partie $ \mathcal{B} \subseteq \mathcal{P}(X)$ telle que :
+    \begin{enumerate}[label=\roman*)]
+        \item $\emptyset \in \mathcal{B}$ 
+        \item $ \mathcal{B}$ est stable par complémentaire 
+        \item $ \mathcal{B}$ est stable par union dénombrable
+    \end{enumerate}
+    Un élément de $ \mathcal{B}$ est appelé \textbf{partie mesurable}. 
+    On appelle le couple $(X, \mathcal{B})$ un espace mesurable. 
+\end{definition}
+
+\begin{remark}
+    Si on prend $X = \R$, on appelle alors sa tribu la \textbf{tribu borélienne}. 
+    C'est la plus petite tribu contenant tous les ouverts de $\R$. 
+    On la note $ \mathcal{B}_\R$. 
+\end{remark}
+
+\begin{proposition}
+    Soit $A$ un ensemble et $X$ un ensemble de parties de $A$. Il existe une plus petite tribu sur 
+    $A$ qui contienne $X$. On l'appelle \textbf{tribu engendrée} par $X$, notée $\sigma (C)$.
+
+    On définit ainsi la \textbf{tribu borélienne} sur $\R$ la tribu engendrée par les intervalles ouverts de $\R$. 
+    Les éléments de la tribu sont appelés les boréliens.
+\end{proposition}
+
+\newpage 
+\subsection{Mesure}
+
+\begin{definition}[Mesure]
+    Soit $X$ un ensemble muni d'une tribu $ \mathcal{B}$. On appelle mesure sur $ \mathcal{B}$ toute application 
+        \[ \mu : \mathcal{B} \longrightarrow \overline{R_+} \] 
+    telle que : 
+    \begin{enumerate}[label=\roman*)]
+        \item $\mu (\emptyset) = 0 $
+        \item $ \forall (A_n)_{n \in \N}$ suite de parties mesurables deux à deux disjointes :
+            \[ \mu \left( \bigcup_{n \in \N} A_n \right) = \sum_{n \in N} \mu (A_n) \] 
+    \end{enumerate}
+    On appelle le triplet $(X, \mathcal{B}, \mu)$ un espace mesuré. 
+\end{definition}
+
+\begin{theorem}[Mesure de Lebesgue]
+    Il existe une unique mesure $\lambda$ sur $(\R, \mathcal{B}_\R)$ appelée mesure de Lebesgue telle que : 
+        \[ \lambda : 
+            \begin{cases}
+                \mathcal{B}_\R \longrightarrow \overline{\R_+} \\ 
+                ]a,b] \longmapsto b-a 
+            \end{cases}
+        \] 
+    On a $\lambda(\R) = \infty$. 
+\end{theorem}
+
+\subsection{Partie Négligeable et propriété vraie presque partout}
+
+\begin{definition}[Partie Négligeable]
+    Soit $(X, \mathcal{B},\mu)$ un espace mesuré. On appelle partie négligeable de $X$ toute partie $A$ mesurable telle que 
+    $\mu(A) = 0$. 
+\end{definition}
+
+\begin{definition}[Propriété vraie presque partout]
+    Soit $(X, \mathcal{B},\mu)$ un espace mesuré. Soient $A$ une partie mesurable de $X$ et $ \mathcal{P}(A)$ une propriété sur $A$. 
+    On dit que $ \mathcal{P}(A)$ est vraie presque partout ssi :
+        \[ \mu ( \{ x \in A \; | \; \lnot \mathcal{P}(A) \} ) = 0 \] 
+    Autrement dit, une propriété sur une partie mesurable est vraie presque partout ssi l'ensemble des points où elle est fausse 
+    est négligeable. 
+\end{definition}
+
+% ==================================================================================================================================
+% Variables Aléatoires Continues
+
+\section{Variables aléatoires continues}
+
+\begin{definition}[Espace Probabilisé]
+    Soit une expérience aléatoire. On appelle le triplet $(\Omega, \mathcal{F}, \myP)$ un espace probabilisé si :
+    \begin{enumerate}[label=\roman*)]
+        \item $\Omega$ est un ensemble d'évènements possibles 
+        \item $ \mathcal{F}$ est une tribu des évènements mesurables. 
+        \item $\myP : \mathcal{F} \longrightarrow [0,1]$ est une mesure définie sur l'espace mesurable $(\Omega, \mathcal{F})$. 
+    \end{enumerate}
+    On appelle $\myP$ une mesure de probabilité sur $(\Omega, \mathcal{F})$. 
+\end{definition}
+
+\begin{definition}[Variable Aléatoire]
+    Soit $(\Omega, \mathcal{F}, \myP)$ un espace probabilisé et $(\R, \mathcal{B}_\R)$ un espace mesuable. 
+    Une variable aléatoire de $\Omega$ vers $\R$ toute fonction mesurable $X : \Omega \longrightarrow \R$.  
+\end{definition}
+
+\begin{definition}[Loi de probabilité]
+    Soit $(\Omega, \mathcal{F},\myP)$ un espace probabilisé et $X$ une variable aléatoire sur $\Omega$. 
+    La loi de $X$ est la mesure image de $ \myP$ par X. Autrement dit :
+        \[ \forall B \in \mathcal{F}, \quad \myP(X \in B) = \myP( \{ \omega \in \Omega \; | \; X(\omega) \in \Omega \} ) \] 
+    
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{5cm}
+
+\begin{definition}[Fonction de répartition]
+    On appelle fonction de répartition de la variable aléatoire $X$ la fonction 
+    \[ F_X : 
+        \begin{cases}
+            \R &\longrightarrow [0, 1] \\
+            a &\longmapsto P(X \in ]- \infty, a[)
+        \end{cases}
+    \]
+    $F_X$ est une fonction croissante admettant la limite $0$ en $- \infty$ et la limite $1$ en $+ \infty$ et elle est continue à droite. 
+\end{definition}
+
+\begin{definition}[Continuité d'une variable aléatoire réelle]
+Une variable aléatoire réelle $X$ est dite continue si il existe une fonction $F_X$ intégrable sur $\R$ positive ou nulle et continue par morceaux 
+    et telle que :
+    \[ \forall x \in \R, \quad \int_{- \infty}^{X} f_X(t) dt = F_X(X) \]
+    $f_X$ est alors la \textbf{densité} de la variable $X$.
+\end{definition}
+
+
+\section*{Principales Lois}
+
+\begin{definition}[Loi uniforme]
+    La variable aléatoire $X$ continue dont la densité est constante sur un intervalle borné $I$ et nulle en dehors est appelée la loi uniforme sur l'intervalle $I$ notée $\mathcal{U}(I)$.
+    Ainsi, on a :
+        \[ I = [a, b] \subset \R, \quad f_X(t) = 
+            \begin{cases}
+                0 \text{ si } & \text{ t } \not \in [a, b] \\
+                \dfrac{1}{b-a} & \text{ si } t \in [a, b]
+            \end{cases}
+            \; \text{ et } \; 
+            F_X(x) = 
+            \begin{cases}
+                0 & \text{ si } x \leq a \\
+                \dfrac{x - a}{b - b} & \text{ si } a \leq x \leq b \\
+                1 & \text{ si } x \geq b 
+            \end{cases}
+        \]    
+\end{definition}
+
+
+\begin{definition}[Loi Normale]
+    La loi normale (ou gaussienne ou de Laplace-Gauss) notée $\mathcal{N}(\mu, \sigma^2)$ de moyenne $\mu$ et d'écart-type $\sigma$ est la loi continue sur $\R$ de densité :
+        \[ f_X(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{- \dfrac{(x - \mu)^2}{2 \sigma^2}}\]
+    de fonction de répartition :
+        \[ F_{\mu, \sigma^2}(a) = \int_{ -\infty}^{a} \dfrac{1}{\sigma \sqrt{2 \pi}} e^{- \dfrac{(x - \mu)^2}{2 \sigma^2}} \]
+\end{definition}
+
+\begin{definition}[Loi exponentielle]
+    La loi exponentielle $\mathcal{E}(\lambda)$ de paramètre $\lambda > 0$ est la loi de densité nulle sur $\R_{-}$ et égale à $\lambda e^{-\lambda x}$ sur $\R_+$.
+    Sa fonction de répartition est la suivante :
+    \[ F(t) = 
+        \begin{cases}
+            0 \text{ si } t \leq 0 \\
+            {0}^{t} \lambda e^{-\lambda x} dx = [- e^{- \lambda x} ]_0^t = 1 - e^{- \lambda t} \; \text{ si } t \geq 0
+        \end{cases}
+    \]
+\end{definition}
+
+
+\section*{Propriétés des variables aléatoires continues}
+
+\begin{definition}[Espérance]
+    Soit $X$ une variable aléatoire continue réelle absolument continue de densité $f_X$.
+    On appelle espérance de $X$ le nombre 
+        \[ E(X) = \int_{\R} t f_X(t) dt \]
+    Si cette espérance n'est pas absolument convergente, on dit que $X$ n'a pas d'espérance.
+\end{definition}
+
+\begin{theorem}[Formule de Transfert]
+    Soit $X$ est une variable aléatoire réelle absolument continue de densité $f_X$ et si $\varphi$ est une fonction $\mathcal{C}^1$, alors $\varphi(X)$ est une variable aléatoire réelle.
+    Si elle admet un espérance, on a alors :
+        \[ E(\varphi(X)) = \int_{\R} \varphi (t)f_X(t) dt\]
+\end{theorem}
+
+\begin{definition}[Variance]
+    Soit $X$ une variable aléatoire admettant une espérance. La variance de $X$ est le nombre :
+        \[ V(X) = E((E - E(X))^2) = \int_{\R} (t - E(X))^2 f(t) dt \]
+    Toujours comme chez les variables aléatoires réelles discrètes, l'acrt type de $X$ est la racine carrée de $V(X)$ si $V(X)$ existe.
+\end{definition}
+
+% \begin{theorem}[Koenig-Huyghens]
+%     \[ V(X) = E(X^2) - E(X)^2 \]
+% \end{theorem}
+
+
+
+\section*{Lois conjointes continues}
+
+\begin{definition}[Vecteur Aléatoire]
+    Une vecteur aléatoire à $n$ composantes est une al=pplication $V$ d'un espace probabilisé $(\Omega, \mathcal{A}, P)$ dans $\R^n$ telle que l'image réciproque $V^{-1}(B)$ de tout borélien de $\R^n$ soit un élément de la tribu de $\Omega$.
+\end{definition}
+
+\begin{theorem}[Fubini]
+    Si $ f : \R^2 \rightarrow \R $ est intégrable sur $[a, b] \times [c, d]$ alors pour presque tout $x \in [a, b]$, la fonction partielle $ y \mapsto f(x, y)$ est intégrable sur $[c, d]$ et 
+        \[ \iint_{[a, b] \times [c, d]} f(x, y) dx \; dy = \int_{a}^{b} \left( \int_{c}^{d} f(x, y) dy \right) dx \]
+\end{theorem}
+
+\begin{definition}[Densité Conjointe]
+    Soit $ f : \R^2 \rightarrow \R $ une application intégrable telle que $f \geq 0$ et 
+        \[ \iint_{\R^2} f(x, y) dx \; dy = 1 \]
+    Alors la loi $\mathcal{L}(X, Y)$ du couple $(X, Y)$ est absolument continue de densité conjointe $f$ si, pour tout borélien $B$, on a :
+        \[ P((X, Y) \in B) = \iint_B f(x, y) dx \; dy \]
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+\section*{Démonstrations}
+
+- intersection quelconque de tribu est une tribu
+- limite et continuité de la fonction de répartition
+
+
+

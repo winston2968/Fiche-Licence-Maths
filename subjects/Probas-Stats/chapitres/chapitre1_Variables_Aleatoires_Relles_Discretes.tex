@@ -1,0 +1,253 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+
+% ==================================================================================================================================
+% Variable Aléatoire
+
+\section{Variable Aléatoire}
+
+\subsection{Univers et Evènement}
+
+\begin{definition}[Univers]
+    Soit $\Omega$ un ensemble. On dit que $\Omega$ est l'univers d'une expérience aléatoire s'il représente 
+    l'ensemble des issues possibles pour cette expérience. 
+\end{definition}
+
+\begin{definition}[Variable Aléatoire]
+    Soit $\Omega$ un univers d'une expérience aléatoire. Une variable aléatoire $X$ sur $\Omega$ 
+    est une application $X : \Omega \longrightarrow \R$. On note $X(\Omega)$ l'ensemble des valeurs prises par $X$. 
+\end{definition}
+
+\begin{remark}
+    Si $\Omega$ est un ensemble fini ou dénombrable, on dit que $X : \Omega \longrightarrow \R$ est une variable aléatoire réelle discrète. 
+\end{remark}
+
+\begin{example}
+    Soit l'expérience aléatoire du lancer d'une pièce de monnaie non truquée. 
+    On a alors $\Omega = \{\text{ Pile }, \text{ Face }\}$ et $X : \Omega \longrightarrow \R$. 
+\end{example}
+
+Une variable aléatoire associe donc des issues à des réels. Mais un événement d'une expérience aléatoire peut être 
+caractérisée par plusieurs issues. Par exemple si on lance un dé à 6 faces, il y a 6 issues possibles correspondant 
+à chaque face du dé. Mais on peut définir un événement telle que "le nombre obtenu est supérieur à 2". 
+Dans ce cas ci, plusieurs issues de l'expérience aléatoire peuvent correspondre au même événement. 
+
+\begin{definition}[Evènement d'une expérience aléatoire]
+    Soit $X$ une variable aléatoire réelle définie sur un univers $\Omega$. 
+    On appelle évènement $[X = x]$ de l'expérience aléatoire l'ensemble des issues possibles correspondant à cet évènement $x in \R$ . 
+    Autrement dit :
+        \[ [X = x] = \{w \in \Omega \; | \; X(\omega) = x\} = X^{-1}(x) \] 
+\end{definition}
+
+\begin{proposition}
+    Soit $X$ une variable aléatoire réelle définie sur un univers $\Omega$. 
+    L'ensemble des évènements possibles pour cette expérience aléatoire forme un système complet d'évènements. 
+    Autrement dit : 
+        \[ \sum_{x \in X(\Omega)} { \myP ([X = x])} = 1 \] 
+\end{proposition}
+
+\subsection{Loi d'une variable aléatoire}
+
+\begin{definition}[Loi]
+    Soit $X$ une variable aléatoire réelle. On appelle loi de $X$ la donnée de toutes les probabilités $ \myP(X = x)$ pour 
+    tout $x \in X(\Omega)$.  
+\end{definition}
+
+Pour donner la loi d'une variable aléatoire, il faut d'abord déterminer le support de la variable aléatoire puis en suite 
+calculer la probabilité de chaque issue. 
+On note le résultat dans un tableau pour plus de praticité. 
+
+\begin{example}
+    Soit l'exprérience aléatoire du lancer d'un dé à 6 faces non truqué. On a :
+        \[ \Omega = \{1,2,3,4,5,6\} \]
+    Nous nous trouvons dans une situation d'équiprobabilité d'où :
+        \[ \forall x \in X(\Omega), \quad \myP(X = x) = \frac{1}{6} \]
+    D'où le tableau suivant :
+    \begin{center}
+        \begin{tabular}{c|c|c|c|c|c|c}
+            $\Omega$ & 1 & 2 & 3 & 4 & 5 & 6 \\
+            \hline 
+            $ \myP(X = x)$ & $\frac{1}{6}$ & $\frac{1}{6}$ & $\frac{1}{6}$ & $\frac{1}{6}$ & $\frac{1}{6}$ & $\frac{1}{6}$ \\ 
+        \end{tabular}
+    \end{center}  
+\end{example}
+
+% ==================================================================================================================================
+% Espérance, Variance et écart type 
+
+\section{Espérance, Variance et écart-type}
+
+\subsection{Espérance et propriétés}
+
+\begin{definition}[Espérance]
+    Soit $X : \Omega \longrightarrow \R$ une variable aléatoire. 
+    On appelle espérance l'application $ \E : \mathcal{F}(\Omega) \longrightarrow \R $ qui calcule la moyenne de $X$ pondérée par les valeurs qu'elle prend. 
+    Plus formellement :
+        \[ \boxed { \E(X) = \sum_{x \in X(\Omega)} x \myP(X = x) }\] 
+\end{definition}
+
+\begin{prop}[Espérance]
+    L'espérance est une fonction linéaire. Autrement dit, pour toutes variables aléatoires $X,Y$ sur  un univers $\Omega$, 
+    et pour tout $a,b \in \R$, on a :
+        \[ \E(X+Y) = \E(X) + \E(Y) \quad \E(aX + b) = a\E(X) + b \]
+\end{prop}
+
+Lors d'une expérience aléatoire, par exemple un jeu d'argent l'espérance représente le gain moyen d'un joueur par partie 
+s'il joue un grand nombre de fois. Son signe permet de savoir si le jeu est dit équitable (autant de chances de gagner que 
+de perdre). 
+
+\vspace{0.3cm}
+
+Il peut souvent arriver que l'on veuille appliquer une fonction à notre variable aléatoire. 
+Un théorème nous permet alors simplement de calculer l'espérance de cette "nouvelle" variable aléatoire. 
+
+\begin{theorem}[Transfert]
+    Soit $X$ une variable aléatoire sur un univers $\Omega$ et $g : \R \longrightarrow \R$ une application. 
+    L'espérance de la variable aléatoire $g(X) : \Omega \longrightarrow \R$ est l'application $ \E(g(X)) : \mathcal{F}(\Omega) \longrightarrow \R$ 
+    telle que : 
+        \[ \boxed{ \E(g(X)) = \sum_{x \in X(\Omega)} g(x) \myP(X = x) } \]  
+\end{theorem}
+
+\subsection{Variance et écart-type}
+
+\begin{definition}[Variance et écart-type]
+    Soit $X$ une variable aléatoire sur un univers $\Omega$. On appelle variance l'application 
+    $\V : \mathcal{F}(\Omega) \longrightarrow \R$ telle que :
+        \[ \boxed { \V(X) = \sum_{x \in X(\Omega)} (x - \E(X))^2 \myP(X = x) } \]
+    De même, on appelle écart type l'application $ \sigma : \mathcal{F}(\Omega) \longrightarrow \R$ telle que : 
+        \[ \boxed{ \sigma(X) = \sqrt{\V(X)} } \]  
+\end{definition}
+
+La variance permet de mesurer la dispersion de la variable aléatoire autour de son espérance. 
+
+\begin{remark}
+    Les notions d'espérance, variance et écart-type sont définies par des sommes potentiellement infinies. 
+    Il se peut donc que dans le cas de variables aléatoires définies sur des univers infinies, leur espérance, 
+    variance et écart-type n'existent pas. Une étude de convergence de la somme est donc judicieuse. 
+
+    En revanche pour les variables aléatoires finies (definies sur un univers fini) ces notions sont toujours 
+    bien définies. 
+\end{remark}
+
+\begin{theorem}[Formule de König-Huygens]
+    Soit $X$ une variable aléatoire sur un univers $\Omega$ fini. On a alors : 
+        \[ \boxed{ \V(X) = \E(X^2) - \E(X)^2 } \]
+\end{theorem}
+
+\begin{remark}
+    Le calcul de la variance d'une variable aléatoire réelle finie est donc assez facile quand on le met en relation 
+    avec la formule de König-Huygens et la formule du transfert...
+\end{remark}
+
+A partir de toutes ces formules, on peut en déduire quelques propriétés sympatiques sur la variance :
+
+\begin{prop}[Variance]
+    Soit $X$ une variable aléatoire finie et $a,b \in \R$, on a :
+        \[ \V(aX+b) = a^2 \V(X) \quad \V(X + b) = \V(X) \]
+    La variance est donc assez similaire à une forme quadratique et est invariante par translation. 
+\end{prop}
+
+\begin{theorem}[Inégalité de Markov]
+    Si $X$ est une variable aléatoire réelle discrète \textbf{positive} ou nulle sur $\Omega$ d'espérance $\E(X)$, alors :
+        \[ \forall a \in ]0, + \infty [ \quad P(X \geqslant a) \leqslant \dfrac{\E(X)}{a} \]
+    En l'appliquant à la variable aléatoire $(X - \E(X))^2$ et en remarquant que son espérance vaut $\sigma^2$ et l'égalité des événements $|X - \E(X)| \geqslant \alpha$ et $(X - \E(X))^2 \geqslant \alpha^2 $ on obtient :
+        \[ \forall \alpha > 0, \quad P(|X - \E(X)| \geqslant \alpha) \leqslant \dfrac{\sigma^2}{\alpha^2}\]
+\end{theorem}
+
+% ==================================================================================================================================
+% Principales Lois
+
+\section{Principales Lois}
+
+Abordons en détail maintenant quelques lois usuelles à connaître sur le bout des doigts. 
+Ces lois permettent de modéliser la plupart des expériences aléatoires. 
+
+\subsection{Loi Uniforme}
+
+\begin{definition}[Loi Uniforme]
+    Soit $n \in \N^*$. On dit qu'un variable aléatoire $X$ suit une \textbf{loi uniforme} sur $ \llbracket 1, n \rrbracket $ 
+    lorsque son support est $X(\Omega) = \llbracket 1, n \rrbracket $ et chaque issue a la même probabilité de se produire. 
+    Autrement dit : 
+        \[ \forall x \in \llbracket 1, n \rrbracket, \quad P(X = x) = \frac{1}{n} \]
+    On note alors $X \sim \mathcal{U}(\llbracket 1, n \rrbracket)$. 
+\end{definition}
+
+\begin{proposition}
+    Soit $X \sim \mathcal{U}(\llbracket 1, n \rrbracket)$ alors l'espérance et la variance de $X$ sont de la forme : 
+        \[ \E(X) = \frac{n+1}{2} \quad \text{et} \quad \V(X) = \frac{n^2-1}{12}  \] 
+\end{proposition}
+
+\subsection{Loi de Bernouilli}
+
+\begin{definition}[Loi de Bernouilli]
+    Une variable aléatoire $X$ suit une \textbf{loi de Bernoulli} de paramètre $p \in ]0,1[$ si il n'existe que deux issues 
+    possibles $X(\Omega) = \{ 0,1 \}$ telles que : 
+        \[ \myP(X = 1) = p \quad \text{et} \quad \myP(X = 0) = 1 - p \] 
+    On note alors $X \sim \mathcal{B}(p)$.  
+\end{definition}
+
+\begin{proposition}
+    Soit $X \sim \mathcal{B}(p)$ alors l'espérance et la variance de $X$ sont de la forme :
+        \[ \E(X) = p \quad \text{et} \quad \V(X) = p(1-p)  \] 
+\end{proposition}
+
+\subsection{Loi Binomiale}
+
+L'expérience aléatoire consistant à répéter $n \in \N$ fois une expérience de Bernoulli de paramètre $ p \in ]0,1[$
+de {manière indépendante} est appelée \textbf{schéma de Bernoulli} de paramètres $n$ et $p$. 
+
+\begin{definition}[Loi Binomiale]
+    La variable aléatoire $X$ égale au \textbf{nombre de succès} d'un schéma de Bernoulli suit une {loi binomiale} 
+    de paramètres $n$ et $p$. 
+
+    On note alors $X \sim \mathcal{B}(n,p)$. 
+\end{definition}
+
+\begin{proposition}
+    Soit $X \sim \mathcal{B}(n,p)$. On a alors $X(\Omega) = \llbracket 0, n \rrbracket$ et pour tout $k \in \N$ tel que 
+    $0 \leqslant k \leqslant n $, {la probabilité d'obtenir $k$ succès} est donnée par :
+        \[ \myP(X = k) = \binom{k}{n} \times p^k \times (1-p)^{n-k}  \] 
+\end{proposition}
+
+\begin{proposition}
+    Soit $X \sim \mathcal{B}(n,p)$ alors l'espérance et la variance de $X$ sont de la forme :
+        \[ \E(X) = np \quad \text{et} \quad \V(X) = np(1-p)  \] 
+\end{proposition}
+
+\newpage
+\subsection{Loi géométrique}
+
+\begin{definition}[Loi géométrique]
+    Une variable aléatoire $X$ suit une loi géométrique de paramètre $p \in ]0,1[$ lorsque $X(\Omega) = \N^*$ et que 
+        \[ \forall k \in \N^*, \quad \myP(X = k) = p(1-p)^{k-1}  \] 
+    On note alors $X \sim \mathcal{G}(p)$. 
+\end{definition}
+
+Une loi géométrique représente le temps d'attendre du premier succès d'un espérience de Bernoulli. 
+Autrement dit X est le rang de l'épreuve ayant mené au premier succès. 
+
+\begin{proposition}
+    Soit $X \sim \mathcal{G}(p)$ où $p \in ]0,1[$ l'espérance et la variance de $X$ sont de la forme :
+        \[ \E(X) = \frac{1}{p} \quad \text{et} \quad \V(X) = \frac{1-p}{p^2} \] 
+\end{proposition}
+
+\subsection{Loi de Poisson}
+
+\begin{definition}[Loi de Poisson]
+    Une variable aléatoire $X$ suit une loi de Poisson de paramètre $\lambda > 0$ lorsque $X(\Omega) = \N$ et 
+        \[ \forall k \in \N, \quad P(X = k) = e^{- \lambda} \times \frac{\lambda^k}{k!} \]  
+    On note alors $ X \sim \mathcal{P}(\lambda)$. 
+\end{definition}
+
+Une loi de poisson représente le nombre moyen d'évènements produits au cours d'un intervalle de temps donné ou d'une quantité 
+donnée. Par exemple, elle peut modéliser le nombre moyen de voitures qui sont passées par un péage sur une journée ou le nombre 
+moyen de fautes de frappes produits sur une page de texte. 
+
+\begin{proposition}
+    Soit $ X \sim \mathcal{P}(\lambda)$ alors l'espérance et la variance de $X$ sont de la forme :
+        \[ \E(X) = \lambda \quad \text{et} \quad \V(X) = \lambda  \] 
+\end{proposition}
+

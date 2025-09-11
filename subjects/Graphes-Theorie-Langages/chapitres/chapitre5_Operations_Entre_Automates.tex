@@ -1,0 +1,386 @@
+
+
+\minitoc % Ajoute le sommaire local ici
+
+
+% ==================================================================================================================================
+% Introduction 
+
+Les chapitres précédents nous ont montré que les $\varepsilon$-transitions et les transitions multiples 
+nous permettent de modéliser plus facilement des langages complexes. 
+Nous allons donc définir des opérations sur les automates, analogues à celles sur les langages. 
+Elles nous permettront, à partir de la construction d'un langage par opérations, de construire son automate par 
+opérations aussi. 
+
+\textbf{Problématique : } Soient $L_1$ et $L_2$ deux langages reconnus respectivement par $ \mathcal{A}_2$ et $ \mathcal{A}_2$. 
+Soit $T$ une opération entre langages. Comment construire un automate reconnaissant $L_1 T L_2$ ? 
+
+% ==================================================================================================================================
+% Opérations entre automates
+
+\section{Opérations entre automates}
+
+\subsection{Langages Elémentaires}
+
+Pour définir des opérations sur les automates, et ainsi, construire un automate par opérations pour un langage 
+lui-même construit par opérations, nous allons avoir besoin de définir des langages élémentaires. 
+Ces langages seront reconnus par des automates fixés, que nous connaissons d'avance. Nous en choisissons un nombre fini 
+pour pouvoir les stocker en mémoire. Ils vont représenter les briques de base nous permettant de construire des automates plus 
+complexes par la suite. 
+
+\begin{proposition}[Langages Elémentaires]
+    Soit $\Sigma = \{a,b\}$ un alphabet. On définit les langages élémentaires de $\Sigma$ comme :
+    \begin{itemize}
+        \item $L = \emptyset$ reconnu par l'automate : 
+            \begin{center}
+                \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                    \node[state, initial] (1) {$1$};
+                \end{tikzpicture}
+            \end{center}
+        \item $L = \{\varepsilon\}$ reconnu par l'automate :
+            \begin{center}
+                \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                    \node[state, initial, accepting] (1) {$1$};
+                \end{tikzpicture}
+            \end{center}
+        \item $L = \{a\}$ reconnu par le langage :
+            \begin{center}
+                \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                    \node[state, initial] (1) {$1$};
+                    \node[state, accepting, right of =1] (2) {$2$}; 
+                    \path[->]
+                    (1) edge[above] node{$a$} (2);
+                \end{tikzpicture}
+            \end{center}
+        \item $L = \{a_1 \dots a_n\}$ reconnu par le langage :
+            \begin{center}
+                \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                    \node[state, initial] (1) {$1$};
+                    \node[state, right of =1] (2) {$2$}; 
+                    \node[state, right of=2] (3) {$a_n$};
+                    \node[state, accepting, right of=3] (4) {$n$};
+                    \path[->]
+                    (1) edge[above] node{$a_1$} (2)
+                    (2) edge[above] node{$a_2$} (3)
+                    (3) edge[above] node{$\dots$} (4);
+                \end{tikzpicture}
+            \end{center}
+    \end{itemize}
+\end{proposition}
+
+
+\subsection{Automate Complémentaire}
+
+A partir d'un langage, on peut définir son langage complémentaire. De même, on peut définir l'automate complémantaire 
+reconnaissant ce langage. 
+
+\begin{definition}[Automate Complémentaire]
+    Soit $L$ un langage reconnu un automate $ \mathcal{A} = (Q,\Sigma,T,q_0,A)$ \textbf{complet}. 
+    L'automate reconnaissant le langage complémentaire de $L$ est $ \overline{ \mathcal{A}} = (Q,\Sigma,T,q_0,Q \backslash A)$. 
+\end{definition}
+
+\begin{remark}
+    Attention, pouvoir "passer au complémentaire" pour un automate, il faut que celui-ci soit complet. 
+\end{remark}
+
+
+\subsection{Somme d'automates}
+
+\begin{definition}[Somme d'automates]
+    Soient $L_1$ et $L_2$ deux langages respectivement reconnus par $ \mathcal{A}_1$ et $ \mathcal{A}_2$. 
+    L'automate reconnaissant $L_1 + L_2$ est l'automate fini non déterministe construit par \textbf{l'union disjointe}
+    de $ \mathcal{A}_1$ et $ \mathcal{ A}_2$. On l'appelle \textbf{automate somme} des automates $ \mathcal{A}_1$ 
+    et $ \mathcal{A}_2$. 
+\end{definition}
+
+Cet automate n'est pas déterministe puisqu'il contient deux états initiaux mais que l'on peut déterminiser. 
+
+\begin{example}
+    Soient les langages suivants sur $\Sigma = \{a,b\}$ :
+    \begin{align*}
+        L_1 &= \{ \text{mots de } \Sigma \text{ terminant par } a \} \\ 
+        L_2 &= \{ \text{mots de } \Sigma \text{contenant un nombre pair de } a \}
+    \end{align*}
+
+    Ces langages sont reconnus par les automates suivants :
+
+    \begin{center}
+        \begin{minipage}{0.45\textwidth}
+            \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                \node[state, initial] (1) {$1$};
+                \node[state, right of=1, accepting] (2) {$2$};
+                
+                \path[->]
+                (1) edge[above, bend right] node{$a$} (2)
+                (2) edge[above, bend right] node{$b$} (1)
+                (2) edge[loop right] node{$a$} (2)
+                (1) edge[loop above] node{$b$} (1); 
+            \end{tikzpicture}
+        \end{minipage}%
+        \hfill 
+        \begin{minipage}{0.45\textwidth}
+            \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                \node[state, initial] (1) {$1$};
+                \node[state, right of=1, accepting] (2) {$2$};
+                
+                \path[->]
+                (1) edge[above, bend right] node{$a$} (2)
+                (2) edge[above, bend right] node{$a$} (1)
+                (2) edge[loop right] node{$b$} (2)
+                (1) edge[loop above] node{$b$} (1); 
+            \end{tikzpicture}
+        \end{minipage}
+    \end{center}
+
+    On construit l'automate $ \mathcal{A}$ comme la juxtaposition disjointe des deux automates :
+    \begin{center}
+        \begin{minipage}{0.45\textwidth}
+            \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                \node[state, initial] (1) {$1$};
+                \node[state, right of=1, accepting] (2) {$2$};
+                
+                \path[->]
+                (1) edge[above, bend right] node{$a$} (2)
+                (2) edge[above, bend right] node{$b$} (1)
+                (2) edge[loop right] node{$a$} (2)
+                (1) edge[loop above] node{$b$} (1); 
+            \end{tikzpicture}
+        \end{minipage}%
+        \hfill 
+        \begin{minipage}{0.45\textwidth}
+            \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+                \node[state, initial] (3) {$3$};
+                \node[state, right of=3, accepting] (4) {$4$};
+                
+                \path[->]
+                (3) edge[above, bend right] node{$a$} (4)
+                (4) edge[above, bend right] node{$a$} (1)
+                (4) edge[loop right] node{$b$} (4)
+                (3) edge[loop above] node{$b$} (3); 
+            \end{tikzpicture}
+        \end{minipage}
+    \end{center}
+
+    Que l'on doit ensuite déterminiser... 
+\end{example}
+
+Les définitions de langages élémentaires nous permettent de savoir que tout langage réduit à un mot est automatique. 
+On en déduit le théorème suivant : 
+
+\begin{theorem}[Langage Fini]
+    Tout langage fini est automatique. 
+\end{theorem}
+
+
+\subsection{Intersection d'Automates}
+
+\begin{proposition}
+    Soient $L_1$ et $L_2$ reconnus par les automates fini déterministes suivants $ \mathcal{A}_1$ et $ \mathcal{A}_2$. 
+    On a alors : 
+        \[ \overline{L_1 \cap L_2} = \overline{L_1} + \overline{L_2} \]
+    On peut donc en conclure que : 
+        \[ \boxed{L_1 \cap L_2 = \overline{\overline{L_1} + \overline{L_2}}} \]  
+    Ainsi, l'intersection de deux automates peut être construite par somme et complémentarité. 
+\end{proposition}
+
+En pratique nous utuliseront plutôt l'automate des couples : 
+
+\begin{definition}[Automate des Couples]
+    Soient $ \mathcal{A}_1 = \{Q_1, \Sigma, T_1, Q_0, A_1\}$ reconnaissant le langage $L_1$ et 
+    $ \mathcal{A}_2 = \{Q_2, \Sigma, T_2, q_0', A_2\}$ reconnaissant le langage $L_2$. On définit 
+    l'automate des couples : 
+        \[ A = \{Q_1 \times Q_2, \Sigma, T, (q_0,q_0'), A_1 \times A_2\} \] 
+    reconnaissant le langage $L_1 \cap L_2$ où 
+        \[ \forall i \in \Sigma, \forall q_1, q_2 \in Q_1, \forall q_1', q_2' \in Q_2 \text{ tels que } q_2 = T_1(q_1,j) \text{ et } q_2' = T(q_1',i) \]
+        \[ \text{alors } T'((q_1, q_1'), i) = (q_2, q_2') \] 
+\end{definition}
+
+\begin{proposition}
+    Si $ \mathcal{A}_1$ possède $n \in \N$ états et que $ \mathcal{A}_2$ possède $p \in \N$ états, alors 
+    $ \mathcal{A}_1 \cap \mathcal{A}_2$ possède $n \times p$ états. 
+    Pour de gros automates, cette méthode peut donc engendrer des très gros. 
+    Même si la façon de les construire est assez simple et ressemble beaucoup à la déterminisation. 
+
+    L'automate obtenu est, de plus, déterministe. 
+\end{proposition}
+
+
+\subsection{Différence d'Automates}
+
+\begin{proposition}
+    Soient $ \mathcal{A}_1$ et  $ \mathcal{A}_2$ deux automates reconnaissant respectivement les langages $L_1$ et $L_2$. 
+    Pour reconnaître le langages $L_1 \backslash L_2$, on peut simplement construire l'automate reconnaissant :
+        \[ L_1 \backslash L_2 = L_1 \cap \overline{L_2} \] 
+\end{proposition}
+
+\subsection{Langages Automatiques}
+
+Essayons maintenant de déduire des conditions nécessaire pour qu'un langage soit automatique. 
+D'après ce que l'on a vu grâce aux opérations, on peut déjà énoncer la proposition suivante : 
+\begin{proposition}
+    Les langages réguliers sont tous automatiques. 
+\end{proposition}
+
+Proposition que nous élargirons plus tard grâce au théorème de Kleene. 
+
+\subsubsection{Théorème de pompage}
+
+\begin{theorem}[Pompage (faible)]
+    Soit $L$ un langage. Supposons $L$ automatique. 
+    Soit $N \in \N$, alors pour tout $w \in L$ tel que $ |w| \leqslant N$, $w$ admet une décomposition 
+    de la forme : 
+        \[\exists w_1, w_2, w_3 \in L, w = w_1 w_2 w_3 \quad \text{avec } w_2 \not  = \varepsilon \]
+    telle que cette décomposition soit gonflable :
+        \[ \text{ i.e } \forall k \in \N, w_1 w_2 ^k w_3 \in L \]
+\end{theorem} 
+
+Ce théorème n'est pas idéal pour montrer qu'un langage est automatique. En revanche, sa contraposé de la forme :
+    \[ \text{Non Pompable } \Longrightarrow \text{Non Automatique} \]  
+Est en pratique très utilisée pour montrer qu'un langage n'est pas automatique. 
+
+\begin{proposition}
+    Ainsi, soit $L$ un langage. Pour montrer que $L$ n'est pas pompable, on montrera que 
+    pour tout $N \in \N$, il existe $w \in L$ tel que $ |w| \geqslant N$ qui admette une décomposition de la forme : 
+        \[ w = w_1 w_2 w_3 \quad \quad \text{avec } w_2 \not  = \varepsilon \] 
+    telle que : 
+        \[ \exists k \in \N, w_1 w_2^k w_3 \not \in L \] 
+\end{proposition}
+
+
+% ==================================================================================================================================
+% Langage d'un automate
+
+\section{Langage d'un automate}
+
+
+Maintenant que nous savons bien manipuler les automates fini déterministes et non déterministes, il serait utile, 
+à partir d'un automate de pouvoir déterminer le langage qu'il reconnaît. Pour cela nous auront besoin de définir 
+les systèmes d'équations au langages, d'introduire le Lemme d'Arden. Nous finirons par énoncer le théorème de Kleene 
+caractérisant les langages automatiques. 
+
+\subsection{Langage d'un automate fini}
+
+\begin{definition}[Langage d'arrivée]
+    Soit $ \mathcal{A} = \{Q, \Sigma, T, q_0, A\}$ un automate fini. On définit le langage d'arrivée à l'état $ q \in Q$, 
+    noté $ L_q$ l'ensemble des mots de $ \Sigma^*$ dont la lecture par $ \mathcal{A}$ débute par $q_0$ et finit en $q$. 
+\end{definition}
+
+On peut alors définir la langage d'un automate comme :
+
+\begin{proposition}
+    Soit $ \mathcal{A} = \{Q, \Sigma, T, q_0, A\}$ un automate fini. Soit $\{L_q \; | \; i \in A \}$ 
+    l'ensemble des langages d'arrivés aux états acceptants de l'automate $ \mathcal{A}$. On a alors l'égalité suivante : 
+        \[ L( \mathcal{A}) = \sum_{q \in A} L_q \]
+    Autrement dit, le langage de $ \mathcal{A}$ est la somme de tous ses langages d'arrivé aux états acceptants. 
+\end{proposition}
+
+\begin{definition}[Système d'équations aux langages]
+    Soient un ensemble $X_1, \dots, X_n$ de langages sur un même alphabet $\Sigma$. 
+    Un système d'équations aux langages est un ensemble d'équations de la forme : 
+        \[ X_i = \sum_{j=1}^{n} a_{ij} X_j + b_j \quad \forall i \in \llbracket 1, n \rrbracket \] 
+    où $ \forall i,j \in \llbracket 1, n \rrbracket, a_{ij} \in \Sigma, b_i \in \Sigma^*$
+\end{definition}
+
+\begin{proposition}
+    Soit $ \mathcal{A} = \{Q, \Sigma, T, q_0, A\}$ un automate fini.
+    A partir des définitions, on peut donc représenter le langage d'un automate par un système d'équations aux langages. 
+    Elles associent à chaque $L_q$ une équation de langages dérivant de l'automate. 
+    
+    \vspace{0.2cm}
+    
+    Ainsi si un état $q$ a des transitions vers d'autres états selon les lettres $a \in \Sigma$ et si $q$ est un état 
+    acceptant alors l'équation associée à $L_q$ est de la forme 
+        \[ 
+            \begin{cases}
+                L_q = \sum_{(q,a,q') \in T} a L_{q'} + \{\varepsilon\}  \quad \text{si q est un état initial} \\ 
+                L_q = \sum_{(q,a,q') \in T} a L_{q'} \quad \text{sinon}
+            \end{cases}
+        \] 
+\end{proposition}
+
+Il nous faut maintenant être capable de résoudre ces équations pour déterminer les $L_q$ et ainsi le langage de l'automate. 
+
+\subsection{Lemme d'Arden}
+
+Le Lemme d'Arden permet de résoudre de telles équations. Il fut démontré en 1961 par Dean N. Arden. Voici son énoncé : 
+
+\begin{lemma}[Arden]
+    Soient $A$ et $B$ deux langages. Le langage 
+        \[ \boxed{ L = A^*B } \]
+    est le plus petit langage (pour l'inclusion ensembliste) qui est solution de l'équation 
+        \[ \boxed{ (E) : X = (AX) \cup B } \] 
+    De plus, si $A$ ne contient pas le mot vide $\varepsilon$, $A^*B$ est l'unique solution de cette équation. 
+\end{lemma}
+
+Ainsi, puisque chacune des équations aux langages vues précédement sont de la forme $ L = AL + B$, on peut donc 
+résoudre de tels systèmes et calculer explicitement le langage d'un automate. 
+
+\begin{example}
+
+    Déterminons le langage de l'automate suivant :
+
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+            \node[state, initial] (1) {$1$};
+            \node[state, accepting, right of=1] (2) {$1$};
+            \node[state, accepting, right of=2] (3) {$3$};
+
+            \path[->]
+            (1) edge[loop below] node{$a$} (1)
+            (1) edge[above] node{$b$} (2)
+            (2) edge[loop below] node{$a$} (2) 
+            (2) edge[above] node{$b$} (3) 
+            (3) edge[loop below] node{$a$} (3);
+        \end{tikzpicture}
+    \end{center}
+
+    Les langages d'arrivés vérifient donc le système d'équations aux langages suivant :
+    \[ 
+        \begin{cases}
+            L_1 = L_1 a + \varepsilon \\ 
+            L_2 = L_1 b + L_2 a \\ 
+            L_3 = L_2 b + L_3 b 
+        \end{cases}
+    \] 
+    Que l'on résout progressivement grâce au Lemme d'Arden : 
+    \[ 
+        \begin{cases}
+            L_1 = \varepsilon a^* = a^* \\ 
+            L_2 = L_2 a + a^* b \\ 
+            L_3 = L_3 a + L_2 b 
+        \end{cases}
+        \quad \iff \quad 
+        \begin{cases}
+            L_1 = a^* \\ 
+            L_2 = a^*ba^* \\ 
+            L_3 = L_3a + a^*ba^* 
+        \end{cases} 
+    \quad \iff \quad 
+        \begin{cases}
+            L_1 = a^* \\ 
+            L_2 = a^*ba^* \\ 
+            L_3 = a^*ba^* b a^* \\ 
+        \end{cases}
+    \]
+
+    D'où : 
+        \begin{align*}
+            L( \mathcal{A}) &= a^*ba^* + a^*ba^* b a^* \\ 
+            &= a^*ba^*(\varepsilon + ba^*) 
+        \end{align*}
+    Donc $ \mathcal{A}$ reconnaît les mots qui contiennent 1 ou 2 b. 
+\end{example}
+
+Cet algorithme de résolution est très utile en terme pratique mais il apporte aussi une précisions supplémentaire sur 
+les langages automatiques. En effet, à partir d'un automate (i.e langage automatique), on peut écrire le langage 
+reconnu comme une expression régulière. D'où le résultat suivant : 
+
+\begin{prop}[Langages Automatiques]
+    Tout langage automatique peut être décrit par une expression régulière. 
+\end{prop}
+
+On en déduit donc le théorème de Kleene établissant définitivement le lien entre les langages réguliers et automatique : 
+
+\begin{theorem}[Kleene]
+    Les langages réguliers sont les mêmes que les langages automatiques. 
+\end{theorem}

@@ -1,0 +1,155 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Joseph Louis de Lagrange était un mathématicien, astronome et mécanicien italien de la fin du XVIII° siècle. 
+Né en 1736 à Turin en Sardaigne, il mourut en 1813 à Paris. Initiateur du Calcul des Variations, il étudia la mécanique de l'artillerie, 
+l'astronomie, au travers des variations de l'orbite lunaire, l'analyse et se trouva très fort en arithmétique. 
+On lui doit le Théorème des Quatre Carrés et le Théorème de Lagrange sur les groupes d'ordre fini. 
+
+La théorie des groupes n'existant pas à son époque, puisqu'elle émergeat qu'au XIX°s sous l'impulsion de Cauchy, Gauss et Galois,
+Lagrange n'énonça pas son théorème tel que nous allons le voir, mais il lui est quand même dû.
+
+% ==================================================================================================================================
+% Relation d'équivalence 
+
+\section{Relation d'équivalence}
+
+De légers rappels sur les relations et les classes d'équivalences ne sont jamais de trop... 
+
+\begin{definition}[Relation d'équivalence]
+    Une relation d'équivalence $\sim$ entre deux éléments $x$ et $y$ d'un ensemble $X$ est une relation (RST):
+    \begin{itemize}
+        \item \textbf{Réflexive : } $x \sim x$ 
+        \item \textbf{Symétrique :} $x \sim y \Longleftrightarrow y \sim x$ 
+        \item \textbf{Transitive : } $ \forall z \in X, x \sim y $ et $y \sim z \Longrightarrow x \sim z $
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Etre isomorphe est une relation d'équivalence sur les groupes. 
+\end{remark}
+
+\begin{definition}[Classes d'équivalence]
+    Soit $\sim$ une relation d'équivalence sur un ensemble $X$. Une classe d'équivalence de $x \in X$, 
+    souvent noté $\overline{x}$ est l'ensemble :
+    \[ \overline{x} = \{y \in X, x \sim y\}\]
+\end{definition}
+
+\begin{remark}
+    On remarquera que les classes d'équivalences sur un ensemble forment une partition de cet ensemble. 
+\end{remark}
+
+\begin{definition}[Projection Canonique]
+    Soit $\sim$ une relation d'équivalence sur un ensemble $X$. On appelle \textbf{ensemble quotient de $X$ par $\sim$} l'ensemble :
+        \[ X / \sim = \{\overline{x}, x \in X \} \]
+    On définit alors la \textbf{projection canonique} comme l'application :
+        \[ \pi :
+            \begin{cases}
+                X \longrightarrow X / \sim \\ 
+                x \longmapsto \overline{x} 
+            \end{cases}
+        \]
+    \emph{"C'est l'application, qui, à x lui associe sa classe d'équivalence pour la relation $\sim$."}
+\end{definition}
+
+\begin{remark}
+    La projection canonique est surjective puisqu'une classe d'équivalence n'est jamais vide. 
+\end{remark}
+
+% ==================================================================================================================================
+% Classes à gauche 
+
+\section{Classes à gauche}
+
+\begin{definition}[Classe à gauche]
+    Soit G un groupe noté multiplicativement et H un sous-groupe de G. La relation $\sim_H$ est une relation d'équivalence sur G telle que :
+        \[ \forall g_1,g_2 \in G, \quad g_1 \sim_H g_2 \Longleftrightarrow \exists h \in H, g_1 = h.g_2 \] 
+    Ses classes d'équivalences sont les ensembles $gH$ notés $gH = \{ gh, h \in H \}$ de G. On les appelles \textbf{classes de $g$ à gauche} de
+    G modulo H.
+\end{definition}
+
+\begin{remark}
+    On peut définir de façon similaire les classes à droite de G modulo H, mais dans la pratique, nous n'utiliserons que les classes à gauche. 
+\end{remark}
+
+\begin{prop}[Classes à gauche et cardinal]
+    Soit G un groupe et H un sous-groupe de G. Toutes les classes à gauche de G modulo H ont le même cardinal que H.
+\end{prop}
+
+\begin{quote}
+	\footnotesize
+	\begin{proof}
+        Montrons que toutes les classes à gauche de G modulo H sont isomorphes à H.
+		Soit $g \in G$. Considérons $\phi_g$ l'application telle que  :
+            \[ \phi_g :
+                \begin{cases}
+                    H \longrightarrow gH \\
+                    h \longmapsto gh 
+                \end{cases}
+            \] 
+        \begin{enumerate}
+            \item \textbf{Injectivité :} Soient $h_1,h_2 \in H$ tels que :
+                \begin{align*}
+                    & \phi(h_1) = \phi(h_2) \\
+                    \Longleftrightarrow \; & g h_1 = g h_2 \\ 
+                    \Longleftrightarrow \; & h_1 = h_2
+                \end{align*}
+            \item \textbf{Surjectivité :} Soit $x \in gH$, $ \exists h \in H$ tel que $\phi(h) = gh = x$
+        \end{enumerate}
+        Donc $\phi$ est bijective. D'où le résultat. 
+    \end{proof}
+	\normalsize
+\end{quote}
+
+\newpage 
+\subsection{Ensemble Quotient et Indice}
+
+\begin{definition}[Ensemble Quotient]
+    Soit $(G,.)$ un groupe noté multiplicativement et $H \leq G$. L'ensemble quotient de $G$ par la relation d'équivalence 
+    $\sim_H$, noté $G/H$ est l'ensemble $\{gH, \; g \in G\}$ des classes à gauche de G modulo H. 
+
+    \vspace{0.5cm}
+
+    \textbf{L'indice} de H dans G, noté $(G:H)$ est le cardinal de l'ensemble quotient $G/H$.
+    Il correspond au nobre de classes d'équivalences différentes pour la relation $\sim_H$ dans G. 
+\end{definition}
+
+\begin{theorem}[Cardinal du groupe et ensemble quotient]
+    Soit $(G,.)$ un groupe et $H \leq G$ alors : 
+        \[ |G| = |H| \times (G:H) \]
+\end{theorem}
+
+\subsection{Théorème de Lagrange appliqué aux groupes finis}
+
+\begin{theorem}[Théorème de Lagrange]
+    Soit G un groupe fini et $H \leq G$, alors {l'ordre de H divise l'ordre de G}.
+\end{theorem}
+
+\begin{corollary}[Ordre d'un élément]
+    Soit G un groupe d'ordre fini et $g \in G$ alors $ \text{ord}(g) \mid  \text{Card}(G)$. 
+\end{corollary}
+
+\begin{proposition}[Sous-groupe d'indice 2]
+    Soit G un groupe et $H \leq G$, si H est d'indice 2 alors il est distingué dans G. 
+\end{proposition}
+
+\begin{quote}
+	\footnotesize
+	\begin{proof}
+        Soit $g \in G$. Distinguons deux cas :
+        \begin{itemize}
+            \item si $g \in H$ alors comme H est un sous-groupe $ \forall h \in H, ghg^{-1} \in H$ 
+            \item si $g \in G \backslash H$. H est d'indice 2 donc G n'a que deux classes modulo H, 
+            $H = eH = He$ et puisque les classes forment une partition de G, $G \backslash H$ forme la deuxième classe 
+            à gauche et à droite. 
+
+            Donc $G \backslash H = gH = Hg$ et $ \forall h \in H, \; \exists h' \in H$ tel que $gh = h'g$. 
+
+            C'est à dire que $ghg^{-1} = h' \in H$. 
+        \end{itemize}
+        Donc $H \triangleleft G$. 
+    \end{proof}
+	\normalsize
+\end{quote}

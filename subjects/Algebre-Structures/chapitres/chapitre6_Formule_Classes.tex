@@ -1,0 +1,214 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Maintenant que nous avons vu en détail les actions de groupes, nous allons d'abord essayer de trouver des relations entre les différents ensembles qu'elles 
+nous permettent de définir. 
+Dans un second temps nous définirons proprement les groupes quotient du point de vue des actions de groupes, puis 
+nous finirons par présenter les théorèmes d'isomorphismes. 
+
+% ==================================================================================================================================
+% Formule des classes 
+
+\section{Formule des classes}
+\subsection{Relation Orbite/Stabilisateur}
+
+Quand on manipule des actions de groupes, on s'apperçoit vite que l'orbite d'un élément 
+est étroitement lié à son stabilisateur... 
+
+\begin{proposition}
+	Soient $(G,.)$ un groupe, $X$ un ensemble et $G_x$ le stabilisateur de $x \in X$ pour l'action de G sur X. 
+	Alors l'application 
+		\begin{align*}
+			G/G_x &\longrightarrow \text{Orb}_G(x) \\
+			g G_x &\longmapsto g.x 
+		\end{align*}
+	Est une bijection entre l'ensemble des classes à gauche du stabilisateur de $x$ et l'orbite de x sous G. 
+\end{proposition}
+
+A partir de cette application et à l'aide du formidable outil qu'est le théorème de Lagrange, on peut en déduire le corollaire suivant... 
+
+\newpage
+
+\begin{corollary}[Relation Orbite/Stabilisateur]
+	Soit X un  G-ensemble, $x \in X$. On utilise les mêmes notations que précédement. On a alors :
+	\begin{itemize}
+		\item $ | \text{Orb}_G(x) | = (G : G_x) $
+		\item $ |G| = |G_x| \times \text{Orb}_G(x) $ 
+	\end{itemize}
+\end{corollary}
+
+\subsection{Formules des classes}
+
+\begin{corollary}[Formule des classes]
+	Soient X G un groupe et X un G-ensemble. Alors on peut \textbf{partitionner X en orbites disjointes} sous l'action de G, d'où :
+	\[ X = \bigsqcup_{i=1}^r \text{Orb}_G(x_i) \quad \text{et} \quad |X| = \sum_{i=1}^{r} |\text{Orb}_G(x_i)| = \sum_{i=1}^{r} (G : G_x) = \sum_{i=1}^{r} \frac{ |G| }{ |G_{x_i}| } \]
+	où $r$ est le nombre d'orbites distinctes de X sous l'action de G. 
+\end{corollary}
+
+
+% ==================================================================================================================================
+% Groupes Quotient 
+
+\section{Groupe Quotient}
+
+Nous savons déjà que le noyau d'un morphisme de groupes est un sous-groupe distingué. 
+Nous cherchons ici, à partir d'un sous-groupe distingué, à construire un morphisme dont il serait le noyau. 
+Pour cela, nous devons définir les groupes quotients. 
+
+\subsection{"Quotientons !"}
+
+Soit G un groupe et H un sous-groupe de G. On définit l'ensemble $G/H = \{gH \; | \; g \in G\}$ comme l'ensemble quotient de G par la relation d'équivalence "appartenir à la même orbite"
+pour l'action par translation de H sur G. 
+
+\begin{definition}[Projection Canonique]
+	Soient G un groupe et H un sous-groupe distingué de G. La projection canonique : 
+	\[\pi : 
+		\begin{cases}
+			G \longrightarrow G/H \\ 
+			g \longmapsto gH 
+		\end{cases}
+	\]
+	est  \textbf{morphisme de groupes} qui envoie chaque élément de G sur sa classe d'équivalence modulo la relation "appartenir à la même orbite" évoquée précédement. 
+\end{definition}
+
+\begin{theorem}[Sous-groupe distingué et projection canonique]
+	Soit G un groupe. Sous H un sous-groupe de G. 
+	\begin{itemize}
+		\item[] H \textbf{est distingué} dans G ssi la formule $g_1H \ast g_2H = (g_1g_2)H, \; \forall g_1,g_2 \in G$ 
+		définit une loi de composition interne pour l'ensemble $G/H$ telle que la projection canonique sur G est un morphisme de groupes. 
+		\item[]$\iff$  $G/H$ est un groupe pour la loi $\ast$  
+	\end{itemize}
+\end{theorem}
+
+\newpage 
+
+\begin{corollary}[Ordre du quotient]
+	Si H est distingué dans G, alors l'ordre du quotient de G par H est égal au quotient de l'ordre de G par l'ordre de H. 
+
+	D'où la formule suivante :
+		\[ |G/H| = \frac{|G|}{|H|} \]
+\end{corollary}
+
+\begin{corollary}[Condition nécessaire et suffisante]
+	Soit G un groupe et H un sous-groupe de G. H est distigué dans G ssi H est le noyau d'un morphisme de source G. 
+\end{corollary}
+
+\begin{remark}
+	Pour montrer qu'un sous-groupe est distigué, on peut donc simplement vérifier que c'est le noyau de la projection canonique $\pi$ sur G. 
+\end{remark}
+
+\subsection{Propriétés du quotient}
+
+\begin{theorem}
+	Soient G et K deux groupes et $H \triangleleft G$. Soient $\phi : G \longrightarrow K$ un morphisme de groupes 
+	et $\pi$ la projection canonique sur G. Alors :
+	\begin{itemize}
+		\item[] $H \subset \ker(\phi)$ 
+		\item[]$\iff$  $\phi (H) = \{e_K\}$ 
+	\end{itemize}
+	Autrement dit, on peut factoriser le morphisme $\phi$ "en passant" par $G/H$. 
+	Il existe donc un morphisme de groupes $\overline{\phi} : G/H \longrightarrow K$ tel que $\phi = \overline{\phi} \circ \pi$. 
+	Ainsi, $\overline{\phi}$ est unique et définit par : 
+		\[\overline{\phi} : 
+			\begin{cases}
+				G/H \longrightarrow K \\ 
+				gH \longmapsto \overline{\phi}(gH) = \phi(g)
+			\end{cases}
+		\]
+	L'image de $\overline{\phi}$ est celle de $\phi$ et son noyau est ker($\phi$)/H.
+\end{theorem}
+
+On peut représenter cette "factorisation" par le diagramme commutatif suivant :
+
+\begin{multicols}{2}
+	\[
+		\begin{tikzcd}
+			G \arrow[rr, "\phi"] \arrow[dr, "\pi" swap, bend right=20] & & K \\
+			& G/H \arrow[ur, "\overline{\phi}" swap, bend right=20] &
+		\end{tikzcd}
+	\]
+
+	Où $H = \ker(\pi)$. 
+
+	\vspace{0.3cm}
+
+	Dire que le diagramme est commutatif revient à dire que $\phi = \overline{\phi} \circ \pi$
+
+\end{multicols}
+
+% ==================================================================================================================================
+% Théorèmes d'isomorphismes 
+
+\section{Théorèmes d'isomorphismes}
+
+Admettons que l'on ait un morphisme $\phi : G \longrightarrow K$ entre deux groupes G et K. 
+Mais $\phi$ n'est pas injectif, notons alors son noyau $H = \ker(\phi)$. Comme vu précédement, 
+H est un sous-groupe de G. On va alors pouvoir construire un isomorphisme de groupe de $G/H$ dans Im$(\phi)$. 
+
+\vspace{0.5cm}
+
+Cela revient à assimiler tous les éléments de G comme des classes d'équivalences et ainsi, ne plus avoir le problème 
+du noyau qui "envoie" plusieurs éléments sur $e_K$. 
+Pour obtenir un isomorphisme il nous faut donc aussi restreindre le domaine d'arrivée aux éléments atteignables par $\phi$. 
+
+\begin{theorem}[Premier théorème d'isomorphisme]
+	Soit $\phi : G \longrightarrow K$ un morphisme de groupes. Alors il existe un isomorphisme $\overline{\psi}$ tel que :
+	\[ \psi : 
+		\begin{cases}
+			G/\ker(\phi) \longrightarrow \text{Im}(\phi) \\ 
+			g\ker(\phi) \longmapsto \phi(g)
+		\end{cases}
+	\]
+	De plus, \textbf{si $\phi$ est surjectif}, $\psi$ est un isomorphisme entre les groupes $G/\ker(\phi)$ et $K$.
+	(si $\phi$ est surjectif, on peut étendre l'image de $\psi$ à l'image de $\phi$, donc à K tout entier)
+\end{theorem}
+
+\begin{remark}
+	Soit G un groupe monogène engendré par $g \in G$. 
+	D'après la propriété universelle de $\Z$, il existe un morphisme $\phi : \Z \to \Longrightarrow \langle g \rangle= G$ tel que $\ker(\phi) = n\Z$. 
+	
+	D'après le théorème 2.2, on peut quotienter l'espace de départ par le noyau du morphisme et ainsi obtenir le morphisme suivant :
+		\[ \overline{\phi} :
+			\begin{cases}
+				\Z/n\Z \longrightarrow \langle g \rangle \\ 
+				\overline{k} \longmapsto g^k \in G 
+			\end{cases}
+		\] 
+	Enfin, d'après le premier théorème d'isomorphisme, puisque $\phi$ est surjectif, $\overline{\phi}$ est isomorphisme. 
+	D'où : $$ \langle g \rangle \simeq \Z/n\Z $$  
+\end{remark}
+
+\begin{theorem}[Troisième théorème d'isomorphisme]
+	Soient $K \subset H \subset G$ trois groupes. Tels que $H \triangleleft G$ et $ K \triangleleft G$. On a alors :
+		\[ (G/K)/(H/K) \simeq G/H \] 
+	\emph{Autrement dit, le quotient de deux groupes quotientés par le même sous-groupe normal est isomorphe au quotient des autres groupes.}
+\end{theorem}
+
+Ce théorème mérite quelques petites explications. Notons $\sigma, \pi, \mu$ les projections canoniques associés aux groupes quotient $G/H, G/K$ et $(G/K)/(H/K)$. 
+
+On a donc $K \subseteq H \Longrightarrow \sigma(H) = H/K$, un sous groupe de $G/K$. 
+Or, d'après le théorème 2.2, il existe un unique morphisme $\overline{\sigma} : G/H \longrightarrow (G/K)/(H/K)$ tel que $\overline{\sigma} \circ \pi = \mu \circ \sigma$. 
+
+\vspace{0.3cm}
+
+On a donc le diagramme commutatif suivant : 
+
+	\[
+	\begin{tikzcd}[scale=1.5, row sep=3em, column sep=4em]
+		G \arrow[r, "\sigma"] \arrow[d, "\pi" swap] & G/K \arrow[d, "\mu"] \\
+		G/H \arrow[r, "\exists ! \overline{\sigma}" swap, dashed] & (G/K)/(H/K)
+	\end{tikzcd}
+	\]
+
+$\mu$ et $\sigma$ sont surjectifs donc $\mu \circ \sigma$ est surjectif donc $\overline{\sigma}$ est surjectif. 
+De plus, $\ker(\mu \circ \sigma) = H$ donc $\overline{\sigma}$ est injectif. On en conclut que $\overline{\sigma}$ est 
+
+\begin{example}
+	Quelques exemples pour mieux apprécier le théorème précédent :
+	\begin{itemize}
+		\item A-t-on $(\Z/10\Z)/(2\Z/10\Z) \simeq \Z/2\Z$ ? 
+		\item A-t-on $(\mathcal{S}_4/\mathcal{A}_4) \simeq (\mathcal{S}_4/\mathcal{V}_4)(\mathcal{A}_4/\mathcal{V}_4)$ ?
+	\end{itemize}
+\end{example}

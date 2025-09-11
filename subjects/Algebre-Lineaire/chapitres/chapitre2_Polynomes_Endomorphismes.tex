@@ -1,0 +1,264 @@
+
+
+\justify 
+
+\setlength{\parindent}{0pt}
+
+
+% ==================================================================================================================================
+% Introduction
+
+
+Nous savons que l'ensemble des matrices carrées à coefficients dans un corps $\K$ (réel ou complexe) est 
+muni d'une structure d'espace vectoriel. 
+Ayant déjà étudié en détail les polynômes, on pourrait se demander si il est possible d'étudier des polynômes de matrices 
+et par extension des polynômes d'endomorphismes. 
+Pourrait-on, le cas échéant, en fonction des propriétés d'un tel polynôme, en déduire des propriétés sur des endomorphismes/matrices 
+tels que des critères de diagonalisation ou de trigonalisation ?
+C'est ce que nous allons étudier dans ce chapitre. 
+
+\vspace{0.3cm}
+
+Dans ce chapitre, on se place dans un $\K$-espace vectoriel $E$ où $\K$ désigne un corps. 
+On notera $f$ ou $g$ des endomorphismes de $E$, $\lambda$ ou $\alpha$ des sclaires et $\mathcal{B}$ ou $\mathcal{B}'$ des bases de E. 
+
+
+% ==================================================================================================================================
+% Définition et propriétés
+
+
+\section{Définition et premières propriétés}
+
+Commençons par définir les principaux objects utilisés dans ce chapitre. 
+
+\subsection{Evaluation d'un polynôme et morphisme}
+
+\begin{definition}[Polynôme d'endomorphisme]
+    Soit $P = \sum_{i=0}^{n} a_i X^i$ un polynôme et $f$ un endomorphisme, on peut évaluer P en f de la façon suivante :
+        \[ P(f) = \sum_{i=0}^{n} a_i f^i \]
+    Par convention, $f^0 = \text{Id}$. 
+\end{definition}
+
+\begin{definition}[Polynôme de matrice]
+    Soit $P = \sum_{i=0}^{n} a_i X^i$ un polynôme et $A \in \mathcal{M}_n(\K)$ une matrice carrée. 
+    On peut évaluer $P$ en $A$ de la façon suivante :
+        \[P(A) = \sum_{i=0}^{n} a_i A^i\]
+    De même que précédement, on pose $A^0 = \text{Id}$.
+\end{definition}
+
+
+\begin{proposition}
+    On peut "résumer" ces deux définitions en posant une application qui, à un polynôme, lui associe ce même polynôme évalué 
+    en un endomorphisme prédéterminé. 
+
+    Plus formellement, $ \forall f \in \mathcal{L}(E)$, l'application 
+        \[ \Phi_f : 
+            \begin{cases}
+                \K[X] \longrightarrow \mathcal{L}(E) \\ 
+                P \longmapsto P(f)
+            \end{cases}
+        \]
+    est un morphisme d'algèbre. Autrement dit, c'est une application entre deux algèbres qui respecte leur structure. 
+    
+    Elle vérifie donc $ \forall \alpha \in \K, \forall P,Q \in \K[X]$ :
+    \begin{itemize}
+        \item $\Phi(\alpha P) = \alpha \Phi(P)$ 
+        \item $\Phi(P+Q) = \Phi(P) + \Phi(Q)$ 
+        \item $\Phi(P \times Q) = \Phi(P) \circ \Phi(Q)$ 
+    \end{itemize}
+    Ces propriétés nous serviront tout au long du chapitre et durant les suivant et s'avèrent très utiles lors de calculs. 
+\end{proposition}
+
+\begin{remark}[Extension aux matrices]
+    De même, on peut définir un morphisme d'algèbre pour évaluer des polynômes par des matrices :
+        \[ \forall A \in \mathcal{M}_n(\K), \quad \Phi_A : 
+            \begin{cases}
+                \K[X] \longrightarrow \mathcal{L}(E) \\ 
+                P \longmapsto P(A)
+            \end{cases}
+        \]
+    Cette application possède les mêmes propriétés que la précédente. 
+\end{remark}
+
+
+\subsection{Propriétés Calculatoires}
+
+Rapidement, on s'apperçoit que les polynômes d'endomorphismes possèdent beaucoup de bonnes propriétés calculatoires, 
+notamment pour les relations de similitudes entre matrices, autrement appelées "changement de base". 
+
+\begin{prop}[Matrices semblables et polynômes]
+    Soient $A,B\in \mathcal{M}_{\K}$ deux matrices semblables liés par la matrice $M$. Soit $P \in \K[X]$, on a :
+        $$ \forall k \in \N, A^k = M B^k M ^{-1} \quad \text{et} \quad  P(A) = M P(B) M^{-1} $$
+\end{prop}
+
+\begin{prop}[Commutation]
+    Soit $f \in \mathcal{L}(E)$, deux polynômes en $f$ commutent. 
+\end{prop}
+
+
+% ==================================================================================================================================
+% Annulateurs
+
+\section{Polynômes Annulateurs}
+
+Nous connaissons déjà bien le concept de racine d'un polynôme réel ou complexe. 
+Qu'en est-il des matrices/endomorphismes annulant un polynôme ?
+
+\subsection{Définition et remarques}
+
+\begin{definition}[Polynôme Annulateurs]
+    Soit $ f \in \mathcal{L}(E)$ un polynôme $ P \in \K[X]$ est dit annulateur de $f$ si $P(f) = 0_{\mathcal{L}(E)}$. 
+    De même pour les matrices, on dit que $P$ annule $A \in \mathcal{M}_n(\K)$ si $P(A) = 0_{\mathcal{M}_n(\K)}$. 
+\end{definition}
+
+On remarquera facilement que le polynôme nul annule tout le monde...pas très intéressant. 
+
+\begin{remark}[Pas le même 0 ?]
+    Vous remarquerez qu'en fonction de l'espace sur lequel est défini un polynôme (endomorphisme ou matrice), 
+    si le polynôme est un annulateur d'un élément de cet espace, le $0$ obtenu n'est pas le même. 
+    En effet, pour un polynôme défini sur les endomorphismes, le 0 obtenu sera \textbf{l'application nulle}. 
+    Alors que pour les matrices, on obtient la \textbf{matrice nulle}. 
+    Il est important de bien différencier les ensembles de définition des applications que l'on utilise. 
+\end{remark}
+
+\subsection{Annulateurs et valeurs propres}
+
+\begin{proposition}
+    Tout endomorphisme de E admet un polynôme annulateur non nul. 
+    Idem pour les matrices. 
+\end{proposition}
+
+\begin{prop}[Valeur propre et racine]
+    Soit $P$ un polynôme annulateur de $f \in \mathcal{L}(E)$, alors toute valeur propre de $f$ est racine de $P$
+    (la réciproque est généralement fausse). 
+\end{prop}
+
+\begin{remark}
+    Dans le cas ou $f$ est diagonalisable, on peut facilement construire un annulateur. 
+    
+    Soit $P \in \K[X]$ et $f \in \mathcal{L}(E)$. Soit $\text{Sp}(f) = \{\alpha_1, \alpha_2, \dots, \alpha_p\}, p \in N$ 
+    le spectre de $f$. D'après la propriété précédente, tous les $\alpha_i$ sont racine de $P$. 
+    Autrement dit : 
+        \[ \forall i \in \{1,\dots,p\}, \quad (X - \alpha_i) \; | \; P \]
+    Posons :
+        \[ M_f := (X - \alpha_1)(X - \alpha_2) \dots (X - \alpha_p)\]
+    On a donc : 
+        \[ M_f \; | \; P\]
+    Autrement dit, \textbf{$P$ est un multiple de $M_f = (X - \alpha_1)(X - \alpha_2) \dots (X - \alpha_p)$}.
+\end{remark}
+
+
+% ==================================================================================================================================
+% Théorèmes Fondamentaux 
+
+\section{Théorèmes Fondamentaux}
+
+Ci-dessous, un des théorèmes les plus forts d'algèbre linéaire cette année. 
+La démonstration n'est absolument pas triviale...
+
+\begin{theorem}[Arthur Cayley et William Hamilton]
+    Pour toute matrice et endomorphisme, \textbf{le polynôme caractéristique est annulateur}. 
+\end{theorem}
+
+\subsection{Divisibilité}
+
+Maintenant que nous avons vu pas mal de propriétés sur les polynômes annulateurs, le polynôme caractéristique et quelques
+relations de divisibilité en fonction des valeurs propres d'un endomorphisme/matrice, intéressons nous plus profondément 
+aux ordres de divibilités entre des polynômes. 
+
+\vspace{0.3cm}
+
+Saut mention contraire, on notera $M_f$ le polynôme minimal d'un endomorphisme $f$ et $P_f$ son polynôme caractéristique 
+dans une certaine base. 
+
+\begin{definition}[Polynôme Minimal]
+    Soit $f \in \mathcal{L}(E)$. Il existe un unique polynôme, noté $M_f$, tel que l'ensemble des polynômes annulateurs 
+    de $f$ soient des multiples de $M_u$. 
+
+    \vspace{0.3cm}
+
+    Si on interprète cette définition de façon ensembliste, le polynôme minimal d'un endomorphisme peut être vu 
+    comme le minimum (au sens de la divisibilité/degré) de l'ensemble des annulateurs. 
+\end{definition}
+
+\begin{proposition}
+    Soit $f \in \mathcal{L}(E)$, on a :
+    \begin{itemize}
+        \item Si $\text{Sp}(f) = \{\alpha_1, \alpha_2, \dots, \alpha_p\}, p \in N$, alors $(X - \alpha_1)(X - \alpha_2) \dots (X - \alpha_p)$ divise $M_f$.
+        \item $M_f$ divise $P_f$
+    \end{itemize}
+\end{proposition}
+
+\newpage 
+
+\subsection{Lemme des noyaux}
+
+\begin{prop}[Noyau et sev stable]
+    Pour tout $P \in \K[X]$, et pour tout $f \in \mathcal{L}(E)$, $\ker P(u)$ est un sev de $E$ stable par $f$. 
+
+    \vspace{0.3cm}
+
+    Autrement dit, le noyau d'un polynôme évalué en un endomorphisme est un sev de l'espace de départ et, est de plus stable par cet endomorphisme. 
+\end{prop}
+
+\begin{lemma}[Noyaux]
+    Soient $P$ et $Q$ deux polynômes premiers entre eux et $f \in \mathcal{L}(E)$, alors :
+        \[ \boxed{\ker (PQ(f)) = \ker(P(f)) \oplus \ker(Q(f))} \] 
+\end{lemma}
+
+On peut donc en déduire un cas plus général... 
+
+\begin{theorem}[Généralisation du Lemme des noyaux]
+    Soit $P$ un polynôme annulateur de $f \in \mathcal{L}(E)$, et $P = P_1P_2 \dots P_k$ une décomposition de P en produit de polynômes 
+    deux à deux premiers entre eux, on a donc :
+        \[E = \bigoplus_{i \in \{1,\dots, k\}} \ker (P_i(f))\]
+    Autrement dit, une factorisation d'un polynôme annulateur de $f$ en produit de polynômes deux à deux premiers entre eux 
+    nous donne un décomposition de E en sous-espaces, d'une part stables par $f$ mais aussi en somme directe dans E. 
+\end{theorem}
+
+On peut donc en déduire le théorème suivant, nous donnant de nouveaux critères de diagonalisation. 
+
+\begin{theorem}[Nouveau critère de diagonalisation]
+    $f \in \mathcal{L}(E)$ est diagonalisable ssi 
+    \begin{itemize}
+        \item elle admet un \textbf{polynôme annulateur} scindé à racine simples. 
+        \item ssi son \textbf{polynôme minimal} est scindé à racines simples. 
+    \end{itemize}
+\end{theorem}
+
+\begin{criteria}[Ultime Critère]
+    $f \in \mathcal{L}(E)$ est diagonalisable ssi son polynôme minimal est scindé à racines simples. 
+\end{criteria}
+
+
+% ==================================================================================================================================
+% Endomorphismes Nilpotents
+
+\section{Endomorphismes Nilpotents}
+
+\begin{definition}[Endomorphisme/Matrice Nilpotent]
+    Soient $f \in \mathcal{L}(E)$ et $A \in \mathcal{M}_n(\K)$, on dit que $f$ ou $A$ est nilpotent ssi 
+        \[ \exists k \in \N^* \text{ tel que : }
+            \begin{cases}
+                f^k = 0_{\mathcal{L}(E)} \text{ et } L^{k-1} \not = 0_{\mathcal{L}(E)} \\ 
+                A^k = 0_{\mathcal{M}_n(\K)} \text{ et } A^{k-1} \not = 0_{\mathcal{M}_n(\K)}
+            \end{cases}
+        \]
+    On nomme alors l'entier $k$ \textbf{indice} de nilpotence. 
+\end{definition}
+
+\begin{prop}[Matrice strictement triangulaire et nilpotence]
+    Tout matrice strictement triangulaire supérieure de $\mathcal{M}_n(\K)$ est nilpotente d'indice inférieur à $n$. 
+\end{prop}
+
+\begin{prop}[Nilpotence et polynôme minimal]
+    Soient $f \in \mathcal{L}(E)$ $f$ est nilpotente d'indice $k$ ssi $M_f = X^k$. 
+
+    \vspace{0.3cm}
+
+    La même propriété est vraie pour n'importe quelle matrice $A \in \mathcal{M}_n(\K)$. 
+\end{prop}
+
+
+
+

@@ -1,0 +1,124 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Soit $(X_n)_{n \in \N}$ une suite de variables aléatoires indépendantes suivant la même loi.
+On considère $Y_n = \frac{1}{n} (\sum_{k=1}^{n} X_k)$. On suppose que $V(X_n)$ est finie.
+
+    \[ E(Y_n) = \frac{1}{n} \sum_{k=1}^{n} E(X_k) = E(X_n) \] 
+et 
+    \[ 
+        \begin{aligned}
+            V(Y_n) &= V \left( \frac{1}{n} \sum_{k=1}^{n} X_k \right)  = \frac{1}{n^2} V \left( \sum_{k=1}^{n} X_k \right)  \\
+            &= \frac{1}{n^2} \sum_{k=1}^{n} V(X_k) = \frac{1}{n} V(X_n)
+        \end{aligned}
+     \] 
+on applique ensuite l'inégalité de Bienaymé-Tchebychev à $(Y_n)$
+        \[ \boxed{ P(|Y_n - E(X_1) \geq b) \leq \frac{V(Y_n)}{b^2} = \frac{1}{n} \frac{V(X_0)}{b^2} \underset{n \to + \infty}{\longrightarrow} 0 } \] 
+
+
+
+\section*{Convergence en probabilités}
+
+Soit $(Z_n)_{n \in \N}$ une suite de variables aléatoires sur un même espace $\Omega$. Soit $Z_\infty$ une variable sur $\Omega$. 
+
+\begin{definition}[Convergence en Probabilités]
+    On dit que la suite $(Z_n)_{n \in \N}$ converge en probabilité vers $Z_\infty$ si 
+        \[ \forall \varepsilon > 0, \quad \boxed{ P(|Z_n - Z_\infty| \geq \varepsilon) \underset{n \to + \infty}{\longrightarrow} 0} \]
+    On notera : $ Z_n \stackrel{P}{\longrightarrow} Z_\infty $
+\end{definition}
+
+\begin{remark}
+    La loi faible des grands nombres affirme que $(Y_n)_{n \in \N}$ converge en probabilité vers la loi quasi-certaine $E(X_1)$.
+\end{remark}
+
+
+\section*{Convergence presque-sûre}
+
+Si on considère nos $Z_n$ comme des fonctions sur $\Omega$ à valeurs dans $\R$, on pourrait essayer de voir à quoi correspondrait la convergence simple.
+
+\begin{comment}
+    \begin{example}
+        Soit $(\omega_k)_{k \in \N} \in \Omega = \{0, 1\}^\N$. Posons $X_n = \omega_n$.
+        Sur $\Omega$ on a la probabilité "définie" par le fait que si 
+            \[ A_{\{ \varepsilon_0, \dots , \varepsilon \}} = \Bigl\{ \omega \in \Omega, \omega_i = \varepsilon_i, \forall i \in \{0, 1, \dots, n\} \Bigl\} \]
+        alors 
+            \[ \forall \varepsilon \in \{0, 1\}, \Theta \in ]0, 1[,  \quad P(A) = \Theta ^{\sum_{i=0}^{n} \varepsilon i} \bigl( 1 - \Theta \bigr)^{\sum_{i=0}^{n} (1- \varepsilon_i)} \] 
+        Donc 
+    \end{example}
+\end{comment}
+
+\begin{definition}[Convergence presque-sûre]
+    Soit $\Omega$ un espace probabilisé, soit $(Z_n)_{n \in \N}$ une suite de variables aléatoires sur $\Omega$.
+    Soit $Z_\infty$ une variable aléatoire sur $\Omega$. On dit que $(Z_n)$ converge presque sûrement vers $Z_\infty$ si 
+        \[ P(Z_n(\omega) \longrightarrow (Z_n(\omega))) = 1 \] 
+    i.e. l'ensemble des $\omega \in \Omega$ pour lesquels il n'y a pas de convergence est un ensemble négligeable.    
+\end{definition}
+
+\begin{theorem}[Loi forte des grands nombres]
+    Soient $(X_n)_{n \in \N}$ la suite de variables aléatoires réelles continues, indépendantes et suivant la même loi. 
+    Supposons que nous connaissons son espérance $(E(X_i))$ et sa variance $V(X_1)$.
+    Alors $Y_n = \frac{1}{n} \sum_{k=1}^{n} X_k$ converge presque sûrement vers la constante $E(X_1)$.    
+\end{theorem}
+
+
+
+
+\section*{Convergence en moyenne quadratique}
+
+\begin{definition}
+    Soit $(Z_n)_{n \in \N}$ une suite de variables aléatoires réelles sur un même espace probabilisé $\Omega$.
+    Soit $Z_\infty$ une variable aléatoire réelle sur $\Omega$. On dit que $(Z_n)$ converge en moyenne quadratique vers $Z_\infty$ si 
+        \[ E((Z_n - Z_\infty)^2) \underset{n \to \infty}{\longrightarrow} 0 \] 
+    On note $Z_n \stackrel{mq}{\longrightarrow} Z_\infty $
+\end{definition}
+
+\begin{example}
+    Dans le contexte de la loi des grands nombres on avait $E(Y_n) = E(X_1)$ et $V(Y_n) = \frac{1}{n} V(X_1) \underset{n \to + \infty}{\longrightarrow} 0$ donc on avait une convergence en moyenne quadratique.
+\end{example}
+
+\begin{remark}
+    Sur l'ensemble des variables aléatoires sur $\Omega$, la variance est une forme quadratique positive dont la forme bilinéaire symétrique associée est la covariance.
+    La convergence en moyenne quadratique esr la convergence pour cette "norme".
+\end{remark}
+
+\begin{proposition}
+    Si la suite $(X_n)_{n \in \N}$ converge en moyenne cubique vers $X$ alors :
+        \[  
+            \left.
+            \begin{aligned}
+                \lim_{n \to \infty} E(X_n) &= E(X) \\
+                \lim_{n \to + \infty} E({X_n}^2) &= E(X^2)
+            \end{aligned}
+            \right\}
+            \Longrightarrow
+            \lim_{n \to + \infty} V(X_n) = V(X)
+        \]
+\end{proposition}
+
+\begin{proof}
+    $X_n$ et $X$ admettent une variance et $E((X_n - X)^2) \underset{n \to \infty}{\longrightarrow} 0$, d'après la seconde inégalité triangulaire, on a
+        \[ | \sqrt{E({X_n}^2)} - \sqrt{E(X^2)} | \leq \sqrt{E((X_n - X)^2)} \underset{n \to \infty}{\longrightarrow} 0 \] 
+    pour la forme quadratique positive $(X, Y) \mapsto E(X, Y) = <X, Y> $. C'est une forme linéaire symétrique positive qui respecte l'inégalité triangulaire.
+    D'où $\sqrt{E({X_n}^2) - E(X^2)} \underset{n \to \infty}{\longrightarrow} 0 $ donc $E({X_n}^2) \underset{n \to \infty}{\longrightarrow} E(X^2)$
+\end{proof}
+
+\begin{remark}[Variance et Cauchy-Schwarz]
+    D'après l'inégalité de Cauchy-Schwarz :
+    \[
+        \begin{aligned}
+            |E(X_n) - E(X)| &= |E(X_n - X)| = |<X_n -X, 1>| \\
+            & \leq \sqrt{< X_n - X, X_n -X>} \sqrt{<1, 1>} \\
+            &= \sqrt{E((X_n - X)^2)} \underset{n \to \infty}{\longrightarrow} 0 
+        \end{aligned}
+    \] 
+    Donc $|E(X_n - E(X))| \underset{n \to \infty}{\longrightarrow} 0 $ par encadrement.
+    Or $V(X_n) = E({X_n}^2) - E(X_n)^2$ donc $V(X_n) \underset{n \to \infty}{\longrightarrow} 0 $
+\end{remark}
+
+\begin{corollary}[Critère de convergence quadratique]
+    $(X_n)_{n \in \N}$ converge en moyenne quadratique vers la variable certaine $a \in \R$ ssi
+        \[ E(X_n) \underset{n \to \infty}{\longrightarrow} a \quad \text{et} \quad V(X_n) \underset{n \to \infty}{\longrightarrow} 0 \] 
+\end{corollary}
+

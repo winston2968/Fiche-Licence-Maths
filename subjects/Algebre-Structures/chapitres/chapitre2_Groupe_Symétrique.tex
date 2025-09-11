@@ -1,0 +1,322 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Maintenant que nous avons vu en détail la notion de groupe, sous-groupe et groupe engendré, 
+attardons nous sur un des groupes les plus connus, le groupe symétrique. 
+Ce groupe est un exemple presque canonique en algèbre des structures, il faut donc bien le connaître. 
+
+% ==================================================================================================================================
+% Groupe Symétrique
+
+\section{Le groupe symétrique}
+
+\subsection{Définitions}
+
+\begin{definition}[Groupe Symétrique]
+	On appelle \textbf{groupe symétrique} le groupe des bijections de $\{1, \dots ,n\}$ dans lui-même doté de la loi de composition, noté $(\mathcal{S}_n,\circ)$.
+	Un élément de $\mathcal{S}_n$ quelconque est appelé une \textbf{permutation}.
+\end{definition} 
+
+\begin{prop}[Ordre et Bijection]
+	Soit $n \in \N^*$ alors :
+	\begin{enumerate}
+		\item $ \forall n \in \N^*, |\mathcal{S}_n| = n ! $
+		\item si $ |X| = n $ alors $ \mathcal{S}(X) \cong \mathcal{S}_n $
+	\end{enumerate}
+\end{prop}
+
+\begin{quote}
+	\footnotesize
+	\begin{proof}
+		Soit $\mathcal{S}_n$ l'ensemble des bijections de $\llbracket 1,n \rrbracket, n \geq 3$ dans lui-même.
+		Initilisation triviale. \\
+		Supposons que HR : $ \forall n \geq 3, | \sigma_n | = n ! $
+
+		Soient $A_{n+1}$ et $B_{n+1}$ deux ensembles à $n+1$ éléments deux à deux distincts tels que :
+			\[ A_{n+1} = \{a_1, \dots, a_{n+1} \} \]
+		Soit $\sigma$ une bijection telle que $ \sigma : A_{n+1} \Longrightarrow B_{n+1}$.
+		Combinatoirement, on a $n+1$ choix pour l'image de $a_{n+1}$ par $\sigma$.
+			\[ i.e \quad \sigma(a_{n+1}) \in B = \{b_1, \dots, b_{n+1} \} \]
+		Posons $ \sigma(a_{n+1}) = b_{n+1}$. Notons que $a_{n+1}$ n'est pas forcément égal à $b_{n+1}$.
+		Pour respecter l'injectivité de $\sigma$, on n'a que $n !$ possibilités pour le choix de $\sigma(a_n)$ par hypothèse de récurrence.
+		D'où, ici :
+			\[ |\mathcal{S}_{n+1}| = |\mathcal{S}_n| \times (n+1) = n! \times (n+1) = (n+1)! \]
+	\end{proof}
+	\begin{proof}
+		Soit $X$ un ensemble de cardinal $n \in \N^*$ et $\mathcal{S}(X)$ l'ensemble des bijections de $X$ sur lui-même où :
+			\[ X_n = \{x_1, \dots, x_n \} \]
+		Soit $\mathcal{S}_n$ l'ensemble des bijections de $\{1, \dots, n\}$ dans lui-même, alors :
+			\[ i :  
+				\begin{cases}
+					\{1,\dots,n\} \longrightarrow X \\
+					i \longmapsto x_i 
+				\end{cases}  \text{ est une bijection} \]
+		Soit $\sigma$ une bijection quelconque de $\mathcal{S}_n$ et $\tau$ une bijection quelconque de $ X \longrightarrow X$ 
+		$$
+		\begin{tikzcd}
+			X \arrow[r, "\tau"]
+				& X \arrow[d, "i^{-1}"] \\
+			\{1,\dots,n\} \arrow[r, "\sigma"] \arrow[u, "i"] 
+				& \{1,\dots,n\}
+		\end{tikzcd}
+		$$
+		Posons :
+				\[ \Phi : 
+					\begin{cases}
+						\mathcal{S}_n \longrightarrow \mathcal{S}(X) \\
+						\tau \longmapsto i^{-1} \circ \sigma \circ i 
+					\end{cases} \]
+		Alors $\Phi$ est une bijection de $\mathcal{S}(X)$ dans $\mathcal{S}_n$ et c'est aussi un morphisme de groupe car :
+					\[ \Phi(\tau_1 \circ \tau_2) = i^{-1} \circ (\tau_1 \circ \tau_2) \circ i = i^{-1} \tau_1 i i^{-1} \tau_2 i = \Phi(\tau_1) \circ \Phi(\tau_2) \]
+	\end{proof}
+	\normalsize
+\end{quote}
+
+\subsection{Structure du groupe symétrique}
+
+\begin{theorem}[Centre d'un groupe]
+	On désigne $Z$ comme étant le centre d'un groupe. Ici, $\forall n \geq 3, Z(\mathcal{S}_n) = \{e\}$.
+\end{theorem}
+
+\begin{quote}
+	\footnotesize
+	\begin{proof}(Par l'absurde)
+		Soit $n \geq 3$ et $\sigma \in \mathcal{S}_n$ telle que $ \sigma \not = e $. \\ 
+		Soit $ x \in \{1,\dots,n\}, \sigma(x) \not = x$. Posons $y = \sigma(x)$ et $z = \sigma(y)$ et soit $\tau = (x \; y) \in \mathcal{S}_n$.
+		Alors :
+		\[
+			\begin{cases}
+				\sigma \circ \tau (x) = \tau(y) = x \\
+				\tau \circ \sigma(x) = \sigma(y) = z 
+			\end{cases} \]
+		Donc $\exists x \in \{1,\dots,n\}$ tq $ \sigma \circ \tau \not = \tau \circ \sigma $ donc $ \sigma \not \in Z(\mathcal{S}_n)$.
+		Donc nécessairement, $Z(\mathcal{S}_n) = \{e\}$.
+	\end{proof}
+	\normalsize
+\end{quote}
+
+\begin{theorem}[Cayley]
+	Tout groupe fini $G$ d'ordre $n$ est isomorphe à un sous-groupe de $\mathcal{S}_n$.	
+\end{theorem}
+
+\subsection{Propriétés d'une permutation}
+
+\begin{definition}[Points fixes, Support]
+	Soient $n \in \N^*$ et $\sigma \in \mathcal{S}_n$.
+	\begin{itemize}
+		\item Les éléments $i \leq n$ tels que $\sigma(i) = i$ sont appelés \textbf{points fixes} de $\sigma$ 
+		\item Une partie $A$ de $\{1,\dots,n\}$ est dite stable par $\sigma$ si $\sigma(A) \subseteq A$
+		\item On définit le \textbf{support} de $\sigma$ l'ensemble : 
+			\[ \boxed{ \text{ Supp} (\sigma) := \{k \in \{1,\dots,n\}, \sigma(k) \not = k \} }\]
+	\end{itemize}
+\end{definition}
+
+\newpage 
+
+\begin{prop}[Supports, Inclusion et Produit]
+	Soient $ n \in \N$ et $\sigma,\tau \in \mathcal{S}_n$ alors :
+	\begin{enumerate}
+		\item $ \text{ Supp} (\tau \circ \sigma) \subset \text{ Supp}(\sigma) \cup \text{ Supp}(\tau)$
+		\item si $\text{ Supp}(\sigma) \cap \text{ Supp}(\tau) = \emptyset$ alors :
+				\begin{enumerate}
+						\item $\text{ Supp}(\pi \circ \tau) = \text{ Supp}(\sigma) \cup \text{ Supp}(\tau)$ 
+						\item $
+							\begin{cases}
+			   					\sigma \circ \tau = \tau \circ \sigma \\
+								\sigma \circ \tau = e \Longrightarrow \sigma = \tau = e
+							\end{cases} $
+				\end{enumerate}
+	\end{enumerate}
+\end{prop}
+
+\begin{quote}
+	\footnotesize
+	\begin{proof}
+		Soient $n \in \N$ et $\sigma, \tau \in \mathcal{S}_n$.
+		\begin{enumerate}
+			\item Soit $k \in \{1,\dots,n\}$ tel que $ k \in \text{ Supp}(\sigma\circ\tau)$.
+			Par définition, $\sigma \circ \tau (k) \not = k$. Distinguons deux cas :
+				\begin{enumerate}
+					\item $\tau(k) = k$ alors $\sigma (\tau(k)) = \sigma (k) \not = k$ donc $k \in \text{ Supp}(\sigma)$
+					\item $\sigma(k) = k$ alors puisque $\sigma \circ \tau (k) \not = k$, nécessairement, $\tau (k) \not = k$ donc $k \in \text{ Supp}(\tau)$
+				\end{enumerate}
+				D'où $ k \in \text{ Supp}(\tau) \cup \text{ Supp}(\sigma)$
+			\item Supposons que $\text{ Supp}(\tau) \cap \text{ Supp}(\sigma) = \emptyset$ \\ 
+			\textbf{L'union des supports est égale au support du produit :}
+			\begin{enumerate}
+					\item $\boxed{\subseteq}$ soit $k \in \text{ Supp}(\sigma \tau)$ alors $\sigma \circ \tau (k) \not = k$
+							d'où $k \in \text{ Supp}(\sigma) \cup \text{ Supp}(\tau)$
+					\item $\boxed{\supseteq}$ soit $k \in \text{ Supp}(\sigma) \cup \text{ Supp}(\tau)$ alors $\sigma (k) \not = k$ ou $ \tau(k) \not = k$ 
+							si $ \tau(k) \not = k $ alors $ \sigma(\tau(k)) \not = k$
+							D'où $ k \in \text{ Supp}(\sigma \tau)$
+			\end{enumerate}
+			\item Soient deux permutations $\sigma$ et $\tau$ à supports disjoints et $k \in \{1,\dots,n\}$.
+			Montrons que $\sigma$ et $\tau$ commutent. \\
+			Si $\sigma(k)=k$ alors $\tau(\sigma(k))= \tau(k)$ et $\sigma(\tau(k)) = \tau(k)$
+			D'ou $ \sigma \circ \tau = \tau \circ \sigma$. (On a le même raisonnement pour le second cas) \\
+			Si $\sigma \circ \tau = e$, en raisonnant par l'absurde sur les supports, on a que $\sigma = \tau = e$.
+		\end{enumerate}
+	\end{proof}
+	\normalsize
+\end{quote}
+
+
+\begin{definition}[Cycle]
+	Soit $p \in \N$ tel que $ 2 \leq p \leq n $ et soit $s \in \mathcal{S}_n$.
+    On dit que $s$ est un $p$-cycle de \textbf{support} $\{a_1, a_2, \dots , a_p \}$ et de \textbf{longueur} $p$ ssi $ \exists a_1, a_2, \dots , a_p \in \{1, 2, \dots , n\}$ deux à deux différents tels que :
+    
+    \[
+        \left \{
+            \begin{array}{cccc }
+                s(a_i) & = & a_{i+1} & \forall i < p \\
+                s(a_p) & = & a_1 & \\
+                s(k) & = & k & \forall k \not \in \{a_1, \dots , a_p\}
+            \end{array}
+        \right.
+    \]
+	Si $s$ est un $p$-cycle alors on a: $ { s^p = Id} $.
+	Un cycle de longueur $2$ est appelé \textbf{transposition}.
+\end{definition}
+
+\begin{theorem}[Décomposition de permutations]
+		Toute permutation $\sigma \in \mathcal{S}_n$ peut s'écrire comme produit (i.e composition) 
+		de cycles $c_1,\dots,c_l$ à supports deux à deux disjoints. 
+		Cette décomposition est unique à l'ordre près.
+\end{theorem}
+
+\begin{quote}
+\footnotesize
+\begin{proof}
+	Soit $\sigma \in \mathcal{S}_n$. Soient $a,b \in \text{ Supp}(\sigma)$ tels que :
+		\[ \mathcal{O}(a) = \{\sigma^k(a); k \in \N\} \quad \mathcal{O}(b) = \{\sigma^k(b); k \in \N\} \] 
+	\begin{lemma}
+		Montrons que $\mathcal{O}(a) = \mathcal{O}(b)$ ou $\mathcal{O}(a) \cap \mathcal{O}(b) = \emptyset $
+
+		Supposons que $\mathcal{O}(a) \cap \mathcal{O}(b) \not = \emptyset $.
+		Soit $ x \in \mathcal{O}(a) \cap \mathcal{O}(b)$ alors $\exists k,l \in \N$ tels que :
+			\[ \sigma^k(a) = x \; \text{et} \; \sigma^l(b) = x \Longrightarrow \sigma^k(a) =\sigma^l(b) \]
+		or $\mathcal{O}(a)$ est un ensemble fini donc il existe $n \in \N$ tel que  $\sigma^{k-l} = \sigma ^n$ 
+		d'où $ b \in \mathcal{O}(a)$ donc $\mathcal{O}(b) \subseteq \mathcal{O}(a)$
+		Symétriquement, on obtient facilement que $\mathcal{O}(a) \subseteq \mathcal{O}(b)$
+	\end{lemma}
+	Donc il existe $\mathcal{F} = (a_i, \dots, a_l), l \leq n$ tel que :
+		\[ \text{Supp}(\sigma) = \bigcup_{i \leq l} \mathcal{O}(a_i) \] 
+	Soit $c_i \in \mathcal{S}_n, i \leq l $ un cycle de longueur $ p_i = | \mathcal{O}(a_i) | $ tel que :
+		\[ c_i = (a_i \dots) \] 
+\end{proof}
+\normalsize
+\end{quote}
+
+\begin{quote}
+    \begin{footnotesize}
+        D'après le lemme précédent $\forall i,j \leq l $ et $ i \not = j $ :
+		\[ \boxed{ \text{ Supp}(c_i) \cap \text{Supp}(c_j) = \emptyset } \] 
+        {Posons :} $\boxed{ \tau = c_1 \circ \dots \circ c_i \circ \dots \circ c_l }$ \\
+        {Montrons que $\sigma = \tau$ :} Soit $k \in \llbracket 1, n \rrbracket $, distinguons deux cas :
+        \begin{itemize}
+            \item si $k \not \in \text{Supp}(\sigma)$ alors $\sigma(k) = k$ et par construction $\mathcal{O}(k) = \{k\}$ d'où $\tau(k) = k$ 
+            \item si $k \in \text{Supp}(\sigma)$ alors $ \exists! i \leq l$ tel que $ \tau(k) = c_i(k) = \sigma(k)$
+        \end{itemize}
+        On a donc montré que $\forall k \leq n, \tau(k) = \sigma(k)$. Donc $\sigma = \tau$ 
+    \end{footnotesize}
+\end{quote}
+
+\begin{prop}[Ordre d'une permutation]
+		Soit $ \sigma \in \mathcal{S}_n$ et $c_1 \circ \dots \circ c_m, m \leq n $ sa décomposition en produit de cycles à supports deux à deux disjoints.
+		L'ordre de $\sigma$ est égale au PPCM des longueurs des $c_i$.
+\end{prop}
+
+\begin{quote}
+\footnotesize 
+\begin{proof}[Ordre d'une permutation]
+		Soit $\sigma$ une permutation de $\{1,\dots,n\}$, d'après la propriété précédente:
+		\[ \sigma = c_1 \circ \dots \circ c_l \]
+		Où les $c_i$ sont des cycles à supports deux à deux disjoints. Soient $k \ in \N, x \in \llbracket 1, n \rrbracket$, alors :
+			\[ \sigma^k (x) = x \Leftrightarrow c_1^k \circ \dots \circ c_l^k(x) = x \]
+		Donc $ \exists! i \leq l $ tel que :
+		\begin{align*}
+			\sigma^k (x) = x & \Longleftrightarrow c_i^k(x) = x \\
+						& \Longleftrightarrow k \in \text{ord}(c_i) \times \N \\
+						& \Longleftrightarrow k \in \bigcap_{i \in \llbracket 1, n \rrbracket} \text{ord}(c_i) \times \N 
+		\end{align*}
+		or $ \min \bigl\{ \bigcap_{i \leq l} \text{ord}(c_i) \times \N \bigr\} = PPCM(\text{ord}_{i \leq l}(c_i))$.
+		D'où le résultat.
+\end{proof}
+\normalsize
+\end{quote}
+
+\subsection{Générateurs du groupe symétrique}
+
+\begin{definition}[Conjugaison]
+		Soient $\sigma, \tau$ deux permutations. On dit qu'elles sont conjuguées si :
+		\[ \boxed{ \exists \omega \in \mathcal{S}_n, \quad \sigma = \omega \circ \tau \circ \omega ^{-1} } \]
+\end{definition}
+
+\begin{prop}[Conjugaison]
+		Deux permutations sont conjuguées ssi elles sont de même type. \\ 
+		En particulier, $\forall \sigma \in \mathcal{S}_n, \forall (i_1 \dots i_l)$ un l-cycle, on a :
+			\[ \sigma \circ (i_1 \dots i_l) \sigma^{-1} = (\sigma(i_1) \dots \sigma(i_l)) \]
+\end{prop}
+
+\begin{theorem}[Générateurs]
+		Le groupe symétrique est engendré par les transpositions.
+\end{theorem}
+
+\begin{quote}
+\footnotesize
+\begin{proof}
+	Soit $ \sigma \in \mathcal{S}(n)$ alors $\exists c_1, \dots, c_l \in \mathcal{S}_n$ des cycles à supports disjoints tels que : 
+		\[ \sigma = c_1 \circ \dots \circ c_i \circ \dots \circ c_l \] 
+	où $c_i = (a_1 \dots a_p)$. C'est un cycle donc on peut le décomposer en produit de transpositions.
+		\[ \text{i.e } c_i = (a_1 \; a_2) \circ \dots \circ (a_{p-1} \; a_p) \] 
+	Soit $\tau \in \mathcal{S}_n$ le produit de la décomposition de chaque $c_i$ en produit de transpositions. 
+	Soit $x \in \llbracket 1,n \rrbracket$. Distinguons deux cas :
+	\begin{itemize}
+		\item si $x \not \in \text{Supp}(\sigma)$ alors $\sigma(x) = x$ et par construction, $\tau(x) = x$ aussi.
+		\item si $x \in \text{Supp}(\sigma)$ alors $ \exists! i \leq l, x \in \text{Supp}(c_i)$ où 
+			$c_i = (a_1 \; a_2) \circ \dots \circ \underset{\omega \in \mathcal{S}_n}{(x \; \sigma(x))} \circ (\sigma(x) \dots) \circ \dots \circ (a_{p-1} \; a_p) $
+			or $\omega$ est la seule permutation cd $c_i$ telle que $x \in \text{Supp}(\omega)$ donc $c_i(x) = \sigma(x) = \tau(x)$
+	\end{itemize}
+	Donc $\sigma = \tau$. D'où $\mathcal{S}_n$ est engendré par les transpositions.
+\end{proof}
+\normalsize
+\end{quote}
+
+% ==================================================================================================================================
+% Signature et groupe alterné
+
+\section{Signature et groupe alterné}
+\subsection{Signature d'une permutation}
+
+\begin{definition}[Signature]
+		Soit $\sigma \in \mathcal{S}_n$, on appelle signature de $\sigma$ l'entier $\varepsilon (\sigma)$ telle que:
+			\[ \varepsilon(\sigma) = \prod_{1\leq i \le j \leq n} \frac{\sigma(i) - \sigma(j)}{i-j} \]
+\end{definition}
+
+\begin{prop}[La signature est un morphisme de groupes]
+		$\varepsilon : \mathcal{S}_n \longrightarrow (\Q^*, \times)$ est un morphisme de groupes.
+\end{prop}
+
+\begin{prop}[Calcul de la signature]
+	Soit $z \in \mathcal{S}_n$ un cycle de longueur $p \geq 2$ alors:
+		\[ \varepsilon(z) = {(-1)}^{p-1} \]
+	(Ce résultat se montre en décomposant $z$ en produit de transpositions, puis en appliquant $\varepsilon$ en tant que morphisme de groupes.)
+\end{prop}
+
+\subsection{Groupe Alterné}
+
+\begin{definition}[Noyau, Groupe alterné]
+	On appelle groupe alterné le noyau de $\varepsilon$. C'est un sous-groupe distingué de $\mathcal{S}_n$.
+	On le note $\mathcal{A}_n$.
+\end{definition}
+
+\begin{prop}[Groupe Alterné]
+	Soit $n \geq 3$
+	\begin{itemize}
+		\item $\mathcal{S}_n$ est engendré par les permutations $(1,i), 2 \geq i \geq n$ 
+		\item $\mathcal{A}_n$ est engendré par les cycles $(1,i,j), 2 \geq i \not = i \geq n $
+	\end{itemize}
+	En partiulier, $\mathcal{A}_n$ est engendré par les 3-cycles de $\mathcal{S}_n$.
+\end{prop}

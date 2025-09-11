@@ -1,0 +1,362 @@
+\minitoc % Ajoute le sommaire local ici
+
+% ==================================================================================================================================
+% Introduction 
+
+Si on connaît plusieurs langages de programmation, on remarque que chaque langage, ou plutôt chaque paradigme de 
+langage est spécialisé pour la résolution d'une carégorie dde problèmes. 
+On pourrait se demander s'il est possible de créer un langage permettant de résoudre tous les problèmes. 
+Pour cela, il nous faudrait d'abord être capable de définir formellement un langage, des mots, etc... 
+
+% ==================================================================================================================================
+% Alphabets et Mots 
+
+\section{Alphabets et Mots}
+
+\subsection{Premières Définitions}
+
+Commençons tout d'abord par redéfinir correctement la notion d'alphabet et de mot. 
+
+\begin{definition}[Alphabet]
+    Un alphabet est simplement un ensemble fini, noté $\Sigma$.
+    On nomme "lettre" ou "symbole" les éléments d'un alphabet.  
+\end{definition}
+
+\begin{example}
+    Quelques exemples d'alphabets :
+    \begin{itemize}
+        \item $\Sigma = \{a,b\}$ 
+        \item $\Sigma = \{a,b,\dots,\text{\%},\text{\$}\}$
+    \end{itemize}
+\end{example}
+
+\begin{definition}[Mot]
+    Un mot est une suite finie de lettres d'un alphabet. 
+\end{definition}
+
+\begin{proposition}
+    Le mot vide est noté $\varepsilon$. On note l'ensemble des mots d'un alphabet $\Sigma^*$. 
+\end{proposition}
+
+\begin{definition}[Longueur d'un mot]
+    On note $|w|$ la longueur d'un mot $w \in \Sigma^*$ qui correspond au nombre de lettres, avec répétition du mot $w$. 
+\end{definition}
+
+\begin{definition}[Egalité de mots]
+    On dit que deux mots $u,v \in \Sigma^*$ son égaux ssi :
+    \begin{itemize}
+        \item $|v| = |u|$ 
+        \item $\forall i \in \llbracket 1, |v| \rrbracket, \quad u[i] = v[i]$ où $u[i]$ est la ième lettre du mot $u$. 
+    \end{itemize}
+    \emph{Deux mot sont égaux ssi ils sont de même longueur et sont composés des mêmes lettres dans le même ordre.}
+\end{definition}
+
+\subsection{Opérations sur les mots}
+
+Sur les mots, on ne définit qu'une seule opération, la \textbf{concaténation}. 
+
+\begin{definition}[Concaténation]
+    Soient $u,v \in \Sigma^*$ deux mots définis sur un même alphabet. On appelle la concaténation l'application :
+    \[
+        \begin{cases}
+            \Sigma^* \times \Sigma^* \longrightarrow \Sigma^* \\ 
+            (u,v) \longmapsto w = u.v
+        \end{cases}
+    \]
+    Elle est définie telle que $ \forall u,v \in \Sigma^*$ de longueur $n,p \in \N$, on ait :
+    \begin{itemize}
+        \item $ |u.v| = |u| + |v| = n + p $
+        \item $ \forall i \in \llbracket 1, n \rrbracket u.v[i] = u[i] $ et $ \forall i \in \llbracket 1,p \rrbracket, u.v[n+i] = v[i] $  
+    \end{itemize}
+    On parlera identiquement de concaténation ou de produit. 
+\end{definition}
+
+\begin{remark}
+    Cette définition reprend bien la caractérisation de deux mots égaux. 
+\end{remark}
+
+\begin{proposition}[Propriétés de la concaténation]
+    La concaténation est une application :
+    \begin{itemize}
+        \item \textbf{Associative : } $\forall u,v,w \in \Sigma^*, \quad w.(u.v) = (w.u).v$ 
+        \item \textbf{Pas commutative} pour un alphabet de plus d'une lettre. 
+        \item admet pour \textbf{élément neutre} le mot vide $\varepsilon$. 
+    \end{itemize}
+\end{proposition}
+
+\subsection{Puissance d'un mot}
+
+Une fois la concaténation définie pour un mot, on peut alors parler de puissance de mot. 
+Définissons celle-ci par récurrence. 
+
+\begin{definition}[Puissance d'un mot]
+    Soit $\Sigma$ un alphabet et $ u \in \Sigma^*$, on a :
+    \begin{itemize}
+        \item $u^0 = \varepsilon $
+        \item $u^1 = u$ 
+        \item $ \forall n \in \N, u^{n+1} = u^n.u$ 
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    $(ba)^3 = bababa $
+\end{example}
+
+\begin{proposition}
+    Soient $u \in \Sigma^*$ on peut appliquer les règles "connues" des puissances d'où : $$ \forall n,p \in \N, \quad  u^{n+p} = u^n . u^p = u^p . u^n $$ 
+\end{proposition}
+
+On remarque que l'on peut effectuer des simplifications sur les égalités de mots. 
+
+\begin{prop}[Simplifications]
+    L'ensemble $\Sigma^*$ est simplifiable à gauche et à droite. 
+    \begin{itemize}
+        \item $\forall u,v,w \in \Sigma^*, \quad u.w = v.w \Longrightarrow u = v $
+        \item $\forall u,v,w \in \Sigma^*, \quad w.u = w.v \Longrightarrow u = v $
+    \end{itemize}
+\end{prop}
+
+Ici, pas besoin d'inverse, la démonstration repose sur la définition de l'égalité entre deux mots. 
+
+% ==================================================================================================================================
+% Ordre
+
+\newpage 
+
+\section{Relations d'Ordre}
+
+Dans l'alphabet dit "classique" on possède un ordre lexicographique des mots permettant de les classer 
+en fonction de leurs lettres et de la position de leurs lettres. 
+Ici, nous allons définir deux types de relations d'ordre sur les mots. 
+
+Commençons par rappeler la définition de relation d'ordre. 
+
+\begin{definition}[Relation d'Ordre]
+    Soit $\lhd $ une relation sur un ensemble $E$. On dit que $\lhd$ est une \textbf{relation d'ordre} ssi 
+    pour tout $x,y,z \in E$, $\lhd$ est :
+    \begin{itemize}
+        \item \textbf{Réflexive : } $ x \lhd x $ 
+        \item \textbf{Anti-Symétrique : } $ x \lhd y \text{ et } y \lhd x \Longrightarrow x = y $ 
+        \item \textbf{Transitive : } $x \lhd z \text{ et } z \lhd y \Longrightarrow x \lhd y $ 
+    \end{itemize}
+\end{definition}
+
+\subsection{Ordre Préfixe}
+
+Naturellement, on munit$ \Sigma^*$ d'un ordre préfixe permettant de classer les mots en fonction de leur préfixe. 
+Cette relation peut être vue comme un forme d'inclusion de mots. 
+
+\begin{definition}[Ordre Préfixe]
+    Soient $u,w \in \Sigma^*$, on définit la relation d'ordre préfixe $\sqsubseteq$ telle que :
+        \[ \boxed{u \sqsubseteq w \iff \exists v \in \Sigma^*, w = u.v} \] 
+    Autrement dit, $u$ est un préfixe de $w$ ssi il existe un mot $v$ tel que $w$ soit composé de 
+    la concaténation de $u$ et $v$. 
+\end{definition}
+
+\begin{remark}
+    L'ordre préfixe ne nécessite pas de relation d'ordre directement sur l'alphabet $\Sigma$. 
+\end{remark}
+
+\begin{prop}[Ordre Préfixe et égalité]
+    Soient $u,v \in \Sigma^*$ on a : 
+        \[ u \sqsubseteq v \text{ et } v \sqsubseteq u \Longrightarrow u = v \] 
+\end{prop}
+
+\begin{quote}
+    \begin{footnotesize}
+        \begin{proof}
+            Soient $u,v \in \Sigma^*$ tels que $ \exists x,y \in \Sigma^*$ tels que 
+                \[ u = v.x \quad \text{ et } \quad v = u.y \] 
+            On a alors que :
+                \[
+                    \begin{cases}
+                        v = v.y.x \\ 
+                        yx = \varepsilon 
+                    \end{cases}
+                    \; \Longrightarrow 
+                    \begin{cases}
+                        y = \varepsilon \\ 
+                        x = \varepsilon 
+                    \end{cases}
+                    \; \Longrightarrow u = v 
+                \]
+        \end{proof}
+    \end{footnotesize}
+\end{quote}
+
+\begin{remark}
+    \textbf{Attention : } l'ordre préfixe est une relation d'ordre partielle. 
+    Autrement dit, tous les éléments d'un même alphabet de sont pas comparables. 
+\end{remark}
+
+\subsection{Ordre Lexicographique}
+
+\begin{definition}[Ordre Lexicographique]
+    Soit $\Sigma$ un alphabet que l'on muni d'une relation d'ordre $\leqslant$. 
+    L'ordre lexicographique $\leqslant$ est une relation d'ordre totale sur $\Sigma^*$. 
+\end{definition}
+
+\begin{remark}
+    Ici, nous avons bien besoin de définir au préalable un ordre sur notre alphabet $\Sigma$. 
+\end{remark}
+
+\begin{prop}[Compatibilité]
+    L'ordre lexicographique est compatible avec l'ordre préfixe. Plus formellement, 
+        \[ \forall u,v \in \Sigma^*, \quad u \sqsubseteq v \Longrightarrow u \leqslant v \] 
+\end{prop}
+
+
+
+% ==================================================================================================================================
+% Langage
+
+\section{Langage}
+
+Maintenant que nous sommes au clair sur la définition de lettre et de mot, on peut enfin définir l'objet 
+principal de ce chapitre, les langages. 
+
+\subsection{Definition}
+
+\begin{definition}[Langage]
+    Soit $\Sigma$ un alphabet, on appelle langage sur $\Sigma$ toute partie 
+    de $\Sigma^*$. 
+\end{definition}
+
+\begin{remark}
+    L'ensemble de tous les langages d'un alphabet $\Sigma$ est donc $\mathcal{P}(\Sigma^*)$, 
+    l'ensemble de toutes les parties de $\Sigma^*$. 
+\end{remark}
+
+\begin{definition}[Complémentaire]
+    Soit $L$ un langage sur $\Sigma$. On définit le complémentaire de $L$ dans $\Sigma^*$ le langage :
+        \[ \overline{L} = \{w, \; w \not \in L\} \] 
+\end{definition}
+
+\subsection{Opérations}
+
+De même que pour les alphabets et les mots, on peut définir des opérations sur les langages. 
+
+\begin{definition}[Opérations sur les langages]
+    Soit $\Sigma$ un alphabet et $L_1, L_2 \subseteq \Sigma^*$ deux langages de $\Sigma$. 
+    On définit 4 principales opérations sur des langages :
+    \begin{itemize}
+        \item \textbf{Somme : } notée $+$, la somme de deux langages d'apparente à l'union des ensembles. 
+            \[ \boxed{ L_1 + L_2 = \{w, \; w \in L_1 \text{ ou } w \in L_2\} }\] 
+        C'est une opération :
+            \begin{itemize}
+                \item Commutative 
+                \item Associative 
+                \item dont $\emptyset$ est le neutre. 
+            \end{itemize}
+        \item \textbf{Intersection : } de même que pour les ensembles :
+            \[ \boxed{ L_1 \cap L_2 = \{w, \; w \in L_1 \text{ et } w \in L_2\} }\] 
+            C'est une opération : 
+            \begin{itemize}
+                \item Commutative 
+                \item Associative 
+                \item dont $\Sigma^*$ est le neutre
+            \end{itemize}
+        \item \textbf{Différence : } comme les ensembles, on définit la différence de langages :
+            \[ \boxed{ L_1 / L_2 = \{w, \; w \in L_1 \text{ et } w \not \in L_2\} = L_1 \cap \overline{L_2} }\] 
+        \item \textbf{Produit de concaténation : } de même que pour les mots, on peut généraliser le produit de concaténation 
+        aux langages :
+            \[ \boxed{L_1 . L_2 = \{ u.v, \; u \in L_1, v \in L_2\} }\] 
+        C'est une opération :
+        \begin{itemize}
+            \item Associative 
+            \item Distributive par rapport à l'union 
+            \item D'élément neutre $\{\varepsilon\}$. 
+        \end{itemize}
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Puissance de langage]
+    Soit L un langage, on définit \textbf{par récurrence} la puissance de L par :
+    \begin{itemize}
+        \item $L^0 = \{\varepsilon\}$ 
+        \item $L^1 = L$
+        \item $\forall n \in \N^*, \; L^n = L^{n-1}.L $
+    \end{itemize}
+\end{definition}
+
+Une fois définies des opérations "simples" sur les langages, on peut en définir des plus complexes, permettant de "générer" un langage infini
+à partir d'un langage fini ou infini. 
+
+\begin{definition}[Langage plus et étoile]
+    Soit L un langage sur un alphabet $\Sigma$. On définit le langage plus de L comme le langage :
+        \[ L^+ = L^1 + L^2 + \dots \] 
+    De même le langage étoile de $L$ est défini par :
+        \[ L^* = \{\varepsilon\} + L^1 + L^2 + \dots \]
+\end{definition}
+
+\subsection{Propriétés}
+
+Voyons quelques propriétés des langages... 
+
+\begin{proposition}
+    Soient $L_1$ et $L_2$ deux langages sur un alphabet $\Sigma$, on a les propriétés suivantes :
+    \begin{itemize}
+        \item $ \forall p \in \N,$ on a : 
+            \[ \quad (L_1)^p . (L_2)^p \subseteq (L_1)^* . (L_2)^* \] 
+        \item L'opération étoile est idempotente : 
+            \[ (L^*)^* = L^* \] 
+        \item $L^* = \{\varepsilon\} + L^+$ 
+        \item $\varepsilon \in L \iff L^+ = L^* $ 
+    \end{itemize}
+\end{proposition}
+
+\subsection{Expressions Régulières}
+
+Lorsque l'on manipule des langages infinis, il serait appréciable d'avoir une expression pratique pour un langage 
+permettant de directement voir la forme des mots qu'il contient. On définit ainsi les expressions régulières. 
+
+\begin{definition}[Expression Régulière]
+    On définit récurisevement une expression régulière sur un alphabet $\Sigma$ :
+    \begin{itemize}
+        \item $\varepsilon$ est une expression régulière. 
+        \item $ \forall w \in \Sigma$ est une expression régulière. 
+        \item Si E est un expression régulière alors $(E)$ l'est aussi. 
+        \item Si $E_1$ et $E_2$ sont des expressions régulières, alors $E_1 + E_2$ l'est aussi. 
+        \item Si $E_1$ et $E_2$ sont des expressions régulières, alors $E_1.E_2$ l'est aussi.
+        \item Si $E$ est une expression régulière, alors $E^*$ l'est aussi. 
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    Voyons quelques exemples d'expressions régulières sur un alphabet $\Sigma = \{a,b\}$ :
+    \[ a^*b, \quad (a+b)^*, \quad (a+b)^*ba(a+b)^* \] 
+\end{example}
+
+\begin{definition}[Langage Régulier]
+    On dit qu'un langage est régulier si il peut s'écrire sous la forme d'une expression régulière. 
+\end{definition}
+
+Il sera donc préférable de travailler avec des langages réguliers. 
+
+% ==================================================================================================================================
+% Langage Décidable 
+
+\section{Langage Décidable}
+
+L'objectif de ce cours est bien entendu de comprendre comment fonctionne un compilateur, pour pouvoir en créer un par nous même. 
+Pour rappel, on doit d'abord bien comprendre les notions de langage et de mot pour pouvoir ensuite déterminer si un ensemble de 
+mots est syntaxiquement corrects lors de la compilation. 
+
+Lors de la compilation, il faut d'abord commencer par savoir si un mot traité appartient au langage défini ou pas. 
+Pour des langages finis, l'opération n'est pas compliquée, pour chaque mot il suffit de vérifier si il appartient à un ensemble fini. 
+Pour des langages infinis, l'opération semble plus complexe, il va falloir trouver une manière systématique et efficace de 
+définir si un mot appartient au langage ou pas. 
+
+On appelle ce genre de problème un problème de \textbf{décision}. 
+
+\begin{definition}[Langage Décidable]
+    Un langage L est dit décidable si il existe un algorithme permettant de dire si un mot $w$ appartient 
+    ou pas au langage L. 
+\end{definition}
+
+\begin{theorem}[Nombre de Langages Décidables]
+    Il existe un nombre fini de langages décidables. 
+\end{theorem}
+
+Autrement dit, il existe un nombre infini de langages non décidables...
+

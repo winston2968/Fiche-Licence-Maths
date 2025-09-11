@@ -1,0 +1,504 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Résumons, on a pris un ensemble que l'on a muni d'une opération. On a trouvé pleins de propriétés à cette nouvelle structure.
+Serait-il intéressant de munir notre groupe d'une autre opération? 
+
+% ==================================================================================================================================
+% Anneaux, Définitions et Exemples
+
+\section{Anneaux, Définitions et Exemples}
+
+\begin{definition}[Anneaux]
+    Un anneau est un ensemble $A$ muni de deux lois de composition interne généralement notées $+$ et $\times$
+    tels que:
+    \begin{itemize}
+        \item $(A,+)$ est un groupe abélien de neutre $0_A$. 
+        \item $\times$ est associative. 
+        \item $\times$ est distributive à gauche et à droite par rapport à $+$. 
+    \end{itemize}    
+    On notera alors notre anneau $(A,+,\times)$. 
+\end{definition}
+
+\begin{definition}[Anneau Unitaire]
+    Soit $(A,+,\times)$ un anneau. On dit que $A$ est unitaire si il possède un neutre $1_A$ pour la $\times$. 
+    Autrement dit, si $ \exists 1_A \in A$ tel que:
+        \[ \forall a \in A, \quad 1_A \times a = a \times 1_A = a \] 
+\end{definition}
+
+\begin{definition}[Anneau Commutatif]
+    Soit $(A,+,\times)$ un anneau. On dit que A est commutatif si la loi $\times$ est commutative. 
+    Autrement dit si: 
+        \[ \forall a,b \in A, \quad a \times b = b \times a \] 
+\end{definition}
+
+\begin{example}
+    Voyons quelques exemples d'anneaux :
+    \begin{enumerate}
+        \item $(GL_n(\R),+,\times)$ est un anneau unitaire non commutatif. 
+        \item $(\Q,+,\times)$ est un anneau unitaire commutatif. 
+        \item $(2\Z,+,\times)$ est un anneau commutatif non unitaire. 
+    \end{enumerate}
+\end{example}
+
+\subsection{Sous-anneau}
+
+De même que pour les groupes, on peut définir la notion de sous-anneau. Très pratique pour montrer qu'un ensemble est un 
+anneau. 
+
+\begin{definition}[Sous-anneau]
+    Soient $(A,+,\times)$ un anneau et $B \subseteq A$. On dit que $B$ est un sous-anneau de $A$ si 
+    \begin{itemize}
+        \item $(B,+)$ est un sous-groupe de $(A,+)$ 
+        \item $(B,+)$ est stable pour la loi $\times$ de $A$. 
+    \end{itemize}
+\end{definition}
+
+Tout comme pour les groupes, on peut restreindre ces conditions : 
+
+\begin{proposition}
+    Soient $(A,+,\times)$ un anneau et $B \subseteq A$. B est un sous-anneau de A ssi 
+    \begin{itemize}
+        \item $0_A \in B$ 
+        \item $ \forall x,y \in B, x+y \in B, \; -x \in B \text{ et } x \times y \in B$ 
+    \end{itemize}
+\end{proposition}
+
+\begin{remark}
+    Un sous-anneau d'un anneau commutatif est commutatif mais un sous-anneau d'un anneau unitaire n'est as forcément unitaire. 
+\end{remark}
+
+\begin{example}
+    $(2\Z,+,\times)$ est un sous-anneau de $(Z,+,\times)$. Puisque $\Z$ est commutatif, $2\Z$ l'est aussi, 
+    en revanche, puisque $1 \in \Z$ n'est pas pair, $2\Z$ n'est pas unitaire. 
+\end{example}
+
+% ==================================================================================================================================
+% Calculs dans un anneau
+
+\section{Calculs dans un Anneau}
+
+Maintenant que nous avons muni notre groupe d'une nouvelle loi, il va falloir énoncer quelques règles de calculs. 
+Puisque dans un anneau, il n'y a pas forcément d'inverse pour la loi $\times$, on ne pourra pas faire toutes les simplifications 
+que l'on souhaite. 
+
+\begin{prop}[Règles de Calculs dans un Anneau]
+    Soient $a,b \in (A,+,\times)$ et $n,m \in \N$. On a les règles suivantes :
+    \begin{enumerate}[label=\roman*)]
+        \item $0_A \times a  = a \times 0_A = 0_A $
+        \item $(na)b = a(nb) = n(ab) = nab $
+        \item $(na)(mb) = (nm)(ab)$
+    \end{enumerate}
+    Supposons maintenant A unitaire : 
+    \begin{enumerate}[label=\roman*)]
+        \item $na = (n1_A)a = a(n1_A)$ 
+        \item $(-1_A)^{2n} = 1_A $ et $(-1_A)^{2n+1} = -1_A $
+    \end{enumerate}
+\end{prop}
+
+\begin{footnotesize}
+    \begin{proof} 
+        Soient $(A,+,\times)$ un anneau, $a,b \in A$ et $n,m \in \N$. 
+        \begin{enumerate}[label=\roman*)]
+            \item ${0_A \times a = a \times 0_A = 0_A}$ 
+                \[
+                    \begin{cases}
+                        (b + (-b)) \times a = ba + (-ba) = 0_A \\ 
+                        a \times (b + (-b)) = ab + (-ab) = 0_A
+                    \end{cases}
+                \]
+            \item ${(na)b = a(nb) = n(ab) = nab}$
+                    \begin{align*}
+                        (na)b &= (a + \dots + a) b \\ 
+                                &= ab +\dots + ab \\ 
+                                &= n(ab)
+                    \end{align*}
+                    De plus, $ab + \dots + ab = n(ab)$. Par associativité on a : $(na)b = nab$  
+            \item ${(na)(mb) = (nm)(ab)}$
+                    \begin{align*}
+                        (na)(nb) &= \underset{n\text{ fois}}{(a + \dots + a)} \underset{m\text{ fois}}{(b + \dots + b)} \\ 
+                                    &= \underset{m\text{ fois}}{(ab + \dots + ab)} + \dots + \underset{m\text{ fois}}{(ab + \dots + ab)} \\ 
+                                    &= n \underset{m \text{ fois}}{(ab + \dots + ab)} \\ 
+                                    &= (nm)(ab)
+                    \end{align*}
+            \item $na = (n1_A)a = a(n1_A)$ : Supposons que $1_A \in A$. 
+                    \[
+                        \begin{cases}
+                            (n1_A)a = \underset{n\text{ fois}}{(1_A + \dots + 1_A)} a = a + \dots + a = na \\ 
+                            a(n1_A) = a \underset{n\text{ fois}}{(1_A + \dots + 1_A)} = a + \dots + a = na
+                        \end{cases}
+                    \]
+        \end{enumerate}
+    \end{proof}
+\end{footnotesize}
+
+\begin{remark}
+    Soit $(A,+,\times)$ un anneau. Si A est unitaire et que $1_A = 0_A$ alors $A = \{0_A\}$. 
+\end{remark}
+
+\begin{quote}
+    \begin{footnotesize}
+        \begin{proof}
+            Soit A un anneau unitaire tel que $0_A = 1_A$. Soit $x \in A$. Alors : 
+                \[ 1_A x = 0_A x = x = 0_A \] 
+            Donc $x = 0_A$ d'où $A = \{0_A\}$. 
+        \end{proof}
+    \end{footnotesize}
+\end{quote}
+
+\begin{proposition}[Binôme de Newton]
+    Soient $(A,+,\times)$ un anneau et $a,b \in A$ tels que $a \times b = b \times a$ on a alors :
+        \[ \forall n \in \N^*, \quad (a+b)^n  = \sum_{k=0}^{n} \binom{k}{n} a^k b^{n-k} = \sum_{k=0}^{n} \binom{k}{n} b^{n-k} a^k \] 
+\end{proposition}
+
+% ==================================================================================================================================
+% Inverses dans un anneau
+
+\section{Inverses dans un Anneau}
+
+Comme nous l'avons déjà vu, un anneau ne contient pas forcément d'inverses pour la loi $\times$. 
+Cela peut être le cas dans certaines situations. 
+Soit $(A,+,\times)$ un anneau unitaire non nul. 
+
+\begin{definition}[Elements Inversibles]
+    Un élément $x \in A$ est dit inversible dans $A$ s'il existe $y \in A$ tel que $xy = yx = 1_A$. 
+    Dans ce cas, son inverse est unique et noté $x^{-1}$. 
+    On notera $\mathcal{U}(A)$ l'ensemble des éléments inversibles de $A$. Plus formellement : 
+        \[ \boxed{ \mathcal{U}(A) = \{x \in A \; | \; \exists y \in A, xy = yx = 1_A \} } \] 
+\end{definition}
+
+\begin{remark}
+    $\mathcal{U}(A)$ est non vide puiqu'il contient $1_A$ d'inverse lui-même. 
+\end{remark}
+
+\begin{theorem}[Structure des inverssibles]
+    Soit $(A,+,\times)$ une anneau unitaire non vide, l'ensemble $\mathcal{U}(A)$ est un groupe pour la loi $\times$ 
+    de A de neutre $1_A$. 
+\end{theorem}
+
+\begin{example}
+    Dans l'anneau $A = (\mathcal{M}_n(\R),+,\times)$ on a $\mathcal{U}(A) = GL_n(\R)$. 
+\end{example}
+
+% ==================================================================================================================================
+% Diviseurs de zéro
+
+\section{Anneau Intègre et Diviseurs de zéro}
+
+\begin{definition}[Diviseur de zéro]
+    Soit $(A,+,\times)$ un anneau. On dit qu $x \in A$ est un diviseur de $0_A$ si :
+    \begin{itemize}
+        \item $x \not = 0_A$ 
+        \item $ \exists y \in A/\{0_A\},$ tel que $xy = 0_A$ ou $yx = 0_A$
+    \end{itemize}
+    On appelle \textbf{anneau intègre} tout anneau unitaire commutatif qui n'admet pas de diviseurs de zéro. 
+    Plus formellement, un anneau $(A,+,\times)$ est intègre si : 
+        \[ \forall x,y \in A, \quad xy = 0_A \Longrightarrow x = 0 \text{ ou } y = 0 \] 
+\end{definition}
+
+\begin{example}
+    $(\Z,+,\times)$ est intègre. En revanche $(\mathcal{M}_2(\R),+,\times)$ n'est pas intègre (utiliser les matrices nilpotentes). 
+\end{example}
+
+\begin{proposition}
+    Tout sous-anneau unitaire et non nul d'un anneau intègre est intègre. 
+\end{proposition}
+
+\begin{proposition}
+    Soit $(A,+,\times)$ un anneau unitaire. Si $x \in \mathcal{U}(A)$ alors $x$ n'est pas un diviseur de zéro. 
+\end{proposition}
+
+\begin{quote}
+    \begin{footnotesize}
+        \begin{proof}
+            Soit A un anneau unitaire non trivial. Raisonnons par l'absurde. 
+            Soit $x \in \mathcal{U}(A)$ un diviseur de zéro. Alors $ \exists y \in A$ non nul tel que :
+                \[ xy = 0_A \Longrightarrow x^{-1}xz = z = 0 \] 
+            Par hypothèse $z \not = 0_A$ donc $x$ n'est pas un diviseur de zéro. 
+        \end{proof}
+    \end{footnotesize}
+\end{quote}
+
+L'intégrité d'un anneau nous permet de démontrer une nouvelle règle de simplification :
+
+\begin{prop}[Simplification dans un anneau intègre]
+    Soit $A$ un anneau intègre alors $ \forall a \in A/\{0_A\}, \forall c,d \in A$, on a :
+        \[ ab = ac \Longrightarrow b = c \]  
+\end{prop}
+
+\begin{quote}
+    \begin{footnotesize}
+        \begin{proof}
+            Soient $A$ un anneau intègre, $a \in A^*$ et $b,c \in A$. Tels que $ab = ac$. Alors :
+                \[ ab = ac \iff ab -ac = 0_A \iff a (b-c) = 0_A \iff a = 0 \text{ ou } b-c = 0_A \] 
+                {Par hypothèse } $ a \not = 0_A$ { donc } $b-c = 0_A$ 
+
+                {D'où : }$ b = c $
+        \end{proof}
+    \end{footnotesize}
+\end{quote}
+
+% ==================================================================================================================================
+% Idéaux
+
+\section{Idéaux}
+
+Faisons la blague tout de suite, c'est pas idéal comme cours. 
+
+\vspace{0.3cm}
+
+Soit $(A,+,\times)$ un anneau unitaire. 
+
+\subsection{Définitions et premiers théorèmes}
+
+\newpage
+
+\begin{definition}[Idéal]
+    Une partie $I \subseteq A$ est un idéal à gauche de A si 
+    \begin{enumerate}[label=\roman*)]
+        \item $(I,+)$ est un groupe abélien 
+        \item $I$ est absorbant à gauche dans $A$ 
+            \[ \text{i.e} \quad \forall a \in A, \forall x \in I, \quad a.x \in I \] 
+    \end{enumerate}
+    Si un idéal est absorbant à gauche et à droite, on parle d'idéal bilatère. 
+    Dans un anneau commutatif, tous les idéaux sont bilatères. 
+\end{definition}
+
+\begin{remark}
+    Les ensembles $ \{ 0_A \}$ et $A$ sont des idéaux triviaux de $A$.  
+\end{remark}
+
+\begin{proposition}
+    Une partie $I \subseteq A$ est un idéal de $A$ ssi 
+    \begin{enumerate}[label=\roman*)]
+        \item $0_A \in I$ 
+        \item $ \forall x,y \in I, \quad x + y \in I$ 
+        \item $\forall a \in A, \forall x \in I, \quad a.x \in I $ 
+    \end{enumerate}
+\end{proposition}
+
+\begin{theorem}[Idéaux de $\Z$]
+    Les idéaux de $\Z$ sont exactement les $n\Z$ avec $ n \in \N$. 
+\end{theorem}
+
+\begin{quote}
+\begin{footnotesize}
+    \begin{proof}
+        Soit $n \in \N$. On a déjà montré que les $(n\Z,+)$ sont des sous-groupes de $\Z$. 
+        Il suffit de montrer que ce $n\Z$ est bien un idéal de $\Z$. 
+
+        Soit $k \in \Z$ alors $ \forall i \in n\Z$ on a : 
+            \[ k \times i \times n\Z \in n\Z \]
+        Donc c'est bien un idéal. 
+    \end{proof}
+\end{footnotesize}
+\end{quote}
+
+\begin{theorem}[C.N.S d'égalité anneau/idéal]
+    Soit $I \subseteq A$ un idéal de $A$. On a alors :
+        \[ I = A \iff I \cap \mathcal{U}(A) \not = \emptyset \] 
+\end{theorem}
+
+\begin{quote}
+\begin{footnotesize}
+    \begin{proof}
+        Soit $(A,+,\times)$ un anneau unitaire et $I$ un idéal de $A$. 
+        \begin{itemize}
+            \item[$\boxed{\Rightarrow}$] $1_A \in A = I$ or $1_A \times 1_A = 1_A$ donc $(1_A)^{-1} = 1_A$. Donc $ I \cap \mathcal{U}(A) \not = \emptyset $
+            \item[$\boxed{\Rightarrow}$] Soit $a \in I \cap \mathcal{U}(A)$ alors $ \exists a^{-1} \in A$ tel que $a^{-1}a = 1_A$. 
+            Par absorption, $a^{-1}a = 1_A \in I$. Or $ \forall a \in A, a \times 1_A = a \in A$. Donc $I = A$. 
+        \end{itemize}
+    \end{proof}
+\end{footnotesize}
+\end{quote}
+
+\subsection{Caractéristiques des Idéaux}
+
+\begin{proposition}
+    L'intersection finie d'idéaux est d'un anneau $A$ est un idéal de $A$. 
+\end{proposition}
+
+A partir de cette proposition, pour toute partie $X \subseteq A$ on sait que l'intersection de tous les idéaux de $A$ contenant 
+$X$ est un idéal de $A$. 
+
+\begin{definition}[Idéal engendré par une partie]
+    Soit $(A,+,\times)$ un anneau. L'idéal engendré par X est l'intersection de tous les idéaux contenant $X$. On le note $(X)$. 
+    On pourra noter $(X)_A$ pour bien identifier de quel anneaux $(X)$ est un idéal. 
+\end{definition}
+
+\begin{remark}
+    Soit $X \subseteq A$ alors $(X)$ est le plus petit idéal de $A$ contenant $X$. Plus formellement, pout tout idéal $J$ de $A$ contenant $X$ 
+    alors $(X) \subseteq J$. 
+
+    \vspace{0.3cm}
+
+    Soit $X = \{ x_1, \dots, x_p \} \subseteq A$ avec $p \in \N$. L'idéal $(X)$ est noté $x_1, \dots, x_p$. 
+    On dit que $ \forall i \in \llbracket 1, p \rrbracket$, les $x_i$ sont des générateurs de $X$. 
+\end{remark}
+
+\subsection{Idéal Principal}
+
+\begin{definition}[Idéal Principal]
+    Soit $A$ un anneau et $I \subseteq A$ un idéal de $A$. On dit que $I$ est principal s'il est engendré par un set élément. 
+    Autrement dit s'il existe $x \in A$ tel que $X = (x)$. 
+
+    On dit que $A$ est principal s'il est intègre et que tous ses idéaux sont principaux. 
+\end{definition}
+
+\begin{proposition}
+    Soit $A$ un anneau commutatif, unitaire et $x \in A$ alors l'idéal de $A$ engendré par $(x)$ est de la forme : 
+        \[ (x) := \{ ax \; | \; a \in A \}  \] 
+\end{proposition}
+
+\begin{quote}
+\begin{footnotesize}
+    \begin{proof}
+        Montrons que $ (x) := \{ ax \; | \; a \in A \} $ par double inclusion. 
+        \begin{itemize}
+            \item[$\boxed{\subseteq}$] L'ensemble $\{ ax \; | \; a \in A \} $ est un idéal de $A$ et contient $(x)$ on a donc 
+            $(x) \subseteq \{ ax \; | \; a \in A \}$ par minimalité. 
+            \item[$\boxed{\supseteq}$] Soit $ax \in \{ ax \; | \; a \in A \} $ alors $ax \in (x)$ par absorption et 
+            car $(x)$ est un idéal qui contient $x$. 
+        \end{itemize}
+    \end{proof}
+\end{footnotesize}
+\end{quote}
+
+\begin{theorem}[Anneau Principal et $\Z$]
+    $\Z$ est un anneau principal. 
+\end{theorem}
+
+La preuve s'appuit sur le fait que $n\Z = (n)$. 
+
+\begin{definition}[Somme d'idéaux]
+    La somme d'idéaux est un idéal. Autrement dit, pour tout $I,J \subseteq A$ des idéaux de $A$, alors l'ensemble 
+        \[ I + J = \{ x + y \; | \; x \in I, y \in J \} \subseteq A \]
+    Est un idéal de $A$.  
+\end{definition}
+
+% ==================================================================================================================================
+% Morphismes d'Anneaux
+
+\section{Morphismes d'Anneaux} 
+
+\begin{definition}[Morphisme d'Anneaux]
+		Soient $A$ et $B$ deux anneaux unitaires. Une application $f : A \longrightarrow B$ 
+		est un morphisme d'anneaux si 
+		\begin{itemize} 
+				\item $f$ est un morphisme du groupe $(A, +)$ dans $(B, +)$. 
+				\item $\forall x, y \in A, \quad f(x \times y) = f(x) \times f(y)$ 
+				\item $f(1_A) = 1_B$ 
+		\end{itemize} 
+		Si $f$ est, de plus bijective, on dira que c'est un \textbf{isomorphisme d'anneaux}. 
+\end{definition} 
+
+\begin{proposition} 
+		Une fois que l'on a un mosphisme d'anneaux $f : (A, +, \times) \longrightarrow (B, +, \times)$,
+		alors $f$ induit un morphisme de groupes entre $ (\mathcal{U}(A), \times)$ et $ (\mathcal{U}(B), \times) $. 
+		Remarquons bien que nous ne parlons pas du morphisme de groupe de la définition de morphisme d'anneaux. 
+\end{proposition} 
+
+\begin{definition}[Image et Noyau]
+		Soit $f : (A, +, \times) \longrightarrow (B, +, \times)$ un mosphisme d'anneaux. 
+		On appelle image et noyau, l'image et le noyau du morphisme de groupes $f :  (\mathcal{U}(A), \times) \longrightarrow (\mathcal{U}(B), \times)$. 
+\end{definition} 
+
+\begin{remark} 
+		On peut donc conclure de cette dernière définition que $f$ est injective ssi $ \ker f = \{0_A\}$.
+\end{remark} 
+
+\begin{prop}[Structure de l'image et du noyau]
+		Soit $f : (A,+,\times) \longrightarrow (B,+,\times)$ un morphisme d'anneaux. Alors $ \ker f$ est un idéal de $A$ et 
+		$Im (f)$ est un sous-anneau de $B$. 
+\end{prop} 
+
+\begin{quote} 
+	\begin{footnotesize} 
+		\begin{proof}
+
+			
+		\end{proof}
+	\end{footnotesize} 
+\end{quote} 
+
+\begin{proposition}
+		La composée de deux morphismes d'anneaux est un morphisme d'anneaux. La réciproque d'un morphisme d'anneaux bijectif 
+		est aussi un morphisme d'anneaux. 
+\end{proposition} 
+
+% ==================================================================================================================================
+% Anneau Quotient 
+
+\section{Anneau Quotient}
+
+\begin{theorem}[Quotient d'un anneau par un idéal]
+    Soit $A$ un anneau unitaire non trivial et $I$ un idéal bilatère de $A$ distinct de $A$. 
+    Soit $A/I$ l'ensemble des classes à gauche du groupe $(A,+)$ modulo le sous-groupe $I$. 
+    On a les propriétés suivantes: 
+    \begin{enumerate}[label=\roman*)]
+        \item Il existe une loi de compisition interne sur $A/I$, notée $\times$ telle que :
+            \[ \forall a,b \in A, \; \overline{a \times b} = \overline{a} \times \overline{b} \] 
+        \item Si $+$ désigne l'addition quotient du groupe quotient $A/I$ alors $(A/I, +, \times)$ 
+        est un anneau unitaire non trivial. On l'appelle anneau-quotient de $A$ par $I$. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+    L'anneau quotient d'un anneau commutatif est commutatif (pour la loi $\times$). 
+\end{proposition}
+
+\begin{proposition}[Projection Canonique]
+    Soit $(A/I, +, \times)$ un anneau quotient, alors l'application: 
+        \[ \pi : 
+            \begin{cases}
+                A \longrightarrow A/I \\ 
+                a \longmapsto \overline{a}
+            \end{cases} \] 
+    est un morphisme d'anneaux surjectif de noyau $I$. 
+\end{proposition}
+
+\begin{theorem}[Isomorphisme]
+    Soit $\phi : A \longrightarrow B$ un morphisme d'anneaux. On a alors: 
+        \[ \boxed{A/\ker \phi \simeq Im(\phi)} \] 
+\end{theorem}
+
+% ==================================================================================================================================
+% Anneau Z/nZ 
+
+\section{L'anneau $\Z/n\Z$}
+
+\begin{definition}[Anneau $\Z/n\Z$]
+    Soit $n \in \N, n \geqslant 2$. L'anneau des entiers modulo $n$ est l'anneau quotient de $\Z$ par on idéal $n\Z$, noté $\Z/n\Z$. 
+\end{definition}
+
+\begin{theorem}[Inversibles dans $\Z/n\Z$]
+    Soit l'anneau quotient $(\Z/n\Z, +,\times)$. Les élements inversibles de cet anneau sont exactement les classes 
+    dont les représentant sont premiers avec $n$. Autrement dit: 
+        \[ \mathcal{U}(\Z/n\Z) = \{\overline{x} \; | \; x \in \llbracket 1, n \rrbracket \; \text{et} \; pgcd(1,n) = 1\} \] 
+\end{theorem}
+
+\begin{theorem}[Fondamental]
+    Soit $n \geqslant 2$. On a: 
+        \[ \boxed{n \text{ premier } \; \iff \Z/n\Z \; \text{ est un corps } \; \iff \Z/n\Z \; \text{ est intègre }} \] 
+\end{theorem}
+
+Ainsi, lorsque $n \geqslant 2$ est premier, on note $\Z/n\Z$, $\F_p$. 
+
+\begin{proposition}
+    Les diviseurs de zéro dans l'anneau $\Z/n\Z$ sont exactement les classes dont les représentants divisent $n$ 
+    et qui sont strictement compris entre $1$ et $n$. 
+    Autrement dit, 
+        \[ \overline{d} \in \Z/n\Z \text{ est un diviseur de zéro } \iff 1 < d < n \text{ et } d|n \] 
+\end{proposition}
+
+\begin{theorem}[Chinois]
+    Soient $n,m \in \N$ supérieurs à $2$. Alors: 
+        \[ pgcd(n,m) = 1 \; \iff \; \Z/nm\Z \simeq (\Z/n\Z) \times (\Z/m\Z) \] 
+\end{theorem}
+
+\begin{theorem}[Petit théorème de Fermat]
+    Soit $p \in \N$ premier. Pour tout $x \in \Z$, on a $x^p \equiv x \mod p$. 
+\end{theorem}
+

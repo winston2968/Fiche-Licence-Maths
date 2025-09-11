@@ -1,0 +1,198 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Une fois les corps définis (voir chap précédent), on peut parler d'arithmétique dans les anneaux. 
+
+On va essayer dans ce chapitre de généraliser aux anneaux toutes les propriétés que l'on connaît sur les 
+nombres relatifs usuels. L'objectif sera donc ensuite de pouvoir appliquer cette théorie à n'importe quel anneau. 
+
+L’étude des anneaux remonte aux travaux de Richard Dedekind (1831-1916) 
+et David Hilbert (1862-1943), qui ont exploré les idéaux pour résoudre des problèmes en théorie des nombres. 
+Ces concepts ont été développés pour comprendre la factorisation dans des extensions des entiers, 
+notamment dans le cadre du dernier théorème de Fermat. L’approche moderne a été formalisée par Emmy Noether 
+au début du XX° siècle.
+
+\vspace{0.3cm}
+
+Dans tout ce chapitre, on se place dans une anneau $A$ unitaire, intègre et commutatif. 
+
+% ==================================================================================================================================
+% Divisibilité
+
+\section{Divisibilité}
+
+Revenons aux fondamentaux...
+
+\begin{definition}[Divisibilité]
+    Soient $a,b \in A$ on dit que $a$ divise $b$ (noté $a | b$) si il existe $c \in A$ tel que $ac = b$. 
+
+    On note $ \mathcal{D}(a)$ l'ensemble des diviseurs de $a \in A$ dans $A$ : 
+        \[ \mathcal{D}(a) = \{d \in A \; \text{ tq } d | a\}  \] 
+\end{definition}
+
+\begin{proposition}[Unicité]
+    Soient $a,b \in A$. Si $b | a$ et $ b \not  = 0_A$ alors il existe un unique $q \in A$ appelé \textbf{quotient}
+    tel que $a = bq$. 
+\end{proposition}
+
+\begin{prop}[Divisibilité et Idéaux]
+    Soient $a,b \in A$. On a alors l'implication suivante : 
+        \[ a | b \Longrightarrow (b) \subseteq (a) \] 
+\end{prop}
+
+\begin{definition}[Éléménts associés]
+    Soient $a,b \in A$ on dit que $a$ et $b$ sont \textbf{associés} si : 
+        \[ a | b \quad \text{et} \quad b | a \] 
+    L'association pour la divisibilité est une relation d'équivalence noté $a \mathcal{R} b$. 
+\end{definition}
+
+\begin{proposition}
+    Soient $a,b \in A$, on a alors : 
+        \[ a \mathcal{R} b \iff \exists u \in \mathcal{U}(A), a = ub \iff (a) = (b) \] 
+\end{proposition}
+
+
+% ==================================================================================================================================
+% PGCD, PPCM et éléments irréductibles 
+
+\section{PGCD, PPCM et éléments irréductibles}
+
+\begin{definition}[PGCD]
+    Soit $(a_i)_{i \in I} \in A$ une famille dénombrable d'éléments de $A$. 
+    On définit le PGCD de $(a_i)$ dans $A$ comme le plus grand diviseur commun de tous les $a_i, i \in I$. 
+    Plus formellement, s'il existe : 
+        \[ \boxed{ d = pgcd((a_i)_{i \in I}) \iff 
+        \begin{cases}
+            \forall i \in I, d | a_i \\ 
+            \forall \delta \in A, \forall i \in I, \delta | a_i \Longrightarrow d | \delta 
+        \end{cases} } \] 
+    \textbf{Attention :} dans notre cadre le PGCD d'un famille d'éléments de $A$ n'existe pas forcément. 
+\end{definition}
+
+\begin{proposition}
+    Soit $(a_i)_{i \in I} \in A$ une famille dénombrable d'éléments de $A$. 
+    Le PGCD de la famille $(a_i)_{i \in I}$ est unique à un inversible près. 
+    Autrement dit,
+        \[ \forall d,d' \in A, 
+        \begin{cases}
+            d = pgcd((a_i)_{i \in I}) \\ 
+            d' = pgcd((a_i)_{i \in I}) \\ 
+        \end{cases}
+        \Longrightarrow d \mathcal{R} d' \] 
+\end{proposition}
+
+\begin{proposition}
+    Soient $a,b,d \in A$. On a l'implication suivante : 
+        \[ (a) + (b) = (d) \Longrightarrow d = pgcd(a,b) \] 
+    Ainsi, si on trouve un générateur de la somme de deux idéaux, alors on trouve un PGCD à un inversible près. 
+\end{proposition}
+
+\begin{definition}[Éléments premiers entre eux]
+    Soit $(a_i)_{i \in I} \in A$ une famille dénombrable d'éléments de $A$. 
+    On dit que tous les $a_i$ sont premiers entre eux si 
+        \[ \forall i \in I, \forall j \in I, i \not  = j, \quad pgcd(a_i, a_j) \text{ existe et } pgcd(a_i, a_j) \in \mathcal{U}(A) \] 
+\end{definition}
+
+\begin{definition}[PPCM]
+    Soit $(a_i)_{i \in I} \in A$ une famille dénombrable d'éléments de $A$. 
+    On dit que $(a_i)_{i \in I}$ admet un plus petit commun multiple dans $A$ s'il existe un élément dans $A$ 
+    multiple de tous les $a_i$ et étant le plus petit multiple. 
+    Plus formellement : 
+        \[ \boxed{ m = ppcm((a_i)_{i \in I}) \in A \iff 
+        \begin{cases}
+            \forall i \in I, a_i | m \\ 
+            \forall \mu \in A, \forall i \in I, a_i | \mu  \Longrightarrow m | \mu 
+        \end{cases} } \] 
+    Tout comme le PGCD, le PPCM est définit à un inversible près. 
+\end{definition}
+
+\begin{proposition}[Caractérisation des PPCM]
+    On peut caractériser le PPCM de deux éléments à partir des idéaux de ces éléments. 
+    Ainsi, soient $a,b, m \in A$. On a alors : 
+        \[ \boxed{ m = ppcm(a,b) \iff (m) = (a) \cap (b) } \] 
+\end{proposition}
+
+\newpage
+
+\begin{definition}[Élémént irréductible]
+    Soit $a \in A$. On dit que $p$ est irréductible dans $A$ si il n'existe aucune décomposition de $p$ dans 
+    $A$ en éléments non inversibles. Plus formellement : 
+        \[ p \in A \text{ est irréductible } \iff 
+        \begin{cases}
+            p \not = 0_A \text{ et } p \not \in \mathcal{U}(A) \\ 
+            \forall d_1, d_2 \in A,  p = d_1 \times d_2 \Longrightarrow d_1 \in \mathcal{U}(A) \text{ \textbf{ou }} d_2 \in \mathcal{U}(A) 
+        \end{cases} \] 
+\end{definition}
+
+
+\begin{example}
+    Les irréductibles de $(\Z, +, \times)$ sont exactement les nombres premiers de $\Z$. 
+\end{example}
+
+
+% ==================================================================================================================================
+% Divisibilité dans les anneaux principaux 
+
+\section{Divisibilité dans les anneaux principaux}
+
+Depuis le début de ce chapitre nous nous plaçons dans un cadre relativement général. 
+Ce cadre, quoique très intéressant, ne nous permet pas d'avoir de "bonnes" propriétés pour la divisibilité. 
+Ainsi, nous allons ici nous placer dans des anneaux principaux. 
+
+\begin{remark}[Rappel]
+    Un anneau $A$ est dit principal si tout idéal peut être engendré par un seul élément de $A$. 
+\end{remark}
+
+\begin{theorem}[Existence PGCD et PPCM]
+    Soit $A$ un anneau \textbf{principal}. Soit $(a_i)_{i \in I}$ une famille d'éléments de $A$. 
+    Alors le PGCD et le PPCM de $(a_i)_{i \in I}$ existe et de plus : 
+        \begin{itemize}
+            \item $ pgcd((a_i)_{i \in I}) = d \text{ tel que } d \in A \text{ et } (d) = (\{a_i \; | \; i \in I \}) $ 
+            \item $ ppcm((a_i)_{i \in I}) = m \text{ tel que } m \in A \text{ et } (m) = \bigcap_{i \in I} (a_i) $
+        \end{itemize}
+\end{theorem}
+
+\begin{theorem}[Bézout]
+    Soit $A$ un anneau principal et $a,b \in A$. On a alors : 
+        \[ \boxed{ pgcd(a,b) = d \in A \iff \exists u, v \in A, \; au + bv = d } \] 
+    En particulier : 
+        \[ pgcd(a,b) = 1 \iff \exists u, v \in A, \; au + bv = 1 \] 
+\end{theorem}
+
+\begin{corollary}[Bézout]
+    Soit $A$ un anneau principal et $a,b, \alpha, \beta \in A$. Alors : 
+        \[ a = d \alpha \text{ et } b = d \beta \text{ et } pgcd(\alpha, \beta) = 1 \Longrightarrow pgcd(a,b) = d \] 
+\end{corollary}
+
+\begin{theorem}[Gauss]
+    Soit $A$ un anneau principal et $a,b,c \in A$. On a :
+    \begin{itemize}
+        \item $ pgcd(a,b) = 1 \text{ et } a | bc \Longrightarrow a | c $ 
+        \item $p$ irréductible dans $A$ et $ p | ab \Longrightarrow p | b $ 
+    \end{itemize}
+\end{theorem}
+
+\begin{definition}[Anneau Euclidien]
+    On dit que $A$ est un anneau euclidien s'il est possible d'y définir une division euclidienne. 
+\end{definition}
+
+\begin{theorem}[Anneau euclidien, conséquences]
+    Tout anneau euclidien est principal. 
+\end{theorem}
+
+
+% ==================================================================================================================================
+% Anneaux Factoriels
+
+\section{Anneaux Factoriels}
+
+\begin{definition}[Anneau Factoriel]
+    Un anneau $A$ est dit factoriel s'il est intègre et si tout élément se factorise en éléments inversibles. 
+\end{definition}
+
+\begin{theorem}[Factorialité des anneaux principaux]
+    Tout anneau principal est factoriel. 
+\end{theorem}
+

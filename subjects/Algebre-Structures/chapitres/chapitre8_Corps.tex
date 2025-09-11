@@ -1,0 +1,282 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Résumons, nous avons un groupe avec une loi supplémentaire qui peut être commutative et posséder un neutre. 
+Grâce à cela, nous avons pu définir les idéeaux, un nouveau type de morphisme, etc... 
+
+Seulement, on souhaiterai pouvoir définir des structures plus complexes comme avec les groupes tels que les anneaux 
+quotient, avoir une notion de divisibilité, bref, de l'arithmétique. 
+
+Pour cela, nous avons besoin d'étendre la notion d'anneaux aux corps...
+
+% ==================================================================================================================================
+% Corps 
+
+\section{Corps, définition et propriétés}
+
+\begin{definition}[Corps]
+    On appelle $(K, +, \times)$ un corps si $(K,+,\times)$ est un anneau et $(K^*, \times)$ un groupe. 
+    Si la loi $\times$ est commutative, on parlera alors de corps commutatif. 
+\end{definition}
+
+On peut bien évidement trouver une condition nécessaire et suffisante pour qu'un anneau soit un corps...
+
+\begin{proposition}
+    Soit $(K, +, \times)$ un anneau unitaire. $K$ est un corps si tout élément non nul est inversible pour $\times$. 
+    Plus formellement ssi : 
+        \[ \forall x \in K^*, \; \exists y \in K, \; xy = yx = 1_K \quad \text{ssi} \; \mathcal{U}(K) = K^*\] 
+\end{proposition}
+
+\begin{proposition}
+    Un corps commutatif est aussi un anneau intègre. 
+\end{proposition}
+
+Tout comme pour les groupes et les anneaux, on peut définir un sous-corps d'un corps. 
+
+\newpage 
+
+\begin{definition}[Sous-corps]
+    Soit $K$ un corps. Un partie $L \subseteq K$ est un sous-corps de $K$ si :
+    \begin{enumerate}[label=\roman*)]
+        \item $L$ est un sous-anneau de $K$
+        \item $1_K \in L$ 
+        \item $ \forall x \in L, x^{-1} \in L$
+    \end{enumerate}
+\end{definition}
+
+En pratique pour montrer qu'un anneau est un corps, on préfèrera montrer que c'est un sous-corps quand c'est possible. 
+
+\begin{example}
+    $(\C,+,\times)$ est un corps. $(\Q,+,\times)$ et $(\R,+,\times)$ en sont des sous-corps. 
+\end{example}
+
+% ==================================================================================================================================
+% Anneau Quotient
+
+\section{Anneau Quotient}
+
+Dans cette section, on considère un anneau A unitaire, non trivial. 
+On va quotienter A par un de ses idéaux I bilatère différent de A. 
+On a donc le théorème suivant : 
+
+\begin{theorem}[Structure de l'anneau quotient]
+    Soit A un anneau unitaire, non trivial et I un idéal bilatère de A différent de A. 
+    L'ensemble $A/I$ est définit comme l'ensemble des classes du groupe $(A,+)$ modulo le 
+    sous-groupe $I$ de $A$. On définit des opérations dessus : 
+    \begin{itemize}
+        \item \textbf{Loi multiplicative : } $ \forall a, b \in A, \overline{a} \times \overline{b} = \overline{a \times b}$. 
+        \item \textbf{Loi additive : } $ \forall a,b \in A, \overline{a} + \overline{b} \in A/I$. 
+    \end{itemize}
+    Alors le groupe $(A,+)$ peut être étendu en un anneau $(A,+,\times)$ unitaire et non nul appelé 
+    \textbf{anneau quotient de A par I}. 
+\end{theorem}
+
+\begin{proposition}
+    Si A est commutatif, alors $A/I$ est aussi commutatif. 
+\end{proposition}
+
+Comme pour les groupes, on peut définir la projection canonique, porte d'entrée pour les théorèmes d'isomorphismes... 
+
+\begin{definition}[Projection Canonique]
+    Soit A un anneau et $A/I$ son anneau quotient par $I$. 
+    On définit la projection canonique par : 
+        \[ \pi : 
+            \begin{cases}
+                A \longrightarrow A/I \\ 
+                a \longrightarrow \overline{a} 
+            \end{cases} \]
+    qui à chaque élément de $A$ lui associe sa classe dans $A/I$. Elle "projette" les éléments de $A$ sur leur classe. 
+    Cette application est : 
+    \begin{itemize}
+        \item un morphisme d'anneaux 
+        \item surjective 
+        \item de noyau $I$ 
+    \end{itemize}
+\end{definition}
+
+\newpage 
+
+\begin{theorem}[Isomorphisme]
+    Soient $A,B$ deux anneaux et $\phi : A \longrightarrow B$ une morphisme d'anneaux. 
+    On peut alors construire un isomorphisme d'anneaux $\overline{\phi}$ tel que : 
+        \[ A / \ker \phi \simeq Im \phi \] 
+    \[
+        \begin{tikzcd}
+            A \arrow[r, "\phi"] \arrow[d, two heads, "\pi"] & B \\
+            A/\ker \phi \arrow[ur, "\tilde{\phi}", dashed] & 
+        \end{tikzcd}
+    \]
+\end{theorem}
+
+
+% ==================================================================================================================================
+% Anneau Z/nZ
+
+\section{L'anneau $\Z / n\Z$}
+
+Définissons maintenant proprement l'anneau $\Z /n \Z$ en nous servant du fait que $\Z$ est un anneau 
+et $ n \Z, \forall n \in \N$ est un de ses idéaux. 
+
+\begin{definition}[Anneau $\Z / n \Z$]
+    Soit $n \in \N, n \geqslant 2$. On appelle anneau des entiers modulo $n$ l'anneua quotient de $\Z$ 
+    par son idéal $n\Z$ noté $\Z /n \Z$. 
+\end{definition}
+
+\begin{theorem}[Inversibles dans $\Z / n \Z$]
+    Le groupe des inversibles de $\Z / n \Z$ est : 
+        \[ \boxed{ \mathcal{U}(\Z / n \Z) = \{ \overline{x} \; | \; x \in \llbracket 1, n \rrbracket \text{ tq } pgcd(x,n) = 1\} } \] 
+    $(\mathcal{U}(\Z / n \Z), \times)$ est un groupe abélien d'ordre $\phi(n)$ où $\phi$ est l'indicatrice d'Euler. 
+\end{theorem}
+
+\begin{theorem}[Fondamental]
+    On a les équivalences suivantes : 
+        \[ n \text{ premier } \iff \Z / n \Z \text{ est un corps } \iff \Z / n \Z \text{ est intègre} \] 
+\end{theorem}
+
+Ce théorème nous permet de rapidement pouvoir affirmer qu'un $\Z/n\Z$ est un corps. 
+En effet, l'utilisation d'un corps permet d'obtenir des inverses pour la loi $\times$. 
+
+\begin{remark}[Notation]
+    Lors que $n$ est premier, le corps $\Z / n \Z$ est noté $\F_p$. 
+\end{remark}
+
+Enonçons maintenant quelques théorèmes en vrac très utiles dans l'étude de la théorie des corps. 
+
+\begin{theorem}[Restes Chinois]
+    Soient $n,m \in \Z$. Si $ pgcd(n,m) = 1$ alors l'application : 
+        \[ \varphi : 
+            \begin{cases}
+                \Z /nm \Z \longrightarrow \Z /n \Z \times \Z / m \Z \\ 
+                \overline{x} \longmapsto (x \mod n, x \mod m)
+            \end{cases} \] 
+    est un isomorphisme d'anneaux. En particulier : 
+        \[ \boxed{ pgcd(n,m) = 1 \iff \Z /nm \Z \simeq \Z /n \Z \times \Z / m \Z  } \]
+\end{theorem}
+
+Comme vu dans le cadre de la théorie des groupes, nous pouvons aussi généraliser le petit théorème de Fermat. 
+
+\begin{theorem}[Petit théorème de Fermat]
+    Soit $ p \in \N$. Si $p$ est premier alors 
+        \[ \forall x \in \Z, \quad x^p \equiv x \mod p \] 
+\end{theorem}
+
+% ==================================================================================================================================
+% Caractéristique d'un anneau 
+
+\section{Caractéristique d'un Anneau}
+
+Introduisons maintenant la caractéristique d'un anneau, concept fondamental en théorie des anneaux et en algèbre 
+commutative. 
+
+\begin{definition}[Caractéristique d'un anneau]
+    Soit $A$ un anneau unitaire non trivial. 
+    La \textbf{caractérisitique} de $A$ est le plus petit entier naturel $ n \in \N$ tel que $ n \times 1_A = 0_A$. 
+    On la note $car(A)$. 
+    Si cet entier n'existe pas, alors $car(A) = 0_\N$. 
+\end{definition}
+
+\begin{remark}
+    La caractéristique d'un anneau permet de distinguer les anneaux divisibles comme $\Q,\R$ ou $\C$ des anneaux 
+    cycliques tels que les $\Z / n \Z$. 
+    Intuitivement elle "mesure" combien de fois on doit additionner $1$ pour obtenir $0$. 
+\end{remark}
+
+\begin{proposition}
+    On peut définir la caractéristique d'un anneau plus formellement. 
+    Soit $A$ un anneau initaire non trivial. Soit $f$ le morphisme d'anneau suivant : 
+        \[ f : 
+            \begin{cases}
+                \Z \longrightarrow A \\ 
+                k \longmapsto k \times 1_A 
+            \end{cases} \]
+    La caractéristique de $A$ est donc l'unique entier naturel $n \in \N$ tel que : 
+        \[ \ker f = n \Z \] 
+    On a alors $ \forall x \in A$ que $ n x = 0_A$. 
+\end{proposition}
+
+\begin{theorem}[Caractéristique des anneaux usuels]
+    \begin{itemize}
+        \item $car (\Z) = 0 $ 
+        \item $car (\Z / n \Z) = n $
+        \item Un anneau de caractéristique nulle est infini. 
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}[Caractérisation des anneaux intègres]
+    Soit $A$ un anneau intègre. Alors $car(A) = 0$ ou $car(A) = p$ avec $p$ premier. 
+\end{theorem}
+
+% ==================================================================================================================================
+% Corps des fractions 
+
+\section{Corps des fractions}
+
+Soit $A$ un anneau commutatif, on cherche à construire une extension de $A$ pour laquelle tout élément de $A$ 
+contient un inverse pour la loi $\times$ usuelle de $A$. 
+Pour cela, nous allons être amenée à construire le corps des fractions de $A$. 
+
+\vspace{0.3cm}
+
+En guise d'exemple introductif, on peut considérer l'anneau $(\Z,+,\times)$. 
+Dans cet anneau, $2$ ne possède pas d'inverse pour la loi $\times$. 
+Pour cela, on peut "construire" un nouvel anneau (ici $\Q$), dans lequel $ \frac{1}{2} \in \Q$ sera l'inverse de 2 
+pour la loi $\times$. 
+
+\begin{proposition}
+    Soit A un anneau commutatif. On cherche à construire une structure pour dans laquelle tout élément de $A$ possède 
+    inverse pour la loi $\times$. 
+    On définit ainsi le \textbf{corps des fractions} de $A$ comme l'ensemble : 
+        \[ \boxed{ Fr(A) = \left\{ \frac{a}{b} \; | \; a,b \in A \text{ et } b \not = 0_A \right\} } \]
+    Dans cette structure, ces objets sont définis comme des classes d'équivalences sous la forme : 
+        \[ \frac{a}{b} = \frac{c}{d} \iff ad = bc \] 
+    Cette forme d'égalité garantit la compatibilité des opérations/propriétés arithmétiques déjà utilisées. 
+    Ainsi tout élément $b \in A$ qui ne possédait pas d'inverse dans $A$ en possède maintenant un dans $Fr(A)$ tel que :
+        \[ \forall b \in A, \exists \frac{1}{b} \in Fr(A), \quad b \times \frac{1}{b} = \frac{1}{b} \times b = 1_A \] 
+    Chaque élément non nul de $A$ possède maintenant un inverse pour $\times$ ce qui fait de $Fr(A)$ un corps. 
+\end{proposition}
+
+\begin{prop}[Calculs]
+    Abordons quelques propriétés de calculs dans $Fr(A)$. Soient $a,c \in A$ et $k,b,d,u,v \in A$ non nuls. 
+    On a les propriétés suivantes dans $Fr(A)$ : 
+    \begin{itemize}
+        \item $ \frac{ka}{kb} = \frac{a}{b} $ 
+        \item $ \frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd} $ 
+        \item $ \frac{a}{b} + \frac{c}{d} = \frac{ad + cb}{bd} $ 
+        \item $ \left\{ \frac{u}{v} \right\} ^{-1} = \frac{v}{u} $
+    \end{itemize}
+\end{prop}
+
+\begin{proposition}
+    Depuis le début, nous supposons que $Fr(A)$ est bien définit que tout se passe bien. Or, pour que $Fr(A)$ 
+    soit bien définit, il faut que l'on puisse "plonger" $A$ dans son corps des fractions. 
+    On définit ainsi le morphisme : 
+        \[ \varphi : 
+            \begin{cases}
+                A \longrightarrow Fr(A) \\ 
+                a \longmapsto \frac{a}{1_A}
+            \end{cases} \] 
+    C'est un morphisme d'anneaux par propriétés sur les fractions. 
+    
+    Pour "plonger" $A$ dans $Fr(A)$, il faut que $\varphi$ soit injectif. 
+            \[ \text{i.e } \forall a,b \in Fr(A), \quad \varphi(a) = \varphi(b) \Longrightarrow a = b \] 
+    Autrement dit dans la cas des fractions, si $\frac{a}{1} = \frac{b}{1}$ alors $a = b$. 
+    Or si $A$ n'est pas \textbf{intègre}, il peut contenir des diviseurs de zéro $a$ et $b$ tels que : 
+            \[ a \not  = 0 \; \text{et} \; b \not  = 0 \; \text{ mais } \; ab = 0_A \] 
+    En terme de fractions, cela se traduit par : 
+        \[ \exists a,b \in A, \text{ tq } \; \frac{a}{b} = \frac{0}{b} = 0 \] 
+    Il se pourrait donc que $\varphi$ ne soit pas injectif. Ainsi $Fr(A)$ ne serait pas définit. 
+\end{proposition}
+
+\begin{prop}[Intégrité et corps des fractions]
+    Soit $A$ un anneau unitaire non nul et $Fr(A)$ son corps des fractions. 
+    Si il existe une morphisme d'anneau injectif $ \varphi : A \longrightarrow Fr(A)$ injectif, 
+    alors nécessairement, $A$ est intègre. 
+\end{prop}
+
+\begin{theorem}[Existence corps des fractions]
+    Tout anneau commutatif intègre $A$ admet un corps de fractions : 
+        \[ Fr(A) = \left\{ \frac{a}{b} \; | \; a,b \in A, b \not  = 0_A \right\} \] 
+\end{theorem}
+

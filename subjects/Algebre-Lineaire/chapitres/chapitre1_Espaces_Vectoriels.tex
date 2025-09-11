@@ -1,0 +1,535 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans ce chapitre nous allon définir les structures utulisées dans toute l'algèbre linéaire, les expaces vectoriels. 
+Ce concept est fondamental pour tout le reste de l'algèbre linéaire puisque nous définissons les 
+fondements même de la discipline. 
+
+% ==================================================================================================================================
+% Structure d'espace vectoriel
+
+\section{Structure d'espace vectoriel}
+
+Les espaces vectoriels sont définis de façon axiomatique de la façon suivante.
+
+\begin{definition}[Axiomes d'un espace vectoriel]
+    Soit \( F \) un corps et \( V \) un ensemble. On dit que \( V \) est un espace vectoriel sur \( F \) si les éléments de \( V \) et les opérations suivantes satisfont les propriétés suivantes :
+
+    \begin{enumerate}
+        \item \textbf{Commutativité de l'addition} : Pour tous \( u, v \in V \), on a
+            \[ u + v = v + u\]
+        \item \textbf{Associativité de l'addition} : Pour tous \( u, v, w \in V \), on a
+            \[ (u + v) + w = u + (v + w) \]
+        \item \textbf{Existence d'un élément neutre pour l'addition} : Il existe un élément \( 0 \in V \) tel que pour tout \( v \in V \),
+            \[ v + 0 = v \]
+        \item \textbf{Existence d'un opposé pour l'addition} : Pour chaque \( v \in V \), il existe un élément \( -v \in V \) tel que
+            \[ v + (-v) = 0 \]
+        \item \textbf{Compatibilité de la multiplication scalaire avec l'addition vectorielle} : Pour tous \( \lambda \in F \) et \( u, v \in V \), on a
+            \[ \lambda \cdot (u + v) = \lambda \cdot u + \lambda \cdot v \]
+        \item \textbf{Compatibilité de la multiplication scalaire avec l'addition scalaire} : Pour tous \( \lambda, \mu \in F \) et \( v \in V \), on a
+            \[ (\lambda + \mu) \cdot v = \lambda \cdot v + \mu \cdot v\]
+        \item \textbf{Distributivité de la multiplication scalaire} : Pour tous \( \lambda, \mu \in F \) et \( v \in V \), on a
+            \[ \lambda \cdot (\mu \cdot v) = (\lambda \mu) \cdot v \]
+        \item \textbf{Existence d'un élément neutre pour la multiplication scalaire} : Il existe un élément \( 1 \in F \) tel que pour tout \( v \in V \),
+            \[ 1 \cdot v = v \]
+    \end{enumerate}
+\end{definition}
+
+En pratique, on utilise les propriétés des espaces vues dans les chapitres précédents et les structures 
+déjà connnues. 
+
+\begin{definition}[Espace Vectoriel]
+    En résumé, un espace vectoriel $E$ est un groupe abélien pour l'addition vectorielle muni d'une multiplication 
+    scalaire qui interagit de manière compatible par distributivité avec cette addition via les opérations du corps 
+    de base $\K$.  
+\end{definition}
+
+Dans toute la suite du cours, on notera $E$ un espace vectoriel sur un corps de base $\K$ (en général $\R$ ou $\C$). 
+
+\begin{remark}
+    On parlera de \textbf{vecteur} pour les éléménts de $E$ et de \textbf{scalaires} pour les éléments de $\K$. 
+\end{remark}
+
+\begin{prop}[Élémentaires]
+    \begin{itemize}
+        \item $ \forall \lambda \in \K, \forall u \in E, \quad \lambda u = 0_E \Longrightarrow \lambda = 0_\K \text{ ou } u = 0_E $ 
+        \item $ \forall u \in E, \quad -u = -1 \times u $ 
+        \item $ \forall \lambda, \mu \in \K, \forall u \in E, \quad (\lambda - \mu) u = \lambda u - \mu u $  
+    \end{itemize}
+\end{prop}
+
+\begin{definition}[Combinaison Linéaire]
+    Soient $(u_1, \dots, u_n)$ une famille de vecteur de $E$ et $ (\lambda_1, \dots, \lambda_n)$ une famille de scalaires de $\K$. 
+    On définit une combinaison linéaire de ces vecteurs par ces scalaire comme le vecteur : 
+        \[ u' = \lambda_1 u_1 + \dots + \lambda_n u_n \in E \] 
+\end{definition}
+
+La notion de combinaison linéaire est essentielle dans ce chapitre, notamment pour la compéhension des vect. 
+
+\begin{example}[Espace Vectoriels Usuels]
+    Voyons quelques exemples d'espaces vectoriels. 
+    \begin{itemize}
+        \item \textbf{Les complexes} : on peut voir l'ensemble des complexes $\C$ comme un $\R$-espace vectoriel. 
+        Ainsi, on muni $\C$ de son addition usuelle et de la multiplication externe suivante : 
+            \[ \forall \lambda \in \R, \forall z \in \C, \quad \lambda z \in \C \] 
+        comme le produit complexe. Muni de ces deux lois, $\C$ est un espace vectoriel sur $\R$. 
+        \item \textbf{Les fonctions de $X$ vers $E$} : Soient $E$ un espace vectoriel et $X$ un ensemble non vide. 
+        L'ensemble $ \mathcal{F}(X,E)$ des applications de $X$ dans $E$ est un espace vectoriel. 
+        On définit l'égalité dans $ \mathcal{F}(X,E)$ comme l'inégalité fonctionnelle usuelle. 
+        On le muni de l'addition suivante : 
+            \[ \forall f, g \in \mathcal{F}(X,E), \forall x \in X, \quad f(x) + g(x) = (f+g) (x) \] 
+        et de la multiplication scalaire suivante : 
+            \[ \forall \alpha \in \K, \forall f \in \mathcal{F}(X,E), \forall x \in X, \quad \alpha f(x) = f(\alpha x) \] 
+        \item \textbf{Polynômes : } L'ensemble des polynômes à coefficients dans $\K$ noté $\K[X]$ est 
+        un $\K$-espace vectoriel pour l'addition et la multiplication usuelles. 
+    \end{itemize}
+\end{example}
+
+\begin{theorem}[Applications]
+    Soient $E$ un espace vectoriel et $X$ un ensemble non vide.  
+    Alors l'ensemble $( \mathcal{F}(X,E), +, .)$ est un espace vectoriel sur $\K$. 
+\end{theorem}
+
+Il peut être utile de définir les espaces vectoriels produits. 
+
+\begin{definition}[Espaces Vectoriels Produits]
+    Soient $E,F$ deux $\K$-espaces vetcoriels. On note $ G = E \times F$ l'espace vectoriel produit de $E$ et $F$ tel que :
+        \[ \forall a,b \in E, \forall c,d \in F, \quad (a,b) + (c,d) = (a+c,b+d) \] 
+        \[ \forall \alpha \in \K, \forall (a,b) \in G, \quad \alpha (a,b) = (\alpha a, \alpha b) \in G \] 
+
+\end{definition}
+
+% ==================================================================================================================================
+% Sous-espaces vectoriels
+
+\section{Sous-espaces vectoriels}
+
+Tout comme les sous-groupes, les sous-anneaux, etc, avant eux, les espaces vectoriels possèdent des sous-structures, appelées 
+sous-espaces vectoriel qui ont les mêmes propriétés. 
+
+\begin{definition}[Sous-espace Vectoriel]
+    Soient $E$ un $\K$-espace vectoriel et $F \subseteq E$. On dit que $F$ est un sous-espace vectoriel de $E$ si :
+    \begin{enumerate}
+        \item $0_E \in F$ 
+        \item $ \forall x, y \in F, x+y \in F$ 
+        \item $ \forall \lambda \in \K, \forall x \in F, \lambda.x \in F $
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Ainsi, un sous-espace vectoriel $F$ d'un $\K$-espace vectoriel $E$ est aussi un $\K$-espace vectoriel 
+    pour les lois induites de $E$ mais restreintes à $F$. 
+\end{proposition}
+
+En pratique, on cherchera donc à montrer qu'un ensemble est un sous-espace vectoriel plutôt qu'à prouver tous les 
+axiomes de la définition d'un espace vectoriel. 
+
+\begin{example}
+    Soit $E = \R^3$ un $\R$-espace vectoriel. 
+    Par exemple, les droites de $E$ sont des sous-espaces vectoriels de $E$. 
+    De même, pour $F = \C[X]$, l'ensemble $ \{P \in \C[X] \; | \; P(0) = 0 \}$ est un sous-espace vectoriel de $F$. 
+\end{example}
+
+% ==================================================================================================================================
+% Sous-espaces vectoriels engendrés
+
+\section{Sous-espaces vectoriels engendrés}
+
+Les sous-espaces vectoriels engendrés sont très utiles en algèbre linéaire. 
+En effet, ils permettent de décrire très simplement un sous-espace vectoriel (et donc un espace vectoriel) grâce 
+à une famille finie d'éléments. 
+
+\begin{definition}[Sous-espace vectoriel engendré]
+    Soient $E$ un $\K$-espace vectoriel, $X$ une partie de $E$ et $n \in \N$. 
+    On définit le \textbf{sous-espace vectoriel engendré par} $X$, noté $\text{vect}(X)$, 
+    comme le plus petit sous-espace vectoriel de $E$ contenant $X$, c'est-à-dire l'ensemble des combinaisons 
+    linéaires de tous les éléments de $X$. Plus formellement, on a donc : 
+        \[ \boxed{ \text{vect}(X) := \{\alpha_1 u_1 + \dots + \alpha_n u_n \; | \; \forall i \in \llbracket 1, n \rrbracket, \alpha_i \in \K, u_i \in X \} } \] 
+    C'est un sous-espace vectoriel de $E$.  
+\end{definition}
+
+\begin{proposition}
+    Dans le cas où $X$ est un ensemble fini de la forme $X = \{u_1, \dots, u_p\} \subset E$. 
+    Alors on a : 
+        \[ \text{vect}(X) = \{\alpha_1 u_1 + \dots + \alpha_n u_n \; | \; \forall \alpha_1, \dots, \alpha_n \in \K\} \] 
+    On dit alors que \textbf{$X$ engendre $\text{vect}(X)$} ou que $X$ \textbf{est un générateur de $\text{vect}(X)$}. 
+\end{proposition}
+
+\begin{lemma}[Lemme d'expansion]
+    Soient $E$ un $\K$-espace vectoriel, $F$ un sous-espace vectoriel de $E$ 
+        \[ \boxed{ X \subseteq F \Longrightarrow \text{vect}(X) \subseteq F } \] 
+\end{lemma}
+
+Le lemme d'expansion est très utiile pour montrer des égalités ou des inclusions de sous-espaces vectoriels. 
+Intuitivement, si $X$ est une partie quelconque d'un espace vectoriel $F$, alors le plus petit sous-espace vectoriel qui 
+contient $X$ est lui-aussi inclus dans $F$. Un sous-espace vectoriel est donc "stable" par le $\text{vect}$. 
+
+\begin{example}
+    Si $E = \R^3$ et $X = \{(1,0,1), (0,1,0)\}$ alors : 
+        \begin{align*}
+            \text{vect}(X) &= \{\alpha (1,0,1) + \beta (0,1,0) \; | \; \alpha, \beta \in \R\} \\ 
+            &= \{(\alpha, \beta, \alpha) \; | \; \alpha, \beta \in \R\} 
+        \end{align*}
+    Dans $\R^3$ ce sous-espace vectoriel peut se représenter comme un plan. 
+    De même, si $X = \{(1,1,0)\}$ alors : 
+        \begin{align*}
+            \text{vect}(X) &= \{(\alpha, \alpha, 0) \; | \; \alpha \in \R\} 
+        \end{align*}
+    Ici, $\text{vect}(X)$ sera donc une droite. 
+\end{example}
+
+\begin{prop}[Sous-espaces vectoriels et inclusion]
+    Soient $X,Y \subset E$ deux parties quelconques, alors : 
+        \[ X \subseteq \text{vect}(X) \quad \text{et} \quad X \subseteq Y \Longrightarrow \text{vect}(X) \subseteq \text{vect}(Y) \] 
+\end{prop}
+
+% ==================================================================================================================================
+% Opérations sur les sous-espaces vectoriels
+
+\newpage
+
+\section{Opérations sur les sous-espaces vectoriels}
+
+Définissons maintetant quelques opérations ensemblistes sur les sous-espaces vectoriels et les propriétés 
+qui en découlent. 
+
+\begin{definition}[Intersection]
+    Soient $F$ et $G$ deux sous-espaces vectoriels. On définit l'intersection de $F$ et $G$ notée $ F \cap G$
+    comme l'intersection ensembliste : 
+        \[ F \cap G = \{x \in E \; | \; x \in F \text{ et } x \in G\} \] 
+    et $F \cap G$ est aussi un sous-espace vectoriel de $E$. 
+\end{definition}
+
+\begin{definition}[Somme]
+    Soient $F$ et $G$ deux sous-espaces vectoriels de $E$. On définit la somme de $F$ et $G$ comme : 
+        \[ F + G := \{x + y \; | \; \forall x \in F, \forall y \in G\} \] 
+    c'est aussi un sous-espace vectoriel de $E$. 
+\end{definition}
+
+\begin{remark}
+    On peut remarquer que la somme de sous-espaces vectoriels nous permet de décomposer chaque vecteur $x$ de $F + G$ 
+    en somme de deux vecteurs $x_F \in \F$ et $x_G \in G$. 
+    Mais attention, cette décomposition n'est pas unique !
+\end{remark}
+
+\begin{definition}[Somme directe]
+    Soit $F_1, \dots, F_k$ une famille de sous-espaces vectoriels de $E$. 
+    On dit que les $F_i, \forall i \in \llbracket 1, \rrbracket n$ sont \textbf{supplémentaires} dans $E$ si 
+    pour tout vecteur $u \in E$ , il admet une unique décomposition dans les $F_i$. 
+    Plus formellement, $F_1, \dots, F_k$ sont supplémentaires dans $E$ ssi 
+        \[ \forall u \in E, \exists ! (u_1, \dots, u_k) \in (F_1, \dots, F_k) \text{ tels que } u = u_1 + \dots + u_k \]  
+    On note alors $E = F_1 \oplus \dots \oplus F_k $. 
+\end{definition}
+
+La somme directe permet donc de décomposer une "gros" sous-espace vectoriel en "plus petits" sous espaces vectoriels. 
+Attardons nous sur le cas particulier d'une somme directe de deux sous-espaces vectoriels. 
+
+\begin{remark}[Cas particulier de deux sev]
+    Soient $F$ et $G$ deux sous-espaces vectoriels de $E$. On dit que $F$ et $G$ sont supplémentaires dans $E$ si 
+    leur intersection est réduite à $0_E$ et leur somme est égale à $E$. 
+    Plus formellement : 
+        \[ F \oplus G \iff 
+            \begin{cases}
+                F \cap G = \{0_E\} \\ 
+                F + G = E 
+            \end{cases} \] 
+\end{remark}
+
+\begin{definition}[Supplémentaire]
+    Soit $F$ un sous-espace vectoriel de $E$. On définit le supplémentaire de $F$ dans $E$ comme l'unique 
+    sous-espace vectoriel $G$ de $E$ tel que $ F \oplus G = E$. 
+\end{definition}
+
+\begin{prop}[Existence]
+    Sous $E$ un espace vectoriel quelconque. 
+    Alors tout sous-espace vectoriel de $E$ possède un supplémentaire dans $E$. 
+\end{prop}
+
+% ==================================================================================================================================
+% Familles Génératrices, Libres et Liées
+
+\section{Familles Génératrices, Libres et Liées}
+
+\begin{definition}[Famille]
+    Soit $F$ un sous-espace vectoriel de $E$. 
+    Une famille de vecteurs de $F$, notée $ \mathcal{F}$ est un ensemble de vecteurs de $F$ ordonnés ou non 
+    $ \mathcal{F} = (u_1, \dots, u_p)$. 
+    Dans le cas d'un famille ordonnée, on parle de suite de vecteurs.
+\end{definition}
+
+\begin{definition}[Famille Génératrice]
+    Soit $F$ un sous-espace vectoriel et $ \mathcal{F}$ une famille de $F$. 
+    On dit que $ \mathcal{F} $ est génératrice de $F$ ou engendre $F$ si $F = \text{vect}(\mathcal{F})$. 
+\end{definition}
+
+\begin{definition}[Famille Libre]
+    Soit $F$ un sous-espace vectoriel et $ \mathcal{F} = (u_1, \dots, u_p)$ une famille de $F$. 
+    On dit que la famille $ \mathcal{F}$ est libre si aucun de ses vecteurs n'est combinaison linéaire des autres. 
+    
+    \vspace{0.3cm}
+    
+    Plus formellement, $ \mathcal{F}$ est dite libre ssi pour toute combinaison linéaire nulle de ses vecteurs, alors 
+    tous les coefficients sont nuls. 
+        \[ \text{i.e} \quad \forall \alpha_1, \dots, \alpha_p \in \K, \alpha_1 u_1 + \dots + \alpha_p u_p = 0_F \Longrightarrow \alpha_1 = \dots = \alpha_p = 0_\K \]
+    
+    Dans le cas d'une famille qui n'est pas libre, on parle de \textbf{famille liée}. 
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item Par définition, deux vecteurs $x$ et $y$ sont dits colinéaires si la famille $(x,y)$ est liée. 
+        \item Une famille qui contient $0_E$ est liée. 
+        \item Si la famille $(u_1, \dots, u_p)$ est libre et que $x \not \in \text{vect}(u_1, \dots, u_p)$ 
+            alors la famille $(u_1, \dots, u_p, x)$ est aussi libre. 
+    \end{itemize}
+\end{remark}
+
+\begin{example}
+    Si $E = \R^2$, alors la famille $((1,0), (0,2))$ est libre, tandis que la famille $((2,0), (3,0))$ est liée
+    car le second vecteur est combinaison linéaire du premier. 
+\end{example}
+
+\begin{proposition}
+    Soient $F = \text{vect}(u_1, \dots, u_p)$ et $G = \text{vect}(a_1, \dots, a_n)$ deux sous espaces vectoriels.
+    On a alors : 
+        \[ F + G = \text{vect}(u_1, \dots, u_p, a_1, \dots, a_n) \] 
+\end{proposition}
+
+\begin{definition}[Droite vectorielle]
+    On appelle droite vectorielle un sous-espace vectoriel engendré par une famille d'un seul vecteur non nul. 
+\end{definition}
+
+\begin{definition}[Plan vectoriel]
+    On appelle plan vectoriel un sous-espace vectoriel engendré par une famille de deux vecteurs non nuls. 
+\end{definition}
+
+\begin{remark}
+    Soit $ F = \text{vect}(u_1, \dots, u_p, u)$. On peut remarquer que si $ u \in \text{vect}(u_1, \dots, u_p)$ alors 
+        \[ F = \text{vect}(u_1, \dots, u_p, u) = \text{vect}(u_1, \dots, u_p) \] 
+    Autrement dit, il peut exister des générateurs redondants. Ce sont des vecteurs "inutiles" car ils sont 
+    combinaison linéaire des autres vecteurs $ u_1, \dots, u_p$ de la famile. La famille est liée. On peut les enlever 
+    pour obtenir une famille libre. 
+\end{remark}
+
+% ==================================================================================================================================
+% Bases et coordonnées 
+
+\section{Bases et coordonées}
+
+\subsection{Bases et vecteurs colonnes}
+
+Dans cette section, nous allons aborder les notions de base et de coordonées. Ces notions permettent de donner 
+une sorte de "repère" dans lequel nous nous trouvons. Les bases peuvent être vues comme des "façon de regarder" nos espaces. 
+
+\begin{definition}[Base]
+    Soit $F$ un sous-espace vectoriel de $E$. Une base de $F$ est une famille \textbf{libre et génératrice} 
+    de $F$ dans $E$. 
+\end{definition}
+
+\begin{remark}
+    Ainsi, pour montrer qu'une famille $ \mathcal{B} = (e_1, \dots, e_n)$ est une base de $F$, il faut procéder en deux temps : 
+    \begin{enumerate}[label=\roman*)]
+        \item Montrer que $ \mathcal{B}$ est génératrice (i.e que $F = \text{vect}( \mathcal{B})$). 
+        \item Montrer que $ \mathcal{B} $ est libre. 
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}[Vecteur colonne]
+    Un vecteur colonne d'un $\K$-sev $F$ est une application : 
+        \[ X : \{1, \dots , n\} \longrightarrow 
+        \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_n 
+        \end{pmatrix} \in \K^n \] 
+    où $ x_1, \dots , x_n \in \K$. 
+\end{definition}
+
+\begin{remark}
+    Quelques remarques concernant les vecteurs colonnes : 
+    \begin{itemize}
+        \item Un vecteur colonne est un \textbf{objet ordonné}, i.e si on change des éléménts de position, on n'a plus 
+        le même objet. 
+        \item L'écriture en colonne n'est qu'une écriture représentative de cette fonction. 
+        \item Deux vecteurs colonnes sont égaux ssi leur composantes sont égales deux à deux. 
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}
+    Définissons quelques opérations sur les vecteurs colonnes. 
+    Soient $X,Y \in \K^n$ deux vecteurs colonnes et $ \alpha \in \K^n$, on a : 
+        \[ X + Y = 
+        \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_n 
+        \end{pmatrix}
+        + 
+        \begin{pmatrix}
+            y_1 \\ 
+            \vdots \\ 
+            y_n 
+        \end{pmatrix}
+        = 
+        \begin{pmatrix}
+            x_1 + y_1 \\ 
+            \vdots \\ 
+            x_n + y_n 
+        \end{pmatrix}
+        \quad \text{et} \quad 
+        \alpha X = \alpha . 
+        \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_n 
+        \end{pmatrix}
+        = 
+        \begin{pmatrix}
+            \alpha . x_1 \\ 
+            \vdots \\ 
+            \alpha . x_n 
+        \end{pmatrix} \] 
+    Nous verrons dans le chapitre suivant que ces vecteurs colonnes sont en fait des cas particulier d'objects appelés 
+    matrices qui nous permettront de représenter analytiquement toute application linéaire. 
+\end{proposition}
+
+\subsection{Coordonnées et équations cartésiennes}
+
+Ces vecteurs colonnes nous permettent donc de définir la notion de coordonnées d'un vecteur dans un sev de la façon suivante. 
+
+\begin{definition}[Coordonnées]
+    Soit $F$ un $\K$-sev et $ \mathcal{B} = (e_1, \dots , e_n)$ une base de $F$. 
+    Pour tout $u \in F$, il existe un unique n-uplet $( \alpha_1, \dots , \alpha_n) \in \K^n$ tels que : 
+        \[ u = \alpha_1 e_1 + \dots + \alpha_n e_n \] 
+    On dit alors que le n-uplet $( \alpha_1, \dots , \alpha_n)$ sont les \textbf{coordonnées de $u$ dans la base $ \mathcal{B}$}. 
+
+    \vspace{0.3cm}
+
+    On peut alors définir le \textbf{vecteur coordonnées} de $u$ dans $ \mathcal{B}$ noté $[u]^{ \mathcal{B}}$ comme : 
+    \[ [u]^{ \mathcal{B}} := 
+        \begin{cases}
+            \{1, \dots , n\} \longrightarrow \K^n \\ 
+            i \longmapsto \alpha_i 
+        \end{cases} \] 
+\end{definition}
+
+Il est important de noter la différence entre un vecteur et ses coordonnées. En effet, un vecteur d'un sev $F$ est 
+un objet intrinsèque, qui ne dépend pas d'une base alors que ses coordonnées dépendent de la base 
+dans laquelle on se place.  
+Ainsi, lorsque l'on parlera des coordonnées d'un vecteur, il sera essentiel de toujours spécifier dans quelle 
+base on se trouve. 
+
+\begin{proposition}
+    Soient deux vecteurs $x, y \in F$ et $ \mathcal{B}$ une base de $F$. On a : 
+        \[ x = y \iff [x]^{ \mathcal{B}} = [y]^{ \mathcal{B}} \] 
+    Ainsi deux vecteurs sont égaux ssi ils ont les mêmes coordonnées dans une même base. 
+\end{proposition}
+
+\begin{remark}[Base canonique]
+    On appelle base canonique d'un espace vectoriel sa base de référénce. 
+    Par exemple, la base canonique de $\R^3$ est $ \mathcal{C}^3 := ((1,0,0), (0,1,0), (0,0,1))$. 
+    
+    De même, la base canonique de $\R_3[X]$ en tant que $\R$-espace vectoriel est $ \mathcal{B} = (1, X, X^2, X^3)$. 
+    Intuivivement, il faut comprendre qu'à partir de cette famille, on peut générer tout polynôme de $\R_3[X]$ 
+    par une unique combinaison linéaire. 
+\end{remark}
+
+\begin{theorem}[Équation Cartésienne]
+    Soit $ \mathcal{B} = (e_1, \dots , e_n)$ une base de $E$. 
+    Soient $ \alpha_1, \dots , \alpha_n \in \K$ alors l'ensemble : 
+        \[ H := \{x_1 e_1 + \dots + x_n e_n \in E \; | \; \alpha_1 x_1 + \dots \alpha_n x_n = 0 \} \] 
+    est un sous-espace vectoriel de $E$. On dit que c'est un sous-espace vectoriel d'équation cartésienne 
+    $\alpha_1 x_1 + \dots \alpha_n x_n = 0 $ dans la base $ \mathcal{B}$. 
+\end{theorem}
+
+Une équation cartésienne permet donc de caractériser un sous-espace vectoriel au même titre qu'une base. 
+A partir d'une équation cartésienne, on peut facilement se ramener à une base du sev. 
+
+\begin{theorem}[Bases et somme directe]
+    Soient $F_1, \dots , F_n$ $n$ sev de $E$ de bases respectives $ \mathcal{B}_1, \dots , \mathcal{B}_n$. 
+    Soit la famille $ \mathcal{B}$ composée de l'union des bases précedentes. On a alors : 
+        \[ E = \bigoplus_{i \in \llbracket 1, n \rrbracket} F_i \iff \mathcal{B} \text{ est une base de } E \] 
+\end{theorem}
+
+
+\begin{theorem}[Base incomplète]
+    Soit $E$ un espace vectoriel. 
+    \begin{itemize}
+        \item Toute famille libre de $E$ peut être complétée en une famille libre et génératrice (une base) de $E$. 
+        \item De toute famille génératrice de $E$, on peut en extraire une famille libre et génératrice de $E$. 
+    \end{itemize}
+\end{theorem}
+
+Fondamental, ce théorème permet de construire des bases d'espaces vectoriels mais aussi de simplifier des familles 
+génératrices en bases.
+
+
+% ==================================================================================================================================
+% Dimension
+
+\section{Dimension}
+
+Dans cette section, nous nous placeront dans des espaces vectoriels admettant une base composé 
+d'un nombre fini de vecteurs. On dit que ces espaces vectoriel sont de \emph{dimension finie}. 
+
+\begin{definition}[Dimension]
+    Soit $E$ un espace vectoriel de dimension finie. 
+    On définit la dimension de $E$ en tant que $\K$-espace vectoriel, notée $ \dim_{\K} E = n$
+    comme le nombre de vecteur dans une base de $E$. 
+\end{definition}
+
+\begin{remark}
+    Toutes les bases d'un même espace vectoriel de dimension finie ont le même nombre de vecteurs. 
+    D'où l'unicité de la dimension pour un espace vectoriel. 
+\end{remark}
+
+\begin{prop}[Dimension]
+    Soit $E$ un espace vectoriel de dimension finie. On a les propriétés suivantes : 
+    \begin{itemize}
+        \item Toute famille libre de $E$ contient \textbf{au plus} $\dim E$ vecteurs. 
+        \item Toute famille génératrice de $E$ contient \textbf{au moins} $\dim E$ vecteurs. 
+        \item Une famille de $\dim E$ vecteurs est une base de $E$ si elle est \emph{libre} ou \emph{génératrice}. 
+    \end{itemize}
+\end{prop}
+
+\begin{proposition}
+    On peut donc établir une relation entre un espace vectoriel $E$ et n'importe lequel de ses sous-espaces vectoriels $F$ : 
+        \[ \dim F \leqslant \dim E \] 
+    Avec la relation : $\dim F = \dim E \iff F = E $
+\end{proposition}
+
+\begin{example}
+    \[ \dim R^n = n, \quad \dim \K_{n}[X] = n + 1, \quad \dim \mathcal{M}_{n,p}(\K) = n \times p \] 
+\end{example}
+
+\begin{theorem}[Formule de Grassman]
+    Soient $F$ et $G$ deux sous-espaces vectoriels d'un même espace vectoriel $E$. 
+    On a alors : 
+        \[ \boxed{\dim F + \dim G = \dim (F + G) + \dim (F \cap G)} \] 
+\end{theorem}
+
+Si $E$ est de dimension finie, alors $F$ et $G$ aussi, on a donc : 
+    \[ \dim (F + G) = \dim F + \dim G - \dim (F \cap G) \] 
+
+La supplémentarité des sev nous donne aussi une identité sur leur dimension : 
+
+\begin{theorem}[Supplémentarité et dimension]
+    Soit $E$ un espace vectoriel en dimension finie et $F,G$ deux sous-espaces vectoriels de $E$. 
+    On a alors : 
+        \[ F \oplus G = E \; \Longrightarrow \; \dim F + \dim G = \dim E \] 
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+

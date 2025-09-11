@@ -1,0 +1,507 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans le chapitre 1 nous avons détaillé la notion d'espace vectoriel ainsi que leur dimension. 
+Attardons nous maintenant sur un notion fondamentale de l'algèbre linéaire : les applications. 
+Elles permettent de lier ces espaces entre eux et possèdent beaucoup de propriétés intéressantes. 
+
+Ce chapitre est à lire et à étudier en même temps que le suivant concernant les matrices. Nous verrons à la fin de celui-ci 
+qu'elles jouent un rôle fondamental dans la compréhension et la manipulation des applications linéaires. 
+
+\vspace{0.3cm}
+
+Dans tout ce chapitre, sauf mention contraire, nous nous plaçons dans un $\K$-espace vectoriel $E$ quelconque. 
+
+% ==================================================================================================================================
+% Définition et Exemples
+
+\section{Définition et Propriétés}
+
+\subsection{Généralités et structure}
+
+\begin{definition}[Application Linéaire]
+    Soit $E$ et $F$ deux $\K$-espaces vectoriels. Une {application} $f : E \longrightarrow F$ est dite 
+    \emph{linéaire} si elle respecte la structure d'espaces vectoriels de $E$ et $F$. 
+    Autrement dit si :  
+    \begin{itemize}
+        \item $f$ est \textbf{additive} : $ \forall x,y \in E, f(x+y) = f(x) + f(y) $ 
+        \item $f$ est \textbf{homogène} : $ \forall x \in E, \forall \lambda \in \K, f(\lambda.x) = \lambda . f(x) $ 
+    \end{itemize}
+    Que l'on peut résumer en : 
+        \[ \forall x,y \in E, \forall \lambda \in \K, \quad f(x+y) = f(x) + f(y) \quad f(\lambda.x) = \lambda . f(x) \] 
+    Ou plus simplement : 
+        \[ \forall x,y \in E, \forall \lambda \in \K, \quad f(\lambda. x+y) = \lambda. f(x) + f(y) \] 
+    L'ensemble des applications linéaires de $E$ vers $F$ est noté $ \mathcal{L}(E,F)$ ou $ \mathcal{L}_\K(E,F)$. 
+    Lorsque $E = F$, on note $ \mathcal{L}(E)$ et on parle \emph{d'endomorphisme} de $E$. 
+    Enfin, si $F = \K$, on parle alors de \emph{forme linéaire} de $E$. 
+\end{definition}
+
+\begin{example}
+    Quelques exemples d'applications linéaires :
+    \begin{itemize}
+        \item L'application $f : \R^2 \longrightarrow \R^3, (x,y) \longmapsto (2x + 3y, -1/3y)$ est une \emph{application 
+        linéaire} de $\R^2$ dans $\R^3$. 
+        \item L'application $P \longmapsto P'$ est un \emph{endomorphisme} de $\K[X]$. 
+        \item L'application $P \longmapsto P(x)$ où $x \in \K$ est une \emph{forme linéaire} de $\K[X]$. 
+    \end{itemize}
+\end{example}
+
+\begin{remark}
+    À noter que la restriction d'une application linéaire est elle aussi linéaire. 
+\end{remark}
+
+\begin{prop}[Applications Linéaires]
+    La linéarité de telles applications $f : E \longrightarrow F$ leur procure des propriétés intéressantes : 
+    \begin{itemize}
+        \item $ f(0_E) = 0_F $ 
+        \item $f$ conserve les combinaisons linéaires : soit $(x_1, \dots, x_n)$ une suite à valeurs dans $E$, on a :
+            \[ f \left( \sum_{i=0}^{n} x_i \right) = \sum_{i=0}^{n} f(x_i) \] 
+    \end{itemize}
+\end{prop}
+
+\begin{definition}[Homothétie]
+    Soit $E$ un $\K$-espace vectoriel et $\lambda \in \K$. 
+    L'application $ \lambda \text{Id}_E$ est un endomorphisme de $E$ appelé \emph{homothétie de $E$ par rapport à $\lambda$}. 
+\end{definition}
+
+\begin{proposition}
+    Soient $E$ et $F$ deux $\K$-espaces vectoriels. Soient $f,g \in \mathcal{L}_\K(E,F)$ et $\alpha \in \K$. 
+    On définit $f + g$ et $ \alpha f$ par :
+        \[ \forall x \in \E, \quad (f+g)(x) = f(x) + g(x) \quad \text{et} \quad (\alpha f)(x) = \alpha f(x) \] 
+    On en déduis donc que $ \mathcal{L}_\K(E,F)$ est un $\K$ espace vectoriel. 
+\end{proposition}
+
+\begin{theorem}[Dimension de $ \mathcal{L}_\K(E,F)$]
+    Soient $E,F$ deux $\K$-espaces vectoriels de dimension finie. Alors 
+    $ \mathcal{L}_\K(E,F)$ est aussi de dimension finie et on a :
+        \[ \dim \mathcal{L}_\K(E,F) = \dim E \times \dim F \] 
+\end{theorem}
+
+\subsection{Noyau et image d'une application linéaire}
+
+\begin{proposition}[Noyau et Image]
+    Soient $E$ et $F$ deux $\K$-espaces vectoriels et $f : E \longrightarrow F$ une application 
+    linéaire.
+    \begin{itemize}
+        \item L'image par $f$ d'un sous-espace vectoriel de $E$ est un sous-espace vectoriel de $F$. 
+        En particulier, le sous-espace vectoriel $f(E)$ est appelé \emph{image de $f$} et noté $ \text{Im } f$. 
+        \item La pré-image d'un sous-espace vectoriel de $F$ par $f$ est un sous-espace vectoriel de $E$. 
+        On appelle \emph{noyau de $f$} le sous espace vectoriel de $E$ définit par $f^{-1}(\{0_F\})$ 
+        et on le note $\ker f$. 
+    \end{itemize}
+\end{proposition}
+
+\begin{remark}
+    Soient $E$ et $F$ deux $\K$-espaces vectoriels et $f : E \longrightarrow F$ une application 
+    linéaire. Alors : 
+        \[ \ker f = \{x \in E \; | \; f(x) = 0_F\} \] 
+        \[ x \in \ker f \iff f(x) = 0_F \] 
+    De même : 
+        \[ \text{Im } f = \{f(x) \; | \; x \in F\} \] 
+        \[ y \in \text{Im } f \iff \exists y \in F, f(x) = y \] 
+\end{remark}
+
+
+\begin{theorem}[Injectivité/Surjectivité et Noyau/Image]
+    Soient $E$ et $F$ deux $\K$-espaces vectoriels et $f : E \longrightarrow F$ une application 
+    linéaire. 
+    \begin{enumerate}
+        \item $f$ est \emph{injective} ssi $ ker f = \{0_E\}$ 
+        \item $f$ est \emph{surjective} ssi $ \text{Im } f = F$. 
+    \end{enumerate}
+\end{theorem}
+
+L'image et le noyau d'une application linéaire sont donc très importants pour caractériser une application linéaire. 
+Attention à bien faire attention à l'espace de vide de ces deux ensembles. 
+Le noyau est un sous-espace vectoriel de $E$ alors que l'image est un sous-espace vectoriel de $F$. 
+
+\begin{theorem}[Théorème du Rang]
+    Soient $E$ un $\K$-espace vectoriel de dimension finie et $F$ un $\K$-espace vectoriel quelconque. 
+    Soit $f : E \longrightarrow F$ une application linéaire. 
+        \[ \boxed{\dim E = \dim \ker f + \dim \text{Im } f} \] 
+\end{theorem}
+
+\begin{proposition}[Rappel]
+    Soient $E$ et $F$ deux $\K$-espaces vectoriels et $f : E \longrightarrow F$ une application 
+    linéaire. Pour rappel, $f$ est \emph{bijective} ssi $f$ est \emph{injective} et \emph{surjective}. 
+\end{proposition}
+
+% ==================================================================================================================================
+% Matrices
+
+\section{Matrices}
+
+La grande force des applications linéaires, outre leur propriétés pratiques, est le fait que l'on puisse 
+les représenter très facilement par des matrices. 
+
+\subsection{Définition et généralités}
+
+\begin{definition}[Matrice]
+    On appelle matrice $n \in \N$ lignes et $p \in \N$ colonnes toute application 
+        \[ M : \{1, \dots , n\} \times \{1, \dots , p\} \longrightarrow \K \] 
+    On dit alors que $M$ est de taille $n \times p$.
+    On note $ \mathcal{M}_{n,p}(\K)$ l'ensemble des matrices de taille $n \times p $ à coefficients dans un corps $\K$.  
+\end{definition}
+
+\begin{example}
+    Les matrices sont représentées de façon tabulaire. 
+    Par exemple une matrice $M$ à 2 lignes et 3 colonnes à coefficients dans $\R$ peut être : 
+        \[ M = 
+            \begin{pmatrix}
+                1 & 26 & \frac{3}{2} \\ 
+                \pi & 6 & \sqrt{2} 
+            \end{pmatrix} \] 
+    On notera $M(i,j)$ ou $M_{i,j}$ le coefficient de $M$ de la i-ème ligne et j-ème colonne. 
+    Ici, on a donc $M(1,1) = 1$ et $M(2, 3) = \sqrt{2}$. 
+\end{example}
+
+\begin{proposition}[Matrices Remarquables]
+    Le nombre de lignes et de colonnes d'une matrice pouvant varier dans $\N \times \N$, il existe des 
+    matrices dites remarquables : 
+    \begin{itemize}
+        \item \textbf{Matrice ligne} : une matrice de taille $ 1 \times p$ de la forme : $(x_1, \dots, x_p)$ 
+        \item \textbf{Matrice colonne} : de la forme 
+        $ \begin{pmatrix}
+            x_1 \\ 
+            \vdots \\ 
+            x_p 
+        \end{pmatrix}$ 
+        (souvent utilisée pour représenter les coordonnées d'un vecteur dans une base comme vu précédement). 
+    \end{itemize} 
+\end{proposition}
+
+\begin{proposition}[Matrice Égales]
+    On dit que deux matrices M et N $ \in \mathcal{M}_{n,m}(\K)$ sont égales ssi elles sont de même taille et 
+    tout leurs coefficients sont égaux. 
+        \[ \text{i.e} \quad \forall i,j \in \llbracket 1, n \rrbracket \times \llbracket 1, m \rrbracket, M(i,j) = N(i,j) \]  
+\end{proposition}
+
+\begin{definition}[Transposition]
+    Soit $ \mathcal{M}_{n,m}(\K)$ l'ensemble des matrices à coefficients dans un corps $\K$. 
+    On défini l'application transposition comme : 
+        \[ T : 
+            \begin{cases}
+                \mathcal{M}_{n,m}(\K) \longrightarrow \mathcal{M}_{m,n}(\K) \\ 
+                M = (m_{i,j}) \longrightarrow ^t M = (m_{j,i})
+            \end{cases} \]
+    Cette application prend une matrice $ n \times m$ et la retourne en une matrice $ m \times n $ en "transformant"
+    ses lignes en colonnes. 
+    Elle est \textbf{involutive}, autrement dit $ \forall M \in \mathcal{M}_{n,m}(\K) \; ^t (^t M) = M$ 
+    et \textbf{linéaire}. 
+\end{definition}
+
+\begin{definition}[Matrice symétrique]
+    On dit qu'une matrice $M \in \mathcal{M}_{n}(\K)$ est symétrique ssi $^tM = M$. 
+\end{definition}
+
+
+\subsection{Opérations sur les matrices}
+
+Dans cette section, nous considérons l'ensemble des matrices $ \mathcal{M}_{n,m}(\K)$ de taille $ n \times m $
+à coefficients dans un corps $\K$. 
+
+\begin{definition}[Somme Matricielle]
+    Soient $A,B \in \mathcal{M}_{n,p}(\K)$ deux matrices de même taille. 
+    On définit la matrice $A + B \in \mathcal{M}_{n,p}(\K)$ comme la matrice dont chaque élément est 
+    l'exacte somme des éléments de $A$ et $B$ situés à la même place. 
+    Plus formellement, si $ \forall (i,j) \in \llbracket 1, n \rrbracket \times  \llbracket 1, p \rrbracket$, 
+    $ A = (a_{i,j})$ et $ B = (b_{i,j})$ alors : 
+        \[ A + B = (a_{i,j} + b_{i,j}) \]
+\end{definition}
+
+\begin{example}[Somme Matricielle]
+    Soit $A,B \in \mathcal{M}_{3,2}(\R)$ de la forme : 
+        \[ A = 
+            \begin{pmatrix}
+                1 & 3 \\ 
+                6 & 9 \\ 
+                2 & 0 \\ 
+            \end{pmatrix}
+            \quad B = 
+            \begin{pmatrix}
+                1/2 & 0 \\ 
+                6 & 3 \\ 
+                11 & 2
+            \end{pmatrix}
+            \quad \text{alors} \quad A + B = 
+            \begin{pmatrix}
+                3/2 & 3 \\ 
+                12 & 12 \\ 
+                13 & 2 
+            \end{pmatrix} \] 
+\end{example}
+
+L'ensemble $ \mathcal{M}_{n,p}(\K)$ muni de l'addition comme nous venons de la définir forme un groupe abélien 
+$(\mathcal{M}_{n,p}(\K), +)$. 
+
+\begin{definition}[Produit externe]
+    Soient $A \in \mathcal{M}_{n,p}(\K)$ et $ \lambda \in \K$ un scalaire. 
+    On définit la matrice $\lambda . M$ comme le \emph{produit externe} de $M$ par le scalaire $\lambda$. 
+    C'est une matrice de $\mathcal{M}_{n,p}(\K)$. 
+    Elle est obtenue en multipliant chaque valeur de $M$ par le scalaire $\lambda$. 
+    On a donc : 
+        \[ \forall (i,j) \in \llbracket 1, n \rrbracket \times  \llbracket 1, p \rrbracket, \quad \text{tq} \quad M = (m_{i,j}) \quad \text{et} \quad \lambda.M = (\lambda \times m_{i,j}) \] 
+\end{definition}
+
+\begin{remark}
+    À noter que toutes les opérations précédement définies sur les matrices concernent des matrices 
+    de même dimensions ! 
+\end{remark}
+
+\begin{prop}[Opérations et transposition]
+    Soient deux matrices $A,B \in \mathcal{M}_{n,p}(\K)$ et $ \lambda \in \K$. On a les propriétés suivantes : 
+    \begin{itemize}
+        \item $^t(A + B) = \; ^tA + \; ^tB $
+        \item $^t(\lambda A) = \lambda \; ^t A $ 
+    \end{itemize}
+\end{prop}
+
+\begin{definition}[Matrice Antisyméytrique]
+    Nous avons définit les matrices symétriques comme les matrices involutives par transposition. 
+    Les matrices \emph{antisymétriques}, sont de la forme $M \in \mathcal{M}_{n,p}(\K)$ telle que $^tM = - M$. 
+\end{definition}
+
+Ces opérations nous permettent de donner une structure à l'espace $ \mathcal{M}_{n,p}(\K)$. 
+
+\begin{prop}[Structure]
+    L'ensemble $\mathcal{M}_{n,p}(\K)$ muni des opérations usuelles (addition et multiplication par un scalaire) 
+    possède une structure de $\K$-espace vectoriel. 
+    
+    Le vecteur nul $0_{\mathcal{M}_{n,p}(\K)}$ correspond à la matrice nulle $0_{n,p}$. 
+    De même, l'opposé de la matrice $A = (a_{i,j})$ est la matrice $-A = (-a_{i,j})$. 
+\end{prop}
+
+\begin{definition}[Produit Matriciel]
+    Soient $A \in \mathcal{M}_{m,n}(\K)$ et $ B \in \mathcal{M}_{n,p}(K)$ on peut alors définir 
+    le produit matriciel de $A$ et $B$, noté $A \times B \in \mathcal{M}_{m,p}(\K)$ comme 
+    la matrice $ A \times B = (m_{i,j})_{1 \leqslant i \leqslant m, 1 \leqslant j \leqslant p}$ définie par : 
+        \[ 
+            \forall i \in \llbracket 1, m \rrbracket , \forall j \in \llbracket 1, p \rrbracket,
+            \quad m_{i,j} = \sum_{k=1}^{n} a_{ik} \times b_{kj} 
+        \] 
+\end{definition}
+
+\begin{remark}
+    Le produit matriciel de deux matrices $A,B$ est bien défini lorsque le nombre de lignes de $A$ 
+    est égal au nombre de colonnes de $B$. 
+\end{remark}
+
+\begin{prop}[Produit Matriciel]
+    \begin{itemize}
+        \item Le produit matriciel N'EST PAS commutatif sur $ \mathcal{M}_n(\K)$. 
+        \item  Le produit matriciel est associatif.
+    \end{itemize}
+\end{prop}
+
+\subsection{Inverses, trace et matrices semblables}
+
+Dans cette sous-section, nous nous plaçons dans $ \mathcal{M}_n(\K)$ et considérons des 
+\emph{matrices carrées}. 
+
+\begin{definition}[Inverse]
+    Soient $P \in \mathcal{M}_n(\K)$ on dit que $P$ est \emph{inversible} 
+    si il existe $ Q \in \mathcal{M}_n(\K)$ telle que : 
+        \[ PQ = QP = I_n \] 
+    on dit alors que $Q$ est \emph{l'inverse} de $P$. 
+    On note $ GL_n(\K)$ l'ensemble des matrices inversibles de $ \mathcal{M}_n(\K)$. 
+\end{definition}
+
+\begin{proposition}
+    L'ensemble $ (GL_n(\K), +, \times)$ est un \emph{anneau non commutatif}. 
+\end{proposition}
+
+\begin{definition}[Trace]
+    Soit $A \in  \mathcal{M}_n(\K)$ une matrice carrée. On définit la \emph{trace de $A$}
+    comme le scalaire noté $ \text{tr}(A) \in \K$ formé par la somme des coefficients 
+    diagonaux de $A$. Ainsi : 
+        \[ \forall A \in  \mathcal{M}_n(\K), \quad \text{tr}(A) = \sum_{i=1}^{n} a_{ii} \] 
+\end{definition}
+
+\begin{prop}[Trace et opérations]
+    Soient $A,B \in  \mathcal{M}_n(\K)$ et $ \lambda \in \K$. 
+    La trace dispose de plusieurs propriétés :
+    \begin{enumerate}
+        \item $tr(A + B) = tr(A) + tr(B) $ 
+        \item $tr(\lambda A) = \lambda tr(A) $ 
+        \item $ tr(AB) = tr(BA) $
+    \end{enumerate}
+\end{prop}
+
+\begin{definition}[Matrices Semblables]
+    Soient $A,B \in  \mathcal{M}_n(\K)$ on dit que $A$ et $B$ sont \emph{semblables} s'il 
+    existe une matrice inversible $ P \in GL_n(\K)$ telle que $B = P^{-1}AP$. 
+\end{definition}
+
+\begin{remark}
+    La relation $ \mathcal{R}$ sur $\mathcal{M}_n(\K)$ définie par : 
+        \[ A \mathcal{R} B \iff A \text{ et } B \text{ sont semblables} \] 
+    est une relation d'quivalence sur. 
+\end{remark}
+
+\begin{proposition}
+    Deux matrices semblables de $ \mathcal{M}_n(\K)$ ont même trace. 
+\end{proposition}
+
+\subsection{Matrice d'une application linéaire}
+
+Comme dit en introduction, chaque application linéaire peut être représentée par une 
+matrice pour une base fixée. 
+
+
+\begin{theorem}[Représentation Matricielle]
+    Soient $E,F$ deux $\K$-espaces vectoriels de dimension finie, $ \mathcal{B}_E = (e_1, \dots, e_p)$ une base de $E$ 
+    et $ \mathcal{B}_F = (f_1, \dots, f_n)$ une base de $F$. 
+    Alors toute application linéaire $f : E \longrightarrow F$ est représentée par une matrice $A \in \mathcal(M)_{n,p}(\K)$
+    telle que : 
+        \[ \forall x \in E, \quad \left[f(x)\right]_\mathcal{B_F} = A [x]_{ \mathcal{B}_E} \] 
+    De plus chaque colonne $j \in \llbracket 1, p \rrbracket$ de la matrice $A$ est constituée des coordonnées de l'image 
+    du vecteur de base $e_j$ par la fonction $f$ dans la base $ \mathcal{B}_F$. 
+    La matrice de $f$ est donc indiscociable de la base dans laquelle on l'exprime. On la notera $A = [f]_{\mathcal{B_E}}^{\mathcal{B_F}}$ 
+    ou $A = \text{Mat}(f, \mathcal{B}_E, \mathcal{B}_f)$. 
+\end{theorem}
+
+\begin{example}[Cas particulier]
+    L'application identité $ \text{Id} : \K^n \longrightarrow \K^p $ est représentée canoniquement par la matrice identité 
+    dans la base canonique : 
+        \[ [\text{Id}]_{\mathcal{C}_n}^{\mathcal{C}_p} = 
+            \begin{pmatrix}
+                1 & 0 & 0 & \cdots & \cdots & 0 \\ 
+                0 & 1 & 0 & \cdots & \cdots & 0 \\ 
+                0 & 0 & \ddots & \cdots & \cdots & 0 \\ 
+                \vdots & \vdots & \vdots & \ddots & \cdots & 0 \\ 
+                \vdots & \vdots & \vdots & 0 & 1 & 0 \\ 
+                \vdots & \vdots & \vdots & \vdots & 0 & 1 \\ 
+            \end{pmatrix} \] 
+\end{example}
+
+\begin{remark}
+    Dans le cas d'un endomorphisme, on ne spécifiera pas l'espace d'arrivée et on considèrera 
+    des matrices carrées. 
+    De plus, par mesure de simplicité, pour une application linéaire $f \in \mathcal{L}(E)$, lorsque l'on voudra 
+    représenter sa matrice dans la même base d'arrivée que celle de départ, on notera $A = \text{Mat}( \mathcal{B})$. 
+\end{remark}
+
+\begin{proposition}
+    Soient $E,F$ deux $\K$ espaces vectoriels de base $ \mathcal{B}$ de dimension $n$ et $ \mathcal{F}$
+    de dimension $m$. L'application : 
+    \[ 
+        \begin{cases}
+            \mathcal{L}(E,F) \longrightarrow \mathcal{M}_{n,m}(\K) \\ 
+            f \longrightarrow \text{Mat}(f, \mathcal{B}, \mathcal{F})
+        \end{cases}
+    \] 
+    est un isomorphisme d'espace vectoriels. Dans le cas où $E$ est un $\K$-espace vectoriel 
+    de base $ \mathcal{B}$ de dimension $n$ alors l'application : 
+    \[ \Phi : 
+        \begin{cases}
+            \mathcal{L}(E) \longrightarrow \mathcal{M}_n(\K) \\ 
+            f \longrightarrow \text{Mat}(u, \mathcal{B})
+        \end{cases}
+    \] 
+    est à la fois un isomorphisme d'espaces vectoriels et un isomorphisme d'anneaux. On pourra vérifier facilement que : 
+    \begin{enumerate}
+        \item $ \forall u \in \mathcal{L}(E), \forall v \in \mathcal{L}(E), \quad \text{Mat}(u + v, \mathcal{B}) = \text{Mat}(u, \mathcal{B}) + \text{Mat}(v, \mathcal{B}) $ 
+        \item $ \forall \lambda \in \K, \forall u \in \mathcal{L}(E), \quad \text{Mat}(\lambda u, \mathcal{B}) = \lambda \times \text{Mat}(u, \mathcal{B})$ 
+        \item $ \forall u \in \mathcal{L}(E), \forall v \in \mathcal{L}(E), \quad \text{Mat}(u \circ v, \mathcal{B}) = \text{Mat}(u, \mathcal{B}) \times \text{Mat}(v, \mathcal{B}) $ 
+    \end{enumerate}
+\end{proposition}
+
+\begin{remark}
+    Soient $x \in E$ de base $ \mathcal{B}$ de dimension $n$ et $y \in F$ de base $ \mathcal{F}$ 
+    de dimension $m$. Soit $f : E \longrightarrow F$ une application linéaire et $A = \text{Mat}(f, \mathcal{B}, \mathcal{F})$. 
+    Si on pose :
+        \[ [x]^{ \mathcal{B}} = X = 
+            \begin{pmatrix}
+                x_1 \\ 
+                x_2 \\ 
+                \vdots \\ 
+                x_n 
+            \end{pmatrix}
+            \quad 
+            \text{et} \quad [y]^{ \mathcal{F}} = Y = 
+            \begin{pmatrix}
+                y_1 \\ 
+                y_2 \\ 
+                \vdots \\ 
+                y_m 
+            \end{pmatrix}
+        \] 
+    Alors on a : 
+        \[ y = f(x) \iff AX = Y \] 
+\end{remark}
+
+\begin{theorem}[Inversion]
+    Soit $E$ un $\K$-espace vectoriel de dimension $n$. Soit $f \in \mathcal{L}(E)$ représentée 
+    par la matrice $A$ dans une base quelconque de $E$ notée $ \mathcal{B}$. On a alors : 
+        \[ \boxed{f \text{ est un automorphisme de } E \iff A \in GL_n(\K)} \] 
+\end{theorem}
+
+\subsection{Matrices de Passage}
+
+Cette sous-section va nous permettre d'introduire le chapitre suivant : la réduction d'endomorphismes. 
+
+\begin{definition}[Matrice de Passage]
+    Soit $E$ un $\K$-espace vectoriel de dimension finie $n$ et $ \mathcal{B}, \mathcal{B}'$ deux bases de $E$. 
+    On définit la \emph{matrice de passage} de la base $ \mathcal{B}$ à $ \mathcal{B}'$ comme la matrice de 
+    l'application identité $Id_E$ de la base $ \mathcal{B}'$ dans la base $ \mathcal{B}$. 
+    On la note $ P_{ \mathcal{B}}^{ \mathcal{B}'} = \text{Mat}(Id_E, \mathcal{B}, \mathcal{B}')$. 
+
+    Ainsi, si un même vecteur $x \in E$ a pour coordonées dans $ \mathcal{B}$ la matrice colonne $X$ et 
+    dans $ \mathcal{B}'$ la martrice colonne $X'$, alors 
+        \[ X =  P_{ \mathcal{B}}^{ \mathcal{B}'} X' \] 
+\end{definition}
+
+\begin{remark}
+    L'endomorphisme représenté par $P$ permet donc de transformer une base de $E$ en une autre. 
+    Par expansion, c'est donc un automorphisme de $E$. La matrice $P$ est donc inversible. 
+\end{remark}
+
+\begin{corollary}[Changement de base]
+    Soit $E$ un $\K$-espace vectoriel de dimension finie et $u \in \mathcal{L}(E)$. 
+    Soient $ \mathcal{B}, \mathcal{B}'$ deux bases de $E$, $A = \text{Mat}(u, \mathcal{B})$ et 
+    $ B = \text{Mat}(u, \mathcal{B}')$. Soit $P$ la matrice de passage de la base 
+    $ \mathcal{B}$ à la base $ \mathcal{B}'$. On a alors : 
+        \[ B = P^{-1}AP \] 
+\end{corollary}
+
+\begin{definition}[Trace d'un endomorphisme]
+    Soit $E$ un $\K$-espace vectoriel de dimension finie et $u \in \mathcal{L}(E)$. 
+    Soit $A$ la matrice de $u$ dans une base quelconque de $E$. On définit 
+    alors la trace de $u$ comme la trace de n'importe quelle matrice représentative de $u$. 
+        \[ tr(u) = tr(A) \] 
+\end{definition}
+
+\subsection{Rang d'une application linéaire / rang d'une matrice}
+
+\begin{definition}[Rang]
+    Soit $E$ un $\K$-espace vectoriel. 
+    \begin{itemize}
+        \item Soit $(v_1, \dots, v_n)$ un système de vecteurs de $E$. 
+        On définit le rang de $(v_1, \dots, v_n)$ noté $ rg((v_1, \dots, v_n))$ par : 
+            \[ rg((v_1, \dots, v_n)) = \text{dim}(\text{vect}(v_1, \dots, v_n)) \] 
+        \item Soient $E$ et $F$ deux $\K$-espaces vectoriels de dimension finie et $f : E \longrightarrow F$. 
+            On définit le rang de $f$, noté $rg(f)$ comme la dimension de $ \text{Im}(f)$. 
+                \[ rg(f) = \text{dim}( \text{Im}(f)) \] 
+        \item Soit $A \in \mathcal{M}_{n,m}(\K)$, le rang de $A$ est égal au rang de l'application linéaire 
+            définie par $A$ : 
+                \[ rg(A) = \text{dim}( \text{Im}(A)) \] 
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Soit $E$ un $\K$-espace vectoriel de dimension finie et $F$ un $\K$-espace vectoriel. 
+    Soit $f : E \longrightarrow F$. D'après le théorème du rang, on a alors : 
+        \[ rg(f) = \text{dim}(E) - \text{dim}(\ker f) \]  
+\end{remark}
+
+\begin{theorem}[Invariance du Rang]
+    Le rang d'une application linéaire est invariant par changement de bases dans $E$ et $F$. 
+    De même, le rang d'une matrice $A$ est invariant par opérations élémentaires sur les lignes et colonnes.
+\end{theorem}
+
+
+
+
+

@@ -1,0 +1,173 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans le chapitre précédent, nous avons étudié l'estimation ponctuelle, qui consiste à proposer une 
+valeur unique pour un paramètre inconnu d'une population à partir d’un échantillon. 
+Cependant, une estimation ponctuelle est sujette à une certaine incertitude, car elle dépend du 
+choix de l’échantillon observé.
+
+Pour quantifier cette incertitude, on introduit la notion d’intervalle de confiance. 
+Contrairement aux estimateurs ponctuels, un intervalle de confiance ne donne pas une valeur unique 
+du paramètre, mais une plage de valeurs dans laquelle le paramètre a une forte probabilité de se situer.
+
+L’objectif de ce chapitre est d’étudier les principes fondamentaux des intervalles de confiance, 
+leur construction et leur interprétation dans le cadre des statistiques inférentielles.
+
+
+% ==================================================================================================================================
+% Premières Définitions
+
+\section{Premières Définitions}
+
+
+Commençons par bien définir la notion d'intervalle de confiance... 
+
+\begin{definition}[Intervalle de Confiance]
+    Soit $\phi$ un paramètre inconnu d'une population (une moyenne, une proportion, etc..). 
+    Un intervalle de confiance au niveau $1 - \alpha$ est un intervalle $[ L(X); U(X)]$ définit 
+    à partir d'un échantillon $X = (X_1, \dots, X_n)$, tel que :
+        \[ \myP(L(X) \leqslant \theta \leqslant U(X)) = 1 - \alpha \] 
+    où $\alpha$ est le \textbf{risque} ou \textbf{niveau de signification} et $1-\alpha$ 
+    est le \textbf{niveau de confiance} de l'intervalle. En général, on choisit $0.95$ ou $0.99$. 
+\end{definition}
+
+Cette notion de risque signifie que si l'on répétait l'échantillonnage un grand nombre de fois, 
+alors dans $100(1 - \alpha) \%$ des cas, l'intervalle contiendrai la vraie valeur de $\theta$. 
+
+\vspace{0.3cm}
+
+En revanche, pour un intervalle donné, on ne peut pas affirmer que $\theta$ appartient à cet 
+intervalle avec une probabilité $1 - \alpha$, car $\theta$ est une quantité fixe, non aléatoire. 
+Ce point est fondamental dans l’interprétation des intervalles de confiance.
+
+
+% ==================================================================================================================================
+% Intervalles de confiance d'une moyenne 
+
+\section{Intervalle de confiance d'une moyenne}
+
+\subsection{Principe}
+
+Soit $\mu$ la moyenne d'une population et une échantillon de cette population $X = (X_1, \dots, x_n)$ de 
+taille $n \in \N$. 
+Ici, l'objectif est de construire un intervalle $[L,U]$ tel que: 
+    \[ \myP(L \leqslant \mu \leqslant U) = 1 - \alpha \] 
+
+Pour construire cet intervalle, nous allons utiliser un estimateur ponctuel 
+de la moyenne théorique, la moyenne empirique :
+    \[ \overline{X} = \frac{1}{n} \left( \sum_{i=1}^{n} X_i \right) \] 
+
+La dispersion des valeurs autour de $\mu$ est caractérisée par l'écart-type $\sigma$ et la taille de l'échantillon $n$. 
+Grâce au théorème central limite, la distribution de $\overline{X}$ suit approximativement une loi normale si $n$ est 
+suffisament grand. 
+
+\subsection{Premier Cas : si l'écart-type est connu}
+
+Si l'écart-type de la population $\sigma$ est connu, alors $\overline{X}$ suit une loi normale de moyenne $\mu$ et 
+d'écart-type $\frac{\sigma}{\sqrt{n}}$. On a donc : 
+    \[ \overline{X} \sim \mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right) \] 
+On peut donc construire l'intervalle de confiance de $\mu$ suivant : 
+    \[ \boxed{IC_\mu := \left[ \overline{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right]} \] 
+où $ z_{\alpha/2}$ est le quantille de la loi normale tel que :
+    \[ \myP(Z \leqslant z_{\alpha/2}) = 1 - \frac{\alpha}{2} \] 
+
+\subsection{Second Cas : si l'écart-type est inconnu}
+
+Si l'écart-type de la population $\sigma$ est connu, on doit l'estimer par l'écart-type 
+empirique de l'échantillon :
+    \[ S = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (X_i - \overline{X})^2 } \] 
+
+Dans ce cas, la statistique suivante suit une loi de Student à $n-1$ degrés de liberté : 
+    \[ T = \frac{\overline{X}  \mu}{S/\sqrt{n}} \sim t_{n-1} \] 
+
+On peut alors construire l'intervalle de confiance suivant pour $\mu$ : 
+    \[ \boxed{ IC_\mu := \left[\overline{X} \pm t_{\frac{\alpha}{2},n-1} \frac{S}{\sqrt{n}}\right] } \] 
+où $t_{\frac{\alpha}{2},n-1}$ est le quantille de la loi de Student à $n-1$ degrés de liberté. 
+
+\subsection{Interprétation et tableau récapitulatif}
+
+\begin{itemize}
+    \item Si l'on répétait de nombreuses fois l'expérience d'échantillonnage, et que l'on construisait à chaque fois 
+    l'intervalle alors dans $100 (1 - \alpha) \%$ des cas $\mu$ serait dans l'intervalle de confiance. 
+    \item \textbf{Attention : } Cela ne veut pas dire que $\mu$ a une probabilité de $1 - \alpha$ d'être dans l'intervalle 
+    puisque $\mu$ n'est pas une variable aléatoire, c'est une constante inconnue. 
+    \item En étudiant la construction des intervalles, on peut remarquer que plus l'échantillon est grand, plus l'intervalle 
+    est petit. En théorie, on peut donc encadrer $\mu$ de façon aussi fine que l'on souhaite. 
+\end{itemize}
+
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{2} % Augmente l'espacement vertical
+    \setlength{\tabcolsep}{4pt} % Réduction de l'espacement des colonnes
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Taille} & \textbf{$\sigma$ connu ?} & \textbf{Statistique} & \textbf{Distribution} \\
+        \hline
+        $n > 30$ & Oui & $\displaystyle Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$ & Normale $\mathcal{N}(0,1)$ \\
+        \hline
+        $n > 30$ & Non & $\displaystyle T = \frac{\bar{X} - \mu}{S / \sqrt{n}}$ & Approximativement $\mathcal{N}(0,1)$ \\
+        \hline
+        $n < 30$ & Oui & $\displaystyle Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$ & Normale $\mathcal{N}(0,1)$ \\
+        \hline
+        $n < 30$ & Non & $\displaystyle T = \frac{\bar{X} - \mu}{S / \sqrt{n}}$ & Student ($n-1$ ddl) \\
+        \hline
+    \end{tabular}
+    \caption{Synthèse et conseils d'application pour l'IC de $\mu$}
+    \label{tab:IC_synthese}
+\end{table}
+
+% ==================================================================================================================================
+% Intervalle de confiance d'une proportion
+
+\section{Intervalle de confiance d'une proportion}
+
+On considère maintenant un échantillon $X = (X_1, \dots, X_n), n \in \N$ de fréquence $f$ d'un paramètre observé. 
+On souhaite déterminer la proporition $p$ de ce même paramètre dans la population où l'échantillon a été prélevé. 
+Pour cela, nous allons construire un intervalle de confiance pour obtenir un encadrement plus ou moins précis 
+de la proportion (exacte) recherchée. 
+
+\vspace{0.3cm}
+
+On suppose ici que $n > 30$. Alors la distribution de la proportion observée $f$ peut être approchée par une loi normale 
+d'après le théorème central limite. 
+
+\vspace{0.3cm}
+
+Ainsi l'intervalle de confiance pour $p$ à un niveau de confiance $1 - \alpha$ est donné par :
+    \[ \boxed{IC_p := \left[ f \pm z_{\alpha/2} \sqrt{\frac{f(1-f)}{n}}\right]} \] 
+où : 
+\begin{itemize}
+    \item $z_{\alpha/2}$ est le quantile de la loi normale standard. 
+    \item $\sqrt{\frac{f(1-f)}{n}} $ représente l'écart-type de $f$. 
+\end{itemize}
+
+% ==================================================================================================================================
+% Taille d'un échantillon 
+
+\section{Taille d'un échantillon}
+
+Depuis le début du chapitre, on construit des intervalles de confiance pour des moyennes et des proportions. 
+Or on remarque bien que la précision de cet intervalle dépend énormément de la taille de l'échantillon prélevé 
+dans la population. 
+On pourrait alors se demander, si, en fonction des caractéristiques de la population et d'une précision voulue, 
+on ne pourrait pas directement déterminer la taille minimale de l'échantillon à prélever. 
+
+\subsection{Taille de l'échantillon pour estimer une moyenne}
+
+Avant de réaliser l'échantillonnage, on va poser une précision $d \in \R$, telle que :
+    \[ \mu = \overline{x} \pm d \] 
+
+on a donc, d'après la formule de l'intervalle précédent : 
+    \[ \boxed{ d = z_\alpha \frac{\sigma}{\sqrt{n}} \iff n = \left(z_\alpha \frac{\sigma}{d}\right)^2 } \] 
+
+
+\subsection{Taille de l'échantillon pour estimer une proportion}
+
+Avant de réaliser l'échantillonnage, on va poser une précision $d \in \R$ telle que 
+    \[ p = f \pm d \] 
+
+La taille de l'échantillon est donnée par : 
+    \[ \boxed{n = z_\alpha^2 \frac{f(1-f)}{d^2}} \] 

@@ -1,0 +1,500 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+
+
+
+% ==================================================================================================================================
+% Introduction Générale aux Test d'Hypothèses
+
+\section{Introduction Générale aux Tests d'Hypothèses}
+
+\subsection{Hypothèses nulle et alternative}
+
+Avant tout test d'hypothèse, nous devons tous d'abord définir les hypothèses du test. 
+Elles permettent de formaliser l'hypothèse à tester et dépendent du contexte. 
+
+\newpage 
+
+\begin{definition}[Hypothèse nulle et alternative]
+    Soit $X = (X_1, \dots, X_n)$ un échantillon de taille $n \in \N$. On définit deux hypothèses pour tout test sur 
+    l'échantillon : 
+    \begin{itemize}
+        \item \textbf{L'hypothèse nulle ($H_0$)} : on la considère a priori vraie. Il faut des observations sur $X$ très 
+         éloignés de $H_0$ pour la rejeter. 
+        \item \textbf{L'hypothèse alternative ($H_1$)} : c'est l'hypothèse complémentaire à $H_0$, celle que l'on 
+        retient en cas de rejet de $H_0$. 
+    \end{itemize}
+\end{definition}
+
+En général $H_0$ est l'hypothèse que l'on préfère considérer (égalité de moyennes, appartenance à une loi, etc...), 
+l'objectif du test est de confirmer ou infirmer cette hypothèse. Dans le second cas, on dit "qu'on rejette $H_0$". 
+Cependant, on "n'accepte" pas forcément $H_1$ qui est l'hypothèse par défaut. 
+
+\begin{example}[Hypothèses nulles et alternative]
+    Soient $X_1$ et $X_2$ deux échantillons de taux glycémie de deux populations. 
+    L'échantillon 1 correspond à une population ayant pris des médicaments et l'échantillon 2 à la population ayant 
+    pris des placebo. 
+
+    On définit $\mu_1$ et $\mu_2$ les moyennes respectives des deux échantillons (moyennes empiriques). 
+    On souhaite savoir si la prise du médicemant effecte \textbf{sensible} la glyécmie de la population. 
+    Pour cela, nous allons faire un test d'égalité de moyennes (voir plus tard) dont les hypothèses sont : 
+        \[ H_0 : \mu_1 = \mu_2 \quad H_1 : \mu_1 \not = \mu_2 \] 
+    La description mathématique des hypothèses peut être biaisée, intuitivement, on comprendra plutôt :
+    \begin{itemize}
+        \item $H_0$ : il est crédible de penser que $\mu_1 = \mu_2$ 
+        \item $H_1$ : $\mu_1$ est signficativement différente de $\mu_2$ 
+    \end{itemize}
+\end{example}
+
+\begin{definition}[test bilatéral/unilatéral]
+    En fonction de la formulation de l'hypothèse nulle, on définit deux types de test :
+    \begin{itemize}
+        \item $H_0 : \theta_1 \geqslant \theta_2$ : \textbf{Test unilatéral}
+        \item $H_0 : \theta_1 \leqslant \theta_2$ : \textbf{Test unilatéral}
+        \item $H_0 : \theta_1 = \theta_2$ : \textbf{Test bilatéral}
+    \end{itemize}
+\end{definition}
+
+
+\subsection{Erreur de type I et erreur de type II}
+
+Lors d'un test d'hypothèse, on fixe que ce l'on appelle un \textbf{seuil de signification $\alpha$}. 
+
+\begin{definition}[Niveau de signification]
+    Le niveau de signification d'un test d'hypothèse est un réel $ \alpha \in [0,1]$ qui correspond 
+    à la probabilité de rejeter $H_0$ alors qu'elle est vraie. Il est en général exprimé sous forme de pourcentage. 
+\end{definition}
+
+Ce paramètre est très important puisqu'il permet de définir ce que l'on appelera la région d'acceptation du test 
+d'hypothèse. 
+
+\begin{definition}[Erreurs]
+    Pour un test d'hypothèse, on définit plusieurs erreurs :
+    \begin{itemize}
+        \item \textbf{Erreur de type I} (faussement rejeter $H_0$) : lorsque l'on rejette $H_0$ et que l'on accepte 
+        $H_1$ alors que $H_0$ est vraie. Cette probabilité est donnée par $\alpha$. 
+        \item \textbf{Erreur de type II} (faussement accpeter $H_0$) : lors que l'on ne rejette pas $H_0$ alors 
+        qu'elle est fausse. 
+    \end{itemize}
+\end{definition}
+
+Les erreurs de type I et de type II permettent d'indentifier clairement le concept de "faux positif" ou "faux négatif". 
+L'idéal serait de minimiser le risque de faire les deux erreurs mais cela entre parfois en contradiction. On va donc pour voir 
+jouer sur la taille de \textbf{l'échantillon et le seuil} de \textbf{signification pour les minimiser}. 
+
+
+\subsection{Statistique de test et région d'acceptation}
+
+Lors d'un test d'hypothèse, en fonction des caractéristiques de l'échantillon (variance, écart-type, moyenne, etc...),
+on définit une \textbf{statistique de test} souvent appelée \textbf{variable de décision}. 
+
+\begin{definition}[Variable de décision]
+    La variable de décision est une variable aléatoire dépendant de l'échantillon à tester qui 
+    permet de quantifier l'écart entre les données observés et ce que l'on attend sous l'hypothèse $H_0$.  
+\end{definition}
+
+La statistique de test mesure donc l'écart entre les observations de l'échantillon et ce que l'on attend sous l'hypothèse nulle. 
+Elle est comparée à une valeur seuil (ou à une distribution théorique) pour déterminer la décision du test.
+
+\begin{definition}[Région d'acceptation]
+    La région d'acceptation d'un test d'hypothèse est l'ensemble des valeurs possibles de la statistique de test 
+    (variable de décision) pour lesquelles l'hypothèse nulle ($H_0$) ne sera pas rejeté. 
+    Les bornes définissant la région d'acceptation sont appelées \textbf{valeurs critiques} il peut y en avoir une ou deux. 
+\end{definition}
+
+On appelle \textbf{région de rejet} le complémentaire de la région d'acceptation dans $\R$. 
+
+La région d'acceptation se représente donc sous la forme d'un intervalle qui dépend de l'hypothèse nulle $H_0$ :
+\begin{itemize}
+    \item \textbf{Test bilatéral ($H_0 : \theta_1 = \theta_2$)} : la région d'acceptation est un 
+    intervalle fermé de la forme $ [a,b] \subset \R$. 
+    \item \textbf{Test unilatéral droit $(H_0 : \theta_1 \leqslant \theta_2$)} : la région d'acceptation 
+     est de la forme : $] - \infty ; a ]$
+    \item \textbf{Test unilatéral droit $(H_0 : \theta_1 \geqslant \theta_2$)} : la région d'acceptation 
+    est de la forme : $[a; + \infty[$ 
+\end{itemize}
+Pour un test bilatéral, on a donc deux valeurs critiques et pour un test unilatéral, nous en avons qu'un seule. 
+
+\subsection{Processus d'un test d'hypothèse}
+
+A partir des définitions précedentes, on peut donc construire les tests d'hypothèses. 
+En pratique un test d'hypothèses sur un échantillon $ X = (X_1, \dots, X_n)$ se fait en 5 étapes :
+\begin{enumerate}
+    \item \textbf{Formulation des hypothèses : } en fonction du contexte, on fixe $H_0$ et $H_1$.
+    Leur forme définira la forme de la région d'acceptation. 
+    \item \textbf{Définition du seuil de signification} : on choisit la valeur de $\alpha$ en fonction 
+    de la rigueur que l'on veut apporter au test. 
+    \item \textbf{Calcul de la variable de décision :} à partir des données de l'échantillon et des données 
+    réelles (si on les connaît) on calcule la valeur de la variable de décision (VD). 
+    \item \textbf{Calcul de la région d'acceptation :} les hypothèses du test permettent de définir 
+    la forme de la région d'acceptation. Elle se calcule de la même façon qu'un intervalle de confiance. 
+    \item \textbf{Conclusion :} en fonction de la valeur de la VD on peut observer plusieurs cas :
+        \begin{itemize}
+            \item si \textbf{$VD \in RA$} alors on \textbf{accepte} $H_0$
+            \item si \textbf{$VD \not \in RA$} alors on \textbf{rejette} $H_0$
+        \end{itemize}
+        On conclut en fonction du contexte du test. 
+\end{enumerate}
+
+Définissons maintenant différents types de tests d'hypothèses sur des échantillons aléatoires. 
+
+% ==================================================================================================================================
+% Tests d'hypothèses pour une moyenne
+
+\section{Tests d'hypothèses pour une moyenne}
+
+Les tests d'hypothèses sur les moyennes permettent de vérifier la conformité de la moyenne d'un échantillon à une 
+valeur théorique ou à la moyenne d'un autre échantillon indépendant. 
+
+\subsection{Tests sur un échantillon unique}
+
+Soit $X = (X_1, \dots, X_n)$ un échantillon aléatoire. On supppose que la distribution de $X$ suit une 
+loi normale de moyenne $\mu_0$ et d'écart-type $\sigma$. On note $\overline{X} = \mu$ la moyenne de l'échantillon. 
+L'hypothèse nulle est alors de la forme : 
+    \[ H_0 : \mu = \mu_0 \] 
+
+contre une \textbf{hypothèse alternative} de la forme :
+\begin{itemize}
+    \item \textbf{Bilatérale :} $H_1 : \mu \not = \mu_0 $ 
+    \item \textbf{Unilatérale droite :} $H_1 : \mu > \mu_0 $ 
+    \item \textbf{Unilatérale gauche :} $H_1 : \mu < \mu_0 $
+\end{itemize}
+
+Ensuite, nous devons déterminer la statistique de test (variable de décision). 
+Elle dépend de la connaissance ou non de l'écart type théorique $\sigma$. 
+\begin{itemize}
+    \item \textbf{Si $\sigma$ est connu :} la statistique de test suit une \textbf{loi normale centrée réduite} :
+        \[ VDR \sim \mathcal{N}(0,1) \quad \text{et} \quad VDR = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}\] 
+    \item \textbf{Si $\sigma$ est inconnu :} nous devons le déterminer par l'estimateur $S$ correspondant à l'écart-type 
+    de l'échantillon. La variable de décision suit alors une \textbf{loi de Student à $n-1$ degrés de liberté}. 
+        \[ S = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x})^2} \quad \text{et} \quad VDR = \frac{\overline{X} - \mu_0}{S = \sqrt{n}} \] 
+\end{itemize}
+
+Enfin, il reste à définir la \textbf{région d'acceptation}, qui dépend de la loi de la variable de décision réduite (VDR). 
+\begin{itemize}
+    \item Pour un \textbf{test bilatéral} de valeur critique $\alpha$ on a :
+        \[ RA := [z_{\alpha/2} \; , \; z_{1 - \alpha/2}] \] 
+    \item Pour un \textbf{test unilatéral droit} de valeur critique $\alpha$ on a :
+        \[ RA := [- \infty \; , \; z_{1-\alpha}] \] 
+    \item Pour un \textbf{test unilatéral gauche} de valeur critique $\alpha$ on a :
+        \[ RA := [z_\alpha \; , \; + \infty ] \] 
+\end{itemize}
+
+\begin{remark}[Taille de l'échantillon]
+    En fonction de la taille de l'échantillon, la variable de décision réduite peut être approchée par différentes lois :
+    \begin{itemize}
+        \item Si $n > 30$ alors $VDR \sim \mathcal{N}(0,1)$, on calcule donc la région d'acceptation avec la table de la loi normale. 
+        \item Si $n <= 40$ alors VDR suit une loi de Student à $n-1$ degrés de liberté. On utilise donc la table de la loi de Student. 
+    \end{itemize}
+\end{remark}
+
+
+\subsection{Test de comparaison de deux moyennes (deux échantillons)}
+
+On cherche ici à déterminer si deux échantillons issus de deux populations ont sensiblement la même moyenne 
+pour une erreur de $\alpha$. 
+On considère deux échantillons des moyennes $\mu_1$ et $\mu_2$, d'écart-types $\sigma_1$ et $\sigma_2$ de taille $n_1$ et $n_2$. 
+
+L'hypothèse nulle est alors de la forme : 
+    \[ H_0 : \mu_1 = \mu_2 \] 
+
+La statistique de test dépend de l'égalité ou non des écart-types des deux échantillons $\sigma_1$ et $\sigma_2$ :
+\begin{itemize}
+    \item Si les \textbf{écart-types sont différents}, alors on a la variable de décision suivante :
+        \[ VDR = \frac{\mu_1 - \mu_2}{\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}} \] 
+    \item Si les \textbf{écart-types sont égaux}, la variance commune est définie par :
+        \[ \hat{\sigma}^2 = \frac{\sum_{i=1}^{n} (x_i - \mu_1^2) + \sum_{i=1}^{n} (x_i - \mu_2^2)}{n_1 + n_2 - 2} \] 
+    et la variable de décision réduite est définie par :
+        \[ VDR = \frac{{\mu_1 - \mu_2}}{\sqrt{\hat{\sigma}^2 \left( \frac{1}{n_1} + \frac{1}{n_2}\right)}} \] 
+\end{itemize}
+
+Comme précédement, nous devons définir la région d'acceptation qui dépend toujours de $H_1$ : 
+\begin{itemize}
+    \item Pour un \textbf{test bilatéral} de valeur critique $\alpha$ on a :
+        \[ RA := [z_{\alpha/2} \; , \; z_{1 - \alpha/2}] \] 
+    \item Pour un \textbf{test unilatéral droit} de valeur critique $\alpha$ on a : 
+        \[ RA := [- \infty \; , \; z_{1-\alpha}] \] 
+    \item Pour un \textbf{test unilatéral gauche} de valeur critique $\alpha$ on a :
+        \[ RA := [z_\alpha \; , \; + \infty ] \] 
+\end{itemize}
+
+\begin{remark}[Taille de l'échantillon]
+    Comme précédement, la variable de décision suit une loi normale pour les échantillons supérieurs à 30 données. 
+    Dans le cas contraire, elle suite une loi de Student à $n_1 + n_2 -2$ degrés de liberté. 
+\end{remark}
+
+
+
+\subsection{Test de comparaison des moyennes de deux échantillons appariés}
+
+On considère maintenant deux échantillons $X = (X_1, \dots, X_n)$ et $Y = (Y_1, \dots, Y_n)$ de moyennes $\mu_1$ et $\mu_2$ et d'écart-type 
+$\sigma_1$ et $\sigma_2$ où chaques valeurs des deux échantillons sont associées par paires. 
+En pratique c'est le cas lorsque l'on soumet les mêmes individus d'une population à deux tests. 
+
+On commence par calculer la différence des deux observations $d$ définie par : 
+    \[ \forall i \in \llbracket 1, n \rrbracket, d_i = x_i - y_i \] 
+
+La variable de décision correspond donc à la moyenne des différences : 
+    \[ VD = \overline{d} \] 
+
+Dans le cas où la distribution du caractère étudié suit une loi normale, la variable de décision est elle même 
+normale. La variable de décision centrée réduite est donc :
+    \[ VDR := \frac{\overline{d}}{\sigma_d / \sqrt{n}} \] 
+
+Comme précédement dans le cas d'un échantillon grand ($ n \geqslant 30$) la VDR suit une loi normale centrée réduite 
+($ \mathcal{N}(0,1)$). Dans le cas contraire ($ n < 30$), elle suit une loi de Student à $n -1$ degrés de liberté. 
+
+
+\begin{example}
+    Un ingénieur souhaite tester si la durée de vie moyenne d'une batterie est au moins de 500 heures.
+    Il prélève un échantillon de $n = 20$ batteries et obtient les statistiques suivantes :
+    \begin{itemize}
+        \item Moyenne observée : $\overline{X} = 510$ heures.
+        \item Écart-type empirique : $S = 15$ heures.
+        \item Niveau de test : $\alpha = 5\%$.
+    \end{itemize}
+    Nous allons tester l'hypothèse suivante :
+    \begin{align*}
+        H_0 &: = 500 \\
+        H_1 &: \mu > 500
+    \end{align*}
+
+    La statistique de test est donnée par :
+        \[ T = \frac{\overline{X} - \mu_0}{S / \sqrt{n}} = \frac{510 - 500}{15 / \sqrt{20}} \approx 2.99 \] 
+
+    La valeur critique de la loi de Student pour $n-1 = 19$ degrés de liberté et un seuil de $\alpha = 5\%$ est $ t_{0.05,19} \approx 1.73$
+
+    Nous comparons :
+    \begin{center}
+        \begin{tabular}{ccc}
+            \hline
+            Condition & Résultat & Décision \\
+            \hline
+            $T > t_{0.05,19}$ & $2.99 > 1.73$ & Rejet de $H_0$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    Puisque $T = 2.99$ est supérieur à $t_{0.05,19} = 1.73$, nous rejetons l'hypothèse nulle $H_0$ au seuil de $5\%$.
+
+    Il y a donc suffisamment d'évidence pour conclure que la durée de vie moyenne des batteries est significativement supérieure à 500 heures.
+\end{example}
+
+
+
+% ==================================================================================================================================
+% Tests d'hypothèses pour une variance
+
+\section{Tests d'hypothèses pour une variance}
+
+De même que pour les moyennes, on cherche à étudier la conformité de la variance d'un échantillon par rapport à 
+une valeur théorie ou d'autres échantillon. Pour cela, on utilise le même procédé. 
+
+\subsection{Test de conformité d'une variance}
+
+Soit $X = (X_1, \dots, X_n)$ un échantillon de taille $n$, de moyenne $\mu$ et de variance $\sigma^2$. 
+On cherche à savoir si la variance de l'échantillon est sensiblement la même qu'un variance théorie $\sigma_0^2$ pour 
+un seuil de signification $\alpha$. 
+
+On pose alors l'hypothèse nulle suivante :
+    \[ H_0 : \sigma^2 = \sigma_0^2 \] 
+
+La variable de décision est donnée par : 
+    \[ VD = \frac{(n-1) S^2}{\sigma_0^2} \quad \text{où} \quad S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \mu)^2 \] 
+
+Cette statistique suit une loi de chi-deux à $n-1$ degrés de liberté sous $H_0$. 
+
+On définit ensuite la région d'acceptation comme suit :
+\begin{itemize}
+    \item Pour un \textbf{test bilatéral} de valeur critique $\alpha$ on a :
+        \[ RA := [\chi_{\alpha/2}^2 \; , \; \chi_{1 - \alpha/2}^2 ] \] 
+    \item Pour un \textbf{test unilatéral droit} de valeur critique $\alpha$ on a : 
+        \[ RA := [0 \; , \; \chi_{1 - \alpha}^2] \] 
+    \item Pour un \textbf{test unilatéral gauche} de valeur critique $\alpha$ on a :
+        \[ RA := [\chi_\alpha^2 \; , \; + \infty ] \] 
+\end{itemize}
+
+
+
+\subsection{Test de comparaison de deux variances (échantillons indépendants)}
+
+On veut comparer la variance de deux échantillons indépendants $X_1$ et $X_2$ de variances respectives $\sigma_1^2$ et $\sigma_2^2$
+et de tailles $n_1$ et $n_2$. 
+
+On a alors l'hypothèse nulle suivante : 
+    \[ H_0 : \sigma_1^2 = \sigma_2^2 \] 
+
+La variable de décision du test correspond au rapport des deux variances observées des deux échantillons :
+    \[ VD = \frac{\hat{\sigma_1}^2}{\hat{\sigma_2}^2} \] 
+Par convention on choisit l'échantillon 2 comme celui avec la plus grande variance. 
+Elle suit une loi de Fisher à $n_1 -1$ et $n_2 - 2$ degrés de liberté. 
+On a tout le temps affaire à un test bilatéral d'où la région d'acceptation suivante :
+        \[ RA := [F_{\alpha/2}\; , \; F_{1 - \alpha/2} ] \] 
+   
+% ==================================================================================================================================
+% Tests d'hypothèses pour une proportion
+
+\section{Tests d'hypothèses pour une proportion}
+
+\subsection{Test de conformité d'une proportion}
+
+Soit $X = (X_1, \dots, X_n)$ un échantillon de taille $n$, où chaque $X_i$ suit une loi de Bernoulli de paramètre $p$.
+On cherche à vérifier si la proportion observée est compatible avec une valeur théorique $p_0$, 
+avec un seuil de signification $\alpha$.
+
+L'hypothèse nulle est donnée par :
+\[
+H_0 : p = p_0
+\]
+
+L'estimateur naturel de la proportion est :
+\[
+\hat{p} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\]
+
+La statistique de test est :
+\[
+VD = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n}}}
+\]
+
+Sous $H_0$, $VD$ suit asymptotiquement une loi normale centrée réduite 
+$\mathcal{N}(0,1)$ si $n$ est suffisamment grand.
+
+Les régions d'acceptation sont :
+\begin{itemize}
+    \item Test bilatéral de niveau $\alpha$ :
+        \[
+        RA := \left[ -z_{1-\alpha/2}, z_{1-\alpha/2} \right]
+        \]
+    \item Test unilatéral droit :
+        \[
+        RA := \left] -\infty, z_{1-\alpha} \right]
+        \]
+    \item Test unilatéral gauche :
+        \[
+        RA := \left[ -z_{1-\alpha}, +\infty \right[
+        \]
+\end{itemize}
+
+\subsection{Test de comparaison de deux proportions}
+
+Considérons deux échantillons indépendants de tailles $n_1$ et $n_2$,
+suivant des lois de Bernoulli de paramètres respectifs $p_1$ et $p_2$.
+On souhaite tester si ces proportions sont égales.
+
+L'hypothèse nulle est :
+\[
+H_0 : p_1 = p_2
+\]
+
+On estime les proportions par :
+\[
+\hat{p}_1 = \frac{X_1}{n_1}, \quad \hat{p}_2 = \frac{X_2}{n_2}
+\]
+
+L'estimateur global sous $H_0$ est :
+\[
+\hat{p} = \frac{X_1 + X_2}{n_1 + n_2}
+\]
+
+La variable de décision est donnée par :
+\[
+VD = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1-\hat{p}) 
+\left( \frac{1}{n_1} + \frac{1}{n_2} \right)}}
+\]
+
+Sous $H_0$, cette statistique suit asymptotiquement une loi normale 
+centrée réduite.
+
+Les régions d'acceptation sont définies comme suit :
+\begin{itemize}
+    \item Test bilatéral de niveau $\alpha$ :
+        \[
+        RA := \left[ -z_{1-\alpha/2}, z_{1-\alpha/2} \right]
+        \]
+    \item Test unilatéral droit :
+        \[
+        RA := \left] -\infty, z_{1-\alpha} \right]
+        \]
+    \item Test unilatéral gauche :
+        \[
+        RA := \left[ -z_{1-\alpha}, +\infty \right[
+        \]
+\end{itemize}
+
+\begin{example}
+    On souhaite comparer les taux de réussite à un examen entre deux groupes d'étudiants.
+    Le premier groupe, de taille $n_1 = 200$, a $X_1 = 140$ étudiants ayant réussi.
+    Le second groupe, de taille $n_2 = 250$, a $X_2 = 175$ étudiants ayant réussi.
+
+    Nous voulons tester si la proportion de réussite est la même dans les deux groupes, 
+    au seuil de signification $\alpha = 5\%$.
+
+    \paragraph{Étape 1 : Hypothèses}  
+    Les hypothèses sont les suivantes : 
+        \[ H_0 : p_1 = p_2 \quad H_1 : p_1 \neq p_2 \]
+    (ce qui correspond à un test bilatéral).
+
+    \paragraph{Étape 2 : Estimation des proportions}  
+    On estime les proportions observées :
+        \[
+            \hat{p}_1 = \frac{X_1}{n_1} = \frac{140}{200} = 0.7, \quad
+            \hat{p}_2 = \frac{X_2}{n_2} = \frac{175}{250} = 0.7
+        \]
+    L'estimateur global sous $H_0$ est :
+        \[
+            \hat{p} = \frac{X_1 + X_2}{n_1 + n_2} = \frac{140 + 175}{200 + 250} = 0.7
+        \]
+
+    \paragraph{Étape 3 : Calcul de la statistique de test}  
+    La variable de décision est donnée par :
+        \[
+            VD = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1-\hat{p}) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}}
+            = \frac{0.7 - 0.7} {\sqrt{0.7(1-0.7) \left( \frac{1}{200} + \frac{1}{250} \right)}}
+            = 0 
+        \]
+
+    \paragraph{Étape 4 : Détermination de la région d'acceptation}  
+    Le test est bilatéral au seuil $\alpha = 5\%$, donc la région d'acceptation est :
+        \[
+            RA := \left[ -z_{1-\alpha/2}, z_{1-\alpha/2} \right] = [-1.96, 1.96]
+        \]
+    Avec $z_{1-\alpha/2} = 1.96$.
+
+    \paragraph{Étape 5 : Conclusion}  
+    Comme $VD = 0 \in RA$, on ne rejette pas $H_0$.
+    On conclut qu'il n'y a pas de différence significative entre les deux proportions 
+    au seuil de 5\%.
+\end{example}
+
+
+% ==================================================================================================================================
+% Test de conformité à une loi
+
+\section{Test de conformité à une loi}
+
+Les tests de conformité d'un échantillon à une distribution théorique visent à 
+déterminer si les données observées suivent une certaine distribution théorique.
+
+Le test du Chi-carré est utilisé pour comparer la fréquence observée des événements avec la fréquence 
+attendue selon une hypothèse nulle.
+
+Ainsi, soit $X = (X_1, \dots, X_n)$ un échantillon aléatoire, on cherche à déterminer si il suit une loi 
+
+
+% ==================================================================================================================================
+% Tests d'indépendance
+
+\section{Tests d'indépendances}
+
+
+
+
+% ==================================================================================================================================
+% Interprétation des résultats
+
+\section{Interprétation des résultats}
+

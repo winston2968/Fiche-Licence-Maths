@@ -1,0 +1,305 @@
+\documentclass[openany]{book}
+
+
+% ==================================================================================================================================
+% HEADER
+% Documents packages, environements, page configuration
+
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{ragged2e}
+\usepackage{amsfonts}
+\usepackage{systeme}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{comment}
+\usepackage{multicol}
+\usepackage{lipsum} 
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{wrapfig}
+\usepackage{colortbl}
+\usepackage{cellspace}
+\usepackage{ntheorem}
+\usepackage{lmodern}
+\usepackage{mathtools}
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{titlepic}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage[linkbordercolor=white]{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usepackage{pgfplots}
+\usepackage{mdframed}
+\usepackage{xparse}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{minitoc}  % Permet d'afficher une table des matières locale
+\usepackage[top=3cm, bottom=3cm, left=3.5cm, right=3.5cm]{geometry}
+\usepackage{etoolbox} % pour tester la présence d'un argument optionnel
+\usepackage{nicematrix}
+\usepackage{forest} % Pour les arbres de dérivation
+
+% \pagestyle{empty}
+
+\usetikzlibrary{cd}
+\usetikzlibrary{patterns}
+\usetikzlibrary{angles,quotes}
+\usetikzlibrary{intersections, 3d, calc}
+\usetikzlibrary{automata, positioning} % Pour utiliser les motifs
+
+\usepgfplotslibrary{fillbetween}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                   PAGE SETTINGS
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\setlength{\columnseprule}{1pt}               % ligne de séparation entre les colonnes
+\def\columnseprulecolor{\color{black}}
+
+\newcolumntype{C}{>{$\displaystyle}Sc<$}      % style d'affichage et taille 
+\cellspacetoplimit=5pt                        % de la séparation entre colonnes
+\cellspacebottomlimit=5pt
+
+\renewcommand{\thechapter}{\arabic{chapter}}  % Set chapters numbers to 0
+
+% Redéfinition de \part avec image optionnelle
+\renewcommand{\part}[2][]{%
+  \clearpage
+  \refstepcounter{part} % incrémente le compteur de partie
+  \addcontentsline{toc}{part}{\thepart\space #2} % ajoute au sommaire
+
+  \begin{center}
+    {\Huge\bfseries #2\par}
+    \vspace{4em}  % Augmente l'écart à 2em
+    \ifstrempty{#1}{}{%
+      \includegraphics[width=0.4\textwidth]{#1}\par
+    }
+  \end{center}
+  \vspace{2em}
+}
+
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                 MATHS SHORTHANDS
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\U}{\mathbb{U}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Lc}{\mathbb{L}}
+\newcommand{\Fc}{\mathbb{F}}
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\F}{\mathcal{F}}
+
+%\renewcommand{\epsilon}{\varepsilon}
+%\renewcommand{\phi}{\varphi}
+%\renewcommand{\rho}{\varrho}
+
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+\newcommand{\myP}{\mathbb{P}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                 MODS NOTATION
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\theorembodyfont{\upshape}
+
+% Définir un environnement pour encadrer les définitions avec un titre
+\NewDocumentEnvironment{definition}{O{}}
+{
+  \begin{mdframed}[linewidth=0pt,linecolor=gray,backgroundcolor=gray!10,roundcorner=5pt]
+  \textbf{Définition}%
+  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
+  . % Point à la fin
+}
+{
+  \end{mdframed}
+}
+
+% Définir un environnement pour encadrer les théorèmes avec un titre
+\NewDocumentEnvironment{theorem}{O{}}
+{
+  \samepage
+  \begin{mdframed}[linewidth=1pt,linecolor=darkgray,backgroundcolor=darkgray!10,roundcorner=5pt]
+  \textbf{Théorème}%
+  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
+  . % Point à la fin
+}
+{
+  \end{mdframed}
+}
+
+% Définir un environnement pour encadrer les corollaires
+\NewDocumentEnvironment{corollary}{O{}}
+{
+  \begin{mdframed}[linewidth=1pt,linecolor=gray,backgroundcolor=gray!10,roundcorner=5pt]
+  \textbf{Corollaire}%
+  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
+  . % Point à la fin
+}
+{
+  \end{mdframed}
+}
+
+
+% Définir un environnement pour encadrer les critères
+\NewDocumentEnvironment{criteria}{O{}}
+  {
+    \begin{mdframed}[linewidth=1pt,
+                      linecolor=gray,
+                      backgroundcolor=gray!10,
+                      roundcorner=5pt
+                      ]
+    \textbf{Critère}%
+    \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
+    . % Point à la fin
+  }
+  {
+    \end{mdframed}
+  }
+
+% Définir un environnement pour encadrer les prorpiétés avec un titre
+\NewDocumentEnvironment{prop}{O{}}
+{
+  \begin{mdframed}[linewidth=0pt,linecolor=gray,backgroundcolor=gray!10,roundcorner=5pt]
+  \textbf{Propriété}%
+  \IfNoValueTF{#1}{}{~(\textbf{#1})} % Affiche le titre entre parenthèses et en gras s'il est fourni
+  . % Point à la fin
+}
+{
+  \end{mdframed}
+}
+				
+
+\theoremstyle{plain}
+\newtheorem*{remark}{Remarque}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{lemma}{Lemme}
+%\newtheorem*{prop}{Propriété}
+\newtheorem*{proof}{Démonstration}
+\newtheorem*{example}{Exemple}
+
+% Créer un environnement qui empêche les coupures de page
+\newenvironment{nobreakproposition}
+{
+  \par\begingroup\samepage % Empêcher les coupures de page
+  \begin{proposition}
+}
+{
+  \end{proposition}
+  \par\endgroup
+}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%             Itemize env settings
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textbullet}
+\setlist[itemize,3]{label=\textbullet}
+\setlist[itemize,4]{label=\textbullet}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%             Tableofcontents settings
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+% Profondeur des mini-tables des matières
+\setcounter{minitocdepth}{2}  % Jusqu’aux sous-sections
+\setcounter{parttocdepth}{1}  % Jusqu’aux chapitres dans les parties
+
+% Configurer l’apparence
+\mtcsetrules{minitoc}{off}  % Désactiver les lignes pour les chapitres
+\mtcsetrules{parttoc}{off}   % Désactiver les lignes pour les parties
+
+% Si tu veux que la table principale n'affiche que les parties :
+\setcounter{tocdepth}{1}  % N'afficher que les \part dans la table principale
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+%                       TITLE
+% - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+% Document Title
+\title{Algèbre Linéaire 3}
+\author{Axel PIGEON}
+\date{\today}
+
+
+\begin{document}
+
+% Activer les mini tables des matières
+\dominitoc    % Active les tables des chapitres
+
+
+% ==================================================================================================================================
+% CONTENT
+
+
+% Title Page
+\input{titlepage.tex}
+
+\tableofcontents
+
+\setlength{\parindent}{0pt}
+
+% ==================================================================================================================================
+% Introduction
+
+
+% ==================================================================================================================================
+% Inclusion Parts (Courses)
+
+
+    
+\part[./images/raisonnement.png]{Raisonnement et Ensembles}
+\setcounter{chapter}{0}
+\include{subjects/RE/main_RE}
+
+\part[./images/algebre_struct.png]{Algèbre des Structures}
+\setcounter{chapter}{0}
+\include{subjects/Algebre-Structures/main_AS}
+
+\part[images/algebre.jpg]{Algèbre Linéaire}
+\setcounter{chapter}{0}
+\include{subjects/Algebre-Lineaire/main_AL}
+
+\part[./images/topologie.png]{Topologie}
+\setcounter{chapter}{0}
+\include{subjects/Topologie/main_topologie}
+
+\part[./images/integration.png]{Analyse}
+\setcounter{chapter}{0}
+\include{subjects/Analyse/main_analyse}
+    
+\part[./images/probas_stats.png]{Probabilités et Statistiques}
+\setcounter{chapter}{0}
+\include{subjects/Probas-Stats/main_probas}
+
+
+\part[]{Annexe 1 - Graphes et Théorie des Langages}
+\setcounter{chapter}{0}
+\include{subjects/Graphes-Theorie-Langages/main_theorie_langages}
+
+\end{document}

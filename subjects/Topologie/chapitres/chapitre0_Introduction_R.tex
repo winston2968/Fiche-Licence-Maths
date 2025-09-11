@@ -1,0 +1,141 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Rappellons les propriétés du principal espace que nous allons considérer dans ces chapitres, $\R$. 
+
+% ==================================================================================================================================
+% Supremum, Infimum 
+
+\section{Majorant, Minorant, Supremum, Infimum}
+
+\subsection{Définitions}
+
+Formellement, $\R$ est un corps totalement ordonné muni de 4 opérations compatibles avec cet ordre. 
+Considérons ici un ensemble $E$ et $A \subseteq E$ une partie de $E$. 
+
+\begin{definition}[Majorant]
+    On appelle majorant de $A$, un élément de $M \in E$ supérieur à tous les éléments de $A$. 
+    Plus formellement :
+        \[ M \in E \text{ est un majorant de } A \iff \forall x \in A, M \geqslant x \] 
+\end{definition}
+
+\begin{definition}[Minorant]
+    De même que pour les majorants, on appelle minorant de $A$ un élément $m \in E$ inférieur à tous les éléments de $A$. 
+    Plus formellement :
+        \[ m \in E \text{ est un minorant de } A \iff \forall x \in A, m \leqslant x \] 
+    Autrement dit, tous les éléments de $A$ majorent $m$.
+\end{definition}
+
+\begin{example}
+    Soit $E = \R$ et $A = [0,1] \subset E$. Alors $0,-1$ et $-\pi$ sont des minorants de $A$
+    et $1, 7$ et $ e$ sont des majorants de $A$. 
+\end{example}
+
+\begin{definition}[Maximum/Minimum]
+    Soit $A \subseteq E$. On appelle \textbf{maximum} de $A$ un élément $x \in A$ qui majore tous les éléments de $A$. 
+    De même, un \textbf{minimum} de $A$ est un élément $x \in A$ qui minore tous les éléments de $A$. 
+    On les notes généralement $\max(.)$ et $\min(.)$.
+\end{definition}
+
+\begin{remark}
+    On repère rapidement la différence entre un maximum et un majorant. Un maximum a la propriété d'appartenir à la partie qu'il majore. 
+    Idem pour un minimum. Ces objets sont quand même limités. Si on prends $A = ]0,1[ \subset \R$. 
+    
+    On remarque facilement 
+    que l'on ne peut pas trouver de minimum à cette partie. Il existe une infinité de minorants mais si l'on souhaite minimiser 
+    $A$ de façon "plus fine", cela risque de ne pas suffire. On va donc définir les supremum et infimum. 
+\end{remark}
+
+\begin{definition}[Supremum]
+    Soit $A \subseteq E$, on appelle supremum de $A$ le plus petit des majorants de $A$. 
+    Plus formellement :
+        \[ x \in E \text{ est un supremum de } A \iff 
+            \begin{cases}
+                \forall a \in A, x \geqslant a \\
+                m = \min(\{m \in E, \forall a \in A, m \geqslant a\})
+            \end{cases}
+        \]
+    On le note généralement $sup$ et on parle de "borne sup". 
+\end{definition}
+
+\begin{definition}[Infimum]
+    Soit $A \subseteq E$, on appelle infimum de $A$ le plus grand des minorants de $A$. 
+    Plus formellement :
+        \[ x \in E \text{ est un infimum } de A \iff 
+            \begin{cases}
+                \forall a \in A, x \leqslant a \\
+                x = \max(\{m \in E, \forall a \in A, m \leqslant a\})
+            \end{cases}
+        \] 
+    On le note $inf$ et on parle de "borne inf". 
+\end{definition}
+
+\begin{proposition}
+    S'il exite, un supremum ou un infimum est unique. 
+\end{proposition}
+
+\begin{remark}
+    Moins formellement, les bornes inf et sup permettent de résoudre beaucoup de problèmes de majoration/minoration
+    fine en nous permettant de "regarder" de l'autre côté de notre partie $A \subseteq E$. 
+
+    Les bornes inf et sup sont surtout utilisées dans des espaces tels que $\R$ et $\Q$ où les éléments sont "très proches"
+    (nous définirons cette notion plus tard). Intuitivement dans des ensembles tels que $\N$ ou $\Z$ nous n'avons pas besoin 
+    de tels objets. 
+\end{remark}
+
+\begin{example}
+    Il peut arriver que l'on considère des parties qui n'admettent pas de majorants/minorants. 
+    Par exemple, $A = \N \subset \R$. 
+\end{example}
+
+\subsection{Propriétés et caractérisations}
+
+\begin{theorem}[Existence]
+    Dans $\R$ toute partie non vide et majorée admet un supremum. 
+
+    De même, {Toute partie non vide et minorée admet un infimum.}
+\end{theorem}
+
+\begin{proposition}
+    Soit $A \subseteq \R$. $x \in \R$ est un supremum de $A$ ssi 
+    \begin{itemize}
+        \item $x$ majore $A$
+        \item pour tout $\varepsilon > 0, \exists a \in A, \quad a > x - \varepsilon $
+    \end{itemize}
+    En français, un supremum de $A$ est un élément $x \in E$ qui majore $A$ et tel que pour tout réel 
+    positif $\varepsilon$, on peut trouver un élément $a \in A$ entre $x$ et $x - \varepsilon$. 
+
+    On a la même propriété pour les infimum. 
+\end{proposition}
+
+\subsection{Densité des rationnels dans les réels}
+
+\begin{prop}[Archimède]
+    Pour tout réel $x \in \R$, il existe un entier $n \in \N$, tel que $n > x$. 
+\end{prop}
+
+\begin{quote}
+    \begin{footnotesize}
+        \begin{proof}
+            La démonstration se fait par l'absurde. 
+        \end{proof}
+    \end{footnotesize}
+\end{quote}
+
+On peut donc démontrer la proprosition principale de la densité de $\Q$ dans $\R$. 
+On veut montrer qu'entre deux réels distincts, il existe une infinité de rationnels. 
+Soient $x, y \in \R$ distincts. Il suffit juste de montrer qu'il existe un rationnel $r$ entre $x$ et $y$ et, par suite, 
+puisqu'un rationnel est aussi un réel, on pourra trouver un autre rationnel entre $x$ et $r$ puis entre $r$ et $y$ et 
+ainsi de suite... 
+
+\begin{proposition}[Densité]
+    Entre deux réels distincts, il existe une infinité de rationnels. 
+\end{proposition}
+
+
+
+
+
+

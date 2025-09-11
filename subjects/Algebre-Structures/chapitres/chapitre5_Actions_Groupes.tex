@@ -1,0 +1,218 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Depuis le début de l'étude des groupes nous voyons ces objets simplement comme des ensembles auxquels ont 
+a donné une structure via une application et quelques autres propriétés. Ces objets, en apparence très simples, 
+sont pourtant très riches et peuvent être très variés. 
+
+Une autre approche de l'étude de la théorie des groupes est de les faire agir sur un ensemble. L'un des exemples 
+le plus intuitif pour comprendre cette notion est le groupe symétrique. En effet, il est définit comme l'ensemble des 
+bijections sur un ensemble quelconque. Mais lorsqu'on choisit comme ensemble les entiers de 1 à $n \in \N$, on s'apperçoit
+que notre groupe permute tout simplement des suites d'entier. 
+
+% Dans ce chapitre, nous allons essayer de généraliser cette notion, en définissant tout d'abord les actions de groupes, 
+% puis en démontrant quelques unes de leurs propriétés, et enfin, nous verrons comment relier ces nouvelles applications
+% aux classes d'équivalences vues précédement. 
+
+% ==================================================================================================================================
+% Actions de groupes
+
+\section{Actions de groupes, premières définitions}
+
+\begin{definition}[Actions de groupe]
+	Soit G un groupe et X un ensemble quelconque. On définit l'action à gauche de G sur X, souvent noté $ G \curvearrowright X$,
+	l'application : 
+		\[ \bullet : 
+			\begin{cases}
+				G \times X \longrightarrow X \\
+				(g,x) \longmapsto g.x 
+			\end{cases} \] 
+	qui vérifie :
+	\begin{enumerate}
+		\item[i)] \textbf{Associativité Mixte :} $ \forall g,h \in G, \; \forall x \in X, \; (gh).x = g.(h.x)$ 
+		\item[ii)] \textbf{Invariance par le neutre :} $ \forall x \in X, \; e_G . x = x $ 
+	\end{enumerate}
+	On appelle ainsi X un G-ensemble. 
+\end{definition}
+
+\begin{definition}[Point fixe et partie stable]
+	Soient G un groupe et X un G-ensemble :
+	\begin{itemize}
+		\item $x \in X$ est un point fixe de G si, $ \forall g \in G, \; g.x = x$ 
+		\item $Y \subset X$ est une partie stable de X si, $ \forall y \in Y, \forall g \in G, g(Y) \subset Y$.
+	\end{itemize}
+\end{definition}
+
+
+% ==================================================================================================================================
+% Morphisme Structurel
+
+\section{Morphisme Structurel}
+
+\begin{theorem}[Morphisme structurel]
+	Soient G un groupe et X un G-ensemble. Il existe une bijection entre les opérations au gauche de G sur X 
+	et l'ensemble des bijections de X sur lui-même ($S(X)$). 
+	\[ \text{i.e} \quad 
+		\begin{cases}
+			G \times X \rightarrow X \\
+			(g,x) \mapsto g.x
+		\end{cases}
+		\; \overset{\sim}{\longmapsto} \; \phi :
+		\begin{cases}
+			G \rightarrow S(X) \\ 
+			g \mapsto \sigma_g 
+		\end{cases}
+	\]
+	où $ \forall g \in G, \forall x \in X, \; \sigma_g(x) = g.x $
+\end{theorem}
+
+
+\begin{proposition}
+	Soient G un groupe et $\phi$ l'action de G sur le G-ensemble X. 
+	\begin{itemize}
+		\item Soit $\psi$ un morphisme de groupes tq $ \psi : K \rightarrow G$, alors X est aussi un $\psi \circ \phi$-ensemble 
+		(i.e on peut composer une action de groupe par la droite par un morphisme de groupe dont l'image est le groupe opérant).
+		\item Soit $Y \subset X$, alors Y est aussi un G-ensemble. 
+		\item Soit $H \leq G$, alors X est aussi un H-ensemble. 
+	\end{itemize}
+\end{proposition}
+
+\begin{remark}
+	Notons qu'une action droite d'un groupe G sur un ensemble X correspond à un anti-morphisme de groupe 
+	(i.e du point de vue du morphisme structurel $ \forall g,h \in G, \phi(gh) = \phi(h)\phi(g)$).
+\end{remark}
+
+% ==================================================================================================================================
+% Orbites et stabilisateurs 
+
+\section{Orbites et Stabilisateurs}
+\subsection{Définitions}
+
+\begin{definition}[Orbite et Stabilisateur]
+	Soit G un groupe et X un ensemble tels que $G \curvearrowright X$, et soit $x \in X$, on peut alors définir les deux ensembles suivants :
+	\begin{itemize}
+		\item \textbf{L'orbite} de x est le \underline{sous-ensemble} Orb$(x) \subseteq X$ tel que :
+			\[ \boxed{ \text{Orb}_G(x) = \{g.x \; | \; g \in G\} } \] 
+		\item \textbf{Le stabilisateur} de x est le \underline{sous-groupe} de G tel que :
+			\[ \boxed{ \text{Stab}(x) = \{ g \in G \; | \; g.x = x \} }\] 
+	\end{itemize}
+	\emph{L'orbite d'un élément x de X correspond à tous les éléments de X que l'on peut atteindre sous l'action de G sur x.}
+	\emph{Le stabilisateur de x de X correspond à tous les éléments de G qui laissent x invariant.}
+\end{definition}
+
+% \begin{prop}
+%	Soit G un groupe et X un G-ensemble, alors le stabilisateur de $x \in X$ par G est un \textbf{sous-groupe} de G. 
+% \end{prop}
+
+\newpage 
+
+\begin{definition}[Propriétés d'une action]
+	Soit G un groupe et X un ensemble tels que $G \curvearrowright X$ on dit alors que G est :
+	\begin{itemize}
+		\item \textbf{Transitive} sur X s'il existe exactement une seule orbite dans X. 
+		\item \textbf{Libre} sur X si tous les statbilisateurs sont triviaux (i.e réduits à l'élément neutre de G). 
+	\end{itemize}
+\end{definition}
+
+\begin{prop}[Stabilité des orbites]
+	Les orbites de X sont stables par G et toute union d'orbites de X est aussi stable par G. 
+\end{prop}
+
+\subsection{Orbites, stabilisateurs et relation d'équivalence}
+
+\begin{proposition}
+	Soit G un groupe et X un G-ensemble, alors :
+	\begin{itemize}
+		\item La relation $\sim$ définie sur X par 
+			\[ x \sim y \; \text{si} \; x \in \text{Orb}(y) \] 
+		est une relation d'équivalence sur X. 
+		\item Les classes d'équivalences pour cette relation sont exactement les orbites de X pour l'action de G.
+	\end{itemize}
+\end{proposition}
+
+\begin{prop}
+	Les orbites de X par l'action de G forment une partition de X.
+\end{prop}
+
+\begin{prop}[Noyaux]
+	Soient G un groupe et $\phi$ une action de groupe de G sur un ensemble X. 
+	Le noyaux de $\phi$, ker$(\phi)$, est l'intersection de tous les stabilisateurs de X. 
+	\[ \boxed{ \text{i.e} \quad \text{ker}(\phi) = \bigcap_{x \in X} \text{Stab}_G(x) }\] 
+\end{prop}
+
+\begin{definition}[Action fidèle]
+	Soient G un groupe et X un G-ensemble pour une action $\phi$, on dit que $\phi$ est fidèle si ker$(\phi) = \{ e_G\}$. 
+
+	\vspace{0.5cm}
+
+	\emph{La fidélité d'une action de groupe peut être assimilé à l'injectivité.}
+	
+\end{definition}
+
+% ==================================================================================================================================
+% Actions Particulières
+
+\section{Actions Particulières}
+\subsection{Opération par translation}
+
+Ici, nous allons étudier les propriétés des actions par translations. 
+Jusqu'à maintenant, nous avons étudié des actions de certains groupes sur des ensembles. 
+Or on peut aussi considérer un groupe comme un ensemble et donc faire agir un groupe \textbf{sur lui-même}\dots
+
+\newpage 
+
+\begin{definition}[Action par translation]
+	Soit $(G,.)$ un groupe noté multiplicativement. On définit l'action à gauche de G sur lui-même :
+		\begin{align*}
+			G \times G &\longrightarrow G \\ 
+			(g,h) &\longmapsto g.h = gh 
+		\end{align*}
+\end{definition}
+
+\subsubsection{Théorème de Cayley}
+
+\begin{theorem}[Cayley, 1878]
+	Tout groupe fini d'ordre $n \in \N$ est isomorphe à un sous-groupe de $\mathcal{S}_n$. 
+\end{theorem}
+
+Ce théorème, bien que puissant n'est en réalité pas très utile. 
+En effet pour un groupe d'ordre 6, on peut ainsi montrer qu'il est isomorhe à $\mathcal{S}_6$.
+On connaît bien le groupe symétrique mais $\mathcal{S}_6$ est d'ordre $6! = 720$, au final, on ne récolte pas spécialement plus d'informations. 
+
+\subsection{Opération par conjugaison}
+
+Lorsque l'on a étudié le groupe symétrique, on a définit la conjugaison entre deux permuations. 
+Ici, nous allons définir une action de groupe permettant de dire que deux permutations conjuguées
+sont dans la même orbite..intéressant non ?
+
+\begin{definition}[Action par conjugaison]
+	Soit $(G,.)$ un groupe noté multiplicativement. On définit l'action par conjugaison de G sur lui-même :
+		\begin{align*}
+			G \times G &\longrightarrow G \\
+			(g,h) &\longmapsto g.h = g h g^{-1}
+		\end{align*}	
+	On peut remarquer qu'elle est bien définie puisque $g^{-1}$ appartient bien à G. 
+	Et $g h g^{-1}$ est bien dans G par stabilité. 
+\end{definition}
+
+\begin{remark}
+	Permettons nous de faire quelques remarques...
+	\begin{itemize}
+		\item Si $G$ est abélien, alors l'action par conjugaison de G sur lui-même en triviale. 
+		\item Ici, \textbf{l'orbite} d'un élément $h \in G$ est appelé \textbf{classe de conjugaison} de $h$. 
+	\end{itemize}
+\end{remark}
+
+On peut ainsi définir de nouveaux objects... 
+
+\begin{definition}[Centralisateur]
+	Soit $(G,.)$ un groupe noté multiplicativement. On définit le centralisateur de $h \in G$ comme l'ensemble :
+		\[ Z_G(h) = \{g \in G \; | \; ghg^{-1} = h\} \] 
+	Le centralisateur d'un élément $h \in G$ peut se voir comme l'ensemble des éléments $g \in G$ qui \textbf{commutent} avec $h$.
+	
+	\vspace{0.3cm}
+
+	Autrement dit, le centralisateur d'un élément est le stabilisateur du même élément pour l'action par conjugaison. 
+\end{definition}

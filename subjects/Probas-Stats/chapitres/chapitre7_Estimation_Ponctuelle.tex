@@ -1,0 +1,473 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+\begin{quote}
+    La statistique ou les statistiques1 est la discipline qui étudie des phénomènes à 
+    travers la collecte de données, leur traitement, leur analyse, l'interprétation des 
+    résultats et leur présentation afin de rendre ces données compréhensibles par tous. 
+    C'est à la fois une branche des mathématiques appliquées2, une méthode et un ensemble de techniques. 
+
+    \hfill --- \href{https://fr.wikipedia.org/wiki/Statistique}{Source : Wikipédia}
+\end{quote}
+
+En pratique, lorsque l'on essaye de déterminer des caractéristiques d'une population, 
+on réunit celle-ci et on "compte" le nombre d'occurences des propriétés qui nous intéressent. 
+Une fois fait, il suffit d'appliquer quelques formules pour déterminer quelques caractéristiques 
+de la population. 
+
+Cependant, lorsque l'on souhaite, par exemple savoir la proportion de Français droitier. Il faudrait donc 
+mettre en place à très grande échelle un sondage pour que chaque Français dise s'il est droitier ou gaucher. 
+Outre le fait que l'expérience n'ait aucun intérêt, elle semble très compliqué à mettre en place. 
+Il faudrait donc sonder seulement une partir des Français (on appelera cela un échantillon) et à partir du 
+résultat obtenu, en déduire le résultat pour l'ensemble des Français. On appelle ces processus l'échantillonnage 
+et l'estimation d'un paramètre à partir d'un échantillon (ici une proportion). 
+
+% ==================================================================================================================================
+% Echantillonnage 
+
+\section{Echantillonnage}
+
+\subsection{Généralités et définitions}
+
+La théorie de l'échantillonnage a pour but de déterminer la distribution d'une caractéristique $X$ dans une 
+population $P$ à partir de l'étude d'un sous-ensemble de cette population. On appelle ce sous-ensemble un 
+échantillon de la population. 
+
+\begin{definition}[Echantillonnage Simple]
+    On appelle échantillonnage simple le procédé qui consiste, à partir d'une population $P$ de 
+    choisir au hasard $n$ individus de la population de manière aléatoire. 
+    Ainsi chaque individu a la même probabilité d'être sélectionné pour l'échantillonnage. 
+\end{definition}
+
+Plus formellement, nous allons représenter un échantillon par des variables aléatoires suivant une 
+loi prédéfinie $X$ correspondant au paramètre recherché. Ainsi, un échantillon de taille $n$ d'une population sera un $n$-uplet de variables aléatoires 
+    \[ (X_1, \dots, X_n) \]
+indépendantes et de même loi que $X$. 
+
+\begin{definition}[Echantillon et réalisation]
+    Soit $X$ une variable aléatoire sur un espace probabilisé $(\Omega, \mathcal{F}, \myP)$. 
+    Un échantillon de $X$ de taille $n \in \N$ est une $n$-uplet de variables aléatoires 
+    $(X_1, \dots, X_n)$ iid de même loi que $X$ de paramètre $\theta \in \R$. 
+
+    \vspace{0.3cm}
+
+    Une réalisation de cet échantillonage est un $n$-uplets de réel $(x_1, \dots, x_n)$ tels que 
+    $ \forall i \in \llbracket 1, n \rrbracket, \; X_i(\omega) = x_i$ où $ \omega \in \Omega$. 
+\end{definition}
+
+\begin{remark}
+    On appellera $X$ la \textbf{loi mère}. 
+\end{remark}
+
+\begin{example}
+    Ici un exemple du cours
+\end{example}
+
+\subsection{Moyenne et Variance Empirique}
+
+\begin{definition}[Statistique]
+    Considérons un échantillon d'une population $(X_1, \dots, X_n)$ sur un espace probabilisé 
+    $(\Omega, \myP )$ tels que: 
+        \[ \forall i \in \llbracket 1, n \rrbracket, \quad X_i : \Omega \longrightarrow E \]
+    où $E \subseteq \R$ généralement.  
+    Une statistique est une fonction qui associe une valeur à chaque réalisation de l'échantillon telle que: 
+        \[ T : E^n \longrightarrow Im(T) \subseteq \K \] 
+\end{definition}
+
+\subsection{Moyenne et loi normale}
+
+\begin{definition}[Moyenne Empirique]
+    Soit  $(X_1, \dots, X_n)$ un échantillon d'une population sur un espace probabilisé. 
+    On appelle \textbf{moyenne empirique} de l'échantillon la moyenne arithmétique des variables de l'échantillon. 
+    On la note $\overline{X}_n$ telle que: 
+        \[ \overline{X}_n := \frac{1}{n} \sum_{i=0}^{n} X_i \]
+\end{definition}
+
+\begin{example}
+    Pour un échantillon $(X_1, \dots, X_n)$, la moyenne empirique est une statistique de cet échantillon. 
+\end{example}
+
+\begin{proposition}
+    Soit $X_1, \dots, X_n$ un échantillon élatoire de taille $n$ de variables iid tiré 
+    d'une distribution $X$ d'espérance $\mu$ et de variance $\sigma^2$. On a les propriétés suivantes: 
+        \[ \E(\overline{X}_n) = \mu \quad \V(\overline{X}_n) = \frac{\sigma^2}{n} \]  
+\end{proposition}
+
+\begin{itemize}
+    \item L'espérance de la moyenne empirique reste égale à 
+    l'espérance de la variable aléatoire sous-jacente, car chaque observation apporte une estimation de $\mu$.
+    \item La variance de la moyenne empirique est plus petite que celle de la variable aléatoire initiale, 
+    et elle diminue avec la taille de l'échantillon $n$. 
+    Cela reflète le fait que la moyenne empirique devient plus précise quand on augmente le nombre d'observations. 
+\end{itemize}
+
+\newpage 
+
+\begin{theorem}[Somme de Variables aléatoires et Loi Normale]
+    Soient $X_1, \dots, X_n$ des variables aléatoires indépendantes suivant toute une loi normale: 
+        \[ X_i \sim \mathcal{N}(\mu_i, \sigma_i^2) \] 
+    Soit $S_n = X_1 + \dots + X_n$ la somme de ces variables aléatoires. Alors cette variable aléatoire suit 
+    une loi normale: 
+        \[ S_n \sim \mathcal{N}(\sum_{i=1}^{n} \mu_i, \sum_{i=1}^{n} \sigma_i^2) \] 
+    \textbf{Cas Particulier :} si $X_1, \dots, X_n$ son iid, autrement dit que: 
+        \[ \forall i \in \{1, \dots, n\} \; X_i \sim \mathcal{N}(\mu, \sigma^2) \] 
+    Alors $S_n$ suit une loi normale: 
+        \[ S_n \sim \mathcal{N}(n \times \mu, n \times \sigma^2) \]
+\end{theorem}
+
+\begin{prop}[Conséquences]
+    Ce théorème induit quelques conséquences sur les variables aléatoires suivant une loi normale: 
+    \begin{itemize}
+        \item \textbf{Stabilité de la loi normale:} La somme de variables aléatoires suivant une loi 
+            normale suit aussi une loi normale. 
+        \item \textbf{Stabilité par combinaison linéaire: }Si $X_1, \dots, X_n$ sont indépendantes et suivent une loi normale, alors toute 
+             combinaison linéaire des $X_i$ suit aussi une loi normale. 
+        \item Même si les variables aléatoires ne suivent pas une loi normale initialement, 
+            sous certaines conditions, leur somme (lorsque $n$ est grand) tend vers une distribution normale.
+    \end{itemize}
+\end{prop}
+
+\subsection{Variance et fréquence}
+
+\begin{definition}[Variance Empirique]
+    Soit $(X_1, \dots, X_n)$ un échantillon aléatoire de taille $n$ d'une distribution $X$ dans une population. 
+    La \textbf{variance empirique} de cet échantillon est une statistique notée $S_n^2$ définie par: 
+        \[ \boxed{
+            S_n^2 := \frac{1}{n} \sum_{i=1}^{n} (X_i - \overline{X}_n)^2 
+        } \] 
+    où $X_i$ est la ième observation de l'échantillon. 
+\end{definition}
+
+\begin{remark}[Interprétation]
+    La variance empirique est une statistique qui quantifie la dispersion des observations
+     autour de la moyenne empirique. Elle joue un rôle fondamental dans l'inférence statistique, 
+     notamment dans les tests d'hypothèses et les intervalles de confiance.
+\end{remark}
+
+En statistiques, la fréquence mesure la proportion d'un paramètre donné dans une population. 
+
+\newpage 
+
+\begin{definition}[Fréquence Empirique]
+    Soit $(X_1, \dots, X_n)$ une échantillon aléatoire et $x_i$ une valeur particulière observée. 
+    La fréquence empirique $F_n(x_i)$ est définie telle que: 
+        \[ F_n(x_i) := \frac{1}{n} \sum_{j=0}^{n} 1_{X_j = x_i} \] 
+\end{definition}
+
+La fréquence empirique $F_n(x_i)$ est une estimation empirique de la probabilité que la variable 
+aléatoire prenne la valeur $x_i$. Pour un échantillon suffisamment grand, $F_n(X_i)$ converge vers 
+la probabilité réelle $ \myP(X = x_i)$.  
+
+% ==================================================================================================================================
+% Estimation Paramétrique Ponctuelle
+
+\section{Estimation Paramétrique Ponctuelle et Qualité}
+
+\subsection{Contexte et définition}
+
+L'estimation paramétrique ponctuelle est une branche fondamentale de la statistique qui consiste 
+à utiliser un échantillon de données pour fournir une estimation unique (ou "ponctuelle") d'un 
+paramètre inconnu d'une population (souvent une proportion, une moyenne, un écart-type). 
+
+\vspace{0.3cm}
+
+Plus formellement, soit une population décrite par une variable aléatoire $X$ ayant une distribution 
+qui dépend d'un ou plusieurs paramètres inconnus $\theta$. L'objectif est d'estimer le paramètre $\theta$ 
+à partir d'un échantillon aléatoire $X_1, \dots, X_n$. 
+
+Pour cela, nous utiliserons des estimateurs. Un estimateur est une statistique utilisée pour approximer une 
+caractéristique inconnue (ou paramètre) d'une population, en se basant sur un échantillon aléatoire.
+
+\begin{definition}[Estimateur]
+    Soit $(X_1, \dots, X_n)$ un échantillon aléatoire. Soit $f_X(x,\theta)$ une distribution de 
+    probabilité sur la popualtion. Un estimateur de $\theta$, noté $\hat{\theta}$ est une fonction 
+    mesurable de l'échantillon telle que: 
+        \[ \hat{\theta} = g(X_1, \dots, X_n) \] 
+    où $g$ est une fonction construite pour approximer $\theta$ et $\hat{\theta}$ est une variable aléatoire. 
+\end{definition}
+
+\begin{example}
+    La moyenne empirique est un estimateur de l'espérance $\mu$: 
+        \[ \hat{\mu} = \frac{1}{n} \sum_{i=0}^{n} X_i \] 
+\end{example}
+
+\subsection{Qualité d'un estimateur}
+
+Une fois que l'on a construit un estimateur d'un paramètre $\theta$ en fonction d'un échantillon 
+$(X_1, \dots, X_n)$, on souhaite estimer la qualité d'un estimateur. On voudrait savoir si celui-ci nous donne 
+une "bonne" approximation du paramètre recherché. 
+Pour cela, on définit plusieurs critères, le \textbf{biais}, la \textbf{variance}, la \textbf{consistance} et \textbf{l'efficacité} 
+de cet estimateur. 
+
+\newpage 
+
+\begin{definition}[Biais d'un estimateur]
+    Le biais $b_\theta$ d'un estimateur $\hat{\theta}$ mesure la différence entre l'espérance de l'estimateur 
+    et la valeur exacte du paramètre recherché. 
+        \[ \boxed{ b_\theta(\hat{\theta}) := \E(\hat{\theta}) - \theta } \] 
+    On dit alors qu'un estimateur est non biaisé ssi $ \E(\hat{\theta}) = \theta$. 
+    Dans le cas contraire ($\E(\hat{\theta}) \not = \theta)$, on dit qu'il est biaisé. 
+\end{definition}
+
+\begin{definition}[Variance d'un estimateur]
+    La variance $\V(\hat{\theta})$ d'un estimateur $\hat{\theta}$ d'un paramètre $\theta$ mesure la dispersion 
+    des valeurs possibles de l'estimateur autour de son espérance: 
+        \[ \boxed{
+            \V(\hat{\theta}) := \E((\hat{\theta} - \E(\hat{\theta}) )^2) 
+        } \] 
+    Une variance faible indique que l'estimateur est stable. Au contraire, une variance élevée indique que l'estimateur est 
+    instable à la variantion des échantillons. 
+\end{definition}
+
+\begin{definition}[Consistance]
+    Un estimateur $\hat{\theta}$ d'un paramètre $\theta$ est dit \textbf{consistant} si, lorsque la taille de l'échantillon 
+    augmente, il converge vers le paramètre estimé. Autrement dit: 
+        \[ \hat{\theta} \text{ est consistant } \iff \hat{\theta} \overset{P}{\underset{n \to \infty}{\longrightarrow}} \theta \] 
+\end{definition}
+
+\begin{proposition}
+    Entre deux estimateurs d'un paramètre $\theta$ sur un échantillon $(X_1, \dots, X_n)$, on préfèrera 
+    celui dont la variance est minimale. On parle \textbf{d'efficacité}. 
+\end{proposition}
+
+\begin{definition}[Erreur Quadratique Moyenne]
+    Soit $\hat{\theta}$ un estimateur d'un paramètre $\theta$. L'erreur quadratique moyenne de $\hat{\theta}$ 
+    permet d'évaluer la précision globale de l'estimateur en fonction de sa variance et son biais. 
+    Elle est définit comme: 
+        \begin{align*}
+            EQM(\hat{\theta}) &:= \E((\hat{\theta} - \theta)^2) \\ 
+            &= \V(\hat{\theta}) - b_\theta(\hat{\theta})^2
+        \end{align*}
+\end{definition}
+
+\begin{remark}[Interprétation]
+    L'estimateur d'un paramètre $\theta$ ayant la plus petite EQM est généralement considéré comme meilleur.
+    L'EQM montre comment une réduction du biais peut être compensée par une augmentation de la variance, et inversement.
+    Finalement, chercher à minimiser l'EQM revient à équilibrer biais et variance.
+\end{remark}
+
+\begin{comment}
+    \begin{example}[Application]
+        Soit $(X_1, \dots, X_n)$ un échantillon aléatoire d'une distribution $X$ d'un caractère dans une population. 
+        On suppose que $X$ ait une moyenne $\mu$ et une variance $\sigma^2$. Nous souhaitons estimer la variance du caractère 
+        définit par $X$ dans la population à partir de l'échantillon prélevé. 
+    
+    \end{example}
+\end{comment}
+
+\subsection{Estimation par la méthode du maximum de vraisemblance}
+
+La méthode d'estimation par le maximum de vraisemblance est une technique statistique largement 
+utilisée pour estimer les paramètres d'un modèle probabiliste, à partir d'un échantillon de données observées. 
+Cette méthode consiste à trouver les valeurs des paramètres qui maximisent la fonction de vraisemblance, 
+c'est-à-dire les paramètres qui rendent les données observées les plus probables.
+
+\newpage 
+
+\begin{definition}[Fonction de vraissemblance]
+    Soit $(X_1, \dots, X_n)$ un échantillon de variables aléatoires iid de densité $f_X(x,\theta)$ 
+    prenant ses valeurs sur $ \mathcal{X} \subset \R^n$ et de paramètre $\theta \in \R$. 
+    La fonction de vraissemblance $L(x;\theta)$ donne la probabilité d'obtenir l'échantillon observé $\{x_1, \dots, X_n\} \in \mathcal{X}$
+    étant donné un paramètre $\theta$. Elle est définie par: 
+        \[ L : 
+            \begin{cases}
+                \mathcal{X} \times \R \longrightarrow \R^+ \\ 
+                (x_1, \dots, x_n, \theta) \longmapsto L(x_1, \dots, x_n, \theta) 
+            \end{cases} \] 
+    où :
+        \[ L(x_1, \dots, x_n, \theta) = \myP(X_1 = x_1, X_2 = x_2, \dots, X_n = x_n, \theta) = \prod_{i=1}^{n} f_X(x_i, \theta) \] 
+
+    Dans le cas de données continues, on écrit la fonction de vraisemblance sous forme de produit des densités, 
+    et pour des données discrètes, ce sera un produit de masses de probabilité. 
+\end{definition}
+
+\begin{remark}[Notations]
+    En fonction du contexte et de ce qui est recherché, on notera la fonction de vraisemblance de plusieurs manières 
+    tout en parlant du même objet :
+    \begin{itemize}
+        \item On peut se fixer une réalisation d'un échantillon $(x_1, \dots, x_n)$ on parlera alors : 
+            \[ L : 
+                \begin{cases}
+                    \R \longrightarrow R^+ \\ 
+                    \theta \longmapsto L_{(x_1, \dots, x_n)}(\theta)
+                \end{cases}
+            \] 
+        \item Dans des recherches de résultats plus formels, on parlera de :
+                \[ L(\theta | x_1, \dots, x_n) \] 
+        \item Ou lors de calculs plus analytiques où l'on considèrera que les variables $\theta$ et $x_1, \dots, x_n$ 
+        varient, on écrira :
+                \[ L(x_1, \dots, x_n; \theta) \] 
+    \end{itemize}
+    On notera aussi parfois la fonction de vraisemblance en fonction de variables aléatoires $X_1, \dots, X_n$ ou en 
+    fonction de réalisations de variables aléatoires $x_1, \dots, x_n$. 
+    Cela dépend du contexte et de ce que l'on a besoin de quantifier. 
+\end{remark}
+
+\begin{proposition}
+    Pour faciliter, les calculs, nous utiliserons souvent la log-vraissemblance définie par: 
+        \[ l(\theta) = \log L(\theta) = \sum_{i=1}^{n} \log f_X(x_i, \theta) \] 
+    où $f_X : \mathcal{F} \longrightarrow \R$ est la densité de $X$. 
+\end{proposition}
+
+\textbf{L'estimateur du maximum de vraissemblance} $\hat{\theta}$ est la valeur des paramètres $\theta \in \R$ qui maximisent 
+log-vraisemblance $l(\theta)$, c'est-à-dire l'ensemble des paramètres qui rendent l'échantillon observé le plus probable.
+Formellement, cela revient à résoudre le problème d'optimisation suivant :
+    \[ \hat{\theta} = \arg \underset{\theta}{\max} (l(\theta)) = \arg \underset{\theta}{\max} \sum_{i=1}^{n} \log f_X(x_i, \theta) \] 
+Cela se résout en déterminant les points critiques de $l(\theta)$. Autrement dit en résolvant l'équation: 
+    \[ \frac{\partial l(\theta)}{\partial \theta} = 0 \quad \text{et} \quad \frac{\partial^2 l(\theta)}{\partial \theta^2} \leqslant 0 \] 
+On peut aussi effectuer cette méthode avec la simple fonction de vraissemblance. 
+
+\begin{remark}[Interprétation]
+    La méthode du maximum de vraisemblance consiste à estimer les paramètres d'un modèle statistique 
+    en choisissant ceux qui rendent les données observées les plus probables. 
+    Cela repose sur une approche probabiliste où l'on cherche à maximiser la vraisemblance de l'échantillon 
+    en fonction des paramètres du modèle.
+\end{remark}
+
+\begin{example}
+    On souhaite exprimer le paramètre $\lambda \in \R$ d'une loi de Poisson à partir d'un échantillon $(X_1, \dots, X_n)$ 
+    de taille $n$. On a alors par définition: 
+        \[ P_\lambda (X = x) = f(x,\lambda) = e^{- \lambda} \frac{\lambda^x}{x!} \] 
+    La fonction de vraissemblance est donc: 
+        \[ L(\theta) = \prod_{i=1}^{n} e^{- \lambda} \frac{\lambda^{x_i}}{x_i!} \] 
+    On peut utiliser la log-vraissemblance: 
+        \begin{align*}
+            l(\theta) = \log L(\theta) &= \ln e^{- \lambda n} + \ln \left( \prod_{i=1}^{n} \frac{\lambda^{x_i}}{x_i!} \right) \\ 
+            &= - \lambda n + \sum_{i=1}^{n} \ln \left( \frac{\lambda^{x_i}}{x_i !} \right) \\ 
+            &= - \lambda n + ln \lambda \sum_{i=1}^{n} x_i - \sum_{i=1}^{n} \ln (x_i !)
+        \end{align*}
+    On a alors: 
+        \begin{align*}
+            & \frac{\partial l(\theta)}{\partial \theta} = 0 \\
+            \iff & -n + \frac{\sum_{i=1}^{n} x_i}{\lambda} = 0 \\
+            \iff & \lambda = \frac{\sum_{i=1}^{n} x_i}{n}
+        \end{align*}
+    On a donc un estimateur $\hat{\lambda} = \frac{1}{n} \sum_{i=1}^{n} X_i = \overline{X}$. 
+    Il est normal de tomber sur la moyenne empirique puisque $\lambda$ représente l'espérance de la loi de Poisson. 
+\end{example}
+
+% ==================================================================================================================================
+% Information de Fisher
+
+\section{Information de Fisher}
+
+\subsection{En dimension 1}
+
+On effectue un échantillonnage $(X_1, \dots, X_n)$ d'une population possédant un caractère répartit par une 
+variable aléatoire $X$ pour déterminer un paramètre $\theta$ définissant cette répartition. 
+On souhaiterai savoir à quel point notre échantillon est fiable pour déterminer avec précision le paramètre $\theta$. 
+On voudrait quantifier la quantité d'information que contient l'échantillon $(X_1, \dots, X_n)$ sur le paramètre $\theta$. 
+Pour cela, on utilise \textbf{l'information de Fisher}. 
+
+\newpage 
+
+\begin{definition}[Information de Fisher]
+    Soit $(X_1, \dots, X_n)$ un échantillon d'une population possédant un caractère répartit par une variable aléatoire $X$ 
+    de paramètre $\theta$. L'information de Fisher $I(\theta)$ est une mesure de la quantité d'information que contient 
+    l'échantillon sur $\theta$. Elle est définie comme la variance de l'estimateur de ce paramètre. 
+    Plus formellement: 
+        \[ \boxed{ I(\theta) := - \E \left( \frac{\partial^2}{\partial \theta^2} l(\theta) \right) = \E \left[ \left( \frac{\partial l(\theta)}{\partial \theta}\right) ^2 \right] } \] 
+    Elle est définie comme la variance de l'estimateur de ce paramètre, et elle est directement liée 
+    à la courbure de la fonction de log-vraisemblance $l(\theta)$. 
+\end{definition}
+
+\begin{remark}[Interprétation]
+    On peut voir différentes interprétations de l'information de Fisher d'un échantillon: 
+    \begin{itemize}
+        \item \textbf{Courbure de la log-vraissemblance: } L'information de Fisher mesure la courbure de la 
+        fonction de log-vraisemblance $l(\theta)$ par rapport aux paramètres $\theta$. 
+        Si la log-vraisemblance est fortement courbée autour de la valeur vraie de $\theta$, 
+        l'information de Fisher sera grande, ce qui signifie que les paramètres sont bien estimés avec une faible incertitude. 
+        Si la courbure est faible, l'incertitude sur l'estimation de $\theta$ est élevée.
+        \item \textbf{Estimation Précise: } Une grande information de Fisher implique que l'échantillon 
+        fournit beaucoup d'informations sur le paramètre, ce qui rend l'estimation plus précise. 
+        À l'inverse, une faible information de Fisher suggère que l'échantillon contient peu d'informations 
+        utiles sur le paramètre.
+    \end{itemize}
+\end{remark}
+
+\begin{prop}[Information de Fisher]
+    La quantité d'information de Fisher d'un échantillon est toujours \textbf{positive ou nulle}. 
+\end{prop}
+
+\subsection{En dimension d}
+
+Depuis le début du chapitre, nous considérons un échantillon de variables iid distribué selon une loi paramétrée par 
+un unique paramètre $\theta$. Considérons maintenant que notre distribution $X$ soit définie par $d \in \N$ paramètres 
+$ \theta \in \R^d$. On notera $\Theta \subseteq \R^d$ l'ensemble de définition de ces paramètres. 
+Définissons alors la matrice d'information de Fisher pour cet échantillon... 
+
+\begin{definition}[Matrice d'information de Fisher]
+    Soit $(X_1, \dots, X_n)$ un échantillon de variables iid distribué par un loi $X$ de 
+    paramètres $\theta = \theta_1, \dots, \theta_d \in \Theta$. La matrice d'information de Fisher de cet échantillon est définie par: 
+        \[  \boxed{ I(\theta) = I(\theta_1, \dots, \theta_n) := \E \left( \langle \nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta) . 
+            \; ^t \nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta) \rangle \right)} \] 
+        où: 
+        \begin{itemize}
+            \item $L_{(x_1, \dots, x_n)} (\theta)$ est la fonction de vraisemblance de l'échantillon. 
+            \item $\nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta)$ est le gradient de la log-vraissemblance par rapport à $\theta$. 
+                \[ \nabla_\theta \log L_{(x_1, \dots, x_n)} (\theta) = 
+                    \begin{pmatrix}
+                        \frac{\partial l_{(x_1, \dots, x_n)}(\theta)}{\partial \theta_1} \\ 
+                        \frac{\partial l_{(x_1, \dots, x_n)}(\theta)}{\partial \theta_2} \\ 
+                        \vdots \\ 
+                        \frac{\partial l_{(x_1, \dots, x_n)}(\theta)}{\partial \theta_d}
+                    \end{pmatrix}
+                \]
+        \end{itemize}
+\end{definition}
+
+\begin{prop}[Matrice d'information de Fisher]
+    La matrice d'information de Fisher pour une échantillon $(X_1, \dots, X_n)$  d'une distribution $X$ de paramètres 
+    $(\theta_1, \dots, \theta_d) \in \Theta $ possède plusieurs propriétés: 
+    \begin{itemize}
+        \item \textbf{Symétrie :} $I_{i,j} (\theta) = I_{j,i}(\theta) \quad \forall i,j \in \llbracket 1, d \rrbracket $ 
+        \item \textbf{Alternative : } Une autre façon de calculer cette matrice est de passer par les dérivées secondes 
+        de la log-vraisemblance: 
+            \[ I_{i,j}(\theta) = - \E \left( \frac{\partial^2 l(\theta)}{\partial \theta_i \partial \theta_j} \right) \quad \forall i,j \in \llbracket 1, d \rrbracket \] 
+    \end{itemize}
+\end{prop}
+
+\begin{proposition}[CR]
+    L'information de Fisher pour un échantillon $(X_1, \dots, X_n)$ n'existe que sous certaines conditions: 
+    \begin{enumerate}
+        \item La fonction de vraisemblance $L(\theta)$ doit être intégrable. Cela garantit que $f_\theta(X)$ soit 
+            une densité de probabilité. 
+        \item $\Theta$ (l'ensemble de définition des paramètres de l'échantillon) est un ouvert de $\R^n$. 
+        \item L'application $\theta \mapsto L_{(x_1, \dots, x_n)}(\theta)$ doit être \textbf{différentiable} pour tout $x_i \in \mathcal{F}$ sur $\Theta$ 
+    \end{enumerate}
+\end{proposition}
+
+\subsection{Cas particuliers et Exemples}
+
+Sous certaines conditions, il peut y avoir égalité de la matrice d'information de Fisher vectorielle et scalaire. 
+
+Pour que la matrice $I(\theta)$ en dimension $d > 1$ se réduise à une forme scalaire pour $d = 1$, il faut que :
+\begin{itemize}
+    \item Le vecteur paramètre $\theta \in \Theta \subseteq R^d$ puisse se réduire à un seul paramètre $\theta' \in \R$. 
+    \item Ou si $\theta = (\theta_1, \dots, \theta_d)$ est un vecteur, il faut que la matrice d'information se réduise à 
+        un scalaire. 
+            \[ \text{i.e} \quad \forall i \not = j, \; \left\langle \frac{\partial l(\theta)}{\partial \theta_i} . \frac{\partial l(\theta)}{\partial \theta_j} \right\rangle = 0 \] 
+        Cela implique que les composantes $\theta_i$ sont statistiquement indépendantes dans l'information fournie par les données. 
+    \item La fonction de vraisemblance doit se factoriser de manière à dépendre liénairement d'un unique paramètre :
+        \[ L_{(X_1, \dots, X_n)}(\theta) = g(X)h(\theta) \]  
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

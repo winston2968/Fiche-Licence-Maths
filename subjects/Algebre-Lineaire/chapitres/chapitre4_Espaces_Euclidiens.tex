@@ -1,0 +1,289 @@
+
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{\textbullet} % Utiliser des points noirs (•)
+
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Maintenant que nous avons vu beaucoup de propriétés des espaces vectoriels (en particulier réels), plaçons nous dans 
+certains de ces espaces vérifiant quelques propriétés supplémentaire. Ainsi, nous allons pouvoir définir de nouveaux 
+objects, trouver de nouvelles propriétés, etc... 
+
+Une des application de ce que l'on verra dans ce chapitre est l'Intelligence Artificielle, en effet, on se place souvent 
+dans des espaces euclidiens pour obtenir des propriétés "sympathiques" sur des endomorphismes/matrices. 
+
+\vspace{0.3cm}
+
+Dans ce chapitre nous nommerons $E$ un espace euclien. 
+
+% ==================================================================================================================================
+% Produit Scalaire et Norme Euclidienne
+
+\section{Contexte}
+
+\subsection{Produit Scalaire et Norme}
+
+\begin{definition}[Produit Scalaire]
+    Soit E un $\R$ espace vectoriel. L'application : \[ f : E \times E \longrightarrow \R  \] est un {produit scalaire} sur E ssi $f$ vérifie :
+    \begin{itemize}
+        \item {Linéarité à droite : } $\forall x, y, z \in E, \forall \lambda \in \R $ : \[ f(x, \lambda y + z) = \lambda f(x, y) + f(x, z) \] 
+        \item {Linéarité à gauche : } $\forall x, y, z \in E, \forall \lambda \in \R $ : \[ f(\lambda x + y, z) = \lambda f(x, z) + f(y, z) \] 
+        \item {Symétrique : } $ \forall x, y \in E, \quad f(x, y) = f(y, x) $
+        \item {Définie Positive : } $ \forall x \in E, \quad f(x, x) \geqslant0 \; \text{et} \; f(x, x) = 0 \; \Longleftrightarrow \; x = 0 $
+    \end{itemize}
+    En général on note un produit scalaire $\langle ., . \rangle$ ou $(.|.)$. 
+    On dit que $x$ et $y$ sont \textbf{orthogonaux} (noté $ x \bot y $) ssi $(x|y) = 0$.
+\end{definition}
+
+L'orthogonalité est une notion clé de ce chapitre. 
+
+\begin{definition}[Norme]
+    Soit E un $\R$ espace vectoriel. L'application : $ N : E \longrightarrow \R  $ est une {norme} sur E ssi $\forall x, y \in E, \forall \lambda \in R $ elle vérifie les propriétés suivantes :
+    \begin{itemize}
+        \item $N(x) \geqslant 0 $
+        \item $ N(x) = 0 \; \Longrightarrow \; x = 0 $
+        \item $ N(\lambda x) = |\lambda | N(x) $
+        \item $ N(x + y) \leqslant N(x) + N(y) $
+    \end{itemize}
+    En général, on note une norme $\|.\|$. 
+\end{definition}
+
+\begin{remark}
+    Quelques remarques concernant les normes et produits scalaires. 
+    L'application 
+    \[ \|.\| : 
+        \begin{cases}
+            E \longrightarrow \R \\ 
+            x \longmapsto \sqrt{\langle x, x \rangle}
+        \end{cases}
+    \]
+    est la \textbf{norme euclidienne} de E.
+    A partir d'un produit scalaire, on peut donc facilement définir une norme en prenant la racine carrée de celui-ci. 
+\end{remark}
+
+\subsection{Espace Euclidien et Inégalités}
+
+Définissons plus formellement les espaces utilisés dans ce cours. 
+
+\begin{definition}[Espace Préhilbertien Réel]
+    On appelle espace préhilbertien réel un $\R$ espace vectoriel muni d'un produit scalaire. 
+    On appelle \textbf{espace euclidien} un $\R$ espace vectoriel de dimension finie muni d'un produit scalaire.
+\end{definition}
+
+\begin{theorem}[Inégalité de Cauchy-Schwarz]
+    Soit E un espace préhilbertient réel, alors : \[ \forall x, y \in E, \quad  \boxed { (x|y)^2 \leqslant(x|x)(y|y) \quad \text{ou} \quad |(x|y)| \leqslant||x||.||y|| }  \]
+    On a aussi : $ |(x|y)| = ||x||.||y|| $ ssi les vecteurs $x$ et $y$ sont liés.
+
+    \vspace{0.3cm}
+
+    On peut reformler en français cette inégalité par : \emph{"La valeur absolue du produit scalaire est inférieure au produit des normes"}. 
+\end{theorem}
+
+\begin{proposition}[Inégalité Striangulaire]
+    Soit E un espace préhilbertient réel, alors : \[ \forall x, y \in E, \quad \boxed{ ||x + y|| \leqslant||x|| + ||y|| } \] 
+    De même que pour l'inégalité de Cauchy Schwarz, on a un cas d'égalité :
+        \[ \| x + y \| = \| x \| + \| y \| \quad \iff \quad y = 0 \text{ ou } x = \lambda y \text{ avec } \lambda \geqslant 0 \] 
+\end{proposition}
+
+\begin{remark}
+    Un espace euclidien est donc, en somme, simplement un espace vectoriel en dimension finie avec lequel on a l'habitude de travailler 
+    pour lequel on a défini un produit scalaire. 
+    Les deux inégalités ci-dessus sont fondamentales dans ce chapitre et seront très régulièrement utilisées. 
+\end{remark}
+
+\begin{proposition}[Théorème de Pythagore]
+    Grâce à cette notion d'orthogonalité entre deux vecteur, on peut généraliser le théorème de Pythagore 
+    de la façon suivante : \emph{
+        \begin{quote}
+            Soient $x,y \in E$, on a :
+                \[ x \bot y \iff \| x \|^2 + \| y \|^2 = \| x + y \|^2 \] 
+        \end{quote}}
+\end{proposition}
+
+\subsection{Expression Analytique du produit scalaire}
+
+On note ici $x = (x_1, \dots, x_n)$ un vecteur de $E$. Analytiquement, on notera 
+$X = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}$ ses coordonnées dans une base de $E$. 
+
+\begin{proposition}
+    Soient $x,y \in E$, et $(e_1, \dots, e_n)$ une base de $E$. 
+    On a alors :
+        \[ x = \sum_{i=1}^{n} x_i e_i \quad \text{(idem pour y)}\] 
+    Donc, par bilinéarité du produit scalaire, on obtient la forme suivante :
+        \[(x|y) = \sum_{i=1}^{n} x_i y_i (e_i|e_j) \] 
+\end{proposition}
+
+\begin{definition}[Matrice du produit scalaire]
+    Soit $E$ un espace euclidien de base $\mathcal{B}$. On appelle matrice du produit scalaire $(.|.)$ la matrice $A$ de taille $n$ symétrique 
+    telle que : 
+        \[ (A_{i,j})_{i,j \in \llbracket 1, n \rrbracket} \quad \text{où} \quad \forall i,j \in \llbracket 1, n \rrbracket a_{i,j} = (e_i | e_j) \] 
+
+\end{definition}
+
+Une fois la matrice du produit scalaire définie pour un certain produit scalaire, on peut calculer chaque produit 
+sclaire à partir des vecteurs de base, ce qui simplifie largement les calculs. 
+
+\begin{proposition}
+    Soit $A$ la matrice d'un produit scalaire de $E$, pour tout $x,y \in E$, on a donc :
+        \[ (x|y) = ^tXAY \] 
+\end{proposition}
+
+% ==================================================================================================================================
+% Orthogonalité 
+
+\section{Orthogonalité}
+
+\subsection{Définitions et Propriétés}
+
+\begin{definition}[Famille Orthogonale/Orthonormée]
+    Une famille $(e_1, \dots, e_p)$ de vecteurs non nuls \textbf{deux à deux orthogonaux} est dite orthogonale. 
+    De plus, si $ \forall i \in \llbracket 1, n \rrbracket , \; ||x_i|| = 1 $ la famille est dite orthonormée.
+\end{definition}
+
+\begin{remark}
+    Si $p = n$, une famille orthogonale/orthonormée $(e_1, \dots, e_p)$ est donc une base orthogonale ou une base orthonormée de $E$.
+    Dans le cas de bases orthogonales on parlera de BOG et de BON si elle est orthonormée. 
+\end{remark}
+
+\begin{definition}[Orthogonal]
+    Soit $A \subset E $.
+
+    On appelle orthogonal de $A$ dans E tous les vecteurs de E orthogonaux à tous les vecteurs de $A$. 
+    \[ \boxed { A^{\bot} = \{ x \in E, \; \forall y \in A, \; x \bot y \} } \] 
+\end{definition}
+
+\begin{remark}
+    Les propriétés de bilinéarité d'un produit scalaire nous permettent de calculer des orthogonaux efficacement. 
+    En effet si nous connaissons une famille génératrice $\mathcal{F}$ d'un sev $F \subseteq E$, alors $y \in F^\bot$ ssi 
+    pour tout vecteur $f \in \mathcal{F}$, on ait $y \bot f$. 
+\end{remark}
+
+\newpage 
+
+\begin{prop}[Orthogonal]
+    Un orthogonal $A^\bot \subseteq E$ vérifie les propriétés suivantes : 
+    \begin{itemize}
+        \item $A^{\bot} $ est un s.e.v de $E$
+        \item $E^{\bot} = \{ 0_E \} $
+        \item $ A \subset (A^{\bot})^{\bot} $
+        \item $ A \subset B \; \Longrightarrow \; B^{\bot} \subset A^{\bot} $
+        \item $ (A \cup B)^{\bot} = A^\bot \cap B^\bot $
+        \item $E = A \oplus A^\bot $ (dans un espace euclidien)
+    \end{itemize}
+\end{prop}
+
+\subsection{Matrice d'un produit scalaire et changement de base}
+
+Comme précédement, on peut réutiliser la forme analytique d'un produit scalaire et remarquer qu'elle dispose 
+de quelques propriétés supplémentaire dans le cas d'une BOG. 
+
+\begin{prop}[Matrice du produit scalaire et BOG]
+    Soient $E$ un espace euclidien, $\mathcal{B}$ sa base et $A$ la matrice d'un de ses produit scalaires. 
+    \begin{itemize}
+        \item $\mathcal{B}$ est \textbf{orthogonale} ssi A est diagonale. 
+        \item $\mathcal{B}$ est \textbf{orthonormale} ssi A est l'identité. 
+    \end{itemize}
+    Analytiquement, dans une base orthonormé $\mathcal{B} = (e_1, \dots, e_n)$ on a :
+    \begin{itemize}
+        \item $(x|y) = \; ^tXY = \sum_{i=1}^{n} x_i y_i $ 
+        \item $(x|e_i) = x_i, \forall i \in \llbracket 1, n \rrbracket $
+    \end{itemize}
+\end{prop}
+
+D'autre part, on peut appliquer le théorème de changement de base pour déterminer la matrice d'un même produit 
+scalaire de $E$ dans une nouvelle base de $E$. 
+
+\begin{proposition}
+    Soit $E$ un espace euclidien, $\mathcal{B},\mathcal{B}'$ deux bases de $E$ et $A$ la matrice d'un produit scalaire de $E$. 
+    Soit $P$ la matrice de changement de base de $\mathcal{B}$ vers $\mathcal{B}'$, on a :
+        \[ B = \; ^tPAP \] 
+    Et $B$ est la matrice du même produit scalaire de $E$ mais exprimé dans la base $\mathcal{B}'$. 
+\end{proposition}
+
+% ==================================================================================================================================
+% Projection Orthogonale 
+
+\section{Projection Orthogonale}
+
+Maintenant que nous avons défini l'orthogonalité, on peut définir une nouvelle application. 
+Soit $F \subseteq E$ un sev et $F^\bot$ son orthogonal dans $E$. Par propriété de l'orthogonal, 
+on sait que $F^\bot$ est un sev de $E$ et, de plus :
+    \[ E = F \oplus F^\bot \] 
+Par propriété de la supplémentarité, on peut décomposer chaque vecteur $x \in E$ en somme de deux vecteurs 
+$ x_F \in F$ et $x_{F^\bot} \in F^\bot$ de façon \underline{unique}. 
+
+On peut donc penser à une application, qui, à chaque vecteur de $E$ lui associe sa composante dans l'un des deux sev de $E$ orthogonaux.
+Application que nous nommerons \textbf{projection orthogonale}.  
+
+\begin{theorem}[Caractéristiques de l'Orthogonal]
+    Soit E un \underline{espace euclidien} et $F$ un s.e.v de $E$, on a :
+    \begin{itemize}
+        \item $E = F \oplus F^\bot $
+        \item $ F = (F^{\bot})^{\bot} $
+    \end{itemize}
+\end{theorem}
+
+\newpage 
+
+\begin{definition}[Projection Orthogonale]
+    Soit $F$ un s.e.v de $E$, on appelle projection orthogonale sur $F$ parallèlement à $F^{\bot}$ l'application :
+    \[ p_F : 
+        \begin{cases}
+            E \longrightarrow F \\ 
+            x = x_F + x_{F^\bot} \mapsto x_F 
+        \end{cases}
+    \]
+    Le projeté orthogonal de $x \in E$ est l'unique vecteur $p_F(x)$ qui vérifie : $ x - p_F(x) \in F^\bot $.
+
+    On a aussi : $ Im(p_F) = F $ et $ ker(p_F) = F^\bot $
+\end{definition}
+
+\begin{proposition}
+    Le projeté orthogonal nous permet de caractériser des vecteurs "plus proches" d'un sev $F$ car :
+        \[ \forall x \in E, \quad \| x - p_F(x) \| = \min_{y \in F}(\|x - y\|) \] 
+\end{proposition}
+
+\begin{proposition}[Calcul de projeté orthogonal]
+    Soit $\mathcal{B} = (e_1, \dots, e_p)$ une base orthogonale de $F$, pour tout $x \in E$ on peut 
+    calculer explicitement son projeté orthogonal sur $F$ par la formule suivante :
+        \[ \forall x \in E, \quad p_F(x) = \sum_{i=1}^{p} \frac{(x|e_i)}{(e_i|e_i)} e_i \] 
+    Dans le cas d'une base orthonormale, $ \forall i \in \llbracket 1, p \rrbracket, \; (e_i|e_i) = 1 $, on a donc la formule :
+        \[ \forall x \in E, \quad p_F(x) = \sum_{i=1}^{p} {(x|e_i)} e_i \] 
+\end{proposition}
+
+Un base orthonormale apporte beaucoup de simplifications dans le calculs de projetés orthogonal et de produit scalaire 
+(voir matrice de produit scalaire). Il serait donc utile de savoir passer d'une base quelconque d'un sev $E$ à une base orthonormale. 
+C'est ce que permet (en partie) le procédé de Gram-Schmidt. 
+
+
+% ==================================================================================================================================
+% Gram-Schmidt 
+
+\section{Procédé de Gram-Schmidt - Orthogonalisation}
+
+\begin{theorem}[Orthogonalisation par Gram-Schmidt]
+    Soit $(x_1, \dots, x_n)$ une famille libre de de vecteurs d'un sev $E$. 
+    $ \forall i \in \llbracket 1, p \rrbracket$, on note $H_i = vect(x_1, \dots, x_p)$. 
+
+    On définit une famille $(e_1, \dots, e_p)$ orthogonale par récurrence :
+        \[ e_1 = x_1 \] 
+    et $\forall i \in \llbracket 1, p \rrbracket$ 
+        \[ e_i  = x_i - p_{H_{i-1}}(x_i) = x_i - \sum_{j=1}^{p} \frac{(x_i|e_j)}{(e_j|e_j)} e_j \]
+    Par propriété du projeté orthogonal, $\forall i \in \llbracket 1, p \rrbracket $ la famille $(e_1, \dots, e_i)$ 
+    est une base orthogonale de $H_{i}$. 
+\end{theorem}
+
+Le procédé de Gram-Schmidt permet donc de "redresser" itérativement les vecteurs d'une base pour en faire une base 
+orthogonale. Il ne manque plus qu'à "réduire" les vecteurs en vecteurs unitaires pour avoir une base orthonormale. 
+
+\begin{corollary}[Existence de bases orthonormales]
+    Tous les espaces euclidiens admettent des bases orthonormés. 
+\end{corollary}
+
+
+
+
+

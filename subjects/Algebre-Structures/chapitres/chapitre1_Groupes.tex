@@ -1,0 +1,115 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Grâce au cours de raisonnement et ensemble, nous connaissons bien la notion d'ensemble et les propriétés qu'ils ont. 
+Cependant cette structure reste primitive et on commence à en faire le tour. 
+Essayons maintenant de doter notre ensemble de quelques propriétés supplémentaires et d'une loi entre ses éléments. 
+
+% ==================================================================================================================================
+% Groupes
+
+\section{Groupes}
+
+\begin{definition}[Groupe]
+    Un groupe est un couple $(G,*)$ où $G$ est un ensemble et $*$ une application telle que $* : G \times G \rightarrow G$, que l'on appelle loi de composition interne.
+    Une groupe satisfait les conditions suivantes :
+    \begin{enumerate}
+        \item \textbf{$*$ est associative} : $ \forall x, y, z \in G, \; x * (y * z) = (x * y) * z $
+        \item \textbf{G est muni du neutre pour $*$} : $ \exists e \in G, \forall x \in G, \; x * e = e * x = x $ 
+        \item \textbf{G est inversible} : $ \forall x \in G, \exists y \in G, \; x * y = y * x = e $
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item Le groupe $(G,*)$ est dit \textbf{abélien} ou commutatif ssi $ \forall g,h \in G, g*h = h*g $.
+        \item \textbf{L'ordre} de $G$, noté $|G|$, est le cardinal de l'ensmeble si celui-ci est fini. Sinon on dit que $G$ est d'ordre infini.
+    \end{itemize}
+\end{remark}
+
+\begin{definition}[Groupe Produit]
+    Soient $(G_1, *)$ et $(G_2, *)$ deux groupes. On appelle groupe produit le groupe $(G_1 \times G_2, *)$ de $G_1$ et $G_2$ en posant : \[ (x_1, x_2) * (y_1, y_2) = (x_1 * y_1, x_2 * y_2) \]
+\end{definition}
+
+% ==================================================================================================================================
+% Sous-groupes
+
+\newpage
+\section{Sous-groupes}
+
+Lorsque l'on a un groupe, on peut définir d'autre groupes à l'intérieur de celui-ci appelé sous-groupe. 
+En général, pour montrer qu'une structure sur un ensemble connu est un groupe on essaye d'abord de montrer que c'est un 
+sous-groupe d'un groupe connu. 
+
+\begin{definition}[Sous-groupes]
+    Un sous-groupe d'un groupe $G$ est un sous-ensemble $H$ de $G$ sur lequel la multiplication de $G$ induit une structure groupe.
+    Il vérifie les propriétés suivantes :
+    \begin{itemize}
+        \item $ e_G \in H $
+        \item $ \forall x, y \in H, \; x * y \in H $
+        \item $ \forall x \in H, \; x^{-1} \in H $
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Neutre et inverse dans une sous-groupe]
+    Si $H$ est un sous groupe de $G$, le neutre de $H$ est le même que le neutre de $G$ et l'opposé dans $H$ est le même que l'opposé dans $G$.
+\end{theorem}
+
+\begin{proposition}[CNS Sous-groupe]
+    Soit $(G,*)$ un groupe. Une partie $H$ de $G$ est un sous-groupe de $G$ ssi :
+    \begin{itemize}
+        \item $H \not = \emptyset $
+        \item $ \forall h_1, h_2 \in H, h_1 * h_2^{-1} \in H $
+    \end{itemize}
+\end{proposition}
+
+
+\begin{definition}[Sous-groupe distingué]
+    Un sous-groupe $H$ de $(G,*)$ est dit \textbf{distingué} ssi 
+        \[ \forall g \in G, \forall h \in H, \quad ghg^{-1} \in H \] 
+    On le notera $ H \triangleleft G $
+\end{definition}
+
+\begin{remark}(Cas particulier des sous-groupes distingués)
+    \begin{itemize}
+        \item Pour tout groupe G, $\{ e \} \triangleleft G$ et $G  \triangleleft G$
+        \item Une sous-groupe d'un groupe abélien est toujours distingué. 
+    \end{itemize}
+\end{remark}
+
+\begin{definition}[Groupe Simple]
+    Un groupe $G \not = \{ e \}$ est appelé groupe simple si les seuls groupes distingués de $G$ sont les sous-groupes triviaux $\{ e \}$ et $G$.
+\end{definition}
+
+\begin{proposition}
+    L'intersection de sous-groupes distingués (ou non) de $G$ est une sous-groupe distingué (ou non) de $G$.
+\end{proposition}
+
+\newpage
+
+% ==================================================================================================================================
+% Sous-groupe engendré
+
+\section{Sous-groupe engendré}
+
+Dans certains espaces, on peut définir un groupe à partir d'un unique élément (ou de plusieurs) ce qui donne des 
+groupes très intéressant à étudier. 
+
+\begin{definition}[Sous-groupe engendré]
+    Soit $(G,*)$ un groupe et $X$ une partie de $G$. Il existe un plus petit sous-groupe de $G$ contenant $X$ appelé sous-groupe engendré par $X$ et noté $\langle X\rangle $.
+
+    Un groupe fini est appelé \textbf{groupe cyclique} s'il existe $g \in G$ tel que $\langle g\rangle =G$.
+
+    Nous appelons l'ordre d'un élément $g \in G$ l'ordre du sous-groupe $\langle g\rangle $, engendré par $g$.
+\end{definition}
+
+\begin{corollary}
+    Soient $(G,*)$ un groupe et $g \in G$ un élément d'ordre fini $n \in \N$. Alors $n$ ets le plus petit entier strictement positif ayant la propriété $g^n = e$ et de plus : 
+        \[ \langle g\rangle  = \{ g, g^2, g^3, \dots, g^n=e \} \] 
+\end{corollary}
+
+\begin{proposition}[Sous-groupe des entiers]
+    Soit $H$ un sous-groupe de $(\Z,+)$, alors il existe un unique $n \in \Z$ tel que $ H = n\Z$.
+\end{proposition}

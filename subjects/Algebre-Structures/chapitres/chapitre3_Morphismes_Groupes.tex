@@ -1,0 +1,139 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+En mathématiques, dès que l'on découvre une nouvelle structure particulière, on essaye de définir des applications dessus 
+pour essayer de voir si certaines structures se ressemblent ou pas. C'est ce que l'on va faire avec les groupes. 
+
+% ==================================================================================================================================
+% Morphisme, Image et Noyaux 
+
+\section{Morphismes, Image et Noyaux}
+
+\subsection{Définitions Générales et premières propriétés}
+
+\begin{definition}[Morphisme de groupes]
+    Soient $(G,\ast )$ et $(K,\bullet )$ deux groupes. 
+    Un morphisme de groupes $\phi$ entre $G$ et $K$ est une application 
+        \[ \phi : 
+        \begin{cases}
+            G \longrightarrow K \\ 
+            g \longmapsto \phi(g)
+        \end{cases} \] 
+        telle que : 
+        \[ \forall (g_1,g_2) \in G \times G, \quad \phi (g_1 \ast g_2) = \phi(g_1) \bullet \phi(g_2) \]
+    \emph{"Un morphisme de groupes est une application qui respecte la structure des groupes."}
+\end{definition}
+
+\newpage 
+
+\begin{definition}[Noyau et Image]
+    Soit $\phi$ un morphime entre deux groupes $(G,*)$ et $(K,\bullet)$. 
+    \begin{itemize}
+        \item Le \textbf{noyau} de $\phi$ est l'ensemble des éléments de $G$ envoyés par $\phi$ sur $e_{K}$ 
+            \[ \text{i.e } \ker (\phi) = \{ g \in G, \quad  \phi(g) = e_{K} \} \] 
+        \item \textbf{L'image} de $\phi$ est l'ensemble des $\phi(g), g \in G$ dans $K$. 
+            \[ \text{i.e }  \phi(G) = \{ h \in K, \quad \exists g \in G \text{ tq } \phi(g) = h \} \] 
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Morphismes et bijection]
+    \begin{itemize}
+        \item Un \textbf{isomorphime} de $G$ dans $K$ est un morphisme de groupes \textbf{bijectif}. 
+        \item Un \textbf{endomorphisme} de $G$ est un morphisme de $G$ dans lui-même. 
+        \item Un \textbf{automorphisme} de $G$ est un morphisme bijectif de $G$ dans lui-même. 
+    \end{itemize}
+\end{definition}
+
+\begin{prop}[Morphismes]
+    Soit $\phi : (G,*) \longrightarrow (K,+)$ un morphisme de groupes. 
+    \begin{itemize}
+        \item $\phi (e_g) = e_{K} $
+        \item $\phi(g^{-1}) = \phi(g)^{-1}$
+        \item $\phi(g^n) = \phi(g)^n$
+    \end{itemize}
+\end{prop}
+
+\subsection{Image et Noyaux}
+
+\begin{lemma}[Image et Image réciproque d'un morphisme]
+    Soit $\phi : (G,*) \longrightarrow (K,\bullet)$ un morphisme de groupes. 
+    \begin{itemize}
+        \item L'image d'un sous-groupe $H$ de $G$ est un sous-groupe de $G$. 
+        \item Si $H \vartriangleleft G$ alors $\phi(H) \vartriangleleft \phi(G)$ \\ 
+        En particulier, si $\phi$ est surjectif, alors $\phi(H) \vartriangleleft K$ 
+        \item L'image réciproque d'un sous-groupe de $K$ est un sous-groupe de $G$.
+        \item Si $H' \vartriangleleft G'$ alors $\phi^{-1}(H') \vartriangleleft G$ 
+    \end{itemize}
+    De plus, l'image de $\phi$ est un sous-groupe de $K$ et $\ker(\phi)$ est un sous-groupe distingué de G.
+\end{lemma}
+
+\begin{corollary}[Morphisme et sous-groupe engendré]
+    Soit $\phi : (G,*) \longrightarrow (K,+)$ un morphisme de groupes et $X \subset G$, alors 
+        \[ \boxed{ \phi(\langle  X \rangle ) =  \langle \phi(X) \rangle } \] 
+    \emph{"L'image d'un générateur est le générateur de l'image."}
+\end{corollary}
+
+\begin{prop}[Stabilité]
+    Les morphismes de groupes sont stables par composition et réciproque (dans le cas d'un isomorphisme).
+\end{prop}
+
+\begin{lemma}
+    Un morphisme de groupes $\phi : G \longrightarrow K$ est injectif si et seulement si $\ker(\phi) = \{e_{G}\}$.
+\end{lemma}
+
+\subsection{Le cas des entiers}
+
+\begin{proposition}
+    Il existe un unique groupe cyclique d'ordre $n \in \N$  (à isomorphisme près). 
+\end{proposition}
+
+\begin{theorem}[Ordre Fini]
+    Soit $G$ un groupe et $g \in G$. 
+    \begin{enumerate}
+        \item $g$ est d'ordre \textbf{infini} ssi $\langle g \rangle \sim (\Z,+)$, dans ce cas :
+            \[ \langle g \rangle = \{\dots, g^{-3}, g^{-2}, g^{-1}, e, g, g^2, g^3, \dots \} \] 
+        \item $g$ est d'ordre \textbf{fini} $n \in \N$ si et seulement si l'ensemble $\langle g \rangle = \{e, g, g^2, \dots, g^{n-1}\}$ 
+        est bien défini et si $g^n = e$.
+    \end{enumerate}
+\end{theorem}
+
+% ==================================================================================================================================
+% Automorphisme 
+
+\section{Automorphismes}
+
+Pour rappel, un automorphisme d'un groupe G est un morphisme de groupe bijectif de G dans lui-même.
+
+\begin{definition}[Centre d'une groupe]
+    Le centre d'un groupe $G$ est l'ensemble $Z(G)$ des éléments de $G$ qui commutent avec tous les éléments de $G$.
+\end{definition}
+
+\begin{theorem}[Automorphismes]
+    L'ensemble $(Aut(G),\circ)$ des automorphismes d'un groupe $G$ muni de la composition, est un groupe.
+    \begin{itemize}
+        \item C'est un sous-groupe de l'ensemble des permutations de $G$. 
+        \item Si $G$ est d'ordre fini $n$, alors $Aut(G)$ est un groupe d'ordre au plus $(n-1)!$.
+    \end{itemize}
+\end{theorem}
+
+\begin{definition}[Automorphisme intérieur]
+    Soit $(G,\ast)$ un groupe noté multiplicativement, on définit l'automorphisme intérieur associé à $g \in G$ le morphime
+    de groupes tel que :
+    \[  Int_g
+        \begin{cases}
+            G \longrightarrow G \\
+            x \longmapsto gxg^{-1}
+        \end{cases}
+    \]
+    On définit $Int(G)$ comme l'ensemble des automorphismes intérieurs de $G$.
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item Tout automorphisme intérieur est un automorphisme de groupes. 
+        \item Deux éléments d'un groupes dont l'un est image de l'autre par automorphisme intérieur sont dits conjugués. 
+        \item On remarquera qu'un sous-groupe H de G est distingué dans G ssi H est stable par tous les automorphismes intérieurs de G. 
+    \end{itemize}
+\end{remark}

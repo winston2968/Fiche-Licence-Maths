@@ -1,0 +1,55 @@
+---------------------------------------------------------------------
+					Notes
+---------------------------------------------------------------------
+
+
+Organisation des chapitres :
+	
+	I. Raisonnement et Ensembles 
+		- Propriétés de base sur les ensembles
+		- Principaux Raisonnements 
+	
+	II. Algèbre des structures 
+		- Groupes, Sous-groupes 
+		- Morphismes de Groupes 
+		- Théorème de Lagrange 
+		- Actions de groupes 
+		- Théorèmes d'isomorphismes 
+		- Anneaux 
+		- ... 
+
+	III. Algèbre Linéaire 
+	- Espaces Vectoriels/Sous-espaces
+	- Applications linéaires
+	- Matrices 
+	- ...
+	- Diagonalisation
+	- Trigonalisation
+	- Espaces Euclidiens 
+	- Cours Semestre 4
+
+	IV. Topologie
+		- Propriétés des espaces connus 
+		- Distances, Normes Produits Scalaites
+		- Boules, Intérieur et Adhérence
+		- Ouverts et Fermés
+		- Applications, suites, continuité
+		- Compacts
+		- Connexes
+		- Homéomorphismes
+	
+	
+	V. Analyse 
+		- Continuité et fonctions dans topologie
+		- Cours Garric convergence 
+			-> Insister sur les séries entières 
+		- Calcul différentiel de plusieurs variables 
+		- Intégration Lévy 
+
+
+Rectifications :
+	- Analyse : Déplacer la caractérisation séquentielle de 
+                l'adhérence dans le chapitre des suites/fonctions. 
+                Faire de même pour toutes les propositions éviquant le 
+                concept de limite/suite/fonction. 
+    - Analyse : Faire fiche analyse à partir du cours de Bertauld

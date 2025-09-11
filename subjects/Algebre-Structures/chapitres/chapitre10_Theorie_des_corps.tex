@@ -1,0 +1,224 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans ce chapitre, nous allons plonger plus profondément dans la théorie des corps en abordant les extensions de corps. 
+
+Dans tout ce chapitre, sauf mention contraire, nous considérons $\K$ comme un corps commutatif. 
+
+% ==================================================================================================================================
+%  Extension de corps 
+
+\section{Extension de corps}
+
+\begin{definition}[Extension de corps]
+    Soit $\K$ un corps. On dit que $\K$ est une extension du corps $\Fc$ si $\K$ est un sous corps de $\Fc$. 
+    On la note $\K/\Fc$. 
+\end{definition}
+
+\begin{example}
+    $\C$ est donc une extension de corps de $\R$ de même que $\R$ est une extension de corps de $\Q$. 
+\end{example}
+
+% ==================================================================================================================================
+%  Éléments algébriques et transcendants
+
+\section{Éléments algébriques et transcendants}
+
+\begin{definition}[Éléments algébrique]
+    Soit $\K/\Fc$ deux corps. Soit $ \alpha \in \K$, on dit que $\alpha$ est algébrique dans $\Fc$ s'il 
+    est racine d'un polynôme $P$ à coefficients dans $\Fc$ (i.e $P(\alpha) = 0$). 
+\end{definition}
+
+\begin{example}
+    Ainsi, $i$ est algébrique dans $\C$ puisqu'il est racine de $X+1 \in \R[X]$ où $\C/\R$. 
+\end{example}
+
+On peut remarquer que tout éléments d'un corps $\K$ est algébrique sur $\K$ car il est racine du polynôme $X - \alpha$. 
+
+\newpage 
+
+\begin{definition}[Élément Transcendant]
+    Soit $\K/\Fc$ deux corps. Soit $\alpha \in \K$, on dit que $\alpha$ est transcendant sur $\Fc$ s'il n'est pas algébrique sur $\Fc$. 
+    Autrement dit, $\alpha$ est transcendant sur $\Fc$ ssi 
+        \[ \forall P \in \Fc[X], P(\alpha) \not = 0 \] 
+\end{definition}
+
+Il est important de toujours spécifier dans quel corps on se trouve. En effet, un corps peut avoir une infinité de sous-corps, 
+dont chacun a des propriétés différentes. Ainsi un élément transcendant/algébrique dans l'un peut ne pas l'être dans l'autre. 
+
+% ==================================================================================================================================
+%  Polynômes et isomorphismes 
+
+\section{Polynômes et isomorphismes}
+
+\subsection{Polynôme Minimal}
+
+Soient deux corps $\K/\Fc$. Soit $ \alpha \in \K$. Soit le morphisme de substitution suivant :
+    \[ \phi_\alpha : 
+        \begin{cases}
+            \Fc[X] \longrightarrow \K \\ 
+            P \longmapsto P( \alpha)
+        \end{cases} \]
+
+Distinguons deux cas :
+\begin{itemize}
+    \item Supposons que $ \alpha$ est transcendant sur $\Fc$ , alors $ \ker \phi_\alpha = \{O_{\Fc[X]}\}$ et $\phi_\alpha$ est injective. 
+    \item Supposons que $ \alpha $ est algébrique sur $\Fc$. 
+    $\Fc[X]$ est principal et $\ker \phi_\alpha$ est un de ses idéaux donc il existe $P \in \Fc[X]$ tel que $ P(\alpha) = 0 $. 
+\end{itemize} 
+
+\begin{definition}[Polynôme Minimal]
+    Soit $\K$ une extension d'un corps $\Fc$. Soit $ \alpha \in \K$. Les conditions suivantes sont équivalentes. 
+    $P_\alpha \in \Fc$ est appelé \textbf{polynôme minimal} de $ \alpha$ sur $\Lc$ si : 
+        \begin{itemize}
+            \item[] $P_\alpha$ est l'unique polynôme unitaire de $\Fc[X]$ admettant $ \alpha$ comme racine. 
+            \item[$ \iff$] $P_\alpha$ est irréductible dans $\Fc[X]$ et $ \alpha$ est une racine de $P_\alpha$.
+            \item[$ \iff$] L'idéal de $\Fc[X]$ engendré par $P_\alpha$ est maximal. 
+            \item[$ \iff$] Si $Q \in \Lc[X]$ admet $ \alpha$ comme racine, alors $P_\alpha | Q$. 
+        \end{itemize}
+    Le degré de $P_\alpha$ est appelé \textbf{degré de $\alpha$}. 
+\end{definition}
+
+\begin{proposition}[Polynôme Minimal et noyau]
+    Soit $\K$ une extension d'un corps $\Fc$. Soit $ \alpha \in \K$.
+    Soit $P_\alpha \in \Fc[X]$ le polynôme minimal de $ \alpha$. 
+    On peut montrer que : 
+        \[ \ker \phi_\alpha = (P_\alpha) \] 
+\end{proposition}
+
+\begin{quote}
+    \begin{footnotesize}
+        \begin{proof}
+            Soit $\K$ une extension d'un corps $\Fc$. Soit $ \alpha \in \K$. Soit le morphisme d'évaluation suivant : 
+                \[ \phi_\alpha : 
+                    \begin{cases}
+                        \Fc[X] \longrightarrow \K \\ 
+                        P \longmapsto P(\alpha) 
+                    \end{cases} \] 
+            Supposons que $ \alpha$ est algébrique. Soit $P$ le polynôme minimal de $\alpha$.
+            Montrons que $ \ker \phi_\alpha = (P)$. 
+            \begin{itemize}
+                \item[$\boxed{\subseteq}$] Soit $ (P) = \{QP \; | \; Q \in \Fc[X]\}$. Soit $R \in (P)$, on a donc : 
+                    \[ 
+                        R(\alpha) = Q(\alpha) \times P(\alpha) = 0 
+                    \] 
+                    donc $R \in \ker \phi_\alpha$. On a donc $(P) \subseteq \ker \phi_\alpha$. 
+                \item[$\boxed{\supseteq}$] Soit $Q \in \ker \phi_\alpha$, alors $Q(\alpha) = 0$. 
+                    \begin{itemize}
+                        \item[\textbf{si}] $Q = 0_{\Fc[X]}$ alors $Q \in (P)$ 
+                        \item[ \textbf{sinon}] on a : 
+                                \[ (Q) := \{RQ \; | \; R \in \Fc[X]\} \] 
+                            or $ \forall G \in (Q), G(\alpha) = 0$ donc $(Q) \subseteq (P) \Longrightarrow P | Q$. 
+                            
+                            d'où $ \ker \phi_\alpha \subseteq (P)$. 
+                    \end{itemize}
+            \end{itemize}
+            Par double inclusion, on a donc $\ker \phi_\alpha = (P)$. 
+        \end{proof}
+    \end{footnotesize}
+\end{quote}
+
+\subsection{Sous-corps engendré}
+
+\begin{definition}[Sous-corps engendré]
+    Soient $\K/\Fc$ une extension de corps et $ \alpha \in \K$. On définit le sous-corps engendré par $\Fc$ et $ \alpha$, 
+    noté $\Fc( \alpha)$, comme le plus petit sous-corps de $\K$ contenant $ \alpha$ et $\Fc$. 
+\end{definition}
+
+On peut définir les sous-corps engendré de manière plus globale de la même façon en prenant une famille 
+$( \alpha_1, \dots, \alpha_k) \in \K$. De plus, comme pour les anneaux, $\Fc(\alpha)$ est exactement 
+l'intersection de tous les sous-corps de $\K$ contenant $\alpha $ et $\Fc$. 
+
+\begin{proposition}
+    Reprenons le morphisme d'évalusation précédant : 
+        \[ \phi_\alpha : 
+        \begin{cases}
+            \Fc[X] \longrightarrow \K \\ 
+            P \longmapsto P( \alpha)
+        \end{cases} \]
+    Supposons que $\alpha \in \K$ est algébrique. On a alors $ \ker \phi_\alpha = (P_\alpha)$.  
+    Or, d'après le théorème d'isomorphisme, on a : 
+    \begin{multicols}{2}
+        \[
+            \begin{tikzcd}
+                \Fc[X] \arrow[r, "\phi_\alpha"] \arrow[d, two heads, "\pi"'] & \phi_\alpha(\Fc[X]) \\
+                \Fc[X] / \ker f \arrow[ur, dashed, "\overline{\phi_\alpha}"']
+            \end{tikzcd}
+        \]
+        Donc :  
+            \[ \Fc[X] / (P_\alpha) \simeq \phi_\alpha(\Fc[X]) = \Fc[\alpha] \]  
+        Or $P_\alpha$ est irréductible sur $\Fc[X]$ donc $ \Fc[X] / (P_\alpha)$ est un corps. Par isomorphisme, $\Fc[\alpha]$ 
+        est aussi un corps. 
+    \end{multicols}
+
+    Or $\Fc(\alpha)$ est le plus petit sous-corps de $\K$ contenant $\alpha$ et $\Fc$ et $\Fc[\alpha]$ est 
+    un sous-corps de $\K$ contenant $\alpha$ et $\Fc$. Donc c'est le plus petit, d'où $ \Fc[\alpha] =  \Fc(\alpha) $.  
+
+    D'autre part, si $\alpha$ est transcendant, le quotient $\Fc[X] / (P_\alpha)$ n'est pas un corps. 
+    Donc $\Fc[\alpha]$ n'en est pas un. D'où $ \Fc[\alpha] \not \subseteq \Fc(\alpha)$. 
+\end{proposition}
+
+\begin{theorem}[Cas transcendant]
+    Soit $\alpha \in \K$ et $\Fc \subset \K$ un sous-corps de $\K$. On a :
+    \begin{itemize}
+        \item[] $\alpha$ est transcendant sur $\Fc$
+        \item[$\iff$] $\Fc[X] \simeq \Fc[\alpha]$ 
+        \item[$\iff$] $ \Fc(\alpha) \not = \Fc[\alpha]$   
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}[Cas algébrique]
+    Soit $\alpha \in \K$ et $\Fc \subset \K$ un sous-corps de $\K$. On a :
+    \[ \boxed{ \alpha \text{ est algébrique sur } \Fc \iff \Fc[X] \simeq \Fc[\alpha] } \] 
+\end{theorem}
+
+
+% ==================================================================================================================================
+% Degré d'une extension
+
+\section{Degré d'une extension}
+
+\begin{definition}[Degré]
+    Soit $ \K / \Fc$ une extension de corps. On considère $\Fc$ comme un $\K$ espace vectoriel et on définit 
+    le degré de l'extension noté $ [\K : \Fc]$ tel que : 
+        \[ [\K : \Fc] = \dim_\K (\Fc) \] 
+    On dira qu'une extension de corps est \textbf{finie} si son degré est fini. 
+\end{definition}
+
+Le degré de l'extension de corps sera donc la dimension de $\Lc$ en tant que $\K$ espace vectoriel. 
+
+\begin{example}
+    Si on prend $\Fc = \Q(\sqrt{2})$ et $ \K = \R$ on a donc $ [\Q(\sqrt{2}) : \R] = \dim_\R (\Q(\sqrt{2})) = 2 $ 
+    car une base de $\Q(\sqrt{2})$ sur $\R$ est $(1, \sqrt{2})$. 
+\end{example}
+
+\begin{lemma}
+    Soit $\K / \Fc$ une extension de corps. On a les propriétés suivantes : 
+    \begin{itemize}
+        \item $ [\K : \Fc] = 1 $ si et seulement si $ \K = \Fc$ 
+        \item $ \alpha \in \K$ est de degré 1 sur $\Fc$ ssi $ \alpha \in \Fc$ 
+    \end{itemize}
+\end{lemma}
+
+\begin{prop}[Degré et éléments algébriques]
+    Soit $ \K / \Fc$ une extension de corps. Alors : 
+    \begin{itemize}
+        \item $ \alpha \in \K$ est algébrique sur $\Fc$ ssi $[\Fc(\alpha) : \Fc]$ est le degré 
+        de $\alpha$ sur $\Fc$. 
+        \item $\alpha \in \K$ est algébrique est algébrique sur $\Fc$ ssi $[\Fc(\alpha) : \Fc] < \infty$. 
+    \end{itemize}
+\end{prop}
+
+\begin{theorem}[Multiplicativité du degré]
+    Soient $\Fc \subset \K \subset \Lc$ des corps, alors : 
+        \[ \boxed{ [\Lc : \Fc] = [\Lc : \K] \times [\K : \Fc] } \] 
+    En particulier : $[\Lc : \K] | [\Lc : \Fc]$ et $ [\K : \Fc] | [\Lc : \Fc]$. 
+\end{theorem}
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Vous voyez ce qu'est une Twingo ? Maintenant essayez d'y faire rentrer une équipe de rugby entière dedans...
+On pourrait dire que l'intérieur de la Twingo est compact. Voilà ce que l'on va essayer de définir dans ce chapitre, les ensembles compacts. 
+
+\vspace{0.3cm}
+
+On nomme ici $E$ un espace métrique muni d'une distance $d$. 
+
+% ==================================================================================================================================
+% Points d'accumulation, recouvrements
+
+\section{Points d'accupulation et recouvrement}
+
+Avant de définir la notion de compact, il nous faire un effort théorique en définissant de nouveaux objects
+qui vont nous aider à caractériser les compacts. 
+
+\begin{definition}[Point d'accumulation]
+    Soient $A \subset E$ et $x \in E$. On dit que $x$ est un point d'accumulation de $A$ si toute boule de rayon non nul 
+    centrée en $x$ contient une infinité de points de $A$. On remarquera qu'il suffit seulement que cette boule contienne 
+    un seul point de $A$ différent de $x$. 
+\end{definition}
+
+\begin{remark}
+    Un point d'accumulation est un point adhérent. La réciproque est fausse en général. 
+    On remarquera que pour qu'une partie admette un point d'accumulation, elle doit contenir un nomre infini de points. 
+\end{remark}
+
+\begin{definition}[Recouvrement]
+    Soient $A \subset E$ et $(A_n)_{n \in \N}$ une suite de parties de $E$. On dit que $(A_n)_{n \in \N}$ constitue 
+    un recouvrement de $A$ si $ A \subset \bigcup_{n \in \N} A_n $. 
+\end{definition}
+
+\begin{proposition}
+    Soit $A \subset E$, on a les trois propriétés suivantes :
+    \begin{itemize}
+        \item Toute suite d'éléments de $A$ contient une suite partielle qui converge vers un élément de $A$. 
+        \item Tout ensemble infini d'éléments de $A$ admet un point d'accumulation dans $A$. 
+        \item De tout recouvrement de $A$ par des ensembles ouverts, on peut en extraire un recouvrement fini. 
+    \end{itemize}
+\end{proposition}
+
+
+% ==================================================================================================================================
+% Ensembles compacts
+
+\section{Compacts}
+
+\subsection{Définition et caractérisations}
+
+\begin{definition}[Ensemble Compacts]
+    Soit $K \subset E$, on dit que $K$ est compact si il satisfait au moins l'une des propriétés précedentes. 
+\end{definition}
+
+\begin{proposition}
+    Un ensemble compact est borné et fermé. 
+\end{proposition}
+
+\begin{corollary}[Caractérisation des compacts de $\R^n$]
+    Dans $\R^n$ les compact sont exactement les fermés bornés. 
+\end{corollary}
+
+\subsection{Propriétés}
+
+\begin{corollary}[Théorème de Bolzano-Weierstraß]
+    Dans $\R^n$ toute suite bornée possède une suite partielle convergente. 
+\end{corollary}
+
+\begin{corollary}[Théorème de Bolzano-Weierstraß]
+    Dans $\R^n$ tout ensemble infini borné admet un point d'accumulation. 
+\end{corollary}
+
+

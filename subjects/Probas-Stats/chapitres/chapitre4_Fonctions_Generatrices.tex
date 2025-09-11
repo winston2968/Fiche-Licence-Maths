@@ -1,0 +1,56 @@
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+\section*{Définition Générale}
+
+On considère une variable aléatoire discrète entière positive non nulle $X$ qui prend ses valeurs dans $\N$ et pour tout $n$ dans $\N$ on pose 
+$p_n = P(X = n)$, on a donc, d'après la définition d'une probabilité $ \sum_{n=0}^{\infty} p_n = 1 $
+
+\begin{definition}[Fonction Génératrice]
+    On appelle fonction génératrice de $X$ la fonction :
+        \[ \boxed{ g_X(z) = \sum_{n=0}^{\infty} P(X = n) z^n} \] 
+    C'est une série entière de la variable $z \in \C$.    
+\end{definition}
+
+\begin{remark}
+    Le rayon de convergence cette série est \underline{supérieur} à $1$.
+\end{remark}
+
+\section*{Propriétés}
+
+\begin{itemize}
+    \item $g_X$ est continue sur $ \overline{D(0, 1)}$ et $\mathcal{C}^\infty$ sur $D(0, 1)$.
+    \item pour $|z| > 1$ on a $g_X(z) = E(z^X)$
+    \item la fonction génératrice caractérise la loi 
+        \[ \text{i.e. } g_X = g_Y \text{ sur un voisinnage de 0} \Longrightarrow \mathcal{L}(X = \mathcal{L}(Y) \] 
+    \item si $E(X)$ existe alors $E(X) = g_X(1)$ 
+    \item si $E(X^k), k \in \N$ existe alors $g_X^{(k)}(z) = E(X(X-1)(X-2) \dots (X - k + 1))$ 
+        
+        En particulier, si $E(X^2)$ existe, alors 
+            \[ g_X^{\prime \prime}(1) = E(X(X-1)) = E(X^2) - E(X) \] 
+        Donc $ V(X) = g_X^{\prime \prime}(1) + g_X^{\prime}(1) - (g_X^{\prime}(1))^2 $
+\end{itemize}
+
+
+\section*{Somme de variables aléatoires entières positives indépendantes}
+
+\begin{theorem}
+    Si $X$ et $Y$ sont indépendantes, alors 
+        \[ g_{X + Y} = g_X g_Y \] 
+\end{theorem}
+
+\begin{proof}
+    On a :
+        \[ g_X(z) = \sum_{n\in \N} p_n z^n, \quad g_Y(z) = \sum_{n \in \N} q_n z^n, \quad g_{X+Y}(z) = \sum_{n \in \N} r_n z^n \] 
+    D'après la formule des probabilités totales :
+        \[ r_n = P(X + Y = n) = \sum_{k = 0}^{n} P(X = k) P(Y = n-k) = \sum_{k=0}^{n} p_k q_{n_k} \]
+    et 
+    \begin{align*}
+        g_{X +Y}(z) &= \sum_{n = 0}^{\infty} \sum_{k = 0}^{n} p_k q_{n-k} z^n = \sum_{n = 0}^{\infty} \sum_{k = 0}^{n} p_k q_{n-k} z^k z^{n-k} \\
+        &= \Biggl( \sum_{i = 0}^{\infty} p_i z^i \Biggr) \Biggl( \sum_{j = 0}^{\infty} q_j z^j \Biggr) \\
+        &= g_X g_Y
+    \end{align*}
+   
+\end{proof}

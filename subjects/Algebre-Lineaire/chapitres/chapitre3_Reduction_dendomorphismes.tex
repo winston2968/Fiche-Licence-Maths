@@ -1,0 +1,790 @@
+
+
+% ==================================================================================================================================
+% Introduction
+
+\minitoc  % Affiche la table des matières pour ce chapitre
+
+Dans des domaines appliqués ou de gros calculs de matriciels sonr effectués, il serait intéressant 
+de pouvoir disposer de matrices pour lesquelles le calcul de produits est moins difficile. 
+La solution est de trouver des matrices semblables ayant une forme plus simple (i.e diagonale ou triangulaire). 
+Pour cela, nous utuliserons les formules de changement de base vues précédement. L'objectif sera donc de nous 
+placer dans une base permettant d'exprimer la même application linéaire par une matrice plus simple. 
+
+Ainsi, nous commencerons tout d'abord par aborder la diagonalisation. Ses limites nous pousseront à définir de nouveaux 
+objets tels que les polynômes d'endomorphismes. Ces derniers nous permettront de trigonaliser de nouvelles matrices 
+grâce à la méthode des drapeaux de Dunford. 
+
+\begin{remark}[Notation]
+    Dans ce chapitre, nous noterons $f$ des endomorphismes et $M$ les matrices représentant ces endormorphismes. 
+    Il est important de comprendre la différence entre un endomorphisme sa matrice représentative. 
+    En effet, un endormorphisme est une application linéaire et sa matrice représentative permet de le caractériser dans une certaine base. 
+    Lorsque l'on change de base (i.e de point de vue), l'endomorphisme reste le même mais sa matrice représentative peut changer. 
+\end{remark}
+
+% ==================================================================================================================================
+% Diagonalisation
+
+\section{Diagonalisation}
+
+\subsection{Eléments Propres}
+
+\begin{definition}[Vecteur et valeur propre]
+    Soit $ f \in \mathcal{L}(E)$, $v \in E$ est un \textbf{vecteur propre} de $f$ associé à la \textbf{valeur propre} $\lambda$ ssi :
+    \[ 
+        \begin{cases}
+            v \not = 0 \\
+            f(v) = \lambda v
+        \end{cases}
+    \]
+\end{definition}
+
+Il est important de noter qu'un vecteur propre est toujours associé à une valeur propre. 
+
+\begin{definition}[Sous-espace propre]
+    On appelle \textbf{sous-espace propre} de f (représenté par la matrice M) associé à la valeur propre $\lambda$ le sous-espace vectoriel de $E$ : 
+    \[ \boxed{E_\lambda = ker(M - \lambda Id_E)} \]
+\end{definition}
+
+On remarquera la praticité de l'utilisation du théorème du rang pour déterminer la dimension du sous-espace propre : \[ dim(E_\lambda) = dim(E) - rg(M - \lambda Id_E) \]
+
+\begin{definition}[Polynôme Caractéristique]
+    Soit $A \in \mathcal{M}_n(\mathbb{K}) $. On appelle \textbf{polynôme caractéristique} de $A$ le polynôme : 
+    \[ P_A = det(A - X \times Id_E) \]
+\end{definition}
+
+Le terme "polynôme caractéristique" d'une matrice/d'un endomorphisme prend tout son sens. 
+En effet, il permet vraiment de caractériser un endormorphisme par sa matrice représentative dans une base. 
+
+\begin{remark}
+    Le polynôme caractéristique d'un endomorphisme $f$ est dit \textbf{intrinsèque}.
+    (i.e le polynôme caractéristique de $f$ ne dépend pas du choix de la matrice représentant de $f$)
+\end{remark}
+
+\subsection{Définitions et caractérisations}
+
+On cherche ici à savoir si un endormorphisme ou une matrice peut être représenté par une matrice diagonale dans une certaine base 
+et à avoir une méthode pour construire une telle base. 
+
+\begin{definition}[Endomorphisme diagonalisable]
+    Un endomorphime $f$ est dit \textbf{diagonalisable} ssi il existe une base $E$ dans laquelle il est représenté par une matrice $D$ diagonale. 
+    Une matrice $A$ est dite diagonalisable ssi elle est semblable à une matrice diagonale. 
+    \[ \boxed{ \text{A est diagonalisable} \; \Leftrightarrow \; \exists P \in GL_n(\mathbb{K}), \; A = PDP^{-1} } \]
+\end{definition}
+
+\begin{proposition}
+    Un endomorphisme $f$ est diagonalisable dans E ssi il existe une base $\mathcal{B}$ de E 
+    constituée des vecteurs propres de $f$. 
+    La matrice diagonale associé sera donc composée des valeurs propres associés. 
+\end{proposition}
+
+\begin{proposition}
+    Un endomorphime $f$ représenté par une matrice $M$ est diagonalisable ssi M l'est. 
+\end{proposition}
+
+% La proposition ci-dessus permet donc de faire le lien entre une matrice et un endomorphisme diagonalisable. 
+
+\begin{proposition}
+    Soit f un endomorphisme représenté par une matrice A dans une base $\mathcal{B}$ de dimension n. 
+    Soit $ \lambda \in \R^*$. 
+    \begin{align*}
+        \lambda \text{ est valeur propre de } f & \iff E_\lambda \not = \{ 0 \} \\ 
+                                                & \iff f - \lambda \text{Id} \text{ n'est pas de rang } n \\ 
+                                                & \iff A - \lambda \text{Id} \text{ n'est pas de rang } n \\ 
+                                                & \iff A - \lambda \text{Id} \text{ n'est pas inversible } \\ 
+                                                & \iff \det (A - \lambda \text{Id}) = 0 
+    \end{align*}
+\end{proposition}
+
+Cette proposition nous donne donc une caractérisation très pratique des valeurs propres. 
+En plus du théorème du rang, on dispose donc déjà d'outils puissant pour étudier la diagonalisation d'une matrice/d'un endomorphime. 
+
+
+\subsection{Recherche des éléments propres}
+
+En pratique, pour diagonaliser un endormorphisme, il nous faut donc commencer par trouver ses éléments propres. 
+D'après la proposition précédente, une fois les valeurs propres trouvées, il reste à déterminer les sous-espaces propres $E_\lambda$.
+On se ramène ici à calculer des noyaux par le pivot de Gauss. 
+
+\begin{prop}[Lien Valeurs Propres/Racines]
+    Soient $A \in \mathcal{M}_n(\K)$ et $\lambda \in \K$ une valeur propre de A. 
+    Alors $\lambda$ est une racine de $P_A$. 
+    Autrement dit, les valeurs propres d'une matrice sont exactement les racines de son polynôme caractéristique. 
+\end{prop}
+
+\begin{definition}[Multiplicité]
+    Soit $f$ un endormorphisme représenté par une matrice $A$ dans un base $\mathcal{B}$. 
+    La multiplicité d'une valeur propre $\lambda \in \K$ de $f$ est exactement la multiplicité de $\lambda$ en tant que racine de $P_A$.     
+\end{definition}
+
+\begin{example}[Recherche des éléments propres]
+    Soit $A \in \mathcal{M}_3(\R)$ telle que 
+    \[A = 
+        \begin{pmatrix}
+            2 & 1 & 1 \\ 
+            1 & 2 & 1 \\ 
+            0 & 0 & 3
+        \end{pmatrix}
+    \]
+    Déterminons les éléments propres de A. Commençons par calculer son polynôme caractéristique. 
+
+    \begin{align*}
+        P_A &=  \begin{vmatrix}
+                    2-X & 1 & 1 \\ 
+                    1 & 2-X & 1 \\ 
+                    0 & 0 & 3-X 
+                \end{vmatrix}
+            = (3-X)    \begin{vmatrix}
+                            2-X & 1  \\ 
+                            1 & 2-X
+                        \end{vmatrix} \\ 
+            &= (3-X)((2-X)^2-1) \\
+            &= (3-X)(4 - 4X + X^2 - 1) \\
+            &= (3-X)^2(1-X)
+    \end{align*}
+
+    D'où : $Sp(A) = \{3,1\}$ et 3 est de multiplicité 2. 
+\end{example}
+
+
+\subsection{Critères de Diagonalisation}
+
+\subsubsection{Stabilité et somme directe}
+
+\begin{definition}[Sous espace stable]
+    Un s.e.v $F$ de $E$ est dit stable par $f$ ssi :
+    \[ \forall v \in F, f(v) \in F \quad \text{i.e} \quad f(F) \subset F \]
+\end{definition}
+
+\begin{prop}[Sous-espace propre et stabilité]
+    Un sous espace propre $E_\lambda$ de f est stable par f. 
+\end{prop}
+
+\begin{definition}[Somme Directe]
+    Soit E un espace vectoriel et $(F_i)_{i \in I}$ une famille finie de sous-espaces vectoriels de E. 
+    On dit que les $F_i$ sont en somme directe ssi pour tout vecteur $v \in \sum_{i \in I} F_i$, il existe une \textbf{unique} 
+    décomposition de $v$ comme somme de vecteurs $v_i \in F_i, \forall i \in I$. 
+\end{definition}
+
+\begin{prop}[Somme Directe]
+    Toute somme de sous espaces propres d'un même endomorphime est directe. 
+\end{prop}
+
+
+\subsubsection{Caractérisation d'un endormorphisme diagonalisable}
+
+\begin{proposition} Deux propositions très utiles pour déterminer si un endomorphime est diagonalisable : 
+    Un endomorphisme $f$ est diagonalisable ssi ses sous espaces propres sont supplémentaires dans $E$ $i.e$ :
+        \[ E = \bigoplus_{\lambda \in Sp(f)} E_\lambda \quad \iff \quad \sum_{\lambda \in Sp(f)} dim(E_\lambda) = n \]    
+\end{proposition}
+
+Le second point de la proposition précédente nous donne une approximation de la dimension d'un sous-espace propre. 
+
+\begin{prop}[Multiplicité et encadrement]
+    Si $\lambda$ est valeur propre de $f$ de multiplicité $\alpha$ alors : $$ 1 \leq \text{dim} (E_\lambda) \leq \alpha $$ 
+\end{prop}
+
+On peut donc déterminer un critère fondamental de diagonalisation d'endomorphismes (matrices). 
+
+\begin{criteria}[Critère Fondamental de Diagonalisation]
+    Un endomorphime $f$ est diagonalisable ssi 
+    \begin{itemize}
+        \item son polynôme caractéristique est scindé sur $\K$ et pour chaque valeur propre, 
+        la dimension du sous-espace propre associé est égale à la multiplicité de la valeur propre. 
+        \item la somme de la dimension de ses sous-espaces propres est $n$. 
+    \end{itemize}
+\end{criteria}
+
+\begin{corollary}[Critère de Diagonalisation]
+    Si $f$ admet n valeurs propres distinctes alors $f$ est diagonalisable. 
+\end{corollary}
+
+
+\subsection{Méthode Pratique de Diagonalisation}
+
+Maintenant que nous savons déterminer si un endomorphisme est diagonalisable, mettons en place 
+une méthode pratique nous donnant la base de diagonalisation, les sous-espaces propres, et la matrice diagonale. 
+
+Soit $f$ un endomorphisme représenté par une matrice $A$ dans une base $\mathcal{B}$. 
+Pour diagonaliser $f$, il suffit de :
+\begin{enumerate}
+    \item Calculer le polynôme caractéristique de $A$. 
+    \item Factoriser le polynôme trouvé pour déterminer le spectre de $f$. 
+    \item Pour chaque valeur propre $\lambda$ distincte de $f$ :
+        \begin{enumerate}
+            \item Calculer $A - \lambda \; Id$. 
+            \item Echelonner la matrice obtenue par le pivot de Gauss. Avec mémorisation. 
+            \item Extraire du pivot une base du sous-espace. 
+        \end{enumerate}
+    \item Maintenant on peut se trouver face à deux situations :
+        \begin{itemize}
+            \item Si pour chaque valeur propre, la dimension du sous-espace engendré est égale à la multiplicité de 
+                celle-ci, alors $f$ est digonalisable. On poursuit alors la diagonalisation. 
+            \item Sinon, $f$ n'est pas diagonalisable. On s'arrête ici... 
+        \end{itemize}
+    \item La base de diagonalisation sera donc l'union des bases des sous-espaces propres. 
+            La matrice diagonale sera composée des valeurs propres de $f$. 
+            Pour effectuer le changement de base, on veillera bien à inverser la matrice de passage. 
+\end{enumerate}
+
+\begin{example}
+    Ici un exemple pratique. 
+\end{example}
+
+\subsection{Introduction à la trigonalisation}
+
+La diagonalisation semble être un outil très fort pour effectuer toute sorte de calculs sur des matrices/endomorphismes. 
+Mais en pratique, on se rend compte que très peut de matrices sont diagonalisables. 
+On peut donc trouver une autre forme de réduction d'un endomorphisme représenté par une matrice mais, cette fois ci, pas sous forme triagonale, 
+mais triangulaire. On va ainsi définir une nouvelle forme de réduction et trouver des critères pour savoir si une matrice est trigonalisable. 
+
+% \subsection{Définitions}
+
+\begin{definition}[Trigonalisation]
+    Un endomorphisme $f$ représenté par une matrice A dans une base $\mathcal{B}$ est dit trigonalisable si 
+    il existe une base $\mathcal{B}'$ dans laquelle il est représenté par une matrice triangulaire supérieure. 
+
+    \vspace{0.3cm}
+
+    De même une matrice $A$ est dite trigonalisable si elle est semblable à une matrice triangulaire supérieure. 
+\end{definition}
+
+\begin{proposition}
+    Un endomorphime $f$ représenté par une matrice $A$ est trigonalisable ssi $A$ l'est. 
+\end{proposition}
+
+% \subsection{Premiers critères}
+
+\begin{criteria}[Fondamental de Trigonalisation]
+    Soient E un $\K$-espace vectoriel et $f \in \mathcal{L}(E)$. $f$ est trigonalisable ssi son polynôme caractéristique est scindé sur $\K$. 
+\end{criteria}
+
+\begin{corollary}[La puissance de $\C$]
+    Tout endormorphisme est trigonalisable sur $\C$. 
+\end{corollary}
+
+On remarque que l'élaboration d'une méthode exaustive de trigonalisation de matrices semble plus complexe que la diagonalisation. 
+Nous en verrons une dans le chapitre dédié, mais pour cela, il nous faut définir de nouveaux object qui vont nous permettre d'aller plus loin dans la théorie de la réduction. 
+
+% ==================================================================================================================================
+% Polynômes d'Endomorphismes
+
+\section{Polynômes d'endomorphismes}
+
+
+Nous savons que l'ensemble des matrices carrées à coefficients dans un corps $\K$ (réel ou complexe) est 
+muni d'une structure d'espace vectoriel. 
+Ayant déjà étudié en détail les polynômes, on pourrait se demander si il est possible d'étudier des polynômes de matrices 
+et par extension des polynômes d'endomorphismes. 
+Pourrait-on, le cas échéant, en fonction des propriétés d'un tel polynôme, en déduire des propriétés sur des endomorphismes/matrices 
+tels que des critères de diagonalisation ou de trigonalisation ?
+C'est ce que nous allons étudier dans cette section. 
+
+\subsection{Définition et premières propriétés}
+
+\begin{definition}[Polynôme d'endomorphisme]
+    Soit $P = \sum_{i=0}^{n} a_i X^i$ un polynôme et $f$ un endomorphisme, on peut évaluer P en f de la façon suivante :
+        \[ P(f) = \sum_{i=0}^{n} a_i f^i \]
+    Par convention, $f^0 = \text{Id}$. 
+\end{definition}
+
+\begin{definition}[Polynôme de matrice]
+    Soit $P = \sum_{i=0}^{n} a_i X^i$ un polynôme et $A \in \mathcal{M}_n(\K)$ une matrice carrée. 
+    On peut évaluer $P$ en $A$ de la façon suivante :
+        \[P(A) = \sum_{i=0}^{n} a_i A^i\]
+    De même que précédement, on pose $A^0 = \text{Id}$.
+\end{definition}
+
+
+\begin{proposition}
+    On peut "résumer" ces deux définitions en posant une application qui, à un polynôme, lui associe ce même polynôme évalué 
+    en un endomorphisme prédéterminé. 
+
+    Plus formellement, $ \forall f \in \mathcal{L}(E)$, l'application 
+        \[ \Phi_f : 
+            \begin{cases}
+                \K[X] \longrightarrow \mathcal{L}(E) \\ 
+                P \longmapsto P(f)
+            \end{cases}
+        \]
+    est un morphisme d'algèbre. Autrement dit, c'est une application entre deux algèbres qui respecte leur structure. 
+    
+    Elle vérifie donc $ \forall \alpha \in \K, \forall P,Q \in \K[X]$ :
+    \begin{itemize}
+        \item $\Phi(\alpha P) = \alpha \Phi(P)$ 
+        \item $\Phi(P+Q) = \Phi(P) + \Phi(Q)$ 
+        \item $\Phi(P \times Q) = \Phi(P) \circ \Phi(Q)$ 
+    \end{itemize}
+    Ces propriétés nous serviront tout au long du chapitre et durant les suivant et s'avèrent très utiles lors de calculs. 
+\end{proposition}
+
+\begin{remark}[Extension aux matrices]
+    De même, on peut définir un morphisme d'algèbre pour évaluer des polynômes par des matrices :
+        \[ \forall A \in \mathcal{M}_n(\K), \quad \Phi_A : 
+            \begin{cases}
+                \K[X] \longrightarrow \mathcal{L}(E) \\ 
+                P \longmapsto P(A)
+            \end{cases}
+        \]
+    Cette application possède les mêmes propriétés que la précédente. 
+\end{remark}
+
+Rapidement, on s'apperçoit que les polynômes d'endomorphismes possèdent beaucoup de bonnes propriétés calculatoires, 
+notamment pour les relations de similitudes entre matrices, autrement appelées "changement de base". 
+
+\begin{prop}[Matrices semblables et polynômes]
+    Soient $A,B\in \mathcal{M}_{\K}$ deux matrices semblables liés par la matrice $M$. Soit $P \in \K[X]$, on a :
+        $$ \forall k \in \N, A^k = M B^k M ^{-1} \quad \text{et} \quad  P(A) = M P(B) M^{-1} $$
+\end{prop}
+
+\begin{prop}[Commutation]
+    Soit $f \in \mathcal{L}(E)$, deux polynômes en $f$ commutent. 
+\end{prop}
+
+
+\subsection{Polynômes Annulateurs}
+
+Nous connaissons déjà bien le concept de racine d'un polynôme réel ou complexe. 
+Qu'en est-il des matrices/endomorphismes annulant un polynôme ?
+
+\begin{definition}[Polynôme Annulateurs]
+    Soit $ f \in \mathcal{L}(E)$ un polynôme $ P \in \K[X]$ est dit annulateur de $f$ si $P(f) = 0_{\mathcal{L}(E)}$. 
+    De même pour les matrices, on dit que $P$ annule $A \in \mathcal{M}_n(\K)$ si $P(A) = 0_{\mathcal{M}_n(\K)}$. 
+\end{definition}
+
+On remarquera facilement que le polynôme nul annule tout le monde...pas très intéressant. 
+
+\begin{remark}[Pas le même 0 ?]
+    Vous remarquerez qu'en fonction de l'espace sur lequel est défini un polynôme (endomorphisme ou matrice), 
+    si le polynôme est un annulateur d'un élément de cet espace, le $0$ obtenu n'est pas le même. 
+    En effet, pour un polynôme défini sur les endomorphismes, le 0 obtenu sera \textbf{l'application nulle}. 
+    Alors que pour les matrices, on obtient la \textbf{matrice nulle}. 
+    Il est important de bien différencier les ensembles de définition des applications que l'on utilise. 
+\end{remark}
+
+
+\begin{proposition}
+    Tout endomorphisme de E admet un polynôme annulateur non nul. 
+    Idem pour les matrices. 
+\end{proposition}
+
+\begin{prop}[Valeur propre et racine]
+    Soit $P$ un polynôme annulateur de $f \in \mathcal{L}(E)$, alors toute valeur propre de $f$ est racine de $P$
+    (la réciproque est généralement fausse). 
+\end{prop}
+
+\begin{remark}
+    Dans le cas ou $f$ est diagonalisable, on peut facilement construire un annulateur. 
+    
+    Soit $P \in \K[X]$ et $f \in \mathcal{L}(E)$. Soit $\text{Sp}(f) = \{\alpha_1, \alpha_2, \dots, \alpha_p\}, p \in N$ 
+    le spectre de $f$. D'après la propriété précédente, tous les $\alpha_i$ sont racine de $P$. 
+    Autrement dit : 
+        \[ \forall i \in \{1,\dots,p\}, \quad (X - \alpha_i) \; | \; P \]
+    Posons :
+        \[ M_f := (X - \alpha_1)(X - \alpha_2) \dots (X - \alpha_p)\]
+    On a donc : 
+        \[ M_f \; | \; P\]
+    Autrement dit, \textbf{$P$ est un multiple de $M_f = (X - \alpha_1)(X - \alpha_2) \dots (X - \alpha_p)$}.
+\end{remark}
+
+\subsection{Théorèmes Fondamentaux}
+
+Ci-dessous, un des théorèmes les plus forts d'algèbre linéaire cette année. 
+La démonstration n'est absolument pas triviale...
+
+\begin{theorem}[Arthur Cayley et William Hamilton]
+    Pour toute matrice et endomorphisme, \textbf{le polynôme caractéristique est annulateur}. 
+\end{theorem}
+
+
+Maintenant que nous avons vu pas mal de propriétés sur les polynômes annulateurs, le polynôme caractéristique et quelques
+relations de divisibilité en fonction des valeurs propres d'un endomorphisme/matrice, intéressons nous plus profondément 
+aux ordres de divibilités entre des polynômes. 
+
+\vspace{0.3cm}
+
+Saut mention contraire, on notera $M_f$ le polynôme minimal d'un endomorphisme $f$ et $P_f$ son polynôme caractéristique 
+dans une certaine base. 
+
+\begin{definition}[Polynôme Minimal]
+    Soit $f \in \mathcal{L}(E)$. Il existe un unique polynôme, noté $M_f$, tel que l'ensemble des polynômes annulateurs 
+    de $f$ soient des multiples de $M_u$. 
+
+    \vspace{0.3cm}
+
+    Si on interprète cette définition de façon ensembliste, le polynôme minimal d'un endomorphisme peut être vu 
+    comme le minimum (au sens de la divisibilité/degré) de l'ensemble des annulateurs. 
+\end{definition}
+
+\begin{proposition}
+    Soit $f \in \mathcal{L}(E)$, on a :
+    \begin{itemize}
+        \item Si $\text{Sp}(f) = \{\alpha_1, \alpha_2, \dots, \alpha_p\}, p \in N$, alors $(X - \alpha_1)(X - \alpha_2) \dots (X - \alpha_p)$ divise $M_f$.
+        \item $M_f$ divise $P_f$
+    \end{itemize}
+\end{proposition}
+
+
+\begin{prop}[Noyau et sev stable]
+    Pour tout $P \in \K[X]$, et pour tout $f \in \mathcal{L}(E)$, $\ker P(u)$ est un sev de $E$ stable par $f$. 
+
+    \vspace{0.3cm}
+
+    Autrement dit, le noyau d'un polynôme évalué en un endomorphisme est un sev de l'espace de départ et, est de plus stable par cet endomorphisme. 
+\end{prop}
+
+\begin{lemma}[Noyaux]
+    Soient $P$ et $Q$ deux polynômes premiers entre eux et $f \in \mathcal{L}(E)$, alors :
+        \[ \boxed{\ker (PQ(f)) = \ker(P(f)) \oplus \ker(Q(f))} \] 
+\end{lemma}
+
+On peut donc en déduire un cas plus général... 
+
+\begin{theorem}[Généralisation du Lemme des noyaux]
+    Soit $P$ un polynôme annulateur de $f \in \mathcal{L}(E)$, et $P = P_1P_2 \dots P_k$ une décomposition de P en produit de polynômes 
+    deux à deux premiers entre eux, on a donc :
+        \[E = \bigoplus_{i \in \{1,\dots, k\}} \ker (P_i(f))\]
+    Autrement dit, une factorisation d'un polynôme annulateur de $f$ en produit de polynômes deux à deux premiers entre eux 
+    nous donne un décomposition de E en sous-espaces, d'une part stables par $f$ mais aussi en somme directe dans E. 
+\end{theorem}
+
+On peut donc en déduire le théorème suivant, nous donnant de nouveaux critères de diagonalisation. 
+
+\begin{theorem}[Nouveau critère de diagonalisation]
+    $f \in \mathcal{L}(E)$ est diagonalisable ssi 
+    \begin{itemize}
+        \item elle admet un \textbf{polynôme annulateur} scindé à racine simples. 
+        \item ssi son \textbf{polynôme minimal} est scindé à racines simples. 
+    \end{itemize}
+\end{theorem}
+
+\begin{criteria}[Ultime Critère]
+    $f \in \mathcal{L}(E)$ est diagonalisable ssi son polynôme minimal est scindé à racines simples. 
+\end{criteria}
+
+
+\subsection{Endomorphismes Nilpotents}
+
+\begin{definition}[Endomorphisme/Matrice Nilpotent]
+    Soient $f \in \mathcal{L}(E)$ et $A \in \mathcal{M}_n(\K)$, on dit que $f$ ou $A$ est nilpotent ssi 
+        \[ \exists k \in \N^* \text{ tel que : }
+            \begin{cases}
+                f^k = 0_{\mathcal{L}(E)} \text{ et } L^{k-1} \not = 0_{\mathcal{L}(E)} \\ 
+                A^k = 0_{\mathcal{M}_n(\K)} \text{ et } A^{k-1} \not = 0_{\mathcal{M}_n(\K)}
+            \end{cases}
+        \]
+    On nomme alors l'entier $k$ \textbf{indice} de nilpotence. 
+\end{definition}
+
+\begin{prop}[Matrice strictement triangulaire et nilpotence]
+    Tout matrice strictement triangulaire supérieure de $\mathcal{M}_n(\K)$ est nilpotente d'indice inférieur à $n$. 
+\end{prop}
+
+\begin{prop}[Nilpotence et polynôme minimal]
+    Soient $f \in \mathcal{L}(E)$ $f$ est nilpotente d'indice $k$ ssi $M_f = X^k$. 
+
+    \vspace{0.3cm}
+
+    La même propriété est vraie pour n'importe quelle matrice $A \in \mathcal{M}_n(\K)$. 
+\end{prop}
+
+
+% ==================================================================================================================================
+% Trigonalisation
+
+\section{Trigonalisation}
+
+Redéfinissons proprement la trigonalisation. 
+
+\begin{definition}[Trigonalisation]
+    Un endomorphisme $f$ représenté par une matrice A dans une base $\mathcal{B}$ est dit trigonalisable si 
+    il existe une base $\mathcal{B}'$ dans laquelle il est représenté par une matrice triangulaire supérieure. 
+
+    \vspace{0.3cm}
+
+    De même une matrice $A$ est dite trigonalisable si elle est semblable à une matrice triangulaire supérieure. 
+\end{definition}
+
+\begin{prop}[Lien matrice/endomorphisme]
+    Un endomorphime $f$ représenté par une matrice $A$ est trigonalisable ssi $A$ l'est. 
+\end{prop}
+
+
+\begin{criteria}[Fondamental de Trigonalisation]
+    Soient E un $\K$-espace vectoriel et $f \in \mathcal{L}(E)$. $f$ est trigonalisable ssi son polynôme caractéristique est scindé sur $\K$. 
+\end{criteria}
+
+\begin{corollary}[La puissance de $\C$]
+    Tout endormorphisme est trigonalisable sur $\C$. 
+\end{corollary}
+
+\subsection{Méthode de Dunford}
+
+
+\begin{definition}[Sous-espace caractéristique]
+    Soit $f$ un endomorphisme trigonalisable de polynôme caractéristique 
+        $$ P_f = (\lambda_1 - X)^{\alpha_1} \dots (\lambda_p -X)^{\alpha_p} $$ 
+    On appelle sous-espace caractéristique de $f$ associé à la valeur propre $\lambda_i$, le sous-espace vectoriel 
+        $$ \boxed{ F_i = \ker((u - \lambda_i \; \text{Id})^{\alpha_i}) } $$ 
+\end{definition}
+
+\begin{remark}
+    Attention à la différence entre les sous-espaces propres et les sous-espaces caractéristiques !
+    Les seconds sont définis en fonction de la multiplicité de la valeur propre alors que les premiers non. 
+\end{remark}
+
+\begin{theorem}[Trigonalisation et sous-espace caractérisitique]
+    Soit $f$ un endomorphisme trigonalisable
+    \begin{itemize}
+        \item Les $F_i$ sont stables par $f$ et :
+            \[ E = \bigoplus_{i \in \{1,\dots,p\}} F_i \]
+        \item Pour toute valeur propre, le sous-espace \textbf{propre} correspondant est inclus dans le sous-espace 
+        \textbf{caractéristique} correspondant. 
+            \[ \forall i \in \{1,\dots,p\}, \quad E_i \subset F_i \] 
+        \item Pour toute valeur propre, la dimension du sous-espace \textbf{caractéristique} correspondant est égale à sa multiplicité. 
+            \[ \forall i \in \{1,\dots,p\}, \quad \text{dim}(F_i) = \alpha_i \]
+    \end{itemize}
+\end{theorem}
+
+
+En résumé, la méthode pratique de trigonalisation se résume en quelques étapes. 
+Soit $f$ un endomorphisme trigonalisable représenté par une matrice $A$ dans une base $\mathcal{B}'$. 
+Pour trigonaliser $f$ (ou $A$), il faut :
+\begin{itemize}
+    \item Calculer le polynôme caractéristique $P_f = P_A$. 
+    En le factorisant, en déduire le spectre de $f$ et, pour chaque valeur propre, son ordre de multiplicité. 
+    Si $P_f$ est scindé, alors $f$ est trigonalisable. 
+    \item Pour chaque valeur propre, on calcule le sous-espace propre associé, on en donne la dimension et une base. 
+    \item Si pour chaque valeur propre on a égalité entre la dimension du sous-espace propre et la multiplicité de la valeur 
+    propre, alors $f$ est diagonalisable. Sinon, on continue la trigonalisation. 
+    \item Pour chaque valeur propre (sympathique) pour laquelle on a égalité entre multiplicité et dimension du sep,
+    on détermine une base du sous-espace propre. Le bloc correspondant sera diagonal.
+    \item Pour chaque valeur propre (pénible) pour laquelle on n’a pas égalité entre multiplicité et dimension du sep,
+    on détermine le drapeau complet $E_\lambda = K_1 \subset \dots \subset K_p = F_\lambda$.
+    On construit une base de $\mathcal{B}_i$ de $F_\lambda$ par la méthode des drapeaux.
+    \item On calcule l'image de chaque $\mathcal{B}_i$ par $f$, ce qui fournit le bloc correspondant à la valeur propre $\lambda_i$. 
+    \item Une base de trigonalisation est obtenue en faisant l'union des bases obtenues précédement. 
+    \item La matrice triangulaire (de Dunford) est obtenue à partir des bloc précédents. 
+\end{itemize}
+
+
+\begin{example}[Trigonalisation]
+    Soit $A \in \mathcal{M}_3(\R)$ telle que :
+        \[ A = 
+            \begin{pmatrix}
+                2 & -1 & -1 \\ 
+                2 & 1 & -2 \\ 
+                3 & -1 & -2
+            \end{pmatrix}
+        \]
+    Calculons son polynôme caractéristique $ P_A \in \R[X]$ : 
+    \begin{align*}
+        P_A &= 
+            \begin{vmatrix}
+                2 - X & -1 & -1 \\ 
+                2 & 1 -X & -2 \\ 
+                3 & -1 & -2 -X \\ 
+            \end{vmatrix} \\ 
+            &= -X^3 + X^2 + X -1 \\ 
+            &= -(X-1)^2(X+1)  
+    \end{align*}
+    On a donc $Sp(A) = \{-1, 1\}$ où la valeur propre $1$ est de multiplicité $2$. 
+    Puisque $P_A$ est scindé, $A$ est \emph{trigonalisabe} dans $\R$. 
+    Calculons ses sous-espaces caractéristiques : 
+    \begin{itemize}
+        \item $\ker (A + I_3)$ : 
+            \[ 
+                A + I_3 = 
+                \begin{array}{c}
+                    \scriptstyle C_1 \quad C_2 \quad C_3 \\
+                    \left(
+                        \begin{array}{rrr}
+                            3 & -1 & -1 \\
+                            2 & 2 & -2 \\
+                            3 & -1 & -1
+                        \end{array}
+                    \right)
+                \end{array}
+                ; \; 
+                \begin{array}{c}
+                    \scriptstyle C_2 \quad C_1 + 3C_2 \quad C_3 - C_2 \\
+                    \left(
+                        \begin{array}{rrr}
+                            -1 & 0 & 0 \\
+                            2 & 8 & -4 \\
+                            -1 & 0 & 0
+                        \end{array}
+                    \right)
+                \end{array}
+                ; \; 
+                \begin{array}{c}
+                    \scriptstyle C_2 \quad C_1 + 3C_2 \quad C_1 + 5C_2 - 2C_3 \\
+                    \left(
+                        \begin{array}{rrr}
+                            -1 & 0 & 0 \\
+                            2 & 8 & 0 \\
+                            -1 & 0 & 0
+                        \end{array}
+                    \right)
+                \end{array}
+            \] 
+            On a donc $\ker (A + I_3) = \text{vect}((1,1,2))$. 
+            La dimension du sous-espace caractéristique $E_{-1}$ associé à la 
+            valeur propre $-1$ est égale à sa multiplicité, nous n'avons plus rien à faire ici. 
+        \item $\ker (A - I_3)$ : 
+            \[ 
+                A - I_3 = 
+                \begin{array}{c}
+                    \scriptstyle C_1 \quad C_2 \quad C_3 \\
+                    \left(
+                        \begin{array}{rrr}
+                        1 & -1 & -1 \\
+                        2 & 0 & -2 \\
+                        3 & -1 & -3
+                        \end{array}
+                    \right)
+                    \end{array}
+                    ; \; 
+                    \begin{array}{c}
+                        \scriptstyle C_1 \quad C_2 + C_1 \quad C_3 + C_1 \\
+                        \left(
+                        \begin{array}{rrr}
+                        1 & 0 & 0 \\
+                        2 & 2 & 0 \\
+                        3 & 2 & 0
+                    \end{array}
+                    \right)
+                \end{array}
+            \] 
+            On a donc $\ker (A - I_3) = \text{vect}((1,0,1))$. 
+            La dimension du sous-espace caractéristique associé à la valeur propre 
+            $1$ est inférieure à sa multiplicité. Il nous faut donc construire une suite 
+            de noyau itérés. Déterminons $\ker ((A - I_3)^2)$ : 
+            \[ 
+                (A - I_3)^2 = 
+                \begin{pmatrix}
+                    -4 & 0 & 4 \\ 
+                    -4 & 0 & 4 \\ 
+                    -8 & 0 & 8 
+                \end{pmatrix}
+            \] 
+            On voit immédiatement que $\ker ((A - I_3)^2) = \text{vect}((0,1,0))$. 
+            Le drapeau associé à la valeur propre $1$ est donc : 
+                \[ \{0\} \subset \text{vect}((1,0,1)) \subset \text{vect}((0,1,0))  \]
+    \end{itemize}
+    On peut donc construire une base de trigonalisation $ \mathcal{B}$ de la forme : 
+        \[ \mathcal{B} = ((1,0,1), (0,1,0), (1,1,2)) \] 
+    De matrice de passage : 
+        \[ Pass( \mathcal{B}, \mathcal{C}) = P = 
+            \begin{pmatrix}
+                1 & 0 & 1 \\ 
+                0 & 1 & 1 \\ 
+                1 & 0 & 2 \\ 
+            \end{pmatrix}
+        \] 
+    Par inversion, on obtient : 
+        \[ Pass( \mathcal{C}, \mathcal{B}) = P^{-1} = 
+            \begin{pmatrix}
+                2 & 0 & -1 \\ 
+                1 & 1 & -1 \\ 
+                -1 & 0 & 1  
+            \end{pmatrix}
+        \] 
+    Il ne reste plus qu'à construire la matrice triangulaire supérieure semblable à $A$ dans la 
+    base $ \mathcal{B}$. Pour cela, il faut exprimer l'image des vecteurs de la base $ \mathcal{B}$ 
+    par $A$ dans la base $ \mathcal{B}$ : 
+            \[ 
+                \left[
+                    \begin{pmatrix}
+                        2 & -1 & -1 \\ 
+                        2 & 1 & -2 \\ 
+                        3 & -1 & -2 
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                        1 \\ 
+                        0 \\ 
+                        1 
+                    \end{pmatrix}
+                \right]^ \mathcal{B} 
+                = 
+                \left[
+                    \begin{pmatrix}
+                        1 \\ 
+                        0 \\ 
+                        1 
+                    \end{pmatrix}
+                \right]^ \mathcal{B}
+                = 
+                \begin{pmatrix}
+                    1 \\ 
+                    0 \\ 
+                    0
+                \end{pmatrix}
+            \] 
+
+            \[ 
+                \left[
+                    \begin{pmatrix}
+                        2 & -1 & -1 \\ 
+                        2 & 1 & -2 \\ 
+                        3 & -1 & -2 
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                        0 \\ 
+                        1 \\ 
+                        0 
+                    \end{pmatrix}
+                \right]^ \mathcal{B} 
+                = 
+                \left[
+                    \begin{pmatrix}
+                        -1 \\ 
+                        1 \\ 
+                        -1 
+                    \end{pmatrix}
+                \right]^ \mathcal{B}
+                = 
+                \begin{pmatrix}
+                    -1 \\ 
+                    1 \\ 
+                    0
+                \end{pmatrix}
+            \] 
+
+            \[ 
+                \left[
+                    \begin{pmatrix}
+                        2 & -1 & -1 \\ 
+                        2 & 1 & -2 \\ 
+                        3 & -1 & -2 
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                        1 \\ 
+                        1 \\ 
+                        2 
+                    \end{pmatrix}
+                \right]^ \mathcal{B} 
+                = 
+                \left[
+                    \begin{pmatrix}
+                        -1 \\ 
+                        -1 \\ 
+                        -2 
+                    \end{pmatrix}
+                \right]^ \mathcal{B}
+                = 
+                \begin{pmatrix}
+                    0 \\ 
+                    0 \\ 
+                    -1
+                \end{pmatrix}
+            \] 
+    On a donc que $A$ est semblable à la matrice $J \in \mathcal{M}_3(\R)$ de matrice de passage $P^{-1}$ telles que : 
+        \[ A = PJP^{-1} \quad \text{avec} \quad J = 
+            \begin{pmatrix}
+                1 & -1 & 0 \\ 
+                0 & 1 & 0 \\ 
+                0 & 0 & -1 
+            \end{pmatrix}
+        \] 
+\end{example}
