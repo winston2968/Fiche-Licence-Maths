@@ -1,0 +1,265 @@
+
+
+\minitoc % Ajoute le sommaire local ici
+
+
+% ==================================================================================================================================
+% Introduction 
+
+Ce chapitre est dédié à l'étude du \emph{Lemme d'Arden}. Ce lemme nous permettra de 
+construire un automate déterministe à partir d'une expression régulière mais aussi à déterminer 
+le langage d'un automate déterministe.  Nous finirons par énoncer le théorème de Kleene 
+caractérisant les langages automatiques. Il nous permettra de faire le lien entre langages automatiques 
+et langages réguliers. 
+
+% ==================================================================================================================================
+% Lemme d'Arden
+
+\section{Lemme d'Arden}
+
+Le lemme d'Arden est présenté en 1961 par Dean N. Arden. En voici une de ces formes : 
+
+\begin{lemma}[Arden]
+    Soient $A$ et $B$ deux langages. Le langage $L = A^*B$ est le plus petit langage (pour l'inclusion ensembliste) 
+    solution de l'équation :
+        \[ (E) : X = (AX) \cup B  \] 
+    De plus, si $A$ ne contient pas le mot vide $\varepsilon$, $A^*B$ est l'unique solution de cette équation. 
+    Que l'on peut dériver en deux formes différentes : pour tout langage $L \in \Sigma^*$ et $a,b \in  \Sigma$ tel que 
+    $ \varepsilon \not \in a$ on a :
+
+    \begin{center}
+        \begin{minipage}{0.45\textwidth}
+            \centering 
+            \textbf{Version Gauche : }
+                \[
+                    \boxed{L = aL + b \quad \Longleftrightarrow \quad L = a^{*}b}
+                \]
+        \end{minipage}
+        \hfill 
+        \begin{minipage}{0.45\textwidth}
+            \centering 
+            \textbf{Version Droite : }
+                \[
+                    \boxed{L = La + b \quad \Longleftrightarrow \quad L = ba^{*}}
+                \]
+        \end{minipage}
+    \end{center}
+\end{lemma}
+
+
+
+% ==================================================================================================================================
+% Applications
+
+\section{Applications}
+
+\subsection{Langage d'un automate fini}
+
+Maintenant que nous savons bien manipuler les automates fini déterministes et non déterministes, il serait utile, 
+à partir d'un automate de pouvoir déterminer le langage qu'il reconnaît. Pour cela nous avons besoin de définir 
+les systèmes d'équations au langages.
+
+
+\begin{definition}[Langage d'arrivée]
+    Soit $ \mathcal{A} = \{Q, \Sigma, T, q_0, A\}$ un automate fini. On définit le langage d'arrivée à l'état $ q \in Q$, 
+    noté $ L_q$ l'ensemble des mots de $ \Sigma^*$ dont la lecture par $ \mathcal{A}$ débute par $q_0$ et finit en $q$. 
+\end{definition}
+
+\begin{proposition}
+    Soit $ \mathcal{A} = \{Q, \Sigma, T, q_0, A\}$ un automate fini. Soit $\{L_q \; | \; i \in A \}$ 
+    l'ensemble des langages d'arrivés aux états acceptants de l'automate $ \mathcal{A}$. On a alors l'égalité suivante : 
+        \[ L( \mathcal{A}) = \sum_{q \in A} L_q \]
+    Autrement dit, le langage de $ \mathcal{A}$ est la somme de tous ses langages d'arrivé aux états acceptants. 
+\end{proposition}
+
+\begin{definition}[Système d'équations aux langages]
+    Soient un ensemble $X_1, \dots, X_n$ de langages sur un même alphabet $\Sigma$. 
+    Un système d'équations aux langages est un ensemble d'équations de la forme : 
+        \[ X_i = \sum_{j=1}^{n} a_{ij} X_j + b_j \quad \forall i \in \llbracket 1, n \rrbracket \] 
+    où $ \forall i,j \in \llbracket 1, n \rrbracket, a_{ij} \in \Sigma, b_i \in \Sigma^*$
+\end{definition}
+
+\begin{proposition}
+    Soit $ \mathcal{A} = \{Q, \Sigma, T, q_0, A\}$ un automate fini.
+    À partir des définitions, on peut donc représenter le langage d'un automate par un système d'équations aux langages. 
+    Elles associent à chaque $L_q$ une équation de langages dérivant de l'automate. 
+    
+    \vspace{0.2cm}
+    
+    Ainsi si un état $q$ a des transitions vers d'autres états selon les lettres $a \in \Sigma$ et si $q$ est un état 
+    acceptant alors l'équation associée à $L_q$ est de la forme 
+        \[ 
+            \begin{cases}
+                L_q = \sum_{(q,a,q') \in T} a L_{q'} + \{\varepsilon\}  \quad \text{si q est un état initial} \\ 
+                L_q = \sum_{(q,a,q') \in T} a L_{q'} \quad \text{sinon}
+            \end{cases}
+        \] 
+\end{proposition}
+
+Il nous faut maintenant être capable de résoudre ces équations pour déterminer les $L_q$ et ainsi le langage de l'automate. 
+Équations que l'on peut maintenant résoudre grâce au lemme d'Arden. 
+
+\begin{example}
+
+    Déterminons le langage de l'automate suivant :
+
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+            \node[state, initial] (1) {$1$};
+            \node[state, accepting, right of=1] (2) {$1$};
+            \node[state, accepting, right of=2] (3) {$3$};
+
+            \path[->]
+            (1) edge[loop below] node{$a$} (1)
+            (1) edge[above] node{$b$} (2)
+            (2) edge[loop below] node{$a$} (2) 
+            (2) edge[above] node{$b$} (3) 
+            (3) edge[loop below] node{$a$} (3);
+        \end{tikzpicture}
+    \end{center}
+
+    Les langages d'arrivés vérifient donc le système d'équations aux langages suivant :
+    \[ 
+        \begin{cases}
+            L_1 = L_1 a + \varepsilon \\ 
+            L_2 = L_1 b + L_2 a \\ 
+            L_3 = L_2 b + L_3 b 
+        \end{cases}
+    \] 
+    Que l'on résout progressivement grâce au Lemme d'Arden : 
+    \[ 
+        \begin{cases}
+            L_1 = \varepsilon a^* = a^* \\ 
+            L_2 = L_2 a + a^* b \\ 
+            L_3 = L_3 a + L_2 b 
+        \end{cases}
+        \quad \iff \quad 
+        \begin{cases}
+            L_1 = a^* \\ 
+            L_2 = a^*ba^* \\ 
+            L_3 = L_3a + a^*ba^* 
+        \end{cases} 
+    \quad \iff \quad 
+        \begin{cases}
+            L_1 = a^* \\ 
+            L_2 = a^*ba^* \\ 
+            L_3 = a^*ba^* b a^* \\ 
+        \end{cases}
+    \]
+
+    D'où : 
+        \begin{align*}
+            L( \mathcal{A}) &= a^*ba^* + a^*ba^* b a^* \\ 
+            &= a^*ba^*(\varepsilon + ba^*) 
+        \end{align*}
+    Donc $ \mathcal{A}$ reconnaît les mots qui contiennent 1 ou 2 b. 
+\end{example}
+
+Cet algorithme de résolution est très utile en terme pratique mais il apporte aussi une précisions supplémentaire sur 
+les langages automatiques. En effet, à partir d'un automate (i.e langage automatique), on peut écrire le langage 
+reconnu comme une expression régulière. D'où le résultat suivant : 
+
+\begin{prop}[Langages Automatiques]
+    Tout langage automatique peut être décrit par une expression régulière. 
+\end{prop}
+
+On en déduit donc le théorème de Kleene établissant définitivement le lien entre les langages réguliers et automatique : 
+
+\begin{theorem}[Kleene]
+    Les langages réguliers sont les mêmes que les langages automatiques. 
+\end{theorem}
+
+
+\subsection{Construction d'un automate déterministe}
+
+Le lemme d'Arden et le théorème de Kleene nous permettent maintetant d'affirmer que toute expression régulière 
+peut être exprimée comme un automate déterministe équivalent. 
+Nous allons ici voir, autour de plusieurs exemples, comment construire un tel automate. Pour cela, nous aurons 
+besoin de la version gauche du lemme d'Arden. 
+
+\begin{remark}[Principe]
+    L'idée de l'algorithme est de partir d'une expression régulière $E$ et de la développer sous la forme : 
+        \[ E = x_1 L_1 + x_2 L_2 + \dots + x_n L_n \] 
+    où $x_1, \dots, x_n \in \Sigma$ et $L_1, \dots, L_n \in  \Sigma^*$. 
+    Ensuite, on appelique récursivement cette opération sur tout les $L_i$ pour obtenir une forme propice à appliquer Arden : 
+        \[ L_i =A^*B \iff L_i = A L_i + B \] 
+    Enfin, chaque $L_i$ représente un état de l'automate et tous les $L_i$ composés d'un $ \varepsilon$ 
+    correspondent à un état acceptant. 
+\end{remark}
+
+\begin{example}
+    Soit $ \Sigma = \{a,b\}$ et le langage $L$ décrit par l'expression régulière $a.(a+b)^*$. 
+    Déterminons l'automate de $ \mathcal{A}$ reconnaîssant $L$ : 
+    \begin{align*}
+        L_0 &= a.(a + b)^* \\ 
+        &= a.L_1 
+    \end{align*}  
+    \begin{align*}
+        L_1 &= (a + b)^* . \lambda \\ 
+        &= (a + b) L_1 + \lambda \\ 
+        &= a.L_1 + bL_1 + \lambda
+    \end{align*}  
+    On a donc l'automate suivant : 
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+            \node[state, initial] (0) {$q_0$};
+            \node[state, right of=1, accepting] (1) {$q_1$}; 
+            
+            \path[->]
+            (0) edge[above] node{$a$} (1)
+            (1) edge[loop above] node{$a$} (1)
+            (1) edge[loop below] node{$b$} (1); 
+        \end{tikzpicture}
+    \end{center}
+\end{example}
+
+\begin{example}
+    Soit $ \Sigma = \{a,b\}$ et le langage $L$ décrit par l'expression régulière $ab^* + (a + b)c^*$. 
+    Déterminons l'automate de $ \mathcal{A}$ reconnaîssant $L$ : 
+
+    \begin{center}
+        \begin{minipage}{0.45\textwidth}
+            \begin{align*}
+                L_0 &= ab^* + (a+b)c^* \\ 
+                &= ab^* + ac^* + bc^* \\ 
+                &= a(b^* + c^*) + bc^* \\ 
+                &= aL_1 + bL_2 
+            \end{align*}  
+            \begin{align*}
+                L_1 &= b b^* + \lambda + c c^* + \lambda \\ 
+                &= bL_3 + c_L2 \\ 
+            \end{align*}  
+        \end{minipage}
+        \hfill 
+        \begin{minipage}{0.45\textwidth}
+            \[ L_2 = c^* \iff L_2 = cL_2 + \lambda \] 
+            \[ L_3 = b^* if L_3 = bL_3 + \lambda \]
+            \[ 
+                \begin{cases}
+                    L_0 = aL_1 + bL_2 \\ 
+                    L_1 = bL_3 + cL_2 + \lambda \\ 
+                    L_2 = cL_2 + \lambda \\ 
+                    L_3 = bL_3 + \lambda 
+                \end{cases}
+            \] 
+        \end{minipage}
+    \end{center}
+   
+    On a donc l'automate suivant : 
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+            \node[state, initial] (0) {$q_0$};
+            \node[state, right of=1, accepting] (1) {$q_1$}; 
+            \node[state, below of=1, accepting] (2) {$q_2$}; 
+            \node[state, right of=1, accepting] (3) {$q_3$}; 
+            
+            \path[->]
+            (0) edge[above] node{$a$} (1)
+            (0) edge[above] node{$b$} (2)
+            (2) edge[loop below] node{$c$} (2)
+            (1) edge[right] node{$c$} (2)
+            (1) edge[above] node{$b$} (3)
+            (3) edge[loop below] node{$b$} (3); 
+        \end{tikzpicture}
+    \end{center}
+\end{example}
