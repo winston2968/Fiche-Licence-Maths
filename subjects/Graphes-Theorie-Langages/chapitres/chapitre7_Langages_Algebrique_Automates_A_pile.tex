@@ -279,9 +279,9 @@ fini déterministe.
 
 
 % ==================================================================================================================================
-% Simplification de Grammaires 
+% Forme Normale de Chomsky 
 
-\section{Simplification de Grammaires}
+\section{Forme Normale de Chomsky}
 
 Tout comme les automates, on va chercher à simplifier les grammaires. 
 Or ici, pour un langage donné il n'existe pas de forme minimale de grammaire qui l'engendre.
@@ -434,6 +434,185 @@ On en déduit donc le théorème suivant :
         \[ \boxed{p \leqslant 2 |w| -1 } \] 
 \end{theorem}
 
+% ==================================================================================================================================
+% Analyse Synatxique (Grammaires LL(k))
 
+\section{Analyse Syntaxique (Grammaires $LL(k)$)}
 
+Lors de la dérivation d'un mot par une grammaire, on peut se heurter à un problème de taille : quel règle de dérivation choisir 
+pour obtenir un arbre de dérivation acceptant ? 
+Nous allons donc introduire un type de grammaire nous permettant de régler ce problème. Un seul type de dérivation 
+sera possible et nous saurons exactement combien de caractères regarder dans notre mot pour choisir la règle 
+de dérivation à appliquer. 
 
+Les grammaires $LL(k)$ vont nous permettre de faire directement le lien avec le processus de \emph{parsing}, indispensable 
+en compilation. 
+
+\begin{definition}[Grammaire $LL(k)$]
+    Soit $k \in \N$ et $G$ une grammaire. On dit que $G$ est $LL(k)$ si on peut analyser n’importe quel mot 
+    de son langage de gauche à droite, en construisant la dérivation la plus à gauche, et en regardant au plus $k$ 
+    symboles d’entrée à la fois, pour décider de manière univoque quelle production appliquer à chaque étape.
+\end{definition}
+
+\begin{remark}
+    Détaillons un peu cette définition. La grammaire $G$ est $LL(k)$ si elle satsifait trois critères 
+    principaux : 
+    \begin{itemize}
+        \item \textbf{L (Left to right)} : Lorsque l'on dérive un mot par la grammaire, on veut pouvoir 
+        le lire de gauche à droite en commençant par le premier symbole. 
+        \item \textbf{L (Leftmost derivation)} : Lorsque l'on remplace une variable non terminale 
+        de l'espression en cours de dérivation, on veut que ce soit celle la plus à gauche. 
+        \item \textbf{k (k lookahead)} : $k$ est le nombre de symobole que le parser peut regarder 
+        pour déterminer quelle règle utiliser sans les consommer. 
+    \end{itemize}
+\end{remark}
+
+Intuitivement, on cherche une grammaire prédictive. Pour chaque variable à chaque étape de la dérivation, 
+le parser doit savoir exactement quelle règle appliquer en regardant $k$ lettres. Évidement, on ne considèrera 
+pas de grammaire ambigu. Nous allons donc développer un algorithme pour construire une \emph{table de dérivation} 
+qui nous donnera la règle à appliquer à chaque étape de l'analyse syntaxique. 
+
+\begin{definition}[$k$ - Lookadhead]
+    Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$ et une règle de production $A \rightarrow \alpha$. On définit 
+    l'ensemble $LA(k, A \rightarrow \alpha)$ comme l'ensemble des chaînes de longueur $ \leqslant k$ qui déclenchent 
+    la règle de production $A \rightarrow \alpha$ tel que : 
+        \[ \boxed{LA(k, A \rightarrow \alpha) := \{w \in \Sigma^{ \leqslant k} | w \text{ peut apparaître si on choisit la règle } A \rightarrow \alpha\}} \] 
+\end{definition}
+
+Intuitivement, $LA(k, A \rightarrow \alpha)$ est l'ensemble des lettres que doit regarder le parser pour déterminer 
+quelle règle de production appliquer. 
+
+\begin{definition}[Ensemble First]
+    Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$. 
+    Soit $X \in V$ un état \emph{non terminal}. On définit l'ensemble $First(X)$ comme l'ensemble 
+    des \emph{élément terminaux de $ \Sigma$} qui peuvent apparaître en premier lors d'une dérivation de $X$. 
+    De plus, si $X$ peut produire un $ \varepsilon$, alors $ \varepsilon \in  First(X)$. 
+\end{definition}
+
+\begin{prop}[Règles de la calcul (First)]
+    Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$, on a les règles de calcul suivantes : 
+    \begin{itemize}
+        \item Soit $a \in \Sigma$ un terminal, on a : $ First(a) = \{a\}$ 
+        \item $First( \varepsilon) = \{ \varepsilon\}$ 
+        \item Soit $A \in V$ une variable avec les productions : $A \rightarrow \alpha_1 | \dots | \alpha_n$ on a :
+            \[ First(A) = \bigcup_{i \in \llbracket 1, n \rrbracket} First( \alpha_i) \] 
+    \end{itemize}
+\end{prop}
+
+\begin{definition}[Ensemble Follow]
+    Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$. 
+    Soit $X \in V$ un état \emph{non terminal}. On définit $Follow(A)$ comme l'ensemble 
+    de tous les éléments terminaux qui peut apparaître directement après $A$ dans une dérivation complète. 
+    On l'utilise quand une production peut produire $ \varepsilon$. 
+\end{definition}
+
+% \begin{prop}[Règles de calcul (Follow)]
+%     Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$. 
+%     \begin{itemize}
+%         \item Soit $ \$ $ le symbole de départ et $S$ l'axiome, on a : $ \$ \in Follow(S)$. 
+%         \item Pour chaque production $ A \rightarrow \alpha B \beta$ où $ \alpha, \beta \in \Sigma$, on a : 
+            
+%     \end{itemize}
+% \end{prop}
+
+\begin{theorem}[Calcul de $LA(k)$]
+    Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$ et une règle de production $A \rightarrow \alpha$.
+    On a : 
+        \[ \boxed{LA(k, A \rightarrow \alpha) = First_k( \alpha) \cup \{x \in Follow_k(A) | \alpha \text{ peut dériver } \varepsilon\}} \] 
+    plus précisément : 
+    \begin{itemize}
+        \item Si $ \alpha$ ne peut pas dériver $ \varepsilon$ : $LA(k, A \rightarrow \alpha) = First_a( \alpha)$ 
+        \item Si $ \alpha$ peut dériver $ \varepsilon$ : $ LA(k, A \rightarrow \alpha) = First_a( \alpha) \cup Follow_k(A) $
+    \end{itemize}
+\end{theorem}
+
+\begin{example}
+    Considérons la grammaire :
+        \[
+            \begin{aligned}
+                S &\to A\,b \mid c \\
+                A &\to d \mid \varepsilon
+            \end{aligned}
+        \]
+
+    {Étape 1 : Ensembles FIRST et FOLLOW}
+        \[
+            \begin{array}{lcl}
+                \text{FIRST}(A) &=& \{ d, \varepsilon \} \\[3pt]
+                \text{FIRST}(A b) &=& \{ d, b \} \\[3pt]
+                \text{FIRST}(S) &=& \{ d, b, c \} \\[6pt]
+                \text{FOLLOW}(S) &=& \{ \$ \} \\[3pt]
+                \text{FOLLOW}(A) &=& \{ b \}
+            \end{array}
+        \]
+
+    {Étape 2 : Ensembles LA(1)}
+
+        \[
+            \begin{array}{|c|c|c|c|}
+                \hline
+                \textbf{Production} & \textbf{FIRST} & \textbf{FOLLOW (si $\varepsilon \in \text{FIRST}$)} & \textbf{LA(1)} \\
+                \hline
+                S \to A b & \{d, b\} & - & \{d, b\} \\
+                \hline
+                S \to c   & \{c\} & - & \{c\} \\
+                \hline
+                A \to d   & \{d\} & - & \{d\} \\
+                \hline
+                A \to \varepsilon & \{\varepsilon\} & \{b\} & \{b\} \\
+                \hline
+            \end{array}
+        \]
+
+    Ainsi :
+    \begin{itemize}
+        \item[-] Si le prochain symbole d'entrée est \texttt{d} ou \texttt{b}, on choisit la production $S \to A b$.
+        \item[-] Si c'est \texttt{c}, on choisit $S \to c$.
+        \item[-] Pour développer $A$, si le prochain symbole est \texttt{d}, on applique $A \to d$, sinon si c'est \texttt{b}$\in FOLLOW(A)$, on applique $A \to \varepsilon$.
+    \end{itemize}
+\end{example}
+
+\begin{example}
+    Considérons la grammaire :
+        
+        \[
+            \begin{aligned}
+                S &\to aA \mid aB \\
+                A &\to b \\
+                B &\to c
+            \end{aligned}
+        \]
+
+    Pour les deux productions de $S$, le premier symbole est $a$ :
+        \[
+            \text{FIRST}(aA) = \text{FIRST}(aB) = \{a\}
+        \]
+
+    Cette grammaire n'est donc {pas LL(1)} : avec un seul symbole de regard, on ne peut pas distinguer $aA$ de $aB$.
+
+    {Calculons les ensembles LA(2)} : On regarde deux symboles $(k=2)$ pour décider :
+
+        \[
+            \begin{array}{|c|c|c|}
+                \hline
+                \textbf{Production} & \textbf{Chaînes possibles} & \textbf{LA(2)} \\
+                \hline
+                S \to aA & ab & \{ab\} \\
+                \hline
+                S \to aB & ac & \{ac\} \\
+                \hline
+                A \to b & b & \{b\} \\
+                \hline
+                B \to c & c & \{c\} \\
+                \hline
+            \end{array}
+        \]
+
+    {Conclusion :} Avec $k=2$, on distingue les deux productions de $S$ :
+    \begin{itemize}
+        \item[-] Si les deux prochains symboles sont \texttt{ab}, on choisit $S \to aA$.
+        \item[-] Si les deux prochains symboles sont \texttt{ac}, on choisit $S \to aB$.
+    \end{itemize}
+    
+    La grammaire est donc {LL(2)}, mais pas LL(1).
+\end{example}

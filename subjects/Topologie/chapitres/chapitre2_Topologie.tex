@@ -1,0 +1,138 @@
+% ==================================================================================================================================
+% Introduction 
+
+\minitoc
+
+
+% ==================================================================================================================================
+% Ouverts et Fermés
+
+\section{Ouverts et Fermés}
+
+Une fois définies les notions de boules, d'intérieur et d'adhérence, on peut maintenant "caractériser" 
+des ensembles/parties en fonction des propriétés de leur adhérene/intérieur/frontière. 
+Cela va nous permettre de définir les ouverts et les fermés, deux "catégories" d'ensembles essentielles pour 
+la plupart des raisonnements analytiques de topologie. 
+
+\subsection{Définitions et Conventions}
+
+\begin{definition}[Ensemble Ouvert]
+    Soit $A \subseteq E$, on dit que $A$ est ouvert si $A = \int(A)$. 
+    Autrement dit si pour tout élément de $A$, il existe une boule autour de cet élément entièrement 
+    contenue dans $A$. 
+\end{definition}
+
+\begin{definition}[Ensemble Fermé]
+    Soit $A \subseteq E$, on dit que $A$ est ouvert si $adh(A) = A$. 
+\end{definition}
+
+\begin{remark}
+    Quelques conventions sur les ouverts et les fermés. 
+    \begin{itemize}
+        \item $ \forall a \in E, \forall r > 0 \quad B(a,r)$ est un ouvert et $\overline{B}(a,r)$ est un fermé. 
+        \item $\emptyset$ et $\R^n$ dans $\R^n$ sont à la fois ouverts et fermés. 
+        \item $[a,b[ \subset \R$ n'est ni ouvert, ni fermé.  
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}
+    Soit $A \subset \R^n$, $A$ est ouvert ssi son complémentaire dans $\R^n$ est fermé. 
+\end{proposition}
+
+\begin{prop}[Réunion et Intersection]
+    \begin{itemize}
+        \item Une réunion quelconque d'ouverts est ouverte.
+        \item Une intersection finie d'ouverts est ouverte.
+        \item Une réunion finie de fermés est fermée.
+        \item Une intersection quelconque de fermés est fermés
+    \end{itemize}
+\end{prop}
+
+\begin{remark}[Moyen Mnémotechnique]
+    Pour aider à la mémorisation, on peut s'aider de ces phrases :
+    \begin{itemize}
+        \item Les ouverts aiment s’étaler (réunion infinie), mais ils sont timides à se croiser (intersection finie).
+        \item Les fermés aiment se serrer (intersection infinie), mais ne se dispersent pas trop (réunion finie).
+    \end{itemize}
+\end{remark}
+
+\begin{example}[Réunion et Intersection]
+    Quelques exemples pour retenir les propriétés :
+    \begin{itemize}
+        \item \textbf{Réunion infinie d'ouverts : } Soit $(A_n)_{n \in \N} = \left. \right] -\frac{1}{n}; \frac{1}{n} \left[ \right. $ une suite d'intervalles ouverts. 
+        Alors la réunion infinie de tout ces intervalles reste ouverte :
+            \[ \bigcup_{n = 1}^\infty  \left. \right] -\frac{1}{n}; \frac{1}{n} \left[ \right.  \quad \text{ouvert}\] 
+        \item \textbf{Intersection Infinie de fermés : } De même, soit $(B_n)_{n \in \N} =  \left[-\frac{1}{n}; \frac{1}{n} \right]$
+        une suite d'intervalles fermés. Alors leur intersection infinie reste fermée :
+            \[ \bigcap_{n = 1}^\infty  \left[-\frac{1}{n}; \frac{1}{n} \right] \quad \text{fermé}\]
+    \end{itemize}
+\end{example}
+
+\begin{proposition}
+    Soit $A \subset E$, on dit que l'intérieur de $A$ est le plus grand ouvert contenu dans $A$ et 
+    l'adhérence de $A$ est le plus petit fermé contenant $A$. 
+\end{proposition}
+
+
+\subsection{Ouverts/Fermés relativement}
+
+\begin{definition}[Ouvert/Fermé relativement]
+    Soient $A \subset E$ et $B \subset A$. On dit que $B$ est \textbf{ouvert relativement} à $A$ si il existe 
+    une ouvert $V$ de $E$ tel que $B = A \cap V$. 
+
+    D'autre part, on dit que $B$ est \textbf{fermé relativement} à $A$ si il existe un fermé 
+    $U$ de $E$ tel que $B = A \cap U$. 
+\end{definition}
+
+
+
+% ==================================================================================================================================
+% Ensembles Compacts
+
+\section{Ensembles Compacts}
+
+\begin{definition}[Recouvrement]
+    Soit $(E,d)$ un espace métrique et $A \subset E$. Soit $I$ un ensemble quelconque et $(A_i)_{i \in I}$ une famille de 
+    sous-ensembles de $E$. On dit que la famille $(A_i)_{i \in I}$ est un \emph{recouvrement de $A$} si : 
+        \[ A \subset \bigcup_{i \in I} A_i \] 
+    Lorsque les $A_i$ sont des ouverts, on parlera de recouvrement ouvert. 
+\end{definition}
+
+\begin{definition}[Compact]
+    Soit $K \subset E$. On dit que $K$ est \emph{compact dans $E$} si : 
+    \begin{itemize}
+        \item[$\quad$] Toute suite à valeurs dans $K$ admet une sous-suite convergente dans $K$. 
+        \item[$ \iff$] De tout recouvrement ouvert de $K$ on peut en extraire un recouvrement fini. 
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    Un ensemble compact est \emph{fermé et borné}. 
+\end{proposition}
+
+\begin{theorem}[Cas $\R^n$]
+    Dans $\R^n$, les ensembles compacts sont exactement les fermés bornés. 
+\end{theorem}
+
+\begin{corollary}[Théorème de Bolzano-Weierstraß]
+    Dans $\R^n$, toute suite bornée possède une suite partielle convergente. 
+\end{corollary}
+
+% ==================================================================================================================================
+% Ensembles Connexes
+
+\section{Ensembles Connexes}
+
+Dans cette section, nous allons détailler la notion de connexité chez les ensembles. 
+Intuitivement, un ensemble connexe se résumera à un ensemble "en un seul morceau". 
+
+\begin{definition}[Connexité]
+    Soit $A \subset E$. On dit que $A$ est connexe s'il est impossible de trouver $B,C \subset E$ tels que : 
+    \begin{itemize}
+        \item $B \cap C = \emptyset$ 
+        \item $E = B \cup C$ 
+        \item $E \cap B \not = \{\emptyset\} $ 
+        \item $ E \cap C \not = \{\emptyset\} $ 
+    \end{itemize}
+\end{definition}
+
