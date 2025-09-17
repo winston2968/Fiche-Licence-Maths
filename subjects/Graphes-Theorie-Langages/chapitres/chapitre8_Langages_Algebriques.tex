@@ -460,14 +460,14 @@ en compilation.
         le lire de gauche à droite en commençant par le premier symbole. 
         \item \textbf{L (Leftmost derivation)} : Lorsque l'on remplace une variable non terminale 
         de l'espression en cours de dérivation, on veut que ce soit celle la plus à gauche. 
-        \item \textbf{k (k lookahead)} : $k$ est le nombre de symobole que le parser peut regarder 
+        \item \textbf{k (k lookahead)} : $k$ est le nombre de symbole que le parser peut regarder 
         pour déterminer quelle règle utiliser sans les consommer. 
     \end{itemize}
 \end{remark}
 
 Intuitivement, on cherche une grammaire prédictive. Pour chaque variable à chaque étape de la dérivation, 
 le parser doit savoir exactement quelle règle appliquer en regardant $k$ lettres. Évidement, on ne considèrera 
-pas de grammaire ambigu. Nous allons donc développer un algorithme pour construire une \emph{table de dérivation} 
+pas de grammaire ambiguë. Nous allons donc développer un algorithme pour construire une \emph{table de dérivation} 
 qui nous donnera la règle à appliquer à chaque étape de l'analyse syntaxique. 
 
 \begin{definition}[$k$ - Lookadhead]
@@ -524,7 +524,7 @@ quelle règle de production appliquer.
     \end{itemize}
 \end{theorem}
 
-L'ensemble de ces règles de calcul vont nous permettre de définir quelle règle de dérivation applique à chaque 
+L'ensemble de ces règles de calcul vont nous permettre de définir quelle règle de dérivation appliquer à chaque 
 étape de l'analyse syntaxtique d'un mot. Nous regrouperons toutes ces règles dans une table appelée la 
 \emph{table d'analyse}. 
 
@@ -663,13 +663,18 @@ Ces nouveaux modèles de grammaires, quoique puissants ne permettent pas d'effec
 de n'importe quel langage. En effet, toutes les grammaires ne sont pas $LL(k)$ nous devrions donc 
 modifier celles qui ne le sont pas pour effectuer l'analyse. 
 
+% ==================================================================================================================================
+% Analyse Syntaxique et approche ascendante (Grammaires LR(k))
+
 \section{Analyse Syntaxique et approche ascendante (Grammaires $LR(k)$)}
 
+\subsection{Principe}
+
 Une autre approche de l'analyse syntaxique grâce aux grammaires et d'utiliser l'approche \emph{descendante}.
-En effet, depuis le début nous cherchons à dériver un mot à partir de l'axiome de départ en decendant 
+En effet, depuis le début nous cherchons à dériver un mot à partir de l'axiome de départ en descendant 
 vers des états terminaux. Nous allons ici chercher à faire le contraire : à partir d'un mot nous chercherons 
 à le réduire vers l'axiome. C'est ce que l'on appelle l'approche \emph{ascendante}, aussi appelée 
-\emph{analyse par décalage réduction (shift-reduce)}. 
+\emph{analyse par décalage/réduction (shift-reduce)}. 
 
 \begin{example}
     Commençons par étudier un exemple pour bien comprendre le principe de ces grammaires. 
@@ -707,33 +712,33 @@ vers des états terminaux. Nous allons ici chercher à faire le contraire : à p
 
 \subsection{Outils Fondamentaux}
 
-Définissons maintetant quelques outils pour effectuer rigoureusement cette analyse ascendante. 
+Définissons maintenant quelques outils pour effectuer rigoureusement cette analyse ascendante. 
 
-\begin{definition}[Proto-word]
-    Soit $G = (V, \Sigma, S, P)$ une grammaire. Un \emph{proto-word} (ou \emph{chaîne sentencielle}) est 
+\begin{definition}[proto-mot]
+    Soit $G = (V, \Sigma, S, P)$ une grammaire. Un \emph{proto-mot} (ou \emph{chaîne sentencielle}) est 
     toute chaîne de symboles, terminaux et/ou non terminaux, que l'on peut obtenir en partant de 
     l'axiome et en effectuant un nombre quelconque de dérivations. 
     Formellement, pour la grammaire $G$, on a : 
-        \[ \alpha \in (V \cup \Sigma)^* \text{ est un proto-word si } S \to^* \alpha \] 
+        \[ \alpha \in (V \cup \Sigma)^* \text{ est un proto-mot si } S \to^* \alpha \] 
 \end{definition}
 
-Un proto-word est simplement une "étape intermédiaire" de la dérivation d'un mot. Dans 
+Un proto-mot est simplement une "étape intermédiaire" de la dérivation d'un mot. Dans 
 l'ensemble précédent, cela correspond à $ E + E * id$. Il est composé du terminal $id$ et 
 du non terminal $E$. 
 
 \begin{definition}[Poignée (Handle)]
-    Soient $G = (V, \Sigma, S, P)$ une grammaire et $w$ un proto-word de $G$. 
-    Une \emph{poignée} de $w$ est est occurence précise du corps d'une production $A \to \alpha$ dans 
+    Soient $G = (V, \Sigma, S, P)$ une grammaire et $w$ un proto-mot de $G$. 
+    Une \emph{poignée} de $w$ est occurence précise du corps d'une production $A \to \alpha$ dans 
     $w$ telle que : 
         \[ S \to^* \gamma A \delta \to \gamma \alpha \delta = w \]
 \end{definition}
 
 Une poignée correspond donc à une sous-chaîne à réduire dans notre mot $w$ à un instant donné de l'analyse ascendante. 
-Dans notre exemple précédent, pour le proto-word $ E + E * id$, une poignée peut correspondre au non terminal 
+Dans notre exemple précédent, pour le proto-mot $ E + E * id$, une poignée peut correspondre au non terminal 
 $id$ qui se réduit en $E$ en une étape grâce à la règle $ E \to id$. 
 
 \begin{definition}[Préfixe Viable]
-    Soient $G = (V, \Sigma, S, P)$ une grammaire et $w$ un proto-word de $G$. 
+    Soient $G = (V, \Sigma, S, P)$ une grammaire et $w$ un proto-mot de $G$. 
     Une \emph{préfixe viable} est toute chaîne de symbole $ \alpha\in V^*$ telle que : 
         \[ \exists \beta \gamma \text{  tels que  }  S' \to^* \alpha \beta \gamma \text{ et } \beta \gamma \text{ contient une poignée complète} \] 
     où $S' \to S$ est l'axiome augmenté.   
@@ -759,6 +764,9 @@ pas de retrouver dans une impasse :
 Une configuration valide est une sorte d'instantanné de l'analyse où l'on n'a pas fait d'erreur de parsing. 
 
 \subsection{Analyseur LR(k)}
+
+Cette ensemble de définitions nous permet de définir formellement les grammaires $LR(k)$ de la 
+façon suivante. 
 
 \begin{definition}[Grammaire $LR(k)$]
     Soit \(G = (V, \Sigma, P, S)\) une grammaire, où :
@@ -787,36 +795,231 @@ Une configuration valide est une sorte d'instantanné de l'analyse où l'on n'a 
     que l'analyseur peut identifier avec seulement \(k\) symboles d'anticipation.
 \end{definition}
 
-% \begin{figure}[htbp]
-%     \centering
-%     \resizebox{\textwidth}{!}{%
-%     \begin{tikzpicture}[
-%         node distance=3cm,
-%         >=Stealth,
-%         every state/.style={minimum size=8mm, thick, draw=black!80, fill=blue!10},
-%         every node/.style={font=\small}
-%     ]
-%         % états (align=center permet d'utiliser \\ dans le contenu)
-%         \node[state, initial, align=center] (I0) {$I_0$\\$\varepsilon$};
-%         \node[state, right=of I0, align=center] (I1) {$I_1$\\$n$};
-%         \node[state, right=of I1, align=center] (I2) {$I_2$\\$n+$};
-%         \node[state, right=of I2, align=center] (I3) {$I_3$\\$n+n$};
+\begin{remark}
+    On parlera identiquement de \emph{grammaire $LR(k)$} ou \emph{d'analyseur LR(k)}. 
+    Le terme $LR(k)$ signifie : 
+    \begin{itemize}
+        \item \textbf{L}\emph{eft to right} : l'analyseur lit les mots de gauche à droite. 
+        \item \textbf{R}\emph{ightmost derivation} : les motifs spécifiés par la grammaire sont recherchés par suffixes 
+        de la chaîne lue. 
+        \item $k$ : correspond au nombre de lettres non consommées considérées pour le choix de la dérivation à choisir. 
+    \end{itemize}
+\end{remark}
 
-%         % transitions (shifts)
-%         \draw[->, thick] (I0) -- node[above] {$n$} (I1);
-%         \draw[->, thick] (I1) -- node[above] {$+$} (I2);
-%         \draw[->, thick] (I2) -- node[above] {$n$} (I3);
+Définissons maintenant un automate capable de reconnaître de telles grammaires. 
 
-%         % handles / réductions (annotation)
-%         \node[below=1.2cm of I1] (red1) {Handle: $n \Rightarrow E$};
-%         \draw[->, dashed, red] (I1) -- (red1);
+\begin{definition}[Automate LR (bottom-up)]
+    Un \emph{automate LR} est un \emph{automate à pile} qui reconnaît les préfixes viables d'une grammaire 
+    hors contexte $ G = (V, \Sigma, S, P)$ où : 
+    \begin{itemize}
+        \item la \emph{pile} contient les symboles et états représentants un \emph{préfixe viable}. 
+        \item l'entrée est la chaîne de symboles à analyser terminant par le caractère de fin \$. 
+    \end{itemize}
+    L'objectif est de lire la chaîne de gauche à droite en réduisant progressivement toutes poignées 
+    dans le but d'obtenir l'axiome sur le sommet de la pile et d'avoir consommé toute l'entrée. 
 
-%         \node[below=1.2cm of I3] (red2) {Handle: $E+E \Rightarrow E$};
-%         \draw[->, dashed, red] (I3) -- (red2);
-%     \end{tikzpicture}% 
-%     }
-%     \caption{Préfixes viables et leur correspondance avec les états de l'automate LR. 
-%     Chaque état $I_i$ représente un ensemble de \emph{préfixes viables} atteignables. 
-%     Les flèches indiquent les transitions de lecture (shift). Les lignes rouges en pointillés indiquent 
-%     les handles que l'on peut réduire à partir de cet état.}
-% \end{figure}
+    Formellement, l'automate peut être défini par : 
+        $$ \boxed{ M = (Q, \Sigma, \Gamma, ACTION, GOTO, q_0, Z_0, F)} $$ 
+    où : 
+    \begin{itemize}
+        \item $Q$ est l'ensembles des états de l'automate. 
+        \item $ \Sigma$ représente l'alphabet terminal (lettres). 
+        \item $ \Gamma = \Sigma \cup V_N$ est l'ensemble des symboles de la pile. 
+        \item $q_0$ est l'état initial. 
+        \item $Z_0$ est le symbole initial de la pile. 
+        \item $F$ est l'ensemble des états acceptants. 
+    \end{itemize}
+    On définit en plus deux tables qui définissent la dynnamique de l'analyseur : 
+    \begin{itemize}
+        \item La table $ACTION$ qui détermine quelle action effectuer à la lecture d'une lettre : 
+            \[ \boxed{ACTION : Q \times ( \Sigma \cup \{\$\}) \longrightarrow \{shift(q), reduce(A \to \beta), accept, error\} } \] 
+        Elle gère les transitions sur les terminaux. 
+        \item La table $GOTO$ qui détermine l'état dans lequel doit se trouver l'automate après 
+        une réduction : 
+            \[ \boxed{GOTO : Q \times V \longrightarrow Q} \] 
+        Elle gère les transitions sur les non terminaux. 
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Shift et Reduce]
+    Comme dit précédement, nous n'avons que deux opérations à effectuer lors de la lecture d'un mot par une grammaire 
+    $LR(k)$ (ou un automate LR) : \emph{shift} ou \emph{reduce}. Définissons les proprement : 
+    \begin{enumerate}
+        \item L'opération \emph{shift} consiste à déplacer le prochain symbole à lire sur la pile et aller 
+        à l'état correspondant. On avance donc dans la lecture mais sans faire de réduction. 
+        \item L'opération \emph{reduce} consiste, lorsque le sommet correspond à une poignée $ \beta$ pour 
+        une règle de production $A \to \beta$, de : 
+            \begin{itemize}
+                \item Dépiler $ | \beta|$ symboles et états 
+                \item Empiler le non-terminal $A$ 
+                \item Aller dans l'état déterminé par la table $GOTO$
+            \end{itemize}
+        \item \emph{Accept} : si la pile est seulement constituée de $S'$ et que l'entrée est $\$$, alors le mot est reconnu. 
+        \item \emph{Error} : si aucune opération shift/reduce n'est possible alors la configuration est invalide et le mot n'est pas reconnu. 
+    \end{enumerate}
+\end{definition}
+
+Nous savons maintetant analyser un mot par un automate mais il reste un problème : comment définir les états 
+de l'automate ? Pour cela, nous allons avoir besoin de définir le concept de \emph{fermeture} ou \emph{clôture}.
+
+\begin{definition}[Fermeture]
+    Soit $G' = \{V, \Sigma, P, S'\}$ une grammaire augmentée. 
+    Un \emph{item $LR(0)$} est une règle de la forme : 
+        \[ A \to \alpha \cdot \beta \] 
+    où "$\cdot$" indique la position de la l'analyse dans la production $A \to \alpha \beta$. 
+    La \emph{fermeture} d'un ensemble d'items $I$, notée $cl(I)$ est définie récursivement ainsi : 
+    \begin{enumerate}
+        \item $ \forall \text{ item} \in I, \text{ item}  \in cl(I)$. 
+        \item Pour chaque item $A \to \alpha \cdot B \beta \in cl(I)$, et pour chaque production $ B \to \gamma \in P$, 
+            alors $ B \to . \mu \in cl(I)$. 
+    \end{enumerate}
+\end{definition}
+
+\begin{example}[Calcul de fermeture]
+    Soit $G$ une grammaire dont les règles de production sont : 
+        \[ 
+            \begin{cases}
+                S' \to S \\ 
+                S \to AA \\ 
+                A \to a 
+            \end{cases}
+        \] 
+    On pose : 
+        $$ I_0 := \{S' \to \cdots S\} $$ 
+    Calculons maintenant les fermetures : 
+    \begin{itemize}
+        \item Le point est avant $S$ donc on ajoute $ S \to \cdot AA$ grâce à la règle $ S \to AA$. 
+        \item Récursivement, le point est avant $A$ donc on ajoute $ A \to \cdot a$ grâce à la règle $A \to a$. 
+        \item Le point $a \in \Sigma$ est un terminal on s'arrête donc ici. 
+    \end{itemize}
+    On a donc : 
+        \[ cl(I_0) = \{S' \to \cdot S, S \to \cdot AA, A \to \cdot a\} \]
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=3cm,
+        >=Stealth,
+        every state/.style={minimum size=8mm, thick, draw=black!80, fill=blue!10},
+        every node/.style={font=\small}
+    ]
+        % états (align=center permet d'utiliser \\ dans le contenu)
+        \node[state, initial, align=center] (I0) {$I_0$\\$\varepsilon$};
+        \node[state, right=of I0, align=center] (I1) {$I_1$\\$n$};
+        \node[state, right=of I1, align=center] (I2) {$I_2$\\$n+$};
+        \node[state, right=of I2, align=center] (I3) {$I_3$\\$n+n$};
+
+        % transitions (shifts)
+        \draw[->, thick] (I0) -- node[above] {$n$} (I1);
+        \draw[->, thick] (I1) -- node[above] {$+$} (I2);
+        \draw[->, thick] (I2) -- node[above] {$n$} (I3);
+
+        % handles / réductions (annotation)
+        \node[below=1.2cm of I1] (red1) {Handle: $n \Rightarrow E$};
+        \draw[->, dashed, red] (I1) -- (red1);
+
+        \node[below=1.2cm of I3] (red2) {Handle: $E+E \Rightarrow E$};
+        \draw[->, dashed, red] (I3) -- (red2);
+    \end{tikzpicture}% 
+    }
+    \caption{Préfixes viables et leur correspondance avec les états de l'automate LR. 
+    Chaque état $I_i$ représente un ensemble de \emph{préfixes viables} atteignables. 
+    Les flèches indiquent les transitions de lecture (shift). Les lignes rouges en pointillés indiquent 
+    les poignées que l'on peut réduire à partir de cet état.}
+\end{figure}
+
+
+\begin{example}
+    Travaillons autour d'un exemple pour bien saisir toutes ces nouvelles notions. 
+    Soit $G$ une grammaire dont les règles de production sont : 
+        \[ 
+            \begin{cases}
+                S' \to S \\ 
+                S \to AA \\ 
+                A \to a 
+            \end{cases}
+        \] 
+    On a ajouté un symbole $S'$ fictif pour avoir un axiome de départ unique. 
+    Comme vu précédement, commençons par calculer les clôtures : 
+    \begin{itemize}
+        \item On calcule la clôture de $I_0$ qui donne : 
+            $$ cl(I_0) = \{S' \to \cdot S, S \to \cdot AA, A \to \cdot a\}$$ 
+        \item Après la lecture de $S$ nous devons passer dans un nouvel état $I_1$ d'où : 
+            $$ cl(I_1) = \{S' \to S \cdot\} $$ 
+        \item Après la lecture de $A$ dans $I_0$ on obtient l'ensemble $I_2$ où : 
+            $$ cl(I_2) = \{S \to A \cdot A, A \to \cdot a\} $$ 
+        \item Après la lecture de $A$ depuis $I_2$, on obtient $I_3$ : 
+            $$ cl(I_3) = \{S \to AA \cdot\} $$ 
+        \item Pour finir, après la lecture de $a$ depuis $I_0$ ou $I_2$, on a : 
+            $$ cl(I_4) = \{A \to \cdot a\} $$
+    \end{itemize}
+    On a donc les transitions suivantes : 
+        $$ \text{GOTO}(I_0, S) = I_1, \quad \text{GOTO}(I_0, A) = I_2, \quad \text{GOTO}(I_0, a) = I_5 $$ 
+        $$ \text{GOTO}(I_2, A) = I_4, \quad \text{GOTO}(I_2, a) = I_4 $$ 
+
+    \begin{center}
+        \begin{minipage}{0.60\textwidth}
+            On peut donc construire la table action (transitions sur les terminaux) : 
+            \[ 
+                \begin{array}{|c|c|c|}
+                    \hline 
+                    \text{ État } & a & \$ \\ 
+                    \hline 
+                    I_0 & \text{shift } I_4 & \text{error} \\ 
+                    \hline 
+                    I_1 & \text{error} & \text{accept} \\ 
+                    \hline 
+                    I_2 & \text{shift } I_4 & \text{error} \\ 
+                    \hline 
+                    I_3 & \text{ reduce } S \to AA & \text{ reduce } S \to AA \\ 
+                    \hline 
+                    I_4 & \text{ reduce } S \to A &  \text{ reduce } S \to A \\ 
+                    \hline         
+                \end{array}
+            \] 
+        \end{minipage}
+        \hfill 
+        \begin{minipage}{0.25\textwidth}
+             Et la table goto sur les non terminaux : 
+                \[ 
+                    \begin{array}{|c|c|c|}
+                        \hline 
+                        \text{État} & S & A \\
+                        \hline 
+                        I_0 & I_1 & I_2 \\ 
+                        \hline 
+                        I_1 & - & - \\ 
+                        \hline 
+                        I_2 & - & I_3 \\ 
+                        \hline 
+                        I_3 & - & - \\ 
+                        \hline 
+                        I_4 & - & - \\ 
+                        \hline  
+                    \end{array}
+                \] 
+        \end{minipage}
+    \end{center}
+
+    Résumons le traitement de l'entrée \(w = a\,a\$\) : 
+
+    \begin{center}
+        \renewcommand{\arraystretch}{1.2}
+            \resizebox{\textwidth}{!}{%
+            \begin{tabular}{>{\ttfamily}c >{\ttfamily}c >{\ttfamily}c l}
+                \toprule
+                \textbf{Pile (état/symbole)} & \textbf{Entrée} & \textbf{Action} & \textbf{Commentaire} \\
+                \midrule
+                $I_0$ & a a \$ & s$I_4$ & Décalage sur \texttt{a}, empiler $I_4$ \\
+                $I_0$ a $I_4$ & a \$ & r($A \to a$) & Réduction : dépiler a et $I_4$, empiler A puis GOTO[$I_0$,A]=$I_2$ \\
+                $I_0$ A $I_2$ & a \$ & s$I_4$ & Décalage sur \texttt{a}, empiler $I_4$ \\
+                $I_0$ A $I_2$ a $I_4$ & \$ & r($A \to a$) & Réduction : dépiler a et $I_4$, empiler A puis GOTO[$I_2$,A]=$I_3$ \\
+                $I_0$ A $I_2$ A $I_3$ & \$ & r($S \to A A$) & Réduction : dépiler deux $A$ et états, empiler $S$ puis GOTO[$I_0$,S]=$I_1$ \\
+                $I_0$ S $I_1$ & \$ & accept & Mot reconnu, analyse terminée \\
+                \bottomrule
+            \end{tabular}%
+            }
+    \end{center}
+\end{example}
