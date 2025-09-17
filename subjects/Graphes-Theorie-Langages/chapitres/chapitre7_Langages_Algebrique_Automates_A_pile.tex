@@ -86,13 +86,11 @@ L'obectif d'une grammaire formelle, vous l'aure compris, est de réécrire un mo
         \[ X \longrightarrow w \] 
 \end{definition}
 
-\newpage 
-
 Plus généralement, on peut définir la réécriture en plusieurs étapes de la forme : 
 
 \begin{definition}[Réécriture (2)]
     Soit $ G = (\Sigma, V, S, P)$ une grammaire formelle. Soient $u,v \in \left( V \cup \Sigma \right)^*$ deux mots.
-    On dit que \textbf{$u$ peut se réécrire en $v$} ou que \textbf{$v$ dérive en $u$} en un nombre quelconque de fois si 
+    On dit que \emph{$u$ peut se réécrire en $v$} ou que \emph{$v$ dérive en $u$} en un nombre quelconque de fois si 
     il existe $u_1, \dots, u_p \in \left( V \cup \Sigma \right)^*$ tels que 
         \[ u \vdash u_1 \vdash u_2 \vdash \dots \vdash u_p \vdash v \] 
     On note alors 
@@ -103,12 +101,12 @@ On peut maintetant définir les langages engendrés par des grammaires formelles
 chapitre. 
 
 \begin{definition}[Langage Engendré]
-    La \textbf{langage engendré} par une grammaire formelle $ G = (\Sigma, V, S, P)$ est l'ensemble des mots de $\Sigma^*$ 
-    qui dérivent de l'axiome $S$ en un nombre quelconque d'étapes. On le note, comme pour les automates, en $L(G)$. 
+    La \emph{langage engendré} par une grammaire formelle $ G = (\Sigma, V, S, P)$ est l'ensemble des mots de $\Sigma^*$ 
+    qui dérivent de l'axiome $S$ en un nombre quelconque d'étapes. On le note, comme pour les automates, $L(G)$. 
 \end{definition}
 
 \begin{definition}[Langage Algébrique]
-    Un langage engendré par une grammaire est appelé \textbf{langage algébrique}. 
+    Un langage engendré par une grammaire est appelé \emph{langage algébrique}. 
 \end{definition}
 
 
@@ -437,7 +435,7 @@ On en déduit donc le théorème suivant :
 % ==================================================================================================================================
 % Analyse Synatxique (Grammaires LL(k))
 
-\section{Analyse Syntaxique (Grammaires $LL(k)$)}
+\section{Analyse Syntaxique et approche descendante (Grammaires $LL(k)$)}
 
 Lors de la dérivation d'un mot par une grammaire, on peut se heurter à un problème de taille : quel règle de dérivation choisir 
 pour obtenir un arbre de dérivation acceptant ? 
@@ -526,6 +524,21 @@ quelle règle de production appliquer.
     \end{itemize}
 \end{theorem}
 
+L'ensemble de ces règles de calcul vont nous permettre de définir quelle règle de dérivation applique à chaque 
+étape de l'analyse syntaxtique d'un mot. Nous regrouperons toutes ces règles dans une table appelée la 
+\emph{table d'analyse}. 
+
+\begin{definition}[Table d'analyse]
+     Soit $G = ( \Sigma, V, S, P)$ une grammaire $LL(k)$. Pour chaque règle de 
+     production $A \longrightarrow \alpha$ et chaque $w \in LA(k, A \longrightarrow \alpha)$, on définit : 
+        \[ M[A, w] = \alpha \] 
+    Autrement dit, $ M[A,w]$ contient la partie droite de la règle de production à utiliser quand le non-terminal 
+    courant est $A$ et que les $k$ prochains symboles de l'entrée forment $w$. 
+\end{definition}
+
+La table d’analyse d’une grammaire $LL(k)$ permet, pour chaque non-terminal $A$ et chaque séquence de 
+$k$ symboles de lookahead $w$, de déterminer quelle production appliquer.
+
 \begin{example}
     Considérons la grammaire :
         \[
@@ -564,12 +577,19 @@ quelle règle de production appliquer.
             \end{array}
         \]
 
-    Ainsi :
-    \begin{itemize}
-        \item[-] Si le prochain symbole d'entrée est \texttt{d} ou \texttt{b}, on choisit la production $S \to A b$.
-        \item[-] Si c'est \texttt{c}, on choisit $S \to c$.
-        \item[-] Pour développer $A$, si le prochain symbole est \texttt{d}, on applique $A \to d$, sinon si c'est \texttt{b}$\in FOLLOW(A)$, on applique $A \to \varepsilon$.
-    \end{itemize}
+   On peut alors écrire la table d'analyse de la grammaire : 
+
+        \[ 
+            \begin{array}{|c|c|c|c|c|}
+                \hline 
+                \textbf{Non Terminal} & \textbf{b} & \textbf{c} & \textbf{d} & \textbf{\$} \\ 
+                \hline 
+                {S} & S \rightarrow Ab & S \rightarrow c & S \rightarrow Ab & \text{(erreur)} \\ 
+                \hline 
+                {A} & A \rightarrow \varepsilon & \text{(erreur)} & A \rightarrow d & \text{(erreur)} \\ 
+                \hline
+            \end{array}
+        \] 
 \end{example}
 
 \begin{example}
@@ -613,6 +633,190 @@ quelle règle de production appliquer.
         \item[-] Si les deux prochains symboles sont \texttt{ab}, on choisit $S \to aA$.
         \item[-] Si les deux prochains symboles sont \texttt{ac}, on choisit $S \to aB$.
     \end{itemize}
-    
+
+        \[
+            \begin{array}{|c|c|c|}
+                \hline
+                \textbf{Non-terminal} & \textbf{ab} & \textbf{ac} \\
+                \hline
+                S & S \to aA & S \to aB \\
+                \hline
+            \end{array}
+        \]
+
+        Pour les non-terminaux $A$ et $B$, un seul symbole de lookahead suffit :
+        \[
+            \begin{array}{|c|c|}
+                \hline
+                \textbf{Non-terminal} & \textbf{Symbole} \\
+                \hline
+                A & b \Rightarrow A \to b \\
+                \hline
+                B & c \Rightarrow B \to c \\
+                \hline
+            \end{array}
+        \]
     La grammaire est donc {LL(2)}, mais pas LL(1).
 \end{example}
+
+Ces nouveaux modèles de grammaires, quoique puissants ne permettent pas d'effectuer l'analyse syntaxique 
+de n'importe quel langage. En effet, toutes les grammaires ne sont pas $LL(k)$ nous devrions donc 
+modifier celles qui ne le sont pas pour effectuer l'analyse. 
+
+\section{Analyse Syntaxique et approche ascendante (Grammaires $LR(k)$)}
+
+Une autre approche de l'analyse syntaxique grâce aux grammaires et d'utiliser l'approche \emph{descendante}.
+En effet, depuis le début nous cherchons à dériver un mot à partir de l'axiome de départ en decendant 
+vers des états terminaux. Nous allons ici chercher à faire le contraire : à partir d'un mot nous chercherons 
+à le réduire vers l'axiome. C'est ce que l'on appelle l'approche \emph{ascendante}, aussi appelée 
+\emph{analyse par décalage réduction (shift-reduce)}. 
+
+\begin{example}
+    Commençons par étudier un exemple pour bien comprendre le principe de ces grammaires. 
+    Soit la grammaire $G_1$ suivante : 
+        \[ 
+            \begin{cases}
+                E \to E + E \\ 
+                E \to E * E \\ 
+                E \to (E) \\ 
+                E \to id 
+            \end{cases}
+        \] 
+    Soit $ w \in \Sigma^*$ tel que $w := id + id * id$. Nous cherchons à réduire $w$ grâce aux règles de 
+    productions de $G_1$ jusqu'à l'axiome $S$. Résumons tout ça dans un tableau : 
+        \[ 
+            \begin{array}{|c|c|c|}
+                \hline 
+                \text{Proto-phrase de droite} & \text{Poignée (handle)} & \text{Production de réduction} \\ 
+                \hline 
+                id + id * id & id & E \to id \\
+                \hline  
+                E + id * id & id & E \to id \\ 
+                \hline
+                E + E * id & id & E \to id \\ 
+                \hline 
+                E + E * E & E * E & E \to E * E \\ 
+                \hline
+                E + E & E + E & E \to E + E \\ 
+                \hline 
+                E & & \\
+                \hline 
+            \end{array}
+        \] 
+\end{example}
+
+\subsection{Outils Fondamentaux}
+
+Définissons maintetant quelques outils pour effectuer rigoureusement cette analyse ascendante. 
+
+\begin{definition}[Proto-word]
+    Soit $G = (V, \Sigma, S, P)$ une grammaire. Un \emph{proto-word} (ou \emph{chaîne sentencielle}) est 
+    toute chaîne de symboles, terminaux et/ou non terminaux, que l'on peut obtenir en partant de 
+    l'axiome et en effectuant un nombre quelconque de dérivations. 
+    Formellement, pour la grammaire $G$, on a : 
+        \[ \alpha \in (V \cup \Sigma)^* \text{ est un proto-word si } S \to^* \alpha \] 
+\end{definition}
+
+Un proto-word est simplement une "étape intermédiaire" de la dérivation d'un mot. Dans 
+l'ensemble précédent, cela correspond à $ E + E * id$. Il est composé du terminal $id$ et 
+du non terminal $E$. 
+
+\begin{definition}[Poignée (Handle)]
+    Soient $G = (V, \Sigma, S, P)$ une grammaire et $w$ un proto-word de $G$. 
+    Une \emph{poignée} de $w$ est est occurence précise du corps d'une production $A \to \alpha$ dans 
+    $w$ telle que : 
+        \[ S \to^* \gamma A \delta \to \gamma \alpha \delta = w \]
+\end{definition}
+
+Une poignée correspond donc à une sous-chaîne à réduire dans notre mot $w$ à un instant donné de l'analyse ascendante. 
+Dans notre exemple précédent, pour le proto-word $ E + E * id$, une poignée peut correspondre au non terminal 
+$id$ qui se réduit en $E$ en une étape grâce à la règle $ E \to id$. 
+
+\begin{definition}[Préfixe Viable]
+    Soient $G = (V, \Sigma, S, P)$ une grammaire et $w$ un proto-word de $G$. 
+    Une \emph{préfixe viable} est toute chaîne de symbole $ \alpha\in V^*$ telle que : 
+        \[ \exists \beta \gamma \text{  tels que  }  S' \to^* \alpha \beta \gamma \text{ et } \beta \gamma \text{ contient une poignée complète} \] 
+    où $S' \to S$ est l'axiome augmenté.   
+\end{definition}
+
+Un préfixe viable est exactement ce que l'on veut avoir au dessus de la pile d'un analyseur $LR$ si l'on ne veut 
+pas de retrouver dans une impasse : 
+\begin{itemize}
+    \item Si la pile contient un préfixe viable, on est dans une configuration valide et l’analyse peut continuer.
+    \item Si la pile contient quelque chose qui n’est pas un préfixe viable, alors l’analyseur détecte une erreur syntaxique.
+\end{itemize}
+
+\begin{definition}[Configuration Valide]
+    Soient $G = (V, \Sigma, S, P)$ une grammaire. Une configuration d'un analyseur ascendant se décrit par : 
+    \begin{itemize}
+        \item Le \emph{contenu de la pile}
+        \item Le \emph{reste de l'entrée} non consommé. 
+    \end{itemize}
+    Une configuration est dite \emph{valide} si la pile contient un \emph{préfixe viable} qui peut mener à 
+    une dérivation complète de l'axiome. 
+\end{definition}
+
+Une configuration valide est une sorte d'instantanné de l'analyse où l'on n'a pas fait d'erreur de parsing. 
+
+\subsection{Analyseur LR(k)}
+
+\begin{definition}[Grammaire $LR(k)$]
+    Soit \(G = (V, \Sigma, P, S)\) une grammaire, où :
+    \begin{itemize}
+        \item \(V\) est l'ensemble des symboles (terminaux et non-terminaux),
+        \item \(\Sigma \subseteq V\) est l'ensemble des terminaux,
+        \item \(P\) est l'ensemble des productions de la forme \(A \to \alpha\),
+        \item \(S \in V \setminus \Sigma\) est l'axiome.
+    \end{itemize}
+
+    On dit que \(G\) est une \emph{grammaire LR(k)} si et seulement si,
+    pour toute dérivation à droite :
+    \[
+    S \Rightarrow^{*} \gamma A \omega \Rightarrow \gamma \beta \omega
+    \]
+    avec \(A \to \beta \in P\), \(\gamma,\omega \in V^{*}\),
+    il existe un \emph{unique} choix de production \(A \to \beta\) qui peut être appliqué
+    pour réduire la \emph{poignée} \(\beta\),
+    en ne regardant que :
+    \begin{itemize}
+        \item le \emph{préfixe viable} \(\gamma \beta\) (ce qui est déjà sur la pile),
+        \item et au plus \(k\) symboles de lookahead dans \(\omega\).
+    \end{itemize}
+
+    En d'autres termes, la suite \(\beta\) est \textbf{une manche unique et non ambiguë}
+    que l'analyseur peut identifier avec seulement \(k\) symboles d'anticipation.
+\end{definition}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \resizebox{\textwidth}{!}{%
+%     \begin{tikzpicture}[
+%         node distance=3cm,
+%         >=Stealth,
+%         every state/.style={minimum size=8mm, thick, draw=black!80, fill=blue!10},
+%         every node/.style={font=\small}
+%     ]
+%         % états (align=center permet d'utiliser \\ dans le contenu)
+%         \node[state, initial, align=center] (I0) {$I_0$\\$\varepsilon$};
+%         \node[state, right=of I0, align=center] (I1) {$I_1$\\$n$};
+%         \node[state, right=of I1, align=center] (I2) {$I_2$\\$n+$};
+%         \node[state, right=of I2, align=center] (I3) {$I_3$\\$n+n$};
+
+%         % transitions (shifts)
+%         \draw[->, thick] (I0) -- node[above] {$n$} (I1);
+%         \draw[->, thick] (I1) -- node[above] {$+$} (I2);
+%         \draw[->, thick] (I2) -- node[above] {$n$} (I3);
+
+%         % handles / réductions (annotation)
+%         \node[below=1.2cm of I1] (red1) {Handle: $n \Rightarrow E$};
+%         \draw[->, dashed, red] (I1) -- (red1);
+
+%         \node[below=1.2cm of I3] (red2) {Handle: $E+E \Rightarrow E$};
+%         \draw[->, dashed, red] (I3) -- (red2);
+%     \end{tikzpicture}% 
+%     }
+%     \caption{Préfixes viables et leur correspondance avec les états de l'automate LR. 
+%     Chaque état $I_i$ représente un ensemble de \emph{préfixes viables} atteignables. 
+%     Les flèches indiquent les transitions de lecture (shift). Les lignes rouges en pointillés indiquent 
+%     les handles que l'on peut réduire à partir de cet état.}
+% \end{figure}
