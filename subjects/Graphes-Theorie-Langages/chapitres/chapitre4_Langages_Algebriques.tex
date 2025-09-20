@@ -1,0 +1,431 @@
+
+
+\minitoc % Ajoute le sommaire local ici
+
+
+% ==================================================================================================================================
+% Introduction 
+
+Précédement, nous avons vu que les langages automatiques sont de très bonnes propriétés. Ils sont stables 
+pour la plupart des opérations définies sur les langages. De plus, le théorème de Kleene nous a permis d'établir 
+le lien direct entre langages automatiques et langages réguliers. 
+La simplicité de la représentation sagitale des automates permet de les implémenter facilement algorithmiquement. 
+Il sont, de plus, facile à manipuler à la main et permettent de rapidement "voir" les langages reconnus. 
+
+Cependant, cette simplicité a un certain coût, celui de ne pas pouvoir reconnaître des langages "compliqués", notamment
+ceux où il faut "compter" les lettres. Un automate fini déterministe ne peut donc pas reconnaître le langage composé 
+d'autant de $a$ que de $b$. 
+On va donc chercher à indroduire une nouvelle théorie, celle des \textbf{grammaires formelles} qui nous permettra
+de reconnaître de tels langages. 
+
+
+% ==================================================================================================================================
+% Grammaires Formelles
+
+\section{Grammaires Algébriques}
+
+\subsection{Contexte et définition}
+
+Les grammaires formelles ont initialement été développés par des linguistes, notamment Noam Chomsky en 1955. 
+L'objectif était de développer un méthode systématique de traduction entre différentes langues. 
+Ils se sont alors heurtés au problème des mêmes mots qui admettent plusieurs traductions en fonction du contexte de la 
+phrase et n'ont pas pu aboutir leur oeuvre. 
+
+\vspace{0.3cm}
+
+Or en informatique, pour l'étude de la syntaxe de langages de programmation, le problème du contexte ne se pose pas. 
+Leur théorie a donc été récupérée pour la vérification syntaxique. 
+
+\vspace{0.3cm}
+
+L'idée est donc de représenter un langage \emph{récursivement} par un ensemble de règles de production composées 
+d'un axiome de départ et de différentes règles de productions ou de réécriture. 
+
+Nous utilisons souvent cette approche pour la gestion de types en Caml en définissant tes types récurisivement. 
+
+\begin{definition}[Grammaire Algébrique]
+    Une grammaire formelle est un quadruplet 
+        \[ G = (\Sigma, V, S, P) \] 
+    où 
+    \begin{itemize}
+        \item $\Sigma$ est un \emph{alphabet terminal} dont chaque élément ne peut se réécrire plus simplement. 
+        \item $V$ est \emph{l'alphabet auxiliaire} (disjoint de $\Sigma$) composé de variables, qui ne 
+        peuvent pas non plus se réécrire. 
+        \item $S$ est la variable de départ, appelé axiome. 
+        \item $P$ est un ensemble de règles dites \emph{de production} ou de réécriture du type 
+            \[ X \longrightarrow w \quad X \in V \text{ et } w \in \left( V \cup \Sigma \right)^* \] 
+    \end{itemize}
+\end{definition}
+
+Par convention, on notera toujours les variables en majuscule et les éléments terminaux en minuscules. 
+En pratique, on regroupera plusieurs réécritures d'une même variable sur la même ligne en les séparant par 
+des barres verticales de la forme :
+    \[ X \longrightarrow w_1 | w_2 | \dots | w_p \iff 
+        \begin{cases}
+            X \longrightarrow w_1 \\ 
+            X \longrightarrow w_2 \\ 
+            \vdots \\ 
+            W \longrightarrow w_p 
+        \end{cases}
+    \] 
+
+
+\subsection{Réécriture d'un mot et langages algébriques}
+
+L'objectif d'une grammaire algébrique, vous l'aurez compris, est de réécrire un mot récursivement jusqu'à arriver à des 
+éléments terminaux. 
+
+\begin{definition}[Réécriture d'un mot]
+    Soit $ G = (\Sigma, V, S, P)$ une grammaire formelle. Soient $u,v \in \left( V \cup \Sigma \right)^*$ deux mots. 
+    On dit que \emph{$u$ peut se réécrire en $v$ en une étape} et on note :
+        \[ u \vdash v \] 
+    si il existe des décompositions de $u$ et $v$ en 
+        \[ u = u_1 X u_2 \text{ et } v = u_1 w u_2 \] 
+    et que $G$ contient la règle de production :
+        \[ X \longrightarrow w \] 
+\end{definition}
+
+Plus généralement, on peut définir la réécriture en plusieurs étapes de la forme : 
+
+\begin{definition}[Réécriture (2)]
+    Soit $ G = (\Sigma, V, S, P)$ une grammaire algébrique. Soient $u,v \in \left( V \cup \Sigma \right)^*$ deux mots.
+    On dit que \emph{$u$ peut se réécrire en $v$} ou que \emph{$v$ dérive en $u$} en un nombre quelconque de fois si 
+    il existe $u_1, \dots, u_p \in \left( V \cup \Sigma \right)^*$ tels que 
+        \[ u \vdash u_1 \vdash u_2 \vdash \dots \vdash u_p \vdash v \] 
+    On note alors 
+        \[ u \overset{*}{\vdash} v \] 
+\end{definition}
+
+On peut maintenant définir les langages engendrés par des grammaires et les langages algébriques, le coeur de ce 
+chapitre. 
+
+\begin{definition}[Langage Engendré]
+    La \emph{langage engendré} par une grammaire algébrique $ G = (\Sigma, V, S, P)$ est l'ensemble des mots de $\Sigma^*$ 
+    qui dérivent de l'axiome $S$ en un nombre quelconque d'étapes. On le note, comme pour les automates, $L(G)$. 
+\end{definition}
+
+\begin{definition}[Langage Algébrique]
+    Un langage engendré par une grammaire est appelé \emph{langage algébrique}
+    (d'où l'appelation de \emph{grammaire algébrique}).
+\end{definition}
+
+
+\subsection{Arbre de dérivation d'un mot}
+
+\begin{definition}[Arbre de dérivation d'un mot]
+    Soit $ G = (\Sigma, V, S, P)$ une grammaire algébrique. On appelle l'arbre de dérivation de $w \in Sigma^*$ l'arbre dont :
+    \begin{itemize}
+        \item La racine est $S$ 
+        \item Tous les sommets intérieurs appartiennent à $V$ 
+        \item Toutes les feuilles appartiennent à $\Sigma \cup \{\varepsilon\}$ 
+        \item Si un sommet intérieur $X$ a pour fils $X_1, \dots, X_p$ alors la règle 
+            \[ X \longrightarrow X_1 | \dots | X_p \in P \] 
+        \item Le mot obtenu en visitant les feuilles de l'arbre par un parcours profondeur préfixe de l'arbre 
+            est un mot de $L(G)$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Grammaire Ambiguë]
+    Soit $G$ une grammaire. On dit que $G$ est ambiguë s'il existe un mot $w_ \in L(G)$ possédant
+    deux arbres de dérivation différents. 
+\end{definition}
+
+En pratique une telle grammaire est pas très utilisée. En effet, en informatique, il ne serait pas très pratique 
+de pouvoir compiler un code en deux expressions différentes d'un autre langage. On ne saurait pas laquelle choisir. 
+Il faut que la dérivation puisse se faire de façon unique.
+
+\begin{example}[Grammaire et Arbre de dérivation]
+    Soit $ \Sigma = \{a,b\}$ . 
+    Soit la grammaire algébrique $G$ définie par les règles suivantes telles que $ V = \{S\}$ : 
+        \[  P : 
+            \begin{cases}
+                S \longrightarrow aSa \\ 
+                S \longrightarrow SbS \\ 
+                S \longrightarrow \varepsilon
+            \end{cases}
+            \iff 
+            \begin{cases}
+                S \longrightarrow aSa \; | \; bSb \; | \;  \varepsilon
+            \end{cases}
+        \] 
+    Soit $abaaba \in G$ on a alors l'arbre de dérivation suivant pour ce mot : 
+    \begin{center}
+        \begin{forest}
+            [S
+                [a]
+                [S 
+                    [b]
+                    [S 
+                        [a]
+                        [S [$\varepsilon$]]
+                        [a]
+                    ]
+                    [b]
+                ]
+                [a]
+            ]
+            \end{forest}
+    \end{center}
+    Cette grammaire reconnaît bien les palindrômes pairs. 
+\end{example}
+
+\begin{remark}
+    Lors de la dérivations de mots par une grammaire, on remarque qu'il est plus facile que les règles de dérivation 
+    possèdent des traces initiales ou finales uniques telles que les $a$ et les $b$. 
+    Elles permettent d'identifier plus facilement les règles à utiliser pour les dérivations. 
+\end{remark}
+
+
+\subsection{Grammaires Régulières}
+
+Nous allons ici faire le lien entre les deux modèles présentés précedement, les automates fini et les grammaires. 
+Nous allons ainsi définir les \emph{grammaires régulières} qui permettent de représenter les automates fini déterministes sous 
+la forme que nous venons d'introduire. 
+
+\begin{prop}[Représentation d'un langage automatique]
+    Soit $ \mathcal{A} = (Q, \Sigma, T, q_0, A)$ un automate fini déterministe. 
+    Le langage $L$ reconnu par cet automate peur être engendré par la grammaire : 
+        \[ G = (Q, \Sigma, q_0, P) \] 
+    dont les variables auxiliaires sont les états de l'automate et où $P$ est l'ensemble 
+    des productions de la forme :
+        \[ q \longrightarrow x. T(q,x) \quad \text{où } q \in Q \text{ et } x \in \Sigma \] 
+        \[ q \longrightarrow \varepsilon \quad \text{ si } q \in A \] 
+\end{prop}
+
+On peut donc représenter facilement n'importe quel langage automatique par une grammaire. 
+D'où le théorème suivant. 
+
+\begin{theorem}[Langage Automatique et Grammaire]
+    Tout langage automatique (i.e reconnaissable par un automate fini) est algébrique (i.e reconnaissable par une grammaire formelle). 
+    
+    \vspace{0.2cm}
+
+    L'ensemble des langages automatiques est même strictement inclus dans l'ensemble des langages algébriques. 
+    Autrement dit, certains langages sont reconnaissables par une grammaire formelle mais pas par un automate. 
+\end{theorem}
+
+On définit ainsi les grammaires régulières. 
+
+\begin{definition}[Grammaire Régulière]
+    Une \emph{grammaire régulière} est une grammaire formelle dont toutes les règles de production de $P$ sont de la forme :
+        \[ X \longrightarrow a.Y \quad \text{ou } X \longrightarrow \varepsilon \]
+    où $X,Y \in V$ et $a \in \Sigma$.  
+\end{definition}
+
+Une grammaire régulière est donc conçue de façon à "laisser des traces" explicites de la structure des 
+mots pour faciliter les dérivations. De même que précédement, on peut passer d'une grammaire régulière à un automate 
+fini déterministe. 
+
+\begin{proposition}[Représentation d'une grammaire régulière]
+    Soit $G$ une grammaire régulière. Soit $L$ le langage reconnu par $G$.
+    L'automate fini déterministe reconnaissante aussi $L$ est : 
+        \[ \mathcal{A} = (V,\Sigma, T, q_0 = S, A) \] 
+    dont les états sont les variables auxiliaires de $G$ et dont les transitions sont définies par : 
+        \[ q' = T(q,x) \quad \text{si} \quad q \longrightarrow x q' \in P \] 
+    et dont les états acceptants sont définis par :
+        \[ q \in A \quad \text{si} \quad q \longrightarrow \varepsilon \in P \]  
+\end{proposition}
+
+\begin{remark}
+    Grâce à cette propriété, les langages automatiques (réguliers) sont donc exactement les langages reconnus par des grammaires régulières. 
+    D'où le nom...
+\end{remark}
+
+\begin{example}[Construction d'une grammaire régulière]
+    Définissons le langage $L$ reconnaissant les mots contenant un nombre pair de $a$ et impair de $b$. 
+    Alors ce langage est reconnu par l'AFn suivant : 
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+            \node[state, initial] (1) {$1$};
+            \node[state, accepting, right of=1] (2) {$2$};
+            \node[state, below of=1] (3) {$3$};
+            \node[state, below of=2] (4) {$4$};
+
+            \path[->]
+            (1) edge[above, bend right] node{$b$} (2)
+            (2) edge[above, bend right] node{$b$} (1)
+            (2) edge[right, bend right] node{$a$} (4) 
+            (4) edge[right, bend right] node{$a$} (2) 
+            (1) edge[right, bend right] node{$a$} (3)
+            (3) edge[right, bend right] node{$a$} (1)
+            (3) edge[above, bend right] node{$b$} (4)
+            (4) edge[above, bend right] node{$b$} (3);
+        \end{tikzpicture}
+    \end{center}
+    
+    D'après la propriété précédente, $L$ est reconnu par la grammaire régulière $G = (\Sigma, V, S, P)$
+    où $V = \{S,A,B,C\}$ et les états sont représentés par :
+        \[ 
+            \begin{cases}
+                1 \longrightarrow S \\ 
+                2 \longrightarrow A \\ 
+                3 \longrightarrow B \\ 
+                4 \longrightarrow C
+            \end{cases} \] 
+    On peut ensuite déterminer les règles de production à partir du voisinnage sortant 
+    de chaque état de l'automate. De plus, puisque $A$ est un état acceptant, on y rajouter $\varepsilon$. 
+    \[ P : 
+            \begin{cases}
+                S \longrightarrow bA \; | \; aB \\ 
+                A \longrightarrow bS \; | \; aC \; | \; \varepsilon \\ 
+                B \longrightarrow aS \; | \; cB \\ 
+                C \longrightarrow aA \; | \; bB 
+            \end{cases} \] 
+\end{example}
+
+
+% ==================================================================================================================================
+% Forme Normale de Chomsky 
+
+\section{Forme Normale de Chomsky}
+
+Tout comme les automates, on va chercher à simplifier les grammaires. 
+Or ici, pour un langage donné il n'existe pas de forme minimale de grammaire qui l'engendre.
+
+On va donc chercher à simplifier les grammaires dans le but d'obtenir des formes dites normales 
+pour réduire le nombre de dérivations à faire pour un mot donné. L'idée est de ramener les arbres de dérivation 
+à des arbres binaires donc ekes dérivations sont seulement de deux formes. 
+On pourra donc calculer directement la profondeur de l'arbre de dérivation de n'importe quel mot du langage
+engendré en fonction de son nombre de caractères. 
+
+Pour cela, il faut définir un certain nombre de règles qui serviront à cette simplification. 
+Commençons par un règle très simple : 
+
+\begin{definition}[Règle 0]
+    On peut toujours éliminer une règle de la forme $ X \longrightarrow X$. 
+\end{definition}
+
+\subsection{Règle 1 : Suppression des epsilon-productions}
+
+On va chercher ici à supprimer toutes les $\varepsilon$ productions qui ne produisent rien dans la 
+dérivation d'un mot et prennent beaucoup de temps et de place à exécuter. 
+
+\begin{definition}[Règle 1 : Suppression des espilon-productions]
+    Soit $G$ une grammaire formelle. On définit l'algorithme suivant pour 
+    supprimer toutes les $\varepsilon$-productions de $ G$ en une grammaire équivalente : 
+    \begin{enumerate}
+        \item On cherche récursivement toutes les variables dont $\varepsilon$ dérive
+        (i.e toutes les variables qui peuvent nous donner $\varepsilon$ à la fin). 
+        \item On supprimer toutes les règles de la forme $X \longrightarrow \varepsilon$. 
+        \item Pour toutes les variables $X$ de la forme $X \longrightarrow w$ 
+        on rajoute toutes les productions $X \longrightarrow u$ avec $ u \not = u$ et $u$ est 
+        obtenu à partir de $w$ en remplaçant une ou plusieurs variables indentifiées en 1. 
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Soit $G$ une grammaire d'alphabet $\Sigma = \{a,b\}$ et $V = \{S,A,B\}$ tel que :
+        \[ P : 
+            \begin{cases}
+                S \longrightarrow AB | aS | A \\ 
+                A \longrightarrow Ab | \varepsilon \\ 
+                B \longrightarrow B | AS 
+            \end{cases}
+        \] 
+    On cherche $G'$ telle sans $\varepsilon$-productions telle que :
+        \[ L(G') \cup \{\varepsilon\} = L(G) \] 
+    D'après la règle 1, toutes les variables produisent une $\varepsilon$-production. 
+    On obtient donc la grammaire équivalente à $\varepsilon$-production près :
+        \[ P' : 
+            \begin{cases}
+                S \longrightarrow AB | A | B | aS | a \\ 
+                A \longrightarrow Ab | b \\ 
+                B \longrightarrow AS | A | S 
+            \end{cases} \] 
+\end{example}
+
+\subsection{Règle 2 : Élimination des cycles}
+
+Dans les arbres de dérivation, les cycles peuveut conduire à des dérivations infinies. 
+On va donc chercher à les supprimer. 
+
+\newpage 
+
+\begin{definition}[Règle 2 : Élimination des cycles]
+    Soit $G$ une grammaire formelle. On définit l'algorithme suivant pour 
+    supprimer tous les cycles de $ G$ en une grammaire équivalente. 
+    Soit un cycle de la forme : 
+        \[ X_1 \longrightarrow X_{n-1} \longrightarrow X_1 \] 
+    Alors on remplace dans $P$ toutes les variables $X_i \forall i \in \llbracket 1, n-1 \rrbracket$ 
+    par $X_1$. 
+\end{definition}
+
+\begin{example}
+    En reprennant l'exemple précédent : 
+    \[ P' : 
+            \begin{cases}
+                S \longrightarrow AB | A | B | aS | a \\ 
+                A \longrightarrow Ab | b \\ 
+                B \longrightarrow AS | A | S 
+            \end{cases} \] 
+    On détecte un seul cycle : $ S \longrightarrow B \longrightarrow S$. 
+    On applique donc l'algorithme pour obtenir : 
+    \[ P'' : 
+            \begin{cases}
+                S \longrightarrow AS | A | aS | a \\ 
+                A \longrightarrow Ab | b \\ 
+            \end{cases} \] 
+\end{example}
+
+\subsection{Règle 3 : Suppression des changements de variable}
+
+Les changement de variable dans les arbres de dérivation font perdre du temps. 
+En effet, ils augmentent la profondeur de l'arbre de dérivation sans produire de lettre. 
+On va donc chercher à les supprimer avec la règle 3. 
+
+\begin{definition}[Règle 3 : Suppression des changements de variable]
+    Soit $G$ une grammaire formelle. Soit une dérivation de la forme $ A \longrightarrow B \longrightarrow C$. 
+    Alors on peut la remplacer en $A \longrightarrow C$. 
+\end{definition}
+
+\begin{example}
+    En reprenant l'exemple précédent, on peut supprimer les changements de variable : 
+    \[ P'' : 
+            \begin{cases}
+                S \longrightarrow AS | A | aS | a \\ 
+                A \longrightarrow Ab | b \\ 
+            \end{cases} \] 
+    On a donc les règles de productions suivantes en remplaçant :
+    \[ P''' : 
+            \begin{cases}
+                S \longrightarrow AS | Ab | b | aS | a \\ 
+                A \longrightarrow Ab | b 
+            \end{cases} \] 
+\end{example}
+
+
+\subsection{Forme Normale de Chomsky}
+
+Pour l'instant, on ne peut pas encore déterminer la profondeur de l'arbre de dérivation d'un mot. 
+Il faut donc définir une forme, dite Normale de Chomsky, qui va permettre cette estimation. 
+
+\begin{definition}[Forme Normale de Chomsky]
+    Soit $ G = (\Sigma, V, S, P)$ une grammaire formelle. 
+    Supposons que $G$ ne contienne ni $\varepsilon$-production, si changements de variables, 
+    ni cycles. On définit alors la forme normale de Chomsky de ses règles de production $P$ comme ses 
+    mêmes règles de production où seules deux formes sont autorisées : 
+    \begin{itemize}
+        \item Les productions de lettres de la forme $ X \longrightarrow a$ 
+        \item Les dédoublements de variables de la forme $ X \longrightarrow AB$ 
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    En reprenant l'exemplement précédent, on obtient la forme normale de Chomsky suivante : 
+    \[ \overset{\sim}{P} : 
+        \begin{cases}
+            S \longrightarrow AS | AY | b | XS | a \\ 
+            A \longrightarrow AY | b \\ 
+            X \longrightarrow a \\ 
+            Y \longrightarrow b 
+        \end{cases} \] 
+\end{example}
+
+On en déduit donc le théorème suivant :
+
+\begin{theorem}[Majoration de la profondeur]
+    Soit $w \in L(G)$ où $G$ est une grammaire formelle sous forme normale de Chomsky. 
+    Notons $p$ la profondeur de l'arbre de dérivation de $w$ dans cette grammaire $g$. 
+    On a alors l'inégalité suivante : 
+        \[ \boxed{p \leqslant 2 |w| -1 } \] 
+\end{theorem}
